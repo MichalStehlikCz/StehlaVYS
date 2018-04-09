@@ -12,7 +12,6 @@ import javax.json.stream.JsonGenerator;
 /**
  *
  * @author stehlik
- * @param <T> Implementation of Dt using generic (string value) serialisation
  */
 public class JsonbDtSerializer<T extends Dt> implements JsonbSerializer<T> {
     

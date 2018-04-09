@@ -11,16 +11,13 @@ import com.provys.common.confobj.ConfNMObject;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  *
  * @author stehlik
  */
-@XmlRootElement(name = "Entity")
-@XmlAccessorType(XmlAccessType.FIELD)
+@JsonbTypeAdapter(JsonbConfEntityAdapter.class)
 public class ConfEntity extends ConfNMObject{
 
     public class CannotGetAttrNotLoadedException extends ProvysException {
@@ -28,13 +25,13 @@ public class ConfEntity extends ConfNMObject{
             super("Cannot lookup attr - attrs not loaded");
         }
     }
-    
-    private Map<DtNameNm, ConfAttr> attrMap;
+
+    private Map<DtNameNm, ConfAttr> attrMap = null;
     
     public ConfEntity(DtUid id, DtNameNm nameNm){
         super(id, nameNm);
     }
-    
+
     public Map<DtNameNm, ConfAttr> getAttrMap() {
         Map<DtNameNm, ConfAttr> result = null;
         if (attrMap != null) {
@@ -62,4 +59,5 @@ public class ConfEntity extends ConfNMObject{
         }
         return attrMap.get(attrNm);
     }
+
 }

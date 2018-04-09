@@ -7,6 +7,8 @@ package com.provys.catalogue.model;
 
 import com.provys.common.datatypes.*;
 import com.provys.common.confobj.ConfObject;
+import javax.json.bind.annotation.JsonbCreator;
+import javax.json.bind.annotation.JsonbProperty;
 /**
  *
  * @author stehlik
@@ -15,6 +17,11 @@ public class ConfAttr extends ConfObject{
     
     private DtUid entityId;
     private DtNameNm nameNm;
+    
+    @JsonbCreator
+    public ConfAttr(@JsonbProperty("ATTR_ID") DtUid id) {
+        super(id);
+    }
     
     public ConfAttr(DtUid id, DtUid entityId, DtNameNm nameNm){
         super(id);

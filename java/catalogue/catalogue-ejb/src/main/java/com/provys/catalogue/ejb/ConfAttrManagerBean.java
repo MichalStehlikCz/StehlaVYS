@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Singleton
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
-public class ConfAttrManagerBean extends ConfObjectManager<ConfAttr> implements ConfAttrManagerBeanLocal {
+public class ConfAttrManagerBean extends ConfObjectManager<ConfAttr> /*implements ConfAttrManagerBeanLocal*/ {
 
     /**
      *
@@ -54,7 +54,8 @@ public class ConfAttrManagerBean extends ConfObjectManager<ConfAttr> implements 
             this.newEntityId = newEntityId;
         }
     }
-    */
+  */
+  
     @EJB
     private ConfAttrLoaderBean confAttrLoader;
 
@@ -62,7 +63,7 @@ public class ConfAttrManagerBean extends ConfObjectManager<ConfAttr> implements 
     protected ConfAttrLoaderBean getConfObjectLoader(){
         return confAttrLoader;
     }
-    
+
     public Map<DtNameNm, ConfAttr> loadByEntityId(DtUid entityId){
         Map<DtNameNm, ConfAttr> result = new ConcurrentHashMap<>();
         getConfObjectLoader().loadByEntityId(entityId)

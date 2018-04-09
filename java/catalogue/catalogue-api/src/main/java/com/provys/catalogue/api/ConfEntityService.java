@@ -37,9 +37,9 @@ public class ConfEntityService {
     @GET
     @Path("/{nameNm : [a-zA-Z][a-zA-Z_0-9]*}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public ConfEntity getByNm(@PathParam("nameNm") String nameNm) {
-        ConfEntity entity=entityManager.getByNm(new DtNameNm(nameNm));
-        return entity;
+    public String getByNm(@PathParam("nameNm") String nameNm) {
+        return JsonbBuilder.create()
+                .toJson(entityManager.getByNm(new DtNameNm(nameNm)));
     }
 
     @GET

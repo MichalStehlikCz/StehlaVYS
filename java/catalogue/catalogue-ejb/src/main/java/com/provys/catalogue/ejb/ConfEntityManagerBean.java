@@ -13,7 +13,6 @@ import com.provys.catalogue.model.ConfAttr;
 import com.provys.common.confobj.*;
 import com.provys.common.datatypes.*;
 import com.provys.catalogue.iface.ConfEntityManagerBeanLocal;
-import com.provys.catalogue.iface.ConfAttrManagerBeanLocal;
 
 /**
  *
@@ -26,8 +25,8 @@ public class ConfEntityManagerBean extends ConfNMObjectManager<ConfEntity> imple
     @EJB
     private ConfEntityLoaderBean entityLoader;
     
-//    @EJB
-//    private ConfAttrManagerBean attrManager;
+    @EJB
+    private ConfAttrManagerBean attrManager;
 
     @Override
     protected ConfEntityLoaderBean getConfObjectLoader(){
@@ -39,24 +38,28 @@ public class ConfEntityManagerBean extends ConfNMObjectManager<ConfEntity> imple
         return confEntity.getAttrByNm(attrNm);
     }
     
+    @Override
     public ConfAttr getAttrByNm(DtUid entityId, DtNameNm attrNm) {
         return getAttrByNm(get(entityId), attrNm);
     }
     
+    @Override
     public ConfAttr getAttrByNm(DtNameNm nameNm, DtNameNm attrNm) {
         return getAttrByNm(getByNm(nameNm), attrNm);
     }
     
     private void loadAttrs(ConfEntity confEntity) {
-  //      if (confEntity.getAttrMapRef() == null) {
-  //          confEntity.setAttrMap(attrManager.loadByEntityId(confEntity.getId()));
-  //      }
+        if (confEntity.getAttrMapRef() == null) {
+            confEntity.setAttrMap(attrManager.loadByEntityId(confEntity.getId()));
+        }
     }
 
+    @Override
     public void loadAttrs(DtUid entityId) {
         loadAttrs(get(entityId));
     }
 
+    @Override
     public void loadAttrsByNm(DtNameNm nameNm) {
         loadAttrs(getByNm(nameNm));
     }

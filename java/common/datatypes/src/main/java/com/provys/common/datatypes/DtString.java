@@ -12,7 +12,7 @@ import javax.json.bind.annotation.JsonbTypeSerializer;
  *
  * @author micha
  */
-@JsonbTypeSerializer(JsonbDtSerializer.class)
+@JsonbTypeSerializer(JsonbDtStringSerializer.class)
 @JsonbTypeDeserializer(JsonbDtStringDeserializer.class)
 public class DtString implements Dt{
 

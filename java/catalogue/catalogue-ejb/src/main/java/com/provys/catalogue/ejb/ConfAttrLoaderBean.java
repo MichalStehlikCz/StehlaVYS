@@ -28,8 +28,9 @@ public class ConfAttrLoaderBean extends ConfObjectLoader<ConfAttr> {
     private static final String LOAD_SELECT =
             "SELECT"
             +"\n  alattr.attr_id"
-            +"\n  alattr.entity_id"
+            +"\n, alattr.entity_id"
             +"\n, alattr.name_nm"
+            +"\n, alattr.ROWID"
             +"\nFROM"
             +"\n  ker_attr_tb alattr"
             ;
@@ -41,7 +42,7 @@ public class ConfAttrLoaderBean extends ConfObjectLoader<ConfAttr> {
     
     private static final String LOAD_WHERE_BY_ENTITY_ID =
             "\nWHERE"
-            +"\n      (alattr.attr_id=:attr_id)"
+            +"\n      (alattr.entity_id=:entity_id)"
             ;
     
     @Override

@@ -36,10 +36,10 @@ public class ConfEntityService {
 
     @GET
     @Path("/{nameNm : [a-zA-Z][a-zA-Z_0-9]*}")
-    @Produces(MediaType.TEXT_PLAIN)//{MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public String getByNm(@PathParam("nameNm") String nameNm) {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public ConfEntity getByNm(@PathParam("nameNm") String nameNm) {
         ConfEntity entity=entityManager.getByNm(new DtNameNm(nameNm));
-        return entity.getNameNm().getValue();
+        return entity;
     }
 
     @GET

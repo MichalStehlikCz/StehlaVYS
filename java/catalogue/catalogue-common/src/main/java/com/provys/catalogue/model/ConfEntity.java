@@ -11,11 +11,16 @@ import com.provys.common.confobj.ConfNMObject;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author stehlik
  */
+@XmlRootElement(name = "Entity")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ConfEntity extends ConfNMObject{
 
     public class CannotGetAttrNotLoadedException extends ProvysException {

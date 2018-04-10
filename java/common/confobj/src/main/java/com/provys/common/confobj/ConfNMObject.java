@@ -7,14 +7,13 @@ package com.provys.common.confobj;
 
 import com.provys.common.datatypes.*;
 import com.provys.common.annotation.*;
-import javax.json.bind.annotation.*;
+
 /**
  *
  * @author stehlik
  */
 abstract public class ConfNMObject extends ConfObject {
 
-    @JsonbProperty("NAME_NM")
     @ProvysAttr("NAME_NM")
     private DtNameNm nameNm;
 

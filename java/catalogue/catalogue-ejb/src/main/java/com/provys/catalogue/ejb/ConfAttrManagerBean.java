@@ -7,21 +7,27 @@ package com.provys.catalogue.ejb;
 import javax.ejb.Singleton;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.EJB;
 import com.provys.catalogue.model.ConfAttr;
 import com.provys.common.confobj.*;
 import com.provys.catalogue.iface.ConfAttrManagerBeanLocal;
 import com.provys.common.datatypes.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.ejb.Local;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author stehlik
  */
+@Local
 @Singleton
+@ApplicationScoped
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
-public class ConfAttrManagerBean extends ConfObjectManager<ConfAttr> /*implements ConfAttrManagerBeanLocal*/ {
+@Named("ConfAttrManager")
+public class ConfAttrManagerBean extends ConfObjectManager<ConfAttr> implements ConfAttrManagerBeanLocal {
 
     /**
      *
@@ -56,7 +62,7 @@ public class ConfAttrManagerBean extends ConfObjectManager<ConfAttr> /*implement
     }
   */
   
-    @EJB
+    @Inject
     private ConfAttrLoaderBean confAttrLoader;
 
     @Override

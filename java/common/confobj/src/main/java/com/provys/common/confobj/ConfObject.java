@@ -7,7 +7,6 @@ package com.provys.common.confobj;
 
 import com.provys.common.datatypes.DtUid;
 import com.provys.common.annotation.*;
-import javax.json.bind.annotation.JsonbProperty;
 
 /**
  *
@@ -15,7 +14,6 @@ import javax.json.bind.annotation.JsonbProperty;
  */
 abstract public class ConfObject {
     
-    @JsonbProperty("OBJECT_ID")
     @ProvysKey
     protected final DtUid id;
 

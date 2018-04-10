@@ -4,28 +4,34 @@
  */
 package com.provys.catalogue.ejb;
 
+import com.provys.catalogue.iface.ConfEntityManagerBeanLocal;
 import javax.ejb.Singleton;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.EJB;
 import com.provys.catalogue.model.ConfEntity;
 import com.provys.catalogue.model.ConfAttr;
 import com.provys.common.confobj.*;
 import com.provys.common.datatypes.*;
-import com.provys.catalogue.iface.ConfEntityManagerBeanLocal;
+import javax.ejb.Local;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author stehlik
  */
+@Local
 @Singleton
+@ApplicationScoped
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
+@Named("ConfEntityManager")
 public class ConfEntityManagerBean extends ConfNMObjectManager<ConfEntity> implements ConfEntityManagerBeanLocal {
 
-    @EJB
+    @Inject
     private ConfEntityLoaderBean entityLoader;
     
-    @EJB
+    @Inject
     private ConfAttrManagerBean attrManager;
 
     @Override

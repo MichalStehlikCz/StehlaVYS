@@ -13,6 +13,7 @@ import com.provys.catalogue.model.ConfAttr;
 import com.provys.common.datatypes.*;
 import javax.ejb.EJB;
 import com.provys.catalogue.iface.ConfEntityManagerBeanLocal;
+import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 
@@ -24,7 +25,7 @@ import javax.json.bind.JsonbBuilder;
 @Stateless()
 public class ConfEntityService {
 
-    @EJB
+    @Inject
     private ConfEntityManagerBeanLocal entityManager;
 
     @GET
@@ -38,8 +39,10 @@ public class ConfEntityService {
     @Path("/{nameNm : [a-zA-Z][a-zA-Z_0-9]*}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public String getByNm(@PathParam("nameNm") String nameNm) {
-        return JsonbBuilder.create()
-                .toJson(entityManager.getByNm(new DtNameNm(nameNm)));
+        Jsonb jsonb = JsonbBuilder.create();
+        ConfEntity confEntity = entityManager.getByNm(new DtNameNm(nameNm));
+        String result = jsonb.toJson(confEntity);
+        return result;
     }
 
     @GET

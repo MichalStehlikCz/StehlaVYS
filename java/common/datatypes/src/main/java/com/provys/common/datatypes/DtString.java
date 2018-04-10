@@ -14,7 +14,7 @@ import javax.json.bind.annotation.JsonbTypeSerializer;
  */
 @JsonbTypeSerializer(JsonbDtSerializer.class)
 @JsonbTypeDeserializer(JsonbDtStringDeserializer.class)
-public class DtString implements Dt{
+public class DtString extends Dt{
 
     static final long serialVersionUID = 1L;
     
@@ -35,12 +35,13 @@ public class DtString implements Dt{
     }
     
     @Override
-    public boolean equals(Object anObject){
-        if (this == anObject) {
+    public boolean equals(Object secondObject){
+        if (this == secondObject) {
             return true;
         }
-        if (anObject instanceof DtString) {
-            return this.value.equals(((DtString) anObject).getValue());
+        if (this.getClass().getName().equals(secondObject.getClass().getName()))
+        {
+            return this.value.equals(((DtString) secondObject).getValue());
         }
         return false;
     }

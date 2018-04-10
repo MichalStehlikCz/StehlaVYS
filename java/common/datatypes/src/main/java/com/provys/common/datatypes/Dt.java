@@ -11,6 +11,13 @@ import java.io.Serializable;
  *
  * @author micha
  */
-public interface Dt extends Serializable{
-    public String getValue();
+public abstract class Dt implements Serializable{
+    abstract public String getValue();
+    
+    @Override
+    abstract public boolean equals(Object second);
+
+    @Override
+    abstract public int hashCode();
+        
 }

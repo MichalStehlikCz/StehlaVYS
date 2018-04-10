@@ -12,7 +12,7 @@ import com.provys.common.error.ProvysException;
  *
  * @author stehlik
  */
-@JsonbTypeSerializer(JsonbDtNameSerializer.class)
+@JsonbTypeSerializer(JsonbDtSerializer.class)
 @JsonbTypeDeserializer(JsonbDtNameDeserializer.class)
 public class DtName extends DtString{
 

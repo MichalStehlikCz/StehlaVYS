@@ -1,2 +1,4 @@
-java/*/*/target/
-java/*/target/
+/java/*/*/target/
+/java/*/target/
+/java/*/*/nbproject/
+/java/*/nbproject/

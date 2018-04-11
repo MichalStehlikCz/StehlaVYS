@@ -11,12 +11,15 @@ import com.provys.common.error.ProvysException;
 /**
  *
  * @author stehlik
+ * 
+ * Used to store PROVYS VARCHAR and NOTE values. Also ancestor for name and
+ * name_nm subtypes
  */
 @JsonbTypeSerializer(JsonbDtSerializer.class)
 @JsonbTypeDeserializer(JsonbDtNameDeserializer.class)
 public class DtName extends DtString{
 
-    static final long serialVersionUID = 1L;
+    static final long serialVersionUID = 2L;
 
     class NameTooLongException extends ProvysException {
         public NameTooLongException() {

@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author micha
+ * @author stehlik
  */
 public class DtUidTest {
     
@@ -43,7 +43,17 @@ public class DtUidTest {
     @Test
     public void testDtUid() {
         @SuppressWarnings("UnusedAssignment")
-        DtUid instance = new DtUid((String) null);
+        DtUid instance;
+        try {
+            instance = new DtUid((String) null);
+            fail("Uid creation passed with null value supplied");
+        } catch (Dt.NullValueNotSupportedException e) {
+        }
+        try {
+            instance = new DtUid("");
+            fail("Uid creation passed with empty string supplied");
+        } catch (Dt.NullValueNotSupportedException e) {
+        }
         instance = new DtUid("123456789");
         try {
             instance = new DtUid("123a456");
@@ -58,11 +68,8 @@ public class DtUidTest {
      */
     @Test
     public void testGetValue() {
-        DtUid instance = new DtUid((String) null);
+        DtUid instance = new DtUid("123456789");
         String result = instance.getValue();
-        assertEquals("getValue on null Uid must be null string", (String) null, result);
-        instance = new DtUid("123456789");
-        result = instance.getValue();
         assertEquals("Incorrect getValue on non-empty", "123456789", result);
     }
 
@@ -71,11 +78,8 @@ public class DtUidTest {
      */
     @Test
     public void testToString() {
-        DtUid instance = new DtUid((String) null);
+        DtUid instance = new DtUid("123456789");
         String result = instance.toString();
-        assertEquals("toString on null Uid must be empty string", "", result);
-        instance = new DtUid("123456789");
-        result = instance.toString();
         assertEquals("Incorrect toString on non-empty", "123456789", result);
     }
 
@@ -85,20 +89,10 @@ public class DtUidTest {
     @org.junit.Test
     public void testEquals() {
         Object nullObject = null;
-        Object nullUid = new DtUid(null);
         Object normalUid = new DtUid("123456789");
-        DtUid instance = new DtUid(null);
+        DtUid instance = new DtUid("123456789");
         boolean result = instance.equals(nullObject);
         assertFalse("Comparison with null value should be false", result);
-        result = instance.equals(nullUid);
-        assertTrue("Comparison of two null DtUids not equal", result);
-        result = instance.equals(normalUid);
-        assertFalse("Comparison of null and not null Uid should be false", result);
-        instance = new DtUid("123456789");
-        result = instance.equals(nullObject);
-        assertFalse("Comparison with null value should be false", result);
-        result = instance.equals(nullUid);
-        assertFalse("Not null and null Uids should not equal", result);
         result = instance.equals(normalUid);
         assertTrue("Same Uid twice should equal", result);
         instance = new DtUid("234567890");
@@ -111,15 +105,10 @@ public class DtUidTest {
      */
     @org.junit.Test
     public void testHashCode() {
-        DtUid instance = new DtUid(null);
-        DtUid instance2 = new DtUid(null);
+        DtUid instance = new DtUid("123456789");
+        DtUid instance2 = new DtUid("123456789");
         int result = instance.hashCode();
         int result2 = instance2.hashCode();
-        assertEquals("hashcodes of two null Uids should be same", result, result2);
-        instance = new DtUid("123456789");
-        instance2 = new DtUid("123456789");
-        result = instance.hashCode();
-        result2 = instance2.hashCode();
         assertEquals("hashcodes of two same Uids should be same", result, result2);
     }
     

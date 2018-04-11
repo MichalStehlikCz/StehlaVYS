@@ -12,6 +12,10 @@ import javax.json.bind.annotation.JsonbTypeSerializer;
 /**
  *
  * @author stehlik
+ * 
+ * Used to store PROVYS UID values. UID domain is implemented as 38 digit
+ * NUMBER in Oracle, but should be treated as not interpreted identifier and
+ * thus String type has been chosen to hold value of UID in PROVYS
  */
 @JsonbTypeSerializer(JsonbDtSerializer.class)
 @JsonbTypeDeserializer(JsonbDtUidDeserializer.class)
@@ -26,7 +30,10 @@ public class DtUid extends Dt{
     private final String value;
     
     public DtUid(String value){
-        if ((value != null) && !value.matches("\\d+")) {
+        if ((value == null) || (value.equals(""))) {
+            throw new Dt.NullValueNotSupportedException();
+        }
+        if (!value.matches("\\d+")) {
             throw new DtUidNotNumberException(value);
         }
         this.value=value;
@@ -39,9 +46,6 @@ public class DtUid extends Dt{
 
     @Override
     public String toString(){
-        if (value == null) {
-            return "";
-        }
         return this.value;
     }
     
@@ -55,9 +59,6 @@ public class DtUid extends Dt{
         }
         if (this.getClass().getName().equals(secondObject.getClass().getName()))
         {
-            if (this.value == null) {
-                return (((DtUid) secondObject).getValue() == null);
-            }
             return this.value.equals(((DtUid) secondObject).getValue());
         }
         return false;
@@ -65,9 +66,6 @@ public class DtUid extends Dt{
     
     @Override
     public int hashCode(){
-        if (this.value == null) {
-            return 0;
-        }
         return this.value.hashCode();
     }
 }

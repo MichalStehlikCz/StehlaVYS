@@ -10,15 +10,21 @@ import javax.json.bind.annotation.JsonbTypeSerializer;
 
 /**
  *
- * @author micha
+ * @author stehlik
+ * 
+ * Used to store PROVYS VARCHAR and NOTE values. Also ancestor for name and
+ * name_nm subtypes
  */
 @JsonbTypeSerializer(JsonbDtSerializer.class)
 @JsonbTypeDeserializer(JsonbDtNameNmDeserializer.class)
 public class DtNameNm extends DtName{
 
-    static final long serialVersionUID = 1L;
+    static final long serialVersionUID = 3L;
 
     public DtNameNm(String value){
         super(value);
+        if (value.length()>200){
+            throw new NameTooLongException();
+        }
     }
 }

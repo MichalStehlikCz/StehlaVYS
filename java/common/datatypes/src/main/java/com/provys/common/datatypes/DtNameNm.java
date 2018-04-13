@@ -5,8 +5,7 @@
  */
 package com.provys.common.datatypes;
 
-import javax.json.bind.annotation.JsonbTypeDeserializer;
-import javax.json.bind.annotation.JsonbTypeSerializer;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  *
@@ -15,12 +14,16 @@ import javax.json.bind.annotation.JsonbTypeSerializer;
  * Used to store PROVYS VARCHAR and NOTE values. Also ancestor for name and
  * name_nm subtypes
  */
-@JsonbTypeSerializer(JsonbDtSerializer.class)
-@JsonbTypeDeserializer(JsonbDtNameNmDeserializer.class)
+@JsonbTypeAdapter(JsonbDtNameAdapter.class)
 public class DtNameNm extends DtName{
 
     static final long serialVersionUID = 3L;
 
+    /**
+     * Creates new DtNameNm object from supplied value. Verifies that supplied
+     * value is valid as internal name
+     * @param value - val new internal name will be set to
+     */
     public DtNameNm(String value){
         super(value);
         if (value.length()>200){

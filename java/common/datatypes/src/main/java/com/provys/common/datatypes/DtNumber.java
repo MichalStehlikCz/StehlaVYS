@@ -5,46 +5,47 @@
  */
 package com.provys.common.datatypes;
 
+import java.math.BigDecimal;
+import javax.json.bind.annotation.JsonbTypeAdapter;
+
 /**
  *
  * @author stehlik
  * 
- * Used to store PROVYS VARCHAR and NOTE values. Also ancestor for name and
- * name_nm subtypes
+ * Used to store NUMBER values
  */
-abstract public class DtString extends Dt{
+@JsonbTypeAdapter(JsonbDtNumberAdapter.class)
+public class DtNumber extends DtNumeric{
 
-    static final long serialVersionUID = 1L;
-    
-    private final String value;
+    private final BigDecimal value;
     
     /**
-     * Creates provys string based on supplied value
-     * @param value that will be assigned to newly created provys string object
+     * Creates provys number value from supplied value
+     * @param value - value new object will be initialised to
      */
-    public DtString(String value){
-        if ((value == null) || (value.isEmpty())) {
+    public DtNumber(BigDecimal value) {
+        if (value == null) {
             throw new Dt.NullValueNotSupportedException();
         }
         this.value=value;
     }
     
     /**
-     * Getter method for value / effective value of provys string object
-     * @return effective value of provys string object
+     * Getter method for value
+     * @return value representing effective value of this provzs number
      */
-    public String getValue() {
+    public BigDecimal getValue() {
         return this.value;
     }
     
     @Override
     public String toStringValue(){
-        return this.value;
+        return this.value.toPlainString();
     }
-    
+
     @Override
     public String toString(){
-        return this.value;
+        return this.value.toPlainString();
     }
     
     @Override
@@ -57,7 +58,7 @@ abstract public class DtString extends Dt{
         }
         if (this.getClass().getName().equals(secondObject.getClass().getName()))
         {
-            return this.value.equals(((DtString) secondObject).getValue());
+            return this.value.equals(((DtNumber) secondObject).value);
         }
         return false;
     }
@@ -65,5 +66,10 @@ abstract public class DtString extends Dt{
     @Override
     public int hashCode(){
         return this.value.hashCode();
+    }
+
+    @Override
+    public double getDouble() {
+        return this.value.doubleValue();
     }
 }

@@ -26,27 +26,30 @@ import java.io.Serializable;
 abstract public class Dt implements Serializable{
     
     /**
-     * Exception raised on attempt to create new instance of one of PROVYS
-     * datatype classes with null value
-     */
-    public class NullValueNotSupportedException extends ProvysException {
-        public NullValueNotSupportedException() {
-            super("Null value not supported in Provys value objects");
-        }
-    }
- 
-    /**
      * Translation of value in given PROVYS datatype to String, synchronised
      * with domain to string translation in server
      * @return value of given value object translated to String, corresponding
      * to translation to VARCHAR2 performed on server
      */
-    abstract public String getValue();
+    abstract public String toStringValue();
 
     @Override
     abstract public boolean equals(Object second);
 
     @Override
     abstract public int hashCode();
+    
+    /**
+     * Exception raised on attempt to create new instance of one of PROVYS
+     * datatype classes with null value
+     */
+    public class NullValueNotSupportedException extends ProvysException {
+        /**
+         * Creates NullValueNotSupportedException using hardcoded error message
+         */
+        public NullValueNotSupportedException() {
+            super("Null value not supported in Provys value objects");
+        }
+    }
         
 }

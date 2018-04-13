@@ -6,41 +6,41 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
-import javax.json.bind.annotation.JsonbTypeDeserializer;
-import javax.json.bind.annotation.JsonbTypeSerializer;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 
-/**
- *
- * @author stehlik
- * 
- * Used to store PROVYS UID values. UID domain is implemented as 38 digit
- * NUMBER in Oracle, but should be treated as not interpreted identifier and
- * thus String type has been chosen to hold value of UID in PROVYS
- */
-@JsonbTypeSerializer(JsonbDtSerializer.class)
-@JsonbTypeDeserializer(JsonbDtUidDeserializer.class)
+@JsonbTypeAdapter(JsonbDtUidAdapter.class)
 public class DtUid extends Dt{
 
-    public class DtUidNotNumberException extends ProvysException {
-        public DtUidNotNumberException(String value) {
-            super("Value supplied to Uid constructor is not a number ("+value+")");
-        }
-    }
     
     private final String value;
     
-    public DtUid(String value){
-        if ((value == null) || (value.equals(""))) {
+    /**
+     * Creates provys UID value from supplied string
+     * @param value represents value this object will be assigned
+     */
+    public DtUid(String value) {
+        if ((value == null) || (value.isEmpty())) {
             throw new Dt.NullValueNotSupportedException();
         }
+        if (value.length()>38) {
+            throw new UidTooLongException(value);
+        }
         if (!value.matches("\\d+")) {
-            throw new DtUidNotNumberException(value);
+            throw new UidNotNumberException(value);
         }
         this.value=value;
     }
     
+    /**
+     * Getter method for value - internal String representtaion of UID value
+     * @return String value correspoding to this UID
+     */
+    public String getValue() {
+        return this.value;
+    }
+    
     @Override
-    public String getValue(){
+    public String toStringValue(){
         return this.value;
     }
 
@@ -67,5 +67,31 @@ public class DtUid extends Dt{
     @Override
     public int hashCode(){
         return this.value.hashCode();
+    }
+    /**
+     * Exception indicating that supplied value is not valid PROVYS Uid, because
+     * it cannot be longer than 38 digits
+     */
+    public class UidTooLongException extends ProvysException {
+        /**
+         * Creates exception and embeds supplied value to error message
+         * @param value is offending value that is too long
+         */
+        public UidTooLongException(String value) {
+            super("Value supplied to Uid constructor is too long ("+value+")");
+        }
+    }
+    /**
+     * Exception indicating that supplied value is not valid PROVYS Uid, because
+     * it contains non/numeric characters
+     */
+    public class UidNotNumberException extends ProvysException {
+        /**
+         * Creates exception and embeds supplied value to error message
+         * @param value is offending value that is non/numeric
+         */
+        public UidNotNumberException(String value) {
+            super("Value supplied to Uid constructor is not a number ("+value+")");
+        }
     }
 }

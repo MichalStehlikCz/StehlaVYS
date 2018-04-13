@@ -5,32 +5,31 @@
  */
 package com.provys.common.datatypes;
 
-import javax.json.bind.annotation.JsonbTypeDeserializer;
-import javax.json.bind.annotation.JsonbTypeSerializer;
 import com.provys.common.error.ProvysException;
-/**
- *
- * @author stehlik
- * 
- * Used to store PROVYS VARCHAR and NOTE values. Also ancestor for name and
- * name_nm subtypes
- */
-@JsonbTypeSerializer(JsonbDtSerializer.class)
-@JsonbTypeDeserializer(JsonbDtNameDeserializer.class)
+import javax.json.bind.annotation.JsonbTypeAdapter;
+
+@JsonbTypeAdapter(JsonbDtNameAdapter.class)
 public class DtName extends DtString{
 
     static final long serialVersionUID = 2L;
 
-    class NameTooLongException extends ProvysException {
-        public NameTooLongException() {
-            super("Name cannot exceed 200 characters");
-        }
-    }
 
+    /**
+     * Creates DtName from supplied value. Verifies, that supplied value is
+     * non-empty string not longer than 200 characters
+     * @param value - string value new object will be initialised with
+     */
     public DtName(String value){
         super(value);
         if (value.length()>200){
             throw new NameTooLongException();
+        }
+    }
+
+    class NameTooLongException extends ProvysException {
+
+        NameTooLongException() {
+            super("Name cannot exceed 200 characters");
         }
     }
     

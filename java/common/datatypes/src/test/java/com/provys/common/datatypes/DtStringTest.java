@@ -5,105 +5,135 @@
  */
 package com.provys.common.datatypes;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import junitparams.JUnitParamsRunner;
+import static junitparams.JUnitParamsRunner.$;
+import junitparams.Parameters;
 import static org.junit.Assert.*;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-/**
- *
- * @author stehlik
- */
+
+@RunWith(JUnitParamsRunner.class)
 public class DtStringTest {
     
-    public DtStringTest() {
-    }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test single argument constructor method, of class DtString.
-     */
-    @Test
-    public void testDtString() {
-        @SuppressWarnings("UnusedAssignment")
-        DtString instance;
-        try {
-            instance = new DtString((String) null);
-            fail("DtString creation passed with null value supplied");
-        } catch (Dt.NullValueNotSupportedException e) {
-        }
-        try {
-            instance = new DtString("");
-            fail("DtString creation passed with empty string supplied");
-        } catch (Dt.NullValueNotSupportedException e) {
-        }
-        instance = new DtString("abcdefghijkl");
+    private Object[] parametersForGetValue() {
+        return $(
+                $("string", "string")
+                , $("0123456789", "0123456789")
+                , $("   abc   ", "   abc   ")
+        );
     }
 
     /**
      * Test of getValue method, of class DtString.
+     * @param value - initialisation value for DtString object
+     * @param expectedResult - expected result of getValue method
      */
     @Test
-    public void testGetValue() {
-        DtString instance = new DtString("abcdefghijkl");
+    @Parameters(method = "parametersForGetValue")
+    public void testGetValue(String value, String expectedResult) {
+        DtString instance = new DtStringImpl(value);
         String result = instance.getValue();
-        assertEquals("Incorrect getValue on non-empty", "abcdefghijkl", result);
+        assertEquals("Incorrect getValue in DtString", expectedResult, result);
+    }
+
+    private Object[] parametersForToString() {
+        return $(
+                $("string", "string")
+                , $("0123456789", "0123456789")
+                , $("   abc   ", "   abc   ")
+        );
     }
 
     /**
      * Test of toString method, of class DtString.
+     * @param value - initialisation value for DtString object
+     * @param expectedResult - expected result of toString method
      */
     @Test
-    public void testToString() {
-        DtString instance = new DtString("abcdefghijkl");
+    @Parameters(method = "parametersForToString")
+    public void testToString(String value, String expectedResult) {
+        DtString instance = new DtStringImpl(value);
         String result = instance.toString();
-        assertEquals("Incorrect toString on non-empty", "abcdefghijkl", result);
+        assertEquals("Incorrect toString in DtString", expectedResult, result);
+    }
+
+    private Object[] parametersForEquals() {
+        return $($("abcdefghijkl", null, false)
+                , $("abcdefghijkl", new DtStringImpl("abcdefghijkl"), true)
+                , $("abcdefghijkl", new DtStringImpl("0123456789"), false)
+                , $("0123456789", new DtStringImpl("123456789"), false)
+                , $("abcdefghijkl", new DtVarchar("abcdefghijkl"), false)
+        );
     }
 
     /**
      * Test of equals method, of class DtString.
+     * @param value - initialisation value for compared DtString object
+     * @param compareTo - Object to be compared against
+     * @param expectedResult - expected comparison result
      */
-    @org.junit.Test
-    public void testEquals() {
-        Object nullObject = null;
-        Object normal = new DtString("abcdefghijkl");
-        DtString instance = new DtString("abcdefghijkl");
-        boolean result = instance.equals(nullObject);
-        assertFalse("Comparison with null value should be false", result);
-        result = instance.equals(normal);
-        assertTrue("Same DtString twice should equal", result);
-        instance = new DtString("abcdefghijkx");
-        result = instance.equals(normal);
-        assertFalse("Two different DtStrings should not be equal", result);
+    @Test
+    @Parameters(method = "parametersForEquals")
+    public void testEquals(String value, Object compareTo, boolean expectedResult) {
+        DtString instance = new DtStringImpl(value);
+        boolean result = instance.equals(compareTo);
+        if (expectedResult) {
+            assertTrue("Equals method returned incorrect result (expected true)"
+                    , result);
+        } else {
+            assertFalse("Equals method returned incorrect result (exp. false)"
+                    , result);
+        }
+    }
+
+    private Object[] parametersForHashCode() {
+        return $(
+                $("abcdefghijkl", "abcdefghijkl")
+                , $("abcdefghijkl", "0123456789")
+                , $("0123456789", "123456789")
+                , $("abcdefghijkl", "abcdefghijkl")
+        );
     }
 
     /**
      * Test of hashCode method, of class DtString.
+     * Verifies, that same hashCode is produced when two instances of DtBoolean
+     * are created and equals returns true. Also asserts if values that not
+     * equal produce same hashcodes, even though this is strictly speaking not
+     * an error, just indication that hash function might not be good enough.
+     * In that case it might be useful to verify, that on other data hashes are
+     * different and modify test data
+     * @param value1 - initialisation value for the first DtString hashCode is calculated for
+     * @param value2 - initialisation value for the second DtString hashCode is calculated for
      */
-    @org.junit.Test
-    public void testHashCode() {
-        DtString instance = new DtString("abcdefghijkl");
-        DtString instance2 = new DtString("abcdefghijkl");
-        int result = instance.hashCode();
+    @Test
+    @Parameters(method = "parametersForHashCode")
+    public void testHashCode(String value1, String value2) {
+        DtString instance1 = new DtStringImpl(value1);
+        DtString instance2 = new DtStringImpl(value2);
+        int result1 = instance1.hashCode();
         int result2 = instance2.hashCode();
-        assertEquals("hashcodes of two same DtStrings should be the same", result, result2);
+        if (instance1.equals(instance2)) {
+            assertEquals("Hashcodes should be the same", result1, result2);
+        } else {
+            assertNotEquals("Hashcodes should be different", result1, result2);
+        }
     }
-    
+
+    /**
+     *
+     */
+    public class DtStringImpl extends DtString {
+
+        /**
+         *
+         * @param value
+         */
+        public DtStringImpl(String value) {
+            super(value);
+        }
+    }
+
 }

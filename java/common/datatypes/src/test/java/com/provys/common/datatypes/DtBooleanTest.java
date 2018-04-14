@@ -36,8 +36,8 @@ public class DtBooleanTest {
 
     private List<Object[]> parametersForGetValue() {
         return asList(
-                new Object[] {true, "true"},
-                new Object[] {false, "false"}
+                new Object[] {true, true},
+                new Object[] {false, false}
         );
     }
 
@@ -48,10 +48,30 @@ public class DtBooleanTest {
      */
     @Test
     @Parameters(method = "parametersForGetValue")
-    public void testGetStringValue(boolean value, String expectedResult) {
+    public void testGetValue(boolean value, boolean expectedResult) {
+        DtBoolean instance = new DtBoolean(value);
+        boolean result = instance.getValue();
+        assertEquals("Incorrect getValue in DtBoolean", expectedResult, result);
+    }
+
+    private List<Object[]> parametersForToStringValue() {
+        return asList(
+                new Object[] {true, "Y"},
+                new Object[] {false, "N"}
+        );
+    }
+
+    /**
+     * Test of toStringValue method, of class DtBoolean.
+     * @param value - initialisation value for DtBoolean object
+     * @param expectedResult - expected result of getValue method
+     */
+    @Test
+    @Parameters(method = "parametersForToStringValue")
+    public void testToStringValue(boolean value, String expectedResult) {
         DtBoolean instance = new DtBoolean(value);
         String result = instance.toStringValue();
-        assertEquals("Incorrect getValue in DtBoolean", expectedResult, result);
+        assertEquals("Incorrect toStringValue in DtBoolean", expectedResult, result);
     }
 
     private List<Object[]> parametersForToString() {

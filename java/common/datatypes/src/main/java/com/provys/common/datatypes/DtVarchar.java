@@ -9,9 +9,14 @@ import com.provys.common.error.ProvysException;
 import static java.lang.String.valueOf;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
-
+/**
+ *
+ * @author micha
+ */
 @JsonbTypeAdapter(JsonbDtNameAdapter.class)
 public class DtVarchar extends DtString {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      *
@@ -31,7 +36,10 @@ public class DtVarchar extends DtString {
      * 4000 bytes in server charset... but 4000 characters as reasonable
      * approximation)
      */
-    public class VarcharTooLongException extends ProvysException {
+    @SuppressWarnings("PublicInnerClass")
+    static public class VarcharTooLongException extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * Initializes varchar too long exception with predefined message

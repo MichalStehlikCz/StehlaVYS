@@ -11,16 +11,20 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- *
- * @author stehlik
  * Generic ancestor for testing Dt adapter classes
  * @param <T> Dt ancestor representing original object type
  * @param <U> target adapted type
  * @param <V> adapter type being tested
+ * @author stehlik
  */
-abstract public class JsonbDtAdapterTest<T extends Dt, U, V extends JsonbAdapter<T, U>> {
+abstract public class JsonbDtAdapterTest<T extends Dt, U, V
+        extends JsonbAdapter<T, U>> {
     
-    V adapter;
+    /**
+     * Adapter used to running tests. It is instantiated in setUp (before test)
+     * method of subclasses
+     */
+    protected V adapter;
 
     /**
      * Test of adaptToJson method, of class JsonbDtBooleanAdapter.
@@ -32,6 +36,9 @@ abstract public class JsonbDtAdapterTest<T extends Dt, U, V extends JsonbAdapter
     @Test
     @Parameters(method = "parametersForAdapter")
     public void testAdaptToJson(T original, U expectedAdapted) throws Exception {
+        if (adapter == null) {
+            throw new RuntimeException("Uninitialised adapter");
+        }
         U adapted = adapter.adaptToJson(original);
         assertEquals("Adapted and desired output do not match"
                 , expectedAdapted, adapted);
@@ -47,6 +54,9 @@ abstract public class JsonbDtAdapterTest<T extends Dt, U, V extends JsonbAdapter
     @Test
     @Parameters(method = "parametersForAdapter")
     public void testAdaptFromJson(T expectedOriginal, U adapted) throws Exception {
+        if (adapter == null) {
+            throw new RuntimeException("Uninitialised adapter");
+        }
         T original = adapter.adaptFromJson(adapted);
         assertEquals("Adapted and desired output do not match", expectedOriginal, original);
     }

@@ -5,23 +5,26 @@
  */
 package com.provys.common.datatypes;
 
+import static java.util.Arrays.asList;
+import java.util.List;
 import junitparams.JUnitParamsRunner;
-import static junitparams.JUnitParamsRunner.$;
 import junitparams.Parameters;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
+/**
+ * Unit test class for DtString
+ * @author stehlik
+ */
 @RunWith(JUnitParamsRunner.class)
 public class DtStringTest {
-    
-    
-    private Object[] parametersForGetValue() {
-        return $(
-                $("string", "string")
-                , $("0123456789", "0123456789")
-                , $("   abc   ", "   abc   ")
+
+    private List<Object[]> parametersForGetValue() {
+        return asList(
+                new Object[] {"string", "string"},
+                new Object[] {"0123456789", "0123456789"},
+                new Object[] {"   abc   ", "   abc   "}
         );
     }
 
@@ -38,11 +41,11 @@ public class DtStringTest {
         assertEquals("Incorrect getValue in DtString", expectedResult, result);
     }
 
-    private Object[] parametersForToString() {
-        return $(
-                $("string", "string")
-                , $("0123456789", "0123456789")
-                , $("   abc   ", "   abc   ")
+    private List<Object[]> parametersForToString() {
+        return asList(
+                new Object[] {"string", "string"},
+                new Object[] {"0123456789", "0123456789"},
+                new Object[] {"   abc   ", "   abc   "}
         );
     }
 
@@ -59,12 +62,17 @@ public class DtStringTest {
         assertEquals("Incorrect toString in DtString", expectedResult, result);
     }
 
-    private Object[] parametersForEquals() {
-        return $($("abcdefghijkl", null, false)
-                , $("abcdefghijkl", new DtStringImpl("abcdefghijkl"), true)
-                , $("abcdefghijkl", new DtStringImpl("0123456789"), false)
-                , $("0123456789", new DtStringImpl("123456789"), false)
-                , $("abcdefghijkl", new DtVarchar("abcdefghijkl"), false)
+    private List<Object[]> parametersForEquals() {
+        return asList(
+                new Object[] {"abcdefghijkl", null, false},
+                new Object[] {"abcdefghijkl", new DtStringImpl("abcdefghijkl"),
+                    true},
+                new Object[] {"abcdefghijkl", new DtStringImpl("0123456789"),
+                    false},
+                new Object[] {"0123456789", new DtStringImpl("123456789"),
+                    false},
+                new Object[] {"abcdefghijkl", new DtVarchar("abcdefghijkl"),
+                    false}
         );
     }
 
@@ -88,12 +96,12 @@ public class DtStringTest {
         }
     }
 
-    private Object[] parametersForHashCode() {
-        return $(
-                $("abcdefghijkl", "abcdefghijkl")
-                , $("abcdefghijkl", "0123456789")
-                , $("0123456789", "123456789")
-                , $("abcdefghijkl", "abcdefghijkl")
+    private List<Object[]> parametersForHashCode() {
+        return asList(
+                new Object[] {"abcdefghijkl", "abcdefghijkl"},
+                new Object[] {"abcdefghijkl", "0123456789"},
+                new Object[] {"0123456789", "123456789"},
+                new Object[] {"abcdefghijkl", "abcdefghijkl"}
         );
     }
 
@@ -123,13 +131,15 @@ public class DtStringTest {
     }
 
     /**
-     *
+     * Dummy ancestor used as proxy for testing abstract class DtString
      */
-    public class DtStringImpl extends DtString {
+    static public class DtStringImpl extends DtString {
+
+        private static final long serialVersionUID = 1L;
 
         /**
-         *
-         * @param value
+         * Proxy for single argument constructor of base class
+         * @param value to which newly created string object will be initiated
          */
         public DtStringImpl(String value) {
             super(value);

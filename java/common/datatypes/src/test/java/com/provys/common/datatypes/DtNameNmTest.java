@@ -14,18 +14,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- *
+ * Unit test class for DtNameNm
  * @author stehlik
  */
 @RunWith(JUnitParamsRunner.class)
 public class DtNameNmTest {
     
     private List<Object[]> parametersForDtNameNm() {
-        StringBuilder value200 = new StringBuilder();
+        StringBuilder value200 = new StringBuilder(201);
         for (int i = 1;i <= 20;i++) {
             value200.append("0123456789");
         }
-        StringBuilder value4000 = new StringBuilder();
+        StringBuilder value4000 = new StringBuilder(4001);
         for (int i = 1;i <= 400;i++) {
             value4000.append("0123456789");
         }
@@ -42,8 +42,10 @@ public class DtNameNmTest {
     /**
      * Test single argument constructor method, of class DtNameNm.
      * @param value - value used for test creation of DtNameNm instance
-     * @param failNullValue - indicates creation should fail with NullValueNotSupportedException
-     * @param failTooLong - indicates creation should fail with NameTooLongException
+     * @param failNullValue - indicates creation should fail with
+     * NullValueNotSupportedException
+     * @param failTooLong - indicates creation should fail with
+     * NameTooLongException
      */
     @Test
     @Parameters(method = "parametersForDtNameNm")

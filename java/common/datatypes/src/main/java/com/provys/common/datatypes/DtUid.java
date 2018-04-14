@@ -8,8 +8,14 @@ package com.provys.common.datatypes;
 import com.provys.common.error.ProvysException;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
+/**
+ *
+ * @author micha
+ */
 @JsonbTypeAdapter(JsonbDtUidAdapter.class)
 public class DtUid extends Dt{
+
+    private static final long serialVersionUID = 1L;
 
     
     private final String value;
@@ -57,7 +63,7 @@ public class DtUid extends Dt{
         if (secondObject == null) {
             return false;
         }
-        if (this.getClass().getName().equals(secondObject.getClass().getName()))
+        if (this.getClass().equals(secondObject.getClass()))
         {
             return this.value.equals(((DtUid) secondObject).getValue());
         }
@@ -72,7 +78,10 @@ public class DtUid extends Dt{
      * Exception indicating that supplied value is not valid PROVYS Uid, because
      * it cannot be longer than 38 digits
      */
-    public class UidTooLongException extends ProvysException {
+    @SuppressWarnings("PublicInnerClass")
+    static public class UidTooLongException extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
         /**
          * Creates exception and embeds supplied value to error message
          * @param value is offending value that is too long
@@ -85,7 +94,10 @@ public class DtUid extends Dt{
      * Exception indicating that supplied value is not valid PROVYS Uid, because
      * it contains non/numeric characters
      */
-    public class UidNotNumberException extends ProvysException {
+    @SuppressWarnings("PublicInnerClass")
+    static public class UidNotNumberException extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
         /**
          * Creates exception and embeds supplied value to error message
          * @param value is offending value that is non/numeric

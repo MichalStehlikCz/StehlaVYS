@@ -5,31 +5,32 @@
  */
 package com.provys.common.datatypes;
 
-import java.util.logging.Logger;
+import static java.util.Arrays.asList;
+import java.util.List;
 import junitparams.JUnitParamsRunner;
-import static junitparams.JUnitParamsRunner.$;
 import junitparams.Parameters;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- *
+ * Test class for DtVarchar
  * @author stehlik
  */
 @RunWith(JUnitParamsRunner.class)
 public class DtVarcharTest {
     
-    private Object[] parametersForDtVarchar() {
-        StringBuilder value4000 = new StringBuilder();
+    private List<Object[]> parametersForDtVarchar() {
+        StringBuilder value4000 = new StringBuilder(4001);
         for (int i = 1;i <= 400;i++) {
             value4000.append("0123456789");
         }
-        return $($((Object) null, true, false)
-                , $("", true, false)
-                , $("abcdefgh", false, false)
-                , $(value4000.toString(), false, false)
-                , $(value4000.append("0"), false, true)
+        return asList(
+                new Object[] {(Object) null, true, false},
+                new Object[] {"", true, false},
+                new Object[] {"abcdefgh", false, false},
+                new Object[] {value4000.toString(), false, false},
+                new Object[] {value4000.append("0"), false, true}
         );
     }
 
@@ -63,6 +64,5 @@ public class DtVarcharTest {
             }
         }
     }
-    private static final Logger LOG = Logger.getLogger(DtVarcharTest.class.getName());
 
 }

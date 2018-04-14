@@ -8,6 +8,7 @@ package com.provys.common.datatypes;
 import static java.util.Arrays.asList;
 import java.util.List;
 import junitparams.JUnitParamsRunner;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 
 /**
@@ -20,9 +21,10 @@ public class JsonbDtUidAdapterTest extends
         JsonbDtAdapterTest<DtUid, String, JsonbDtUidAdapter> {
     
     /**
-     *
+     * Initializes adapter used to run tests
      */
-    public JsonbDtUidAdapterTest() {
+    @Before
+    public void setUp() {
         adapter = new JsonbDtUidAdapter();
     }
     

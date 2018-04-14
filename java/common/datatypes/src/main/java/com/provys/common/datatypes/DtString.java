@@ -55,7 +55,7 @@ abstract public class DtString extends Dt{
         if (secondObject == null) {
             return false;
         }
-        if (this.getClass().getName().equals(secondObject.getClass().getName()))
+        if (this.getClass().equals(secondObject.getClass()))
         {
             return this.value.equals(((DtString) secondObject).getValue());
         }

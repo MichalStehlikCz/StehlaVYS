@@ -7,27 +7,25 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 
 /**
- * Unit test class for JsonbDtNameAdapter
  *
- * @author stehlik
+ * @author stehlik Test class for JsonbDtIntegerAdapter
  */
 @RunWith(JUnitParamsRunner.class)
-public class JsonbDtNameNmAdapterTest extends
-        JsonbDtAdapterTest<DtNameNm, String, JsonbDtNameNmAdapter> {
+public class JsonbDtIntegerAdapterTest extends
+        JsonbDtAdapterTest<DtInteger, Integer, JsonbDtIntegerAdapter> {
 
     /**
      * Initializes adapter used to run tests
      */
     @Before
     public void setUp() {
-        adapter = new JsonbDtNameNmAdapter();
+        adapter = new JsonbDtIntegerAdapter();
     }
 
     private List<Object[]> parametersForAdapter() {
         return asList(
-                new Object[]{new DtNameNm("0123456789"), "0123456789"},
-                new Object[]{new DtNameNm("abcd"), "abcd"}
+                new Object[]{new DtInteger(12345), 12345},
+                new Object[]{new DtInteger(-12345), -12345}
         );
     }
-
 }

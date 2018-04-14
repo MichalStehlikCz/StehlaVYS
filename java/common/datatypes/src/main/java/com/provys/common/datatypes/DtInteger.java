@@ -5,49 +5,43 @@
  */
 package com.provys.common.datatypes;
 
-import java.math.BigDecimal;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
- *
+ * Used to store INTEGER values (corresponding to NUMBER(5, 0) in Oracle)
  * @author stehlik
- * 
- * Used to store NUMBER values
  */
-@JsonbTypeAdapter(JsonbDtNumberAdapter.class)
-public class DtNumber extends DtNumeric{
+@JsonbTypeAdapter(JsonbDtIntegerAdapter.class)
+public class DtInteger extends DtNumeric{
 
     private static final long serialVersionUID = 1L;
 
-    private final BigDecimal value;
+    private final int value;
     
     /**
      * Creates provys number value from supplied value
      * @param value - value new object will be initialised to
      */
-    public DtNumber(BigDecimal value) {
-        if (value == null) {
-            throw new Dt.NullValueNotSupportedException();
-        }
+    public DtInteger(int value) {
         this.value=value;
     }
     
     /**
      * Getter method for value
-     * @return value representing effective value of this provzs number
+     * @return value representing effective value of this provys integer
      */
-    public BigDecimal getValue() {
+    public int getValue() {
         return this.value;
     }
     
     @Override
     public String toStringValue(){
-        return this.value.toPlainString();
+        return Integer.toString(this.value);
     }
 
     @Override
     public String toString(){
-        return this.value.toPlainString();
+        return Integer.toString(this.value);
     }
     
     @Override
@@ -60,18 +54,18 @@ public class DtNumber extends DtNumeric{
         }
         if (this.getClass().equals(secondObject.getClass()))
         {
-            return this.value.equals(((DtNumber) secondObject).getValue());
+            return this.value==((DtInteger) secondObject).getValue();
         }
         return false;
     }
     
     @Override
     public int hashCode(){
-        return this.value.hashCode();
+        return this.value;
     }
 
     @Override
     public double getDouble() {
-        return this.value.doubleValue();
+        return this.value;
     }
 }

@@ -8,23 +8,25 @@ package com.provys.common.confobj;
 import oracle.sql.ROWID;
 
 /**
- *
- * @author stehlik
- * 
  * Used to pass object together with its ROWID; useful to find deleted objects
  * and remove them
+ *
  * @param <T> Object stored together with its ROWID in datastructure
+ * @author stehlik
  */
-public class RowidObjectPair<T> {
+public class ObjectWithRowid<T> {
+
     private final ROWID rowid;
     private final T object;
-    
-    public RowidObjectPair(ROWID rowid, T object) {
+
+    public ObjectWithRowid(ROWID rowid, T object) {
         this.rowid = rowid;
         this.object = object;
     }
 
     /**
+     * Getter method for rowid
+     *
      * @return the rowid
      */
     public ROWID getRowid() {
@@ -32,6 +34,8 @@ public class RowidObjectPair<T> {
     }
 
     /**
+     * Getter method for object
+     *
      * @return the object
      */
     public T getObject() {

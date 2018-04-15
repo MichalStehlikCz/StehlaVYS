@@ -20,6 +20,6 @@ public abstract class ConfObjectLoader<T extends ConfObject> {
     @Resource(lookup = "jdbc/provysDB")
     protected DataSource provysDB;
 
-    public abstract RowidObjectPair<T> load(DtUid id);
+    public abstract ObjectWithRowid<T> load(DtUid id);
     
 }

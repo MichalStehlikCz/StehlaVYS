@@ -15,5 +15,5 @@ import com.provys.common.datatypes.*;
 */
 abstract public class ConfNMObjectLoader<T extends ConfNMObject> extends ConfObjectLoader<T> {
 
-    abstract public RowidObjectPair<T> loadByNm(DtNameNm nameNm);
+    abstract public ObjectWithRowid<T> loadByNm(DtNameNm nameNm);
 }

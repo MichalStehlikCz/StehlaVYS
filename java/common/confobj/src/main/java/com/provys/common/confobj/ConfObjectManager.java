@@ -18,12 +18,22 @@ import oracle.sql.ROWID;
 */
 public abstract class ConfObjectManager<T extends ConfObject>{
 
-    protected final Map<DtUid, T> mapById = new ConcurrentHashMap<>();
-    protected final Map<ROWID, T> mapByRowid = new ConcurrentHashMap();
+    protected final Map<DtUid, T> mapById;
+    protected final Map<ROWID, T> mapByRowid;
 
+    public ConfObjectManager() {
+        mapById = new ConcurrentHashMap<>(20);
+        mapByRowid = new ConcurrentHashMap<>(20);
+    }
+    
+    public ConfObjectManager(int initialCacheSize) {
+        mapById = new ConcurrentHashMap<>(initialCacheSize);
+        mapByRowid = new ConcurrentHashMap<>(initialCacheSize);
+    }
+    
     protected abstract ConfObjectLoader<T> getConfObjectLoader();
     
-    protected T add(RowidObjectPair<T> confObjectWithRowid) {
+    protected T add(ObjectWithRowid<T> confObjectWithRowid) {
         T result = mapById.putIfAbsent(confObjectWithRowid.getObject().getId()
                 , confObjectWithRowid.getObject());
         if (result == null) {
@@ -48,7 +58,7 @@ public abstract class ConfObjectManager<T extends ConfObject>{
 
     public void load(DtUid id) {
         if (!mapById.containsKey(id)){
-            RowidObjectPair<T> confObjectWithRowid = this.getConfObjectLoader().load(id);
+            ObjectWithRowid<T> confObjectWithRowid = this.getConfObjectLoader().load(id);
             this.add(confObjectWithRowid);
         }
     }

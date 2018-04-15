@@ -5,14 +5,16 @@
  */
 package com.provys.common.confobj;
 
-import com.provys.common.datatypes.*;
 import com.provys.common.annotation.*;
+import com.provys.common.datatypes.*;
 
 /**
  *
  * @author stehlik
  */
 abstract public class ConfNMObject extends ConfObject {
+
+    private static final long serialVersionUID = 1L;
 
     @ProvysAttr("NAME_NM")
     private DtNameNm nameNm;
@@ -23,7 +25,7 @@ abstract public class ConfNMObject extends ConfObject {
     }
     
     
-    public DtNameNm getNameNm(){
+    public synchronized DtNameNm getNameNm(){
         return this.nameNm;
     }
     

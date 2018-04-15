@@ -16,10 +16,19 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 abstract public class ConfNMObjectManager<T extends ConfNMObject> extends ConfObjectManager<T> {
 
-    private final Map<DtNameNm, T> mapByNm=new ConcurrentHashMap<>();
+    private final Map<DtNameNm, T> mapByNm;
+    
+    public ConfNMObjectManager() {
+        mapByNm=new ConcurrentHashMap<>(20);
+    }
+    
+    public ConfNMObjectManager(int initialCacheSize) {
+        super(initialCacheSize);
+        mapByNm=new ConcurrentHashMap<>(initialCacheSize);
+    }
     
     @Override
-    protected T add(RowidObjectPair<T> confObjectWithRowid) {
+    protected T add(ObjectWithRowid<T> confObjectWithRowid) {
         T result = super.add(confObjectWithRowid);
         if (result == null){
           mapByNm.put(confObjectWithRowid.getObject().getNameNm()
@@ -46,7 +55,7 @@ abstract public class ConfNMObjectManager<T extends ConfNMObject> extends ConfOb
 
     public void loadByNm(DtNameNm nameNm){
         if (!mapByNm.containsKey(nameNm)){
-            RowidObjectPair<T> confObjectWithRowid = this.getConfObjectLoader().loadByNm(nameNm);
+            ObjectWithRowid<T> confObjectWithRowid = this.getConfObjectLoader().loadByNm(nameNm);
             this.add(confObjectWithRowid);
         }
     }

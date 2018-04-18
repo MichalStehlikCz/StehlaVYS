@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
@@ -38,9 +39,14 @@ import oracle.ucp.jdbc.PoolDataSourceFactory;
 public class ProvysConnectionPoolDataSource implements DataSource,
         CommonDataSource,
         ProvysConnectionPoolDataSourceLocal {
+    private static final Logger LOG = Logger.getLogger(ProvysConnectionPoolDataSource.class.getName());
 
     private final PoolDataSource oraclePool;
 
+    /**
+     *
+     * @throws SQLException
+     */
     public ProvysConnectionPoolDataSource() throws SQLException {
         oraclePool = PoolDataSourceFactory.getPoolDataSource();
         oraclePool.setConnectionFactoryClassName(
@@ -115,15 +121,16 @@ public class ProvysConnectionPoolDataSource implements DataSource,
  * Labeling callback implementation - switch to required session
  */
 class ProvysConnectionLabelingCallback implements ConnectionLabelingCallback {
+    private static final Logger LOG = Logger.getLogger(ProvysConnectionLabelingCallback.class.getName());
 
-    public ProvysConnectionLabelingCallback() {
+    ProvysConnectionLabelingCallback() {
     }
 
     @Override
     public int cost(Properties reqLabels, Properties currentLabels) {
         // exact match
         if (reqLabels.equals(currentLabels)) {
-            System.out.println("## Exact match found!! ##");
+            LOG.finest("Exact connection match (equals)");
             return 0;
         }
         // sessionlog_id matches or no-session connection
@@ -133,13 +140,16 @@ class ProvysConnectionLabelingCallback implements ConnectionLabelingCallback {
         }
         String session2 = currentLabels.getProperty("SESSION_ID");
         if (session2 != null && session1.equals(session2)) {
+            LOG.finest("Connection match using SESSION_ID");
             return 10;
         }
         // new (uninitialised) connection
         if (session2 == null) {
+            LOG.finest("Uninitialized connection found");
             return 20;
         }
         // connection used for different session / context
+        LOG.finest("Connection does not match supplied SESSION_ID");
         return Integer.MAX_VALUE;
     }
 
@@ -161,6 +171,7 @@ class ProvysConnectionLabelingCallback implements ConnectionLabelingCallback {
                 lconn.applyConnectionLabel(key, value);
             }
         } catch (SQLException e) {
+            LOG.log(Level.WARNING, "SQL exception during connection configuration", e);
             return false;
         }
         return true;

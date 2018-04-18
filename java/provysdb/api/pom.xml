@@ -9,4 +9,11 @@
     <name>datasource-api</name>
     <artifactId>api</artifactId>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>com.provys.common</groupId>
+            <artifactId>datatypes</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 </project>

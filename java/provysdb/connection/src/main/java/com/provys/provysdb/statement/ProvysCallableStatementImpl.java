@@ -25,6 +25,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Map;
+import java.util.logging.Logger;
 import oracle.jdbc.OracleCallableStatement;
 
 /**
@@ -33,7 +34,13 @@ import oracle.jdbc.OracleCallableStatement;
  */
 public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         implements ProvysCallableStatement {
+    private static final Logger LOG = Logger.getLogger(ProvysCallableStatementImpl.class.getName());
 
+    /**
+     *
+     * @param statement
+     * @throws SQLException
+     */
     public ProvysCallableStatementImpl(CallableStatement statement)
             throws SQLException {
         super(statement.unwrap(OracleCallableStatement.class));

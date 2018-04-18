@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.statement;
 
+import com.provys.common.datatypes.*;
 import com.provys.provysdb.api.ProvysPreparedStatement;
 import java.io.InputStream;
 import java.io.Reader;
@@ -27,6 +28,7 @@ import java.sql.SQLXML;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.logging.Logger;
 import oracle.jdbc.OraclePreparedStatement;
 
 /**
@@ -35,7 +37,13 @@ import oracle.jdbc.OraclePreparedStatement;
  */
 public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         implements ProvysPreparedStatement {
+    private static final Logger LOG = Logger.getLogger(ProvysPreparedStatementImpl.class.getName());
     
+    /**
+     *
+     * @param statement
+     * @throws SQLException
+     */
     public ProvysPreparedStatementImpl(PreparedStatement statement)
             throws SQLException {
         super(statement.unwrap(OraclePreparedStatement.class));
@@ -50,6 +58,11 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
     
     @Override
+    public boolean execute() throws SQLException {
+        return getStatement().execute();
+    }
+
+    @Override
     public ResultSet executeQuery() throws SQLException {
         return getStatement().executeQuery();
     }
@@ -60,8 +73,38 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
+    public long executeLargeUpdate() throws SQLException {
+        return getStatement().executeLargeUpdate();
+    }
+    
+    @Override
+    public ResultSetMetaData getMetaData() throws SQLException {
+        return getStatement().getMetaData();
+    }
+
+    @Override
+    public void addBatch() throws SQLException {
+        getStatement().addBatch();
+    }
+
+    @Override
+    public ParameterMetaData getParameterMetaData() throws SQLException {
+        return getStatement().getParameterMetaData();
+    }
+
+    @Override
+    public void clearParameters() throws SQLException {
+        getStatement().clearParameters();
+    }
+
+    @Override
     public void setNull(int parameterIndex, int sqlType) throws SQLException {
         getStatement().setNull(parameterIndex, sqlType);
+    }
+
+    @Override
+    public void setNull(int parameterIndex, int sqlType, String typeName) throws SQLException {
+        getStatement().setNull(parameterIndex, sqlType, typeName);
     }
 
     @Override
@@ -120,8 +163,18 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
+    public void setDate(int parameterIndex, Date x, Calendar cal) throws SQLException {
+        getStatement().setDate(parameterIndex, x, cal);
+    }
+
+    @Override
     public void setTime(int parameterIndex, Time x) throws SQLException {
         getStatement().setTime(parameterIndex, x);
+    }
+
+    @Override
+    public void setTime(int parameterIndex, Time x, Calendar cal) throws SQLException {
+        getStatement().setTime(parameterIndex, x, cal);
     }
 
     @Override
@@ -130,14 +183,8 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public void setAsciiStream(int parameterIndex, InputStream x, int length) throws SQLException {
-        getStatement().setAsciiStream(parameterIndex, x, length);
-    }
-
-    @Deprecated
-    @Override
-    public void setUnicodeStream(int parameterIndex, InputStream x, int length) throws SQLException {
-        getStatement().setUnicodeStream(parameterIndex, x, length);
+    public void setTimestamp(int parameterIndex, Timestamp x, Calendar cal) throws SQLException {
+        getStatement().setTimestamp(parameterIndex, x, cal);
     }
 
     @Override
@@ -146,8 +193,19 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public void clearParameters() throws SQLException {
-        getStatement().clearParameters();
+    public void setAsciiStream(int parameterIndex, InputStream x, int length) throws SQLException {
+        getStatement().setAsciiStream(parameterIndex, x, length);
+    }
+
+    @Override
+    public void setCharacterStream(int parameterIndex, Reader reader, int length) throws SQLException {
+        getStatement().setCharacterStream(parameterIndex, reader, length);
+    }
+
+    @Deprecated
+    @Override
+    public void setUnicodeStream(int parameterIndex, InputStream x, int length) throws SQLException {
+        getStatement().setUnicodeStream(parameterIndex, x, length);
     }
 
     @Override
@@ -161,18 +219,18 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public boolean execute() throws SQLException {
-        return getStatement().execute();
+    public void setObject(int parameterIndex, Object x, int targetSqlType, int scaleOrLength) throws SQLException {
+        getStatement().setObject(parameterIndex, x, targetSqlType, scaleOrLength);
     }
 
     @Override
-    public void addBatch() throws SQLException {
-        getStatement().addBatch();
+    public void setObject(int parameterIndex, Object x, SQLType targetSqlType, int scaleOrLength) throws SQLException {
+        getStatement().setObject(parameterIndex, x, targetSqlType, scaleOrLength);
     }
 
     @Override
-    public void setCharacterStream(int parameterIndex, Reader reader, int length) throws SQLException {
-        getStatement().setCharacterStream(parameterIndex, reader, length);
+    public void setObject(int parameterIndex, Object x, SQLType targetSqlType) throws SQLException {
+        getStatement().setObject(parameterIndex, x, targetSqlType);
     }
 
     @Override
@@ -186,8 +244,43 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
+    public void setBlob(int parameterIndex, InputStream inputStream, long length) throws SQLException {
+        getStatement().setBlob(parameterIndex, inputStream, length);
+    }
+
+    @Override
+    public void setBlob(int parameterIndex, InputStream inputStream) throws SQLException {
+        getStatement().setBlob(parameterIndex, inputStream);
+    }
+
+    @Override
     public void setClob(int parameterIndex, Clob x) throws SQLException {
         getStatement().setClob(parameterIndex, x);
+    }
+
+    @Override
+    public void setClob(int parameterIndex, Reader reader, long length) throws SQLException {
+        getStatement().setClob(parameterIndex, reader, length);
+    }
+
+    @Override
+    public void setClob(int parameterIndex, Reader reader) throws SQLException {
+        getStatement().setClob(parameterIndex, reader);
+    }
+
+    @Override
+    public void setNClob(int parameterIndex, Reader reader, long length) throws SQLException {
+        getStatement().setNClob(parameterIndex, reader, length);
+    }
+
+    @Override
+    public void setNClob(int parameterIndex, NClob value) throws SQLException {
+        getStatement().setNClob(parameterIndex, value);
+    }
+
+    @Override
+    public void setNClob(int parameterIndex, Reader reader) throws SQLException {
+        getStatement().setNClob(parameterIndex, reader);
     }
 
     @Override
@@ -196,38 +289,8 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public ResultSetMetaData getMetaData() throws SQLException {
-        return getStatement().getMetaData();
-    }
-
-    @Override
-    public void setDate(int parameterIndex, Date x, Calendar cal) throws SQLException {
-        getStatement().setDate(parameterIndex, x, cal);
-    }
-
-    @Override
-    public void setTime(int parameterIndex, Time x, Calendar cal) throws SQLException {
-        getStatement().setTime(parameterIndex, x, cal);
-    }
-
-    @Override
-    public void setTimestamp(int parameterIndex, Timestamp x, Calendar cal) throws SQLException {
-        getStatement().setTimestamp(parameterIndex, x, cal);
-    }
-
-    @Override
-    public void setNull(int parameterIndex, int sqlType, String typeName) throws SQLException {
-        getStatement().setNull(parameterIndex, sqlType, typeName);
-    }
-
-    @Override
     public void setURL(int parameterIndex, URL x) throws SQLException {
         getStatement().setURL(parameterIndex, x);
-    }
-
-    @Override
-    public ParameterMetaData getParameterMetaData() throws SQLException {
-        return getStatement().getParameterMetaData();
     }
 
     @Override
@@ -241,38 +304,8 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public void setNCharacterStream(int parameterIndex, Reader value, long length) throws SQLException {
-        getStatement().setNCharacterStream(parameterIndex, value, length);
-    }
-
-    @Override
-    public void setNClob(int parameterIndex, NClob value) throws SQLException {
-        getStatement().setNClob(parameterIndex, value);
-    }
-
-    @Override
-    public void setClob(int parameterIndex, Reader reader, long length) throws SQLException {
-        getStatement().setClob(parameterIndex, reader, length);
-    }
-
-    @Override
-    public void setBlob(int parameterIndex, InputStream inputStream, long length) throws SQLException {
-        getStatement().setBlob(parameterIndex, inputStream, length);
-    }
-
-    @Override
-    public void setNClob(int parameterIndex, Reader reader, long length) throws SQLException {
-        getStatement().setNClob(parameterIndex, reader, length);
-    }
-
-    @Override
     public void setSQLXML(int parameterIndex, SQLXML xmlObject) throws SQLException {
         getStatement().setSQLXML(parameterIndex, xmlObject);
-    }
-
-    @Override
-    public void setObject(int parameterIndex, Object x, int targetSqlType, int scaleOrLength) throws SQLException {
-        getStatement().setObject(parameterIndex, x, targetSqlType, scaleOrLength);
     }
 
     @Override
@@ -281,18 +314,13 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public void setBinaryStream(int parameterIndex, InputStream x, long length) throws SQLException {
-        getStatement().setBinaryStream(parameterIndex, x, length);
-    }
-
-    @Override
-    public void setCharacterStream(int parameterIndex, Reader reader, long length) throws SQLException {
-        getStatement().setCharacterStream(parameterIndex, reader, length);
-    }
-
-    @Override
     public void setAsciiStream(int parameterIndex, InputStream x) throws SQLException {
         getStatement().setAsciiStream(parameterIndex, x);
+    }
+
+    @Override
+    public void setBinaryStream(int parameterIndex, InputStream x, long length) throws SQLException {
+        getStatement().setBinaryStream(parameterIndex, x, length);
     }
 
     @Override
@@ -301,8 +329,18 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
+    public void setCharacterStream(int parameterIndex, Reader reader, long length) throws SQLException {
+        getStatement().setCharacterStream(parameterIndex, reader, length);
+    }
+
+    @Override
     public void setCharacterStream(int parameterIndex, Reader reader) throws SQLException {
         getStatement().setCharacterStream(parameterIndex, reader);
+    }
+
+    @Override
+    public void setNCharacterStream(int parameterIndex, Reader value, long length) throws SQLException {
+        getStatement().setNCharacterStream(parameterIndex, value, length);
     }
 
     @Override
@@ -311,34 +349,38 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public void setClob(int parameterIndex, Reader reader) throws SQLException {
-        getStatement().setClob(parameterIndex, reader);
-    }
-
-    @Override
-    public void setBlob(int parameterIndex, InputStream inputStream) throws SQLException {
-        getStatement().setBlob(parameterIndex, inputStream);
-    }
-
-    @Override
-    public void setNClob(int parameterIndex, Reader reader) throws SQLException {
-        getStatement().setNClob(parameterIndex, reader);
-    }
-
-    @Override
-    public void setObject(int parameterIndex, Object x, SQLType targetSqlType, int scaleOrLength) throws SQLException {
-        getStatement().setObject(parameterIndex, x, targetSqlType, scaleOrLength);
-    }
-
-    @Override
-    public void setObject(int parameterIndex, Object x, SQLType targetSqlType) throws SQLException {
-        getStatement().setObject(parameterIndex, x, targetSqlType);
-    }
-
-    @Deprecated
-    @Override
-    public long executeLargeUpdate() throws SQLException {
-        return getStatement().executeLargeUpdate();
+    public void setDtBoolean(int parameterIndex, DtBoolean value) throws SQLException {
+        getStatement().setString(parameterIndex, value.toStringValue());
     }
     
+    @Override
+    public void setDtInteger(int parameterIndex, DtInteger value) throws SQLException {
+        getStatement().setInt(parameterIndex, value.getValue());
+    }
+
+    @Override
+    public void setDtName(int parameterIndex, DtName value) throws SQLException {
+        getStatement().setString(parameterIndex, value.getValue());
+    }
+
+    @Override
+    public void setDtNameNm(int parameterIndex, DtNameNm value) throws SQLException {
+        getStatement().setString(parameterIndex, value.getValue());
+    }
+
+    @Override
+    public void setDtNumber(int parameterIndex, DtNumber value) throws SQLException {
+        getStatement().setBigDecimal(parameterIndex, value.getValue());
+    }
+
+    @Override
+    public void setDtUid(int parameterIndex, DtUid value) throws SQLException {
+        getStatement().setBigDecimal(parameterIndex, new BigDecimal(value.getValue()));
+    }
+
+    @Override
+    public void setDtVarchar(int parameterIndex, DtVarchar value) throws SQLException {
+        getStatement().setString(parameterIndex, value.getValue());
+    }
+
 }

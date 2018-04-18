@@ -5,7 +5,13 @@
  */
 package com.provys.provysdb.datasource;
 
+import com.provys.provysdb.api.ProvysCallableStatement;
 import com.provys.provysdb.api.ProvysConnection;
+import com.provys.provysdb.api.ProvysPreparedStatement;
+import com.provys.provysdb.api.ProvysStatement;
+import com.provys.provysdb.statement.ProvysCallableStatementImpl;
+import com.provys.provysdb.statement.ProvysPreparedStatementImpl;
+import com.provys.provysdb.statement.ProvysStatementImpl;
 import java.sql.Array;
 import java.sql.Blob;
 import java.sql.CallableStatement;
@@ -24,6 +30,8 @@ import java.sql.Struct;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
+import oracle.jdbc.OraclePreparedStatement;
+import oracle.jdbc.OracleStatement;
 
 /**
  * Connection wrapper that returns Provys statement wrappers.
@@ -38,18 +46,19 @@ public class ProvysConnectionImpl implements ProvysConnection {
     }
 
     @Override
-    public Statement createStatement() throws SQLException {
-        return conn.createStatement();
+    public ProvysStatement createStatement() throws SQLException {
+        return new ProvysStatementImpl(conn.createStatement());
     }
 
     @Override
-    public PreparedStatement prepareStatement(String sql) throws SQLException {
-        return conn.prepareStatement(sql);
+    public ProvysPreparedStatement prepareStatement(String sql)
+            throws SQLException {
+        return new ProvysPreparedStatementImpl(conn.prepareStatement(sql));
     }
 
     @Override
-    public CallableStatement prepareCall(String sql) throws SQLException {
-        return conn.prepareCall(sql);
+    public ProvysCallableStatement prepareCall(String sql) throws SQLException {
+        return new ProvysCallableStatementImpl(conn.prepareCall(sql));
     }
 
     @Override

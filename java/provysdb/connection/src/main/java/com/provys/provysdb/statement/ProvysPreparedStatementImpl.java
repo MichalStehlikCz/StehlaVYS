@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.provysdb.common;
+package com.provys.provysdb.statement;
 
+import com.provys.provysdb.api.ProvysPreparedStatement;
 import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
@@ -33,10 +34,11 @@ import oracle.jdbc.OraclePreparedStatement;
  * @author stehlik
  */
 public class ProvysPreparedStatementImpl extends ProvysStatementImpl
-        implements PreparedStatement {
+        implements ProvysPreparedStatement {
     
-    public ProvysPreparedStatementImpl(OraclePreparedStatement statement) {
-        super(statement);
+    public ProvysPreparedStatementImpl(PreparedStatement statement)
+            throws SQLException {
+        super(statement.unwrap(OraclePreparedStatement.class));
     }
 
     /**

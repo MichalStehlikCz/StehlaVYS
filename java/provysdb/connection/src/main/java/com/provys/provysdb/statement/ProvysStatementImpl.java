@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.provysdb.common;
+package com.provys.provysdb.statement;
 
+import com.provys.provysdb.api.ProvysStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ import oracle.jdbc.OracleStatement;
  *
  * @author stehlik
  */
-public class ProvysStatementImpl implements Statement {
+public class ProvysStatementImpl implements ProvysStatement {
 
     /**
      * Wrapped OracelStatement, implementing functionality, decorated
@@ -27,10 +28,13 @@ public class ProvysStatementImpl implements Statement {
     
     /**
      * Creates ProvysStatement built around supplied OracleStatement
-     * @param stmt is statement this instance decorates
+     * @param statement is statement this instance decorates
+     * @throws java.sql.SQLException potentially raised by unwrap of supplied
+     * statement to OracleStatement
+     * 
      */
-    ProvysStatementImpl(OracleStatement statement) {
-        this.statement = statement;
+    public ProvysStatementImpl(Statement statement) throws SQLException {
+        this.statement = statement.unwrap(OracleStatement.class);
     }
     
     /**

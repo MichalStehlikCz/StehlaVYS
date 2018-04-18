@@ -27,6 +27,7 @@ import java.sql.SQLType;
 import java.sql.SQLXML;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.Calendar;
 import java.util.logging.Logger;
 import oracle.jdbc.OraclePreparedStatement;
@@ -188,24 +189,8 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public void setBinaryStream(int parameterIndex, InputStream x, int length) throws SQLException {
-        getStatement().setBinaryStream(parameterIndex, x, length);
-    }
-
-    @Override
-    public void setAsciiStream(int parameterIndex, InputStream x, int length) throws SQLException {
-        getStatement().setAsciiStream(parameterIndex, x, length);
-    }
-
-    @Override
-    public void setCharacterStream(int parameterIndex, Reader reader, int length) throws SQLException {
-        getStatement().setCharacterStream(parameterIndex, reader, length);
-    }
-
-    @Deprecated
-    @Override
-    public void setUnicodeStream(int parameterIndex, InputStream x, int length) throws SQLException {
-        getStatement().setUnicodeStream(parameterIndex, x, length);
+    public void setObject(int parameterIndex, Object x) throws SQLException {
+        getStatement().setObject(parameterIndex, x);
     }
 
     @Override
@@ -214,23 +199,18 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public void setObject(int parameterIndex, Object x) throws SQLException {
-        getStatement().setObject(parameterIndex, x);
-    }
-
-    @Override
     public void setObject(int parameterIndex, Object x, int targetSqlType, int scaleOrLength) throws SQLException {
-        getStatement().setObject(parameterIndex, x, targetSqlType, scaleOrLength);
-    }
-
-    @Override
-    public void setObject(int parameterIndex, Object x, SQLType targetSqlType, int scaleOrLength) throws SQLException {
         getStatement().setObject(parameterIndex, x, targetSqlType, scaleOrLength);
     }
 
     @Override
     public void setObject(int parameterIndex, Object x, SQLType targetSqlType) throws SQLException {
         getStatement().setObject(parameterIndex, x, targetSqlType);
+    }
+
+    @Override
+    public void setObject(int parameterIndex, Object x, SQLType targetSqlType, int scaleOrLength) throws SQLException {
+        getStatement().setObject(parameterIndex, x, targetSqlType, scaleOrLength);
     }
 
     @Override
@@ -309,18 +289,18 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public void setAsciiStream(int parameterIndex, InputStream x, long length) throws SQLException {
-        getStatement().setAsciiStream(parameterIndex, x, length);
-    }
-
-    @Override
     public void setAsciiStream(int parameterIndex, InputStream x) throws SQLException {
         getStatement().setAsciiStream(parameterIndex, x);
     }
 
     @Override
-    public void setBinaryStream(int parameterIndex, InputStream x, long length) throws SQLException {
-        getStatement().setBinaryStream(parameterIndex, x, length);
+    public void setAsciiStream(int parameterIndex, InputStream x, int length) throws SQLException {
+        getStatement().setAsciiStream(parameterIndex, x, length);
+    }
+
+    @Override
+    public void setAsciiStream(int parameterIndex, InputStream x, long length) throws SQLException {
+        getStatement().setAsciiStream(parameterIndex, x, length);
     }
 
     @Override
@@ -329,13 +309,28 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public void setCharacterStream(int parameterIndex, Reader reader, long length) throws SQLException {
-        getStatement().setCharacterStream(parameterIndex, reader, length);
+    public void setBinaryStream(int parameterIndex, InputStream x, int length) throws SQLException {
+        getStatement().setBinaryStream(parameterIndex, x, length);
+    }
+
+    @Override
+    public void setBinaryStream(int parameterIndex, InputStream x, long length) throws SQLException {
+        getStatement().setBinaryStream(parameterIndex, x, length);
     }
 
     @Override
     public void setCharacterStream(int parameterIndex, Reader reader) throws SQLException {
         getStatement().setCharacterStream(parameterIndex, reader);
+    }
+
+    @Override
+    public void setCharacterStream(int parameterIndex, Reader reader, int length) throws SQLException {
+        getStatement().setCharacterStream(parameterIndex, reader, length);
+    }
+
+    @Override
+    public void setCharacterStream(int parameterIndex, Reader reader, long length) throws SQLException {
+        getStatement().setCharacterStream(parameterIndex, reader, length);
     }
 
     @Override
@@ -348,39 +343,80 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setNCharacterStream(parameterIndex, value);
     }
 
+    @Deprecated
     @Override
-    public void setDtBoolean(int parameterIndex, DtBoolean value) throws SQLException {
-        getStatement().setString(parameterIndex, value.toStringValue());
+    public void setUnicodeStream(int parameterIndex, InputStream x, int length) throws SQLException {
+        getStatement().setUnicodeStream(parameterIndex, x, length);
+    }
+
+    @Override
+    public void setDtBoolean(int parameterIndex, DtBoolean value)
+            throws SQLException {
+        if (value == null) {
+            getStatement().setNull(parameterIndex, Types.VARCHAR);
+        } else {
+            getStatement().setString(parameterIndex, value.toStringValue());
+        }
     }
     
     @Override
-    public void setDtInteger(int parameterIndex, DtInteger value) throws SQLException {
-        getStatement().setInt(parameterIndex, value.getValue());
+    public void setDtInteger(int parameterIndex, DtInteger value)
+            throws SQLException {
+        if (value == null) {
+            getStatement().setNull(parameterIndex, Types.INTEGER);
+        } else {
+            getStatement().setInt(parameterIndex, value.getValue());
+        }
     }
 
     @Override
-    public void setDtName(int parameterIndex, DtName value) throws SQLException {
-        getStatement().setString(parameterIndex, value.getValue());
+    public void setDtName(int parameterIndex, DtName value) 
+            throws SQLException {
+        if (value == null) {
+            getStatement().setNull(parameterIndex, Types.VARCHAR);
+        } else {
+            getStatement().setString(parameterIndex, value.getValue());
+        }
     }
 
     @Override
-    public void setDtNameNm(int parameterIndex, DtNameNm value) throws SQLException {
-        getStatement().setString(parameterIndex, value.getValue());
+    public void setDtNameNm(int parameterIndex, DtNameNm value) 
+            throws SQLException {
+        if (value == null) {
+            getStatement().setNull(parameterIndex, Types.VARCHAR);
+        } else {
+            getStatement().setString(parameterIndex, value.getValue());
+        }
     }
 
     @Override
-    public void setDtNumber(int parameterIndex, DtNumber value) throws SQLException {
-        getStatement().setBigDecimal(parameterIndex, value.getValue());
+    public void setDtNumber(int parameterIndex, DtNumber value)
+            throws SQLException {
+        if (value == null) {
+            getStatement().setNull(parameterIndex, Types.NUMERIC);
+        } else {
+            getStatement().setBigDecimal(parameterIndex, value.getValue());
+        }
     }
 
     @Override
     public void setDtUid(int parameterIndex, DtUid value) throws SQLException {
-        getStatement().setBigDecimal(parameterIndex, new BigDecimal(value.getValue()));
+        if (value == null) {
+            getStatement().setNull(parameterIndex, Types.NUMERIC);
+        } else {
+            getStatement().setBigDecimal(parameterIndex,
+                    new BigDecimal(value.getValue()));
+        }
     }
 
     @Override
-    public void setDtVarchar(int parameterIndex, DtVarchar value) throws SQLException {
-        getStatement().setString(parameterIndex, value.getValue());
+    public void setDtVarchar(int parameterIndex, DtVarchar value)
+            throws SQLException {
+        if (value == null) {
+            getStatement().setNull(parameterIndex, Types.VARCHAR);
+        } else {
+            getStatement().setString(parameterIndex, value.getValue());
+        }
     }
 
 }

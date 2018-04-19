@@ -16,6 +16,96 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitParamsRunner.class)
 public class DtBooleanTest {
     
+    private List<Object[]> parametersForFromStringValue() {
+        return asList(
+                new Object[] {"Y", DtBoolean.getTRUE(), false},
+                new Object[] {"N", DtBoolean.getFALSE(), false},
+                new Object[] {null, null, false},
+                new Object[] {"true", null, true}
+        );
+    }
+
+    /**
+     * Test fromStringValue static method
+     * @param value - string value new DtBoolean will be created from
+     * @param expectedResult - expected result of conversion
+     * @param failInvalidValue - indicates conversion should raise
+     * InvalidStringValue exception
+     */
+    @Test
+    @Parameters(method = "parametersForFromStringValue")
+    public void testFromStringValue(String value, DtBoolean expectedResult,
+            boolean failInvalidValue) {
+        try {
+            DtBoolean instance = DtBoolean.fromStringValue(value);
+            if (failInvalidValue) {
+                fail("Conversion of string value to DtBoolean should have failed");
+            }
+            assertSame("Incorrect provys string to DtBoolean", expectedResult,
+                    instance);
+        } catch (DtBoolean.InvalidStringValue e) {
+            if (!failInvalidValue) {
+                fail("Failed to convert string to DtBoolean");
+            }
+        }
+    }
+
+    private List<Object[]> parametersForFromValue() {
+        return asList(
+                new Object[] {true, DtBoolean.getTRUE()},
+                new Object[] {false, DtBoolean.getFALSE()}
+        );
+    }
+
+    /**
+     * Test fromValue static method
+     * @param value - boolean value new DtBoolean will be created from
+     * @param expectedResult - expected result of conversion
+     */
+    @Test
+    @Parameters(method = "parametersForFromValue")
+    public void testFromValue(boolean value, DtBoolean expectedResult) {
+        DtBoolean instance = DtBoolean.fromValue(value);
+        assertSame("Incorrect provys boolean to DtBoolean", expectedResult,
+                instance);
+    }
+
+    private List<Object[]> parametersForFromString() {
+        return asList(
+                new Object[] {"true", DtBoolean.getTRUE(), false},
+                new Object[] {"False", DtBoolean.getFALSE(), false},
+                new Object[] {null, null, false},
+                new Object[] {"1", DtBoolean.getTRUE(), false},
+                new Object[] {"0", DtBoolean.getFALSE(), false},
+                new Object[] {"Y", null, true}
+        );
+    }
+
+    /**
+     * Test fromString static method
+     * @param value - string value new DtBoolean will be created from
+     * @param expectedResult - expected result of conversion
+     * @param failInvalidString - indicates conversion should raise
+     * InvalidString exception
+     */
+    @Test
+    @Parameters(method = "parametersForFromString")
+    public void testFromString(String value, DtBoolean expectedResult,
+            boolean failInvalidString) {
+        try {
+            DtBoolean instance = DtBoolean.fromString(value);
+            if (failInvalidString) {
+                fail("Conversion of string value to DtBoolean should have failed");
+            }
+            assertSame("Incorrect string to DtBoolean", expectedResult,
+                    instance);
+        } catch (DtBoolean.InvalidString e) {
+            if (!failInvalidString) {
+                fail("Failed to convert string to DtBoolean");
+            }
+        }
+    }
+
     private List<Object[]> parametersForDtBoolean() {
         return asList(
                 new Object[] {true},

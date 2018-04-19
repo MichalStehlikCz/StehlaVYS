@@ -679,19 +679,23 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         }
     }
     
+    @Override
     public DtBoolean getDtBoolean(int parameterIndex) throws SQLException {
         String value = getStatement().getString(parameterIndex);
         if (getStatement().wasNull()) {
             return null;
         } else {
-            switch (value) {
-                case "Y":
-                    return new DtBoolean(true);
-                case "N":
-                    return new DtBoolean(false);
-                default:
-                    throw new ProvysException("Invalid boolean value "+value);
-            }
+            return DtBoolean.fromStringValue(value);
+        }
+    }
+
+    @Override
+    public DtBoolean getDtBoolean(String parameterName) throws SQLException {
+        String value = getStatement().getString(parameterName);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return DtBoolean.fromStringValue(value);
         }
     }
 
@@ -706,12 +710,52 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     }
 
     @Override
+    public DtInteger getDtInteger(int parameterIndex) throws SQLException {
+        int value = getStatement().getInt(parameterIndex);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return new DtInteger(value);
+        }
+    }
+
+    @Override
+    public DtInteger getDtInteger(String parameterName) throws SQLException {
+        int value = getStatement().getInt(parameterName);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return new DtInteger(value);
+        }
+    }
+
+    @Override
     public void setDtName(String parameterName, DtName value) 
             throws SQLException {
         if (value == null) {
             getStatement().setNull(parameterName, Types.VARCHAR);
         } else {
             getStatement().setString(parameterName, value.getValue());
+        }
+    }
+
+    @Override
+    public DtName getDtName(int parameterIndex) throws SQLException {
+        String value = getStatement().getString(parameterIndex);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return new DtName(value);
+        }
+    }
+
+    @Override
+    public DtName getDtName(String parameterName) throws SQLException {
+        String value = getStatement().getString(parameterName);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return new DtName(value);
         }
     }
 
@@ -726,12 +770,52 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     }
 
     @Override
+    public DtNameNm getDtNameNm(int parameterIndex) throws SQLException {
+        String value = getStatement().getString(parameterIndex);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return new DtNameNm(value);
+        }
+    }
+
+    @Override
+    public DtNameNm getDtNameNm(String parameterName) throws SQLException {
+        String value = getStatement().getString(parameterName);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return new DtNameNm(value);
+        }
+    }
+
+    @Override
     public void setDtNumber(String parameterName, DtNumber value)
             throws SQLException {
         if (value == null) {
             getStatement().setNull(parameterName, Types.NUMERIC);
         } else {
             getStatement().setBigDecimal(parameterName, value.getValue());
+        }
+    }
+
+    @Override
+    public DtNumber getDtNumber(int parameterIndex) throws SQLException {
+        BigDecimal value = getStatement().getBigDecimal(parameterIndex);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return new DtNumber(value);
+        }
+    }
+
+    @Override
+    public DtNumber getDtNumber(String parameterName) throws SQLException {
+        BigDecimal value = getStatement().getBigDecimal(parameterName);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return new DtNumber(value);
         }
     }
 
@@ -746,12 +830,52 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     }
 
     @Override
+    public DtUid getDtUid(int parameterIndex) throws SQLException {
+        BigDecimal value = getStatement().getBigDecimal(parameterIndex);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return new DtUid(value.toPlainString());
+        }
+    }
+
+    @Override
+    public DtUid getDtUid(String parameterName) throws SQLException {
+        BigDecimal value = getStatement().getBigDecimal(parameterName);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return new DtUid(value.toPlainString());
+        }
+    }
+
+    @Override
     public void setDtVarchar(String parameterName, DtVarchar value)
             throws SQLException {
         if (value == null) {
             getStatement().setNull(parameterName, Types.VARCHAR);
         } else {
             getStatement().setString(parameterName, value.getValue());
+        }
+    }
+
+    @Override
+    public DtVarchar getDtVarchar(int parameterIndex) throws SQLException {
+        String value = getStatement().getString(parameterIndex);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return new DtVarchar(value);
+        }
+    }
+
+    @Override
+    public DtVarchar getDtVarchar(String parameterName) throws SQLException {
+        String value = getStatement().getString(parameterName);
+        if (getStatement().wasNull()) {
+            return null;
+        } else {
+            return new DtVarchar(value);
         }
     }
 

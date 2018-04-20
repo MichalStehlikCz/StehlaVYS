@@ -298,6 +298,30 @@ public class ProvysStatementImpl implements ProvysStatement {
     }
 
     @Override
+    public void defineColumnType(int columnIndex, int type)
+            throws SQLException {
+        getStatement().defineColumnType(columnIndex, type);
+    }
+    
+    @Override
+    public void defineColumnType(int columnIndex, int type, int maxSize)
+            throws SQLException {
+        getStatement().defineColumnType(columnIndex, type, maxSize);
+    }
+
+    @Override
+    public void defineColumnTypeBytes(int columnIndex, int type, int maxSize)
+            throws SQLException {
+        getStatement().defineColumnTypeBytes(columnIndex, type, maxSize);
+    }
+
+    @Override
+    public void defineColumnTypeChars(int columnIndex, int type, int maxSize)
+            throws SQLException {
+        getStatement().defineColumnTypeChars(columnIndex, type, maxSize);
+    }
+
+    @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
         if (isWrapperFor(iface)) {
             return iface.cast(this);

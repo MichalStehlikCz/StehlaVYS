@@ -14,6 +14,7 @@ import com.provys.common.datatypes.DtUid;
 import com.provys.common.datatypes.DtVarchar;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Interface extends CallableStatement for use in PROVYS system. It is
@@ -212,5 +213,12 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
      * @throws SQLException is thrown when problem is encountered
      */
     public void setBind(BindValue bind) throws SQLException;
+
+    /**
+     * Set value of bind variables from list to statement.
+     * @param binds is list of bind names and values to be set
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public void setBind(List<BindValue> binds) throws SQLException;
 
 }

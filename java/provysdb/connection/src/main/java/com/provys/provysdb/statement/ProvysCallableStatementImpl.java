@@ -12,6 +12,8 @@ import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtNumber;
 import com.provys.common.datatypes.DtUid;
 import com.provys.common.datatypes.DtVarchar;
+import com.provys.common.error.ProvysException;
+import com.provys.provysdb.api.BindValue;
 import com.provys.provysdb.api.ProvysCallableStatement;
 import java.io.InputStream;
 import java.io.Reader;
@@ -32,6 +34,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import oracle.jdbc.OracleCallableStatement;
@@ -878,4 +881,94 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         }
     }
 
+    @Override
+    public void setBind(BindValue bind) throws SQLException {
+        switch (bind.getDatatype().getSimpleName()) {
+            case "DtBoolean":
+                setDtBoolean(bind.getName(), (DtBoolean) bind.getValue());
+                break;
+            case "DtInteger":
+                setDtInteger(bind.getName(), (DtInteger) bind.getValue());
+                break;
+            case "DtName":
+                setDtName(bind.getName(), (DtName) bind.getValue());
+                break;
+            case "DtNameNm":
+                setDtNameNm(bind.getName(), (DtNameNm) bind.getValue());
+                break;
+            case "DtNumber":
+                setDtNumber(bind.getName(), (DtNumber) bind.getValue());
+                break;
+            case "DtUid":
+                setDtUid(bind.getName(), (DtUid) bind.getValue());
+                break;
+            case "DtVarchar":
+                setDtVarchar(bind.getName(), (DtVarchar) bind.getValue());
+                break;
+            case "Boolean":
+                setBoolean(bind.getName(), (Boolean) bind.getValue());
+                break;
+            case "Byte":
+                setByte(bind.getName(), (Byte) bind.getValue());
+                break;
+            case "Short":
+                setShort(bind.getName(), (Short) bind.getValue());
+                break;
+            case "Integer":
+                setInt(bind.getName(), (Integer) bind.getValue());
+                break;
+            case "Long":
+                setLong(bind.getName(), (Long) bind.getValue());
+                break;
+            case "Float":
+                setFloat(bind.getName(), (Float) bind.getValue());
+                break;
+            case "Double":
+                setDouble(bind.getName(), (Double) bind.getValue());
+                break;
+            case "BigDecimal":
+                setBigDecimal(bind.getName(), (BigDecimal) bind.getValue());
+                break;
+            case "String":
+                setString(bind.getName(), (String) bind.getValue());
+                break;
+            case "Date":
+                setDate(bind.getName(), (Date) bind.getValue());
+                break;
+            case "Time":
+                setTime(bind.getName(), (Time) bind.getValue());
+                break;
+            case "Timestamp":
+                setTimestamp(bind.getName(), (Timestamp) bind.getValue());
+                break;
+            default:
+                throw new UnsupportedBindDatatypeException(bind.getDatatype());
+        }
+    }
+
+    @Override
+    public void setBind(List<BindValue> binds) throws SQLException {
+        binds.forEach((bind) -> {
+            try {
+                this.setBind(bind);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    /**
+     * Exception raised when value supplied to Bind is not one of supported
+     * types
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class UnsupportedBindDatatypeException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        UnsupportedBindDatatypeException(Class<?> datatype) {
+            super("Unsupported data type for bind: "+datatype.getSimpleName());
+        }
+    }
 }

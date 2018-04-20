@@ -5,12 +5,57 @@
  */
 package com.provys.provysdb.api;
 
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
- * @author micha
+ * Interface that wraps Statement for PROVYS use
+ * 
+ * @author stehlik
  */
 public interface ProvysStatement extends Statement {
+    
+    /**
+     * Defines the type you will use to retrieve data from a particular database
+     * table column.
+     * @param columnIndex is column order (starting from 1)
+     * @param type is assigned type (java.sql.Types)
+     * @throws SQLException is exception thrown during assignment
+     */
+    public void defineColumnType(int columnIndex, int type) throws SQLException;
+    
+    /**
+     * Defines the type you will use to retrieve data and maximal size of data
+     * from a particular database table column.
+     * @param columnIndex is column order (starting from 1)
+     * @param type is assigned type (java.sql.Types)
+     * @param maxSize is maximal size (in database units) of defined column
+     * @throws SQLException is exception thrown during assignment
+     */
+    public void defineColumnType(int columnIndex, int type, int maxSize)
+            throws SQLException;
 
- }
+    /**
+     * Defines the type you will use to retrieve data and maximal size of data
+     * from a particular database table column.
+     * @param columnIndex is column order (starting from 1)
+     * @param type is assigned type (java.sql.Types)
+     * @param maxSize is maximal size (in bytes) of defined column
+     * @throws SQLException is exception thrown during assignment
+     */
+    public void defineColumnTypeBytes(int columnIndex, int type, int maxSize)
+            throws SQLException;
+
+    /**
+     * Defines the type you will use to retrieve data and maximal size of data
+     * from a particular database table column.
+     * @param columnIndex is column order (starting from 1)
+     * @param type is assigned type (java.sql.Types)
+     * @param maxSize is maximal size (in characters) of defined column
+     * @throws SQLException is exception thrown during assignment
+     */
+    public void defineColumnTypeChars(int columnIndex, int type, int maxSize)
+            throws SQLException;
+
+
+}

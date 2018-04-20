@@ -12,5 +12,6 @@
   <modules>
     <module>connection</module>
     <module>api</module>
+    <module>sqlbuilder</module>
   </modules>
 </project>

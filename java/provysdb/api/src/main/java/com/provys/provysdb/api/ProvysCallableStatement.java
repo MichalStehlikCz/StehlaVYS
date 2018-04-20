@@ -42,6 +42,12 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
      */
     public DtBoolean getDtBoolean(int parameterIndex) throws SQLException;
 
+    /**
+     * Get value of DtBoolean type OUT parameter with given bind name
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
     public DtBoolean getDtBoolean(String parameterName) throws SQLException;
 
     /**
@@ -62,6 +68,12 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
      */
     public DtInteger getDtInteger(int parameterIndex) throws SQLException;
 
+    /**
+     * Get value of DtInteger type OUT parameter with given bind name
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
     public DtInteger getDtInteger(String parameterName) throws SQLException;
 
     /**
@@ -82,6 +94,12 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
      */
     public DtName getDtName(int parameterIndex) throws SQLException;
 
+    /**
+     * Get value of DtName type OUT parameter with given bind name
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
     public DtName getDtName(String parameterName) throws SQLException;
 
     /**
@@ -102,6 +120,12 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
      */
     public DtNameNm getDtNameNm(int parameterIndex) throws SQLException;
 
+    /**
+     * Get value of DtNameNm type OUT parameter with given bind name
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
     public DtNameNm getDtNameNm(String parameterName) throws SQLException;
 
     /**
@@ -122,6 +146,12 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
      */
     public DtNumber getDtNumber(int parameterIndex) throws SQLException;
 
+    /**
+     * Get value of DtNumber type OUT parameter with given bind name
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
     public DtNumber getDtNumber(String parameterName) throws SQLException;
 
     /**
@@ -142,6 +172,12 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
      */
     public DtUid getDtUid(int parameterIndex) throws SQLException;
 
+    /**
+     * Get value of DtNumber type OUT parameter with given bind name
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
     public DtUid getDtUid(String parameterName) throws SQLException;
 
     /**
@@ -162,6 +198,19 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
      */
     public DtVarchar getDtVarchar(int parameterIndex) throws SQLException;
 
+    /**
+     * Get value of DtVarchar type OUT parameter with given bind name
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
     public DtVarchar getDtVarchar(String parameterName) throws SQLException;
+
+    /**
+     * Set value of bind variable to statement.
+     * @param bind is bind name and value to be set
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public void setBind(BindValue bind) throws SQLException;
 
 }

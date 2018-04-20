@@ -12,7 +12,6 @@ import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtNumber;
 import com.provys.common.datatypes.DtUid;
 import com.provys.common.datatypes.DtVarchar;
-import com.provys.common.error.ProvysException;
 import com.provys.provysdb.api.ProvysCallableStatement;
 import java.io.InputStream;
 import java.io.Reader;

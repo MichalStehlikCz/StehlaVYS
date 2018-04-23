@@ -6,12 +6,16 @@
 package com.provys.common.confobj;
 
 import com.provys.common.datatypes.DtUid;
+import java.sql.RowId;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import oracle.sql.ROWID;
 
 /**
- *
+ * Generic class acting as memory storage for configuration objects.
+ * It supplies methods for loading configuration object and accessing loaded
+ * instances by Id. Subclasses can supply additional indices to allow access by
+ * other properties (e.g. by internal name of object)
+ * 
  * @author stehlik
  * @param <T> Configuration object class this storage is used for
  * 
@@ -19,7 +23,7 @@ import oracle.sql.ROWID;
 public abstract class ConfObjectManager<T extends ConfObject>{
 
     protected final Map<DtUid, T> mapById;
-    protected final Map<ROWID, T> mapByRowid;
+    protected final Map<RowId, T> mapByRowid;
 
     public ConfObjectManager() {
         mapById = new ConcurrentHashMap<>(20);
@@ -58,7 +62,8 @@ public abstract class ConfObjectManager<T extends ConfObject>{
 
     public void load(DtUid id) {
         if (!mapById.containsKey(id)){
-            ObjectWithRowid<T> confObjectWithRowid = this.getConfObjectLoader().load(id);
+            ObjectWithRowid<T> confObjectWithRowid
+                    = this.getConfObjectLoader().load(id);
             this.add(confObjectWithRowid);
         }
     }

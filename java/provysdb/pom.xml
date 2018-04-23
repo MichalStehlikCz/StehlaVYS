@@ -11,7 +11,8 @@
     <packaging>pom</packaging>
   <modules>
     <module>connection</module>
-    <module>api</module>
     <module>sqlbuilder</module>
+    <module>common</module>
+    <module>provysdb-api</module>
   </modules>
 </project>

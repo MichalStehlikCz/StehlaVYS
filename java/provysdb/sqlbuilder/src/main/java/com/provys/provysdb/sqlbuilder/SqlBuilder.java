@@ -9,24 +9,26 @@ import com.provys.provysdb.api.BindValue;
 import java.util.List;
 
 /**
- * SqlBuilder class provides means to easily build SQL statements.
- * Its specialised ancestors are used to build SELECT / INSERT / UPDATE / DELETE
- * statements. SqlBuilder allows to build queries both using native SQL
- * and to exploit PROVYS metadata catalogue. Latter is reason why 3rd party
- * library cannot be reasonably utilised - as no 3rd part library has link to
- * catalogue module.
+ * SqlBuilder class provides means to easily build SQL SELECT statements.
+ * SqlBuilder allows to build queries both using native SQL and to exploit
+ * PROVYS metadata catalogue. Latter is reason why 3rd party library cannot be
+ * reasonably utilised - as no 3rd part library has link to catalogue module.
+ *  
+ * Whole concept works as follows
+ * - SQLBuilder represents Entity + key, where key might be reference to
+ * column in table or bind variable
+ * - it is possible to attach condition to SQLBuilder
+ * - it is possible to use SQLBuilder + relation as condition in SQLBuilder
+ * - it is possible to attach additional column to SQLBuilder
+ * - it is possible to use SQLBuilder and reference to its 
  * 
  * @author stehlik
  */
-abstract public class SqlBuilder {
+interface SqlBuilder {
 
-    String key;
-    String table;
-    String alias;
-    List<SqlBuilder> subqueries;
-    List<WhereCond> wherecond;
-
-    abstract public String getSql();
-    abstract public List<BindValue> getBinds();
+    public String getSql();
+    public List<BindValue> getBinds();
+    
+    public void Retype(ConfRel relation);
     
 }

@@ -17,9 +17,6 @@ import javax.sql.DataSource;
  */
 public abstract class ConfObjectLoader<T extends ConfObject> {
     
-    @Resource(lookup = "jdbc/provysDB")
-    protected DataSource provysDB;
-
     public abstract ObjectWithRowid<T> load(DtUid id);
     
 }

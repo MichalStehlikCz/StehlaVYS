@@ -5,7 +5,7 @@
  */
 package com.provys.common.confobj;
 
-import oracle.sql.ROWID;
+import java.sql.RowId;
 
 /**
  * Used to pass object together with its ROWID; useful to find deleted objects
@@ -16,10 +16,10 @@ import oracle.sql.ROWID;
  */
 public class ObjectWithRowid<T> {
 
-    private final ROWID rowid;
+    private final RowId rowid;
     private final T object;
 
-    public ObjectWithRowid(ROWID rowid, T object) {
+    public ObjectWithRowid(RowId rowid, T object) {
         this.rowid = rowid;
         this.object = object;
     }
@@ -29,7 +29,7 @@ public class ObjectWithRowid<T> {
      *
      * @return the rowid
      */
-    public ROWID getRowid() {
+    public RowId getRowid() {
         return rowid;
     }
 

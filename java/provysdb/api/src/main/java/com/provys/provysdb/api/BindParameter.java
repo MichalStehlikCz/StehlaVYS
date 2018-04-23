@@ -6,9 +6,29 @@
 package com.provys.provysdb.api;
 
 /**
- * BindVariable extends BindValue with specfiieca
+ * BindParameter extends BindValue with specfiieca
  * @author stehlik
  */
-public class BindVariable extends BindValue {
+public class BindParameter extends BindValue {
+    
+    private static final long serialVersionUID = 1L;
+    
+    private ParameterMode mode;
+
+    /**
+     * Plain getter got mode
+     * @return the mode
+     */
+    public ParameterMode getMode() {
+        return mode;
+    }
+
+    /**
+     * Plain setter for mode
+     * @param mode the mode to set
+     */
+    public void setMode(ParameterMode mode) {
+        this.mode = mode;
+    }
     
 }

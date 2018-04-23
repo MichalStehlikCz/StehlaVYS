@@ -17,6 +17,14 @@ import java.util.List;
  * @author stehlik
  */
 public interface WhereCond {
+    /**
+     * Returns String expression that should be used in WHERE clause of the
+     * SQL query
+     * 
+     * @param alias represents alias associated with table
+     * @param binds
+     * @return 
+     */
     public String getWhere(String alias, List<BindValue> binds);
     public int getCost();
     

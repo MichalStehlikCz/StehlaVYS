@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.sqlbuilder;
 
+import com.provys.provysdb.api.BindValue;
 import java.util.List;
 
 /**
@@ -23,6 +24,9 @@ abstract public class SqlBuilder {
     String table;
     String alias;
     List<SqlBuilder> subqueries;
-    List<String> wherecond;
+    List<WhereCond> wherecond;
 
+    abstract public String getSql();
+    abstract public List<BindValue> getBinds();
+    
 }

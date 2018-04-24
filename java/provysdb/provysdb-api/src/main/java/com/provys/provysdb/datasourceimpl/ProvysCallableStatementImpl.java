@@ -13,7 +13,10 @@ import com.provys.common.datatypes.DtNumber;
 import com.provys.common.datatypes.DtUid;
 import com.provys.common.datatypes.DtVarchar;
 import com.provys.common.error.ProvysException;
+import com.provys.common.error.ProvysSqlException;
+import com.provys.provysdb.call.BindParameter;
 import com.provys.provysdb.call.BindValue;
+import com.provys.provysdb.call.ParameterMode;
 import com.provys.provysdb.datasource.ProvysCallableStatement;
 import java.io.InputStream;
 import java.io.Reader;
@@ -36,6 +39,8 @@ import java.sql.Types;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import oracle.jdbc.OracleCallableStatement;
 
@@ -45,6 +50,7 @@ import oracle.jdbc.OracleCallableStatement;
  */
 public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         implements ProvysCallableStatement {
+
     private static final Logger LOG = Logger.getLogger(ProvysCallableStatementImpl.class.getName());
 
     /**
@@ -59,6 +65,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
 
     /**
      * Getter method for statement
+     *
      * @return OraclePreparedStatement this instance decorates
      */
     private OracleCallableStatement getStatement() {
@@ -680,7 +687,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
             getStatement().setString(parameterName, value.toStringValue());
         }
     }
-    
+
     @Override
     public DtBoolean getDtBoolean(int parameterIndex) throws SQLException {
         String value = getStatement().getString(parameterIndex);
@@ -732,7 +739,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     }
 
     @Override
-    public void setDtName(String parameterName, DtName value) 
+    public void setDtName(String parameterName, DtName value)
             throws SQLException {
         if (value == null) {
             getStatement().setNull(parameterName, Types.VARCHAR);
@@ -762,7 +769,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     }
 
     @Override
-    public void setDtNameNm(String parameterName, DtNameNm value) 
+    public void setDtNameNm(String parameterName, DtNameNm value)
             throws SQLException {
         if (value == null) {
             getStatement().setNull(parameterName, Types.VARCHAR);
@@ -947,14 +954,173 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     }
 
     @Override
-    public void setBind(List<BindValue> binds) throws SQLException {
+    public void setBinds(List<BindValue> binds) {
         binds.forEach((bind) -> {
             try {
                 this.setBind(bind);
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new ProvysSqlException(e);
             }
         });
+    }
+
+    @Override
+    public void setParameter(BindParameter parameter) throws SQLException {
+        if ((parameter.getMode() == ParameterMode.INOUT)
+                || (parameter.getMode() == ParameterMode.OUT)) {
+            int type;
+            int size = -1;
+            switch (parameter.getDatatype().getSimpleName()) {
+                case "DtBoolean":
+                    type = Types.CHAR;
+                    size = 1;
+                    break;
+                case "DtInteger":
+                    type = Types.INTEGER;
+                    break;
+                case "DtName":
+                case "DtNameNm":
+                    type = Types.VARCHAR;
+                    size = 200;
+                    break;
+                case "DtNumber":
+                case "DtUid":
+                    type = Types.DECIMAL;
+                    break;
+                case "DtVarchar":
+                    type = Types.VARCHAR;
+                    size = 4000;
+                    break;
+                case "Boolean":
+                    type = Types.BOOLEAN;
+                    break;
+                case "Byte":
+                    type = Types.INTEGER;
+                    break;
+                case "Short":
+                    type = Types.INTEGER;
+                    break;
+                case "Integer":
+                    type = Types.INTEGER;
+                    break;
+                case "Long":
+                    type = Types.BIGINT;
+                    break;
+                case "Float":
+                    type = Types.FLOAT;
+                    break;
+                case "Double":
+                    type = Types.DOUBLE;
+                    break;
+                case "BigDecimal":
+                    type = Types.DECIMAL;
+                    break;
+                case "String":
+                    type = Types.VARCHAR;
+                    size = 4000;
+                    break;
+                case "Date":
+                    type = Types.DATE;
+                    break;
+                case "Time":
+                    type = Types.TIME;
+                    break;
+                case "Timestamp":
+                    type = Types.TIMESTAMP;
+                    break;
+                default:
+                    throw new UnsupportedBindDatatypeException(
+                            parameter.getDatatype());
+            }
+            if (size > 0) {
+                registerOutParameter(parameter.getName(), type, size);
+            } else {
+                registerOutParameter(parameter.getName(), type);
+            }
+        }
+        if ((parameter.getMode() == ParameterMode.IN)
+                || (parameter.getMode() == ParameterMode.INOUT)) {
+            this.setBind(parameter);
+        }
+    }
+
+    @Override
+    public void setParameters(List<BindParameter> parameters) {
+        parameters.forEach((parameter) -> {
+            try {
+                this.setParameter(parameter);
+            } catch (SQLException e) {
+                throw new ProvysSqlException(e);
+            }
+        });
+
+    }
+
+    @Override
+    public Object getParameter(BindParameter parameter) throws SQLException {
+        if (parameter.getMode() == ParameterMode.IN) {
+            throw new CannotGetValueOfINParameter(parameter.getName());
+        }
+        switch (parameter.getDatatype().getSimpleName()) {
+            case "DtBoolean":
+                return getDtBoolean(parameter.getName());
+            case "DtInteger":
+                return getDtInteger(parameter.getName());
+            case "DtName":
+                return getDtName(parameter.getName());
+            case "DtNameNm":
+                return getDtNameNm(parameter.getName());
+            case "DtNumber":
+                return getDtNumber(parameter.getName());
+            case "DtUid":
+                return getDtUid(parameter.getName());
+            case "DtVarchar":
+                return getDtVarchar(parameter.getName());
+            case "Boolean":
+                return getBoolean(parameter.getName());
+            case "Byte":
+                return getByte(parameter.getName());
+            case "Short":
+                return getShort(parameter.getName());
+            case "Integer":
+                return getInt(parameter.getName());
+            case "Long":
+                return getLong(parameter.getName());
+            case "Float":
+                return getFloat(parameter.getName());
+            case "Double":
+                return getDouble(parameter.getName());
+            case "BigDecimal":
+                return getBigDecimal(parameter.getName());
+            case "String":
+                return getString(parameter.getName());
+            case "Date":
+                return getDate(parameter.getName());
+            case "Time":
+                return getTime(parameter.getName());
+            case "Timestamp":
+                return getTimestamp(parameter.getName());
+            default:
+                throw new UnsupportedBindDatatypeException(
+                        parameter.getDatatype());
+        }
+    }
+
+    @Override
+    public Map<String, Object> getParameters(List<BindParameter> parameters) {
+        Map<String, Object> result = new ConcurrentHashMap<>(10);
+        parameters.stream().filter((parameter)
+                -> ((parameter.getMode() == ParameterMode.INOUT)
+                || (parameter.getMode() == ParameterMode.OUT))).
+                forEach((parameter) -> {
+                    try {
+                        result.put(parameter.getName(),
+                                getParameter(parameter));
+                    } catch (SQLException e) {
+                        throw new ProvysSqlException(e);
+                    }
+                });
+        return result;
     }
 
     /**
@@ -968,7 +1134,22 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         private static final long serialVersionUID = 1L;
 
         UnsupportedBindDatatypeException(Class<?> datatype) {
-            super("Unsupported data type for bind: "+datatype.getSimpleName());
+            super("Unsupported data type for bind: " + datatype.getSimpleName());
         }
     }
+
+    /**
+     * Exception raised when getParameter is called on IN parameter
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class CannotGetValueOfINParameter
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        CannotGetValueOfINParameter(String parameter) {
+            super("Cannot get value of IN parameter: " + parameter);
+        }
+    }
+
 }

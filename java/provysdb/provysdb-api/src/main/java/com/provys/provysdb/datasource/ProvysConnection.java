@@ -5,12 +5,15 @@
  */
 package com.provys.provysdb.datasource;
 
+import com.provys.provysdb.call.ProcCall;
+import com.provys.provysdb.call.SQLCall;
 import java.sql.Array;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.NClob;
+import java.sql.ResultSet;
 import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
@@ -109,9 +112,6 @@ public interface ProvysConnection extends Connection {
     boolean isValid(int timeout) throws SQLException;
 
     @Override
-    boolean isWrapperFor(Class<?> iface) throws SQLException;
-
-    @Override
     String nativeSQL(String sql) throws SQLException;
 
     @Override
@@ -186,7 +186,49 @@ public interface ProvysConnection extends Connection {
     @Override
     void setTypeMap(Map<String, Class<?>> map) throws SQLException;
 
+    /**
+     * Binds all values, executes statement and returns resulting ResultSet.
+     * This method should only be used with simple SELECT statement. For update
+     * statements, executeUpdate should be used instead
+     * 
+     * @param sqlCall is SQL statement with binds and column definitions
+     * describing query to be executed
+     * @return ResultSet containing results of query
+     * @throws java.sql.SQLException when any exception occurs during SQL
+     * processing
+     */
+    public ResultSet executeQuery(SQLCall sqlCall) throws SQLException;
+
+    /**
+     * Binds all values, executes statement and returns number of affected rows.
+     * This method should only be used with simple UPDATE / DELETE statements.
+     * For select statements, executeQuery should be used instead
+     * 
+     * @param sqlCall is SQL statement with binds and column definitions
+     * describing query to be executed
+     * @return number of modified rows
+     * @throws java.sql.SQLException when any exception occurs during SQL
+     * processing
+     */
+    public int executeUpdate(SQLCall sqlCall) throws SQLException;
+
+    /**
+     * Binds all variables, executes statement and returns values of OUT
+     * parameters.
+     * This method is meant to execute anonymous PL/SQL blocks. If there are no
+     * OUT parameters, method returns null instead of empty collection.
+     * 
+     * @param procCall is procedural statement with parameter definitions
+     * @return collection of OUT parameters with values
+     * @throws java.sql.SQLException when any exception occurs during SQL
+     * processing
+     */
+    public Map<String, Object> executeProc(ProcCall procCall)
+            throws SQLException;
+
     @Override
     <T> T unwrap(Class<T> iface) throws SQLException;
 
+    @Override
+    boolean isWrapperFor(Class<?> iface) throws SQLException;
 }

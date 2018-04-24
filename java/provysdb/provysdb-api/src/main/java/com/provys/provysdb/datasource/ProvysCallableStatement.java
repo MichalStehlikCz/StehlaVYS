@@ -13,9 +13,12 @@ import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtNumber;
 import com.provys.common.datatypes.DtUid;
 import com.provys.common.datatypes.DtVarchar;
+import com.provys.provysdb.call.BindParameter;
+import com.provys.provysdb.call.ParameterMode;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Interface extends CallableStatement for use in PROVYS system. It is
@@ -220,6 +223,41 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
      * @param binds is list of bind names and values to be set
      * @throws SQLException is thrown when problem is encountered
      */
-    public void setBind(List<BindValue> binds) throws SQLException;
+    public void setBinds(List<BindValue> binds);
 
+    /**
+     * Set value of parameter to statement and define its output type if
+     * appropriate.
+     * @param parameter is bind parameter to be set / registered
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public void setParameter(BindParameter parameter) throws SQLException;
+
+    /**
+     * Set value of parameters from list to statement and define their output
+     * types if appropriate.
+     * @param parameters is list of parameters to be set / registered
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public void setParameters(List<BindParameter> parameters);
+
+    /**
+     * Get value of supplied parameter after execution of stored procedure.
+     * 
+     * @param parameter whose value is to be retrieved
+     * @return value of given IN/OUT or OUT parameter as set by statement
+     * execution
+     * @throws SQLException when problem is encountered
+     */
+    public Object getParameter(BindParameter parameter) throws SQLException;
+
+    /**
+     * Get values of IN/OUT and OUT parameters in supplied list.
+     * IN parameters in list are ignored and their value is not included in
+     * output collection.
+     * 
+     * @param parameters is list of parameters which should be retrieved
+     * @return collection of parameter names and their respective values
+     */
+    public Map<String, Object> getParameters(List<BindParameter> parameters);
 }

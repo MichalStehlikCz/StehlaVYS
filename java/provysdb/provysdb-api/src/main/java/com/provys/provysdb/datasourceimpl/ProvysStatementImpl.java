@@ -5,12 +5,16 @@
  */
 package com.provys.provysdb.datasourceimpl;
 
+import com.provys.common.error.ProvysSqlException;
+import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.datasource.ProvysStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.Statement;
+import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import oracle.jdbc.OracleStatement;
 
@@ -20,33 +24,36 @@ import oracle.jdbc.OracleStatement;
  * @author stehlik
  */
 public class ProvysStatementImpl implements ProvysStatement {
+
     private static final Logger LOG = Logger.getLogger(ProvysStatementImpl.class.getName());
 
     /**
-     * Wrapped OracelStatement, implementing functionality, decorated
- by ProvysStatementImpl
+     * Wrapped OracelStatement, implementing functionality, decorated by
+     * ProvysStatementImpl
      */
     final protected OracleStatement statement;
-    
+
     /**
      * Creates ProvysStatement built around supplied OracleStatement
+     *
      * @param statement is statement this instance decorates
      * @throws java.sql.SQLException potentially raised by unwrap of supplied
      * statement to OracleStatement
-     * 
+     *
      */
     public ProvysStatementImpl(Statement statement) throws SQLException {
         this.statement = statement.unwrap(OracleStatement.class);
     }
-    
+
     /**
      * Getter method for statement
+     *
      * @return OracleStatement this instance decorates
      */
     private OracleStatement getStatement() {
         return this.statement;
     }
-    
+
     @Override
     public boolean execute(String sql) throws SQLException {
         return getStatement().execute(sql);
@@ -302,11 +309,34 @@ public class ProvysStatementImpl implements ProvysStatement {
             throws SQLException {
         getStatement().defineColumnType(columnIndex, type);
     }
-    
+
     @Override
     public void defineColumnType(int columnIndex, int type, int maxSize)
             throws SQLException {
         getStatement().defineColumnType(columnIndex, type, maxSize);
+    }
+
+    @Override
+    public void defineColumnType(int columnIndex, ColumnDef column)
+            throws SQLException {
+        if (column.getSize() > 0) {
+            defineColumnType(columnIndex, column.getType(), column.getSize());
+        } else {
+            defineColumnType(columnIndex, column.getType());
+        }
+    }
+
+    @Override
+    public void defineColumnTypes(Map<Integer, ColumnDef> columns)
+            throws SQLException {
+        columns.forEach((columnIndex, column) -> {
+            try {
+                defineColumnType(columnIndex, column);
+            } catch (SQLException e) {
+                throw new ProvysSqlException(e);
+            }
+        });
+
     }
 
     @Override

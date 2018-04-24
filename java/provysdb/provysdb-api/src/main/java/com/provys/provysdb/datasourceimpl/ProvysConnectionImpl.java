@@ -5,6 +5,9 @@
  */
 package com.provys.provysdb.datasourceimpl;
 
+import com.provys.provysdb.call.ParameterMode;
+import com.provys.provysdb.call.ProcCall;
+import com.provys.provysdb.call.SQLCall;
 import com.provys.provysdb.datasource.ProvysCallableStatement;
 import com.provys.provysdb.datasource.ProvysConnection;
 import com.provys.provysdb.datasource.ProvysPreparedStatement;
@@ -15,14 +18,17 @@ import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.NClob;
+import java.sql.ResultSet;
 import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.SQLXML;
 import java.sql.Savepoint;
 import java.sql.Struct;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.logging.Logger;
 
@@ -340,5 +346,42 @@ public class ProvysConnectionImpl implements ProvysConnection {
         return conn.isWrapperFor(iface);
     }
 
-    
+    @Override
+    public ResultSet executeQuery(SQLCall sqlCall) throws SQLException {
+        ProvysCallableStatement statement = this.prepareCall(sqlCall.getSql());
+        if (sqlCall.getValues() != null) {
+            statement.setBinds(sqlCall.getValues());
+        }
+        if (sqlCall.getColumns() != null) {
+            statement.defineColumnTypes(sqlCall.getColumns());
+        }
+        return statement.executeQuery();
+    }
+ 
+    @Override
+    public int executeUpdate(SQLCall sqlCall) throws SQLException {
+        ProvysCallableStatement statement = this.prepareCall(sqlCall.getSql());
+        if (sqlCall.getValues() != null) {
+            statement.setBinds(sqlCall.getValues());
+        }
+        if (sqlCall.getColumns() != null) {
+            statement.defineColumnTypes(sqlCall.getColumns());
+        }
+        return statement.executeUpdate();
+    }
+
+    @Override
+    public Map<String, Object> executeProc(ProcCall procCall)
+            throws SQLException {
+        ProvysCallableStatement statement = this.prepareCall(procCall.getSql());
+        if (procCall.getParameters() != null) {
+            statement.setParameters(procCall.getParameters());
+        }
+        statement.execute();
+        if (procCall.getParameters() != null) {
+            return statement.getParameters(procCall.getParameters());
+        }
+        return null;
+    }
+
 }

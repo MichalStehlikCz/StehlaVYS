@@ -21,7 +21,8 @@ import java.sql.SQLException;
  *
  * @author stehlik
  */
-public interface ProvysPreparedStatement extends PreparedStatement {
+public interface ProvysPreparedStatement extends PreparedStatement
+        , ProvysStatement {
 
     /**
      * Set DtBoolean type parameter on given position

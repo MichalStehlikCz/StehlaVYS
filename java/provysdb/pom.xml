@@ -10,7 +10,6 @@
     <artifactId>provysdb</artifactId>
     <packaging>pom</packaging>
   <modules>
-    <module>connection</module>
     <module>sqlbuilder</module>
     <module>common</module>
     <module>provysdb-api</module>

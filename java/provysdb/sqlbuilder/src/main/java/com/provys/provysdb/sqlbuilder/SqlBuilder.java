@@ -29,6 +29,6 @@ interface SqlBuilder {
     public String getSql();
     public List<BindValue> getBinds();
     
-    public void Retype(ConfRel relation);
+//    public void Retype(ConfRel relation);
     
 }

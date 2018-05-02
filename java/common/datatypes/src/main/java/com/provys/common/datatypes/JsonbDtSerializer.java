@@ -23,5 +23,5 @@ public class JsonbDtSerializer implements JsonbSerializer<Dt> {
         ctx.serialize("value", object, generator);
         generator.writeEnd();
     }
-    
+
 }

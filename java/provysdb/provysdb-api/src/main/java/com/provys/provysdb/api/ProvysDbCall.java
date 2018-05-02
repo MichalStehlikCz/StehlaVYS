@@ -68,14 +68,10 @@ public class ProvysDbCall {
     @GET
     @Path("/testsql")
     @Produces({MediaType.APPLICATION_JSON})
-    public String testSerialisation() {
+    public SQLCall testSerialisation() {
         SQLCall sqlCall = new SQLCall();
         sqlCall.setSql("SELECT 1 FROM dual");
         sqlCall.addValue(new BindValue("test", new DtVarchar("value")));
-        BindValue bindValue = new BindValue("test", new DtVarchar("value"));
-        DtVarchar value = new DtVarchar("value");
-        Jsonb jsonb = JsonbBuilder.create();
-        String result = jsonb.toJson(bindValue);
-        return result;
+        return sqlCall;
     }
 }    

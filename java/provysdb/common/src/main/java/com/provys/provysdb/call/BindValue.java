@@ -7,7 +7,7 @@ package com.provys.provysdb.call;
 
 import com.provys.common.datatypes.Dt;
 import java.io.Serializable;
-import javax.json.bind.annotation.JsonbTransient;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  * BindValue is used to prepare parameters for CallableStatement.
@@ -21,7 +21,7 @@ public class BindValue implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String name;
-    @JsonbTransient
+    @JsonbTypeAdapter(JsonbClassAdapter.class)
     private Class<?> datatype;
     private Dt value = null;
 

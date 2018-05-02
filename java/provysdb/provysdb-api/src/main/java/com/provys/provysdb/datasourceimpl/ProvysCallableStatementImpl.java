@@ -40,7 +40,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import oracle.jdbc.OracleCallableStatement;
 
@@ -912,6 +911,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
             case "DtVarchar":
                 setDtVarchar(bind.getName(), (DtVarchar) bind.getValue());
                 break;
+/*
             case "Boolean":
                 setBoolean(bind.getName(), (Boolean) bind.getValue());
                 break;
@@ -948,6 +948,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
             case "Timestamp":
                 setTimestamp(bind.getName(), (Timestamp) bind.getValue());
                 break;
+*/
             default:
                 throw new UnsupportedBindDatatypeException(bind.getDatatype());
         }

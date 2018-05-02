@@ -1,6 +1,6 @@
 /**
 */
-package com.provys.provysdb.app;
+package com.provys.provysdb.api;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

@@ -21,6 +21,8 @@ import java.util.Map;
  * @author stehlik
  */
 public class SQLCall implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     
     /**
      * sql field contains SQL statement that is to be executed; most often,

@@ -7,6 +7,7 @@ package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
 import java.io.Serializable;
+import javax.json.bind.annotation.JsonbTypeSerializer;
 
 /**
  *
@@ -23,7 +24,10 @@ import java.io.Serializable;
  * also define customized Json serializer / deserializer, as simple types are
  * serialized as value, not as object
  */
+@JsonbTypeSerializer(JsonbDtSerializer.class)
 abstract public class Dt implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Translation of value in given PROVYS datatype to String, synchronised

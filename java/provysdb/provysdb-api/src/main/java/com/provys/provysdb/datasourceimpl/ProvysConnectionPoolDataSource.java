@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.enterprise.context.ApplicationScoped;
 import javax.sql.CommonDataSource;
@@ -34,9 +35,9 @@ import oracle.ucp.jdbc.PoolDataSourceFactory;
 @Singleton
 @ApplicationScoped
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
-public class ProvysConnectionPoolDataSource implements DataSource,
-        CommonDataSource,
-        ProvysConnectionPoolDataSourceLocal {
+@Local
+public class ProvysConnectionPoolDataSource implements
+        ProvysConnectionPoolDataSourceLocal, DataSource, CommonDataSource {
     private static final Logger LOG = Logger.getLogger(ProvysConnectionPoolDataSource.class.getName());
 
     private final PoolDataSource oraclePool;

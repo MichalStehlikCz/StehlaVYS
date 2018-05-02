@@ -13,7 +13,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  *
  * @author micha
  */
-@JsonbTypeAdapter(JsonbDtNameAdapter.class)
+@JsonbTypeAdapter(JsonbDtVarcharAdapter.class)
 public class DtVarchar extends DtString {
 
     private static final long serialVersionUID = 1L;

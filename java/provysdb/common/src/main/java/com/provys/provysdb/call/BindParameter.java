@@ -6,14 +6,16 @@
 package com.provys.provysdb.call;
 
 /**
- * BindParameter extends BindValue with specfiieca
+ * BindParameter extends BindValue with specification of access mode.
+ * Default access mode for bind parameters is IN
+ * 
  * @author stehlik
  */
 public class BindParameter extends BindValue {
     
     private static final long serialVersionUID = 1L;
     
-    private ParameterMode mode;
+    private ParameterMode mode = ParameterMode.IN;
 
     /**
      * Plain getter got mode

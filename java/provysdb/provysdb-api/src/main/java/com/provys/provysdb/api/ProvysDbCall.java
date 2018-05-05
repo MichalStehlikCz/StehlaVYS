@@ -5,23 +5,14 @@
  */
 package com.provys.provysdb.api;
 
-import com.provys.common.datatypes.Dt;
-import com.provys.common.datatypes.DtNameNm;
-import com.provys.common.datatypes.DtString;
-import com.provys.common.datatypes.DtVarchar;
-import com.provys.common.error.ProvysSqlException;
+import com.provys.common.datatypes.DtUid;
 import com.provys.provysdb.call.BindValue;
 import com.provys.provysdb.call.SQLCall;
-import com.provys.provysdb.datasource.ProvysConnection;
-import com.provys.provysdb.datasource.ProvysConnectionPoolDataSourceLocal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import com.provys.provysdb.sqlexecutor.JsonQueryExecutorLocal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
+import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -42,27 +33,14 @@ import javax.ws.rs.core.MediaType;
 public class ProvysDbCall {
 
     @Inject
-    private ProvysConnectionPoolDataSourceLocal dataSource;
-
+    private JsonQueryExecutorLocal queryExecutor;
+    
     @POST
     @Path("/query")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public ResultSet queryCall(SQLCall sqlCall) {
-        ResultSet resultSet;
-        try (ProvysConnection connection = dataSource.getConnection()) {
-            resultSet = connection.executeQuery(sqlCall);
-        } catch (SQLException e) {
-            throw new ProvysSqlException(e);
-        }
-        return resultSet;
-    }
-
-    @GET
-    @Path("/test")
-    @Produces({MediaType.TEXT_PLAIN})
-    public String testHello() {
-        return "Hello";
+    public List<JsonObject> queryCall(SQLCall sqlCall) {
+        return queryExecutor.executeQuery(sqlCall);
     }
 
     @GET
@@ -71,7 +49,7 @@ public class ProvysDbCall {
     public SQLCall testSerialisation() {
         SQLCall sqlCall = new SQLCall();
         sqlCall.setSql("SELECT 1 FROM dual");
-        sqlCall.addValue(new BindValue("test", new DtVarchar("value")));
+        sqlCall.addValue(new BindValue("domain_id", new DtUid("123456")));
         return sqlCall;
     }
 }    

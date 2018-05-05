@@ -5,7 +5,6 @@
  */
 package com.provys.provysdb.datasource;
 
-import com.provys.provysdb.call.BindValue;
 import com.provys.common.datatypes.DtBoolean;
 import com.provys.common.datatypes.DtInteger;
 import com.provys.common.datatypes.DtName;
@@ -14,7 +13,7 @@ import com.provys.common.datatypes.DtNumber;
 import com.provys.common.datatypes.DtUid;
 import com.provys.common.datatypes.DtVarchar;
 import com.provys.provysdb.call.BindParameter;
-import com.provys.provysdb.call.ParameterMode;
+import com.provys.provysdb.call.BindValue;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -221,7 +220,6 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     /**
      * Set value of bind variables from list to statement.
      * @param binds is list of bind names and values to be set
-     * @throws SQLException is thrown when problem is encountered
      */
     public void setBinds(List<BindValue> binds);
 
@@ -237,7 +235,6 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
      * Set value of parameters from list to statement and define their output
      * types if appropriate.
      * @param parameters is list of parameters to be set / registered
-     * @throws SQLException is thrown when problem is encountered
      */
     public void setParameters(List<BindParameter> parameters);
 

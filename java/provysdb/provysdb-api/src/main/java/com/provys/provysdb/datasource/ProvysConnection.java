@@ -187,19 +187,6 @@ public interface ProvysConnection extends Connection {
     void setTypeMap(Map<String, Class<?>> map) throws SQLException;
 
     /**
-     * Binds all values, executes statement and returns resulting ResultSet.
-     * This method should only be used with simple SELECT statement. For update
-     * statements, executeUpdate should be used instead
-     * 
-     * @param sqlCall is SQL statement with binds and column definitions
-     * describing query to be executed
-     * @return ResultSet containing results of query
-     * @throws java.sql.SQLException when any exception occurs during SQL
-     * processing
-     */
-    public ResultSet executeQuery(SQLCall sqlCall) throws SQLException;
-
-    /**
      * Binds all values, executes statement and returns number of affected rows.
      * This method should only be used with simple UPDATE / DELETE statements.
      * For select statements, executeQuery should be used instead

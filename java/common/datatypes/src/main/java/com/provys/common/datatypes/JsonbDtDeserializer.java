@@ -21,42 +21,22 @@ public class JsonbDtDeserializer implements JsonbDeserializer<Dt> {
     @Override
     public Dt deserialize(JsonParser parser, DeserializationContext context,
             Type type) {
-        String subclass = null;
+        Dt result = null;
         while (parser.hasNext()) {
             JsonParser.Event event = parser.next();
             if (event == JsonParser.Event.KEY_NAME) {
-                String keyName = parser.getString();
-                if (keyName.equals("type")) {
-                    subclass = context.deserialize(String.class, parser);
-                } else if (keyName.equals("value")) {
-                    if (subclass == null) {
-                        throw new TypeNotSpecifiedException();
-                    }
-                    try {
-                        return (Dt) context.deserialize(
-                                Class.forName(subclass), parser);
-                    } catch (ClassNotFoundException e) {
-                        throw new DtClassNotFoundException(subclass, e);
-                    }
+                String className = parser.getString();
+                parser.next();
+                try {
+                    result = context.deserialize(Class.forName(className).
+                            asSubclass(Dt.class), parser);
+                } catch (ClassNotFoundException e) {
+                    throw new DtClassNotFoundException(className, e);
                 }
             }
             parser.next();
         }
-        throw new ValueNotFoundException();
-    }
-
-
-    /**
-     * Exception raised when subclass is not known and value is found
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class TypeNotSpecifiedException extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        TypeNotSpecifiedException() {
-            super("Type not found before value in Json deserialisation of Dt");
-        }
+        return result;
     }
 
     /**
@@ -73,16 +53,4 @@ public class JsonbDtDeserializer implements JsonbDeserializer<Dt> {
         }
     }
 
-    /**
-     * Exception raised when value not found by deserialiser
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class ValueNotFoundException extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        ValueNotFoundException() {
-            super("Value not found during deserialisation of Dt");
-        }
-    }
 }

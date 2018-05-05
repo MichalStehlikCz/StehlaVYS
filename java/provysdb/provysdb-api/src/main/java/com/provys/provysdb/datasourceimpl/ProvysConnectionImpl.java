@@ -345,18 +345,6 @@ public class ProvysConnectionImpl implements ProvysConnection {
     }
 
     @Override
-    public ResultSet executeQuery(SQLCall sqlCall) throws SQLException {
-        ProvysCallableStatement statement = this.prepareCall(sqlCall.getSql());
-        if (sqlCall.getValues() != null) {
-            statement.setBinds(sqlCall.getValues());
-        }
-        if (sqlCall.getColumns() != null) {
-            statement.defineColumnTypes(sqlCall.getColumns());
-        }
-        return statement.executeQuery();
-    }
- 
-    @Override
     public int executeUpdate(SQLCall sqlCall) throws SQLException {
         ProvysCallableStatement statement = this.prepareCall(sqlCall.getSql());
         if (sqlCall.getValues() != null) {

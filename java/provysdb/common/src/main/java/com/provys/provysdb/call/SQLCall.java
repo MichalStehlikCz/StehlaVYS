@@ -7,6 +7,7 @@ package com.provys.provysdb.call;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class SQLCall implements Serializable {
     /**
      * values field contains list of bind values to be passed to statement
      */
-    private List<BindValue> values;
+    private final List<BindValue> values = new ArrayList<>(10);
     /**
      * columns field is list of column definitions that will be used to declare
      * expected columns of resulting set
@@ -59,23 +60,21 @@ public class SQLCall implements Serializable {
      * @return the values
      */
     public List<BindValue> getValues() {
-        return values;
+        return Collections.unmodifiableList(values);
     }
 
     /**
      * @param values the values to set
      */
     public void setValues(List<BindValue> values) {
-        this.values = values;
+        this.values.removeIf((value) -> true);
+        this.values.addAll(values);
     }
 
     /**
      * @param value is BindValue o be added to given statement
      */
     public void addValue(BindValue value) {
-        if (values == null) {
-            values=new ArrayList<>(10);
-        }
         values.add(value);
     }
 
@@ -83,14 +82,22 @@ public class SQLCall implements Serializable {
      * @return the columns
      */
     public Map<Integer, ColumnDef> getColumns() {
-        return columns;
+        if (columns == null) {
+            return null;
+        }
+        return Collections.unmodifiableMap(columns);
     }
 
     /**
      * @param columns the columns to set
      */
     public void setColumns(Map<Integer, ColumnDef> columns) {
-        this.columns = columns;
+        if (columns == null) {
+            this.columns = null;
+        } else {
+            this.columns = new HashMap<>(columns.size());
+            this.columns.putAll(columns);
+        }
     }
     
     /**
@@ -100,7 +107,7 @@ public class SQLCall implements Serializable {
      */
     public void addColumn(int columnIndex, ColumnDef def) {
         if (columns == null) {
-            columns=new HashMap<>();
+            columns=new HashMap<>(10);
         }
         columns.put(columnIndex, def);
     }

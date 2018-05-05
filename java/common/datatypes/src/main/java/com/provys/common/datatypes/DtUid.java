@@ -17,7 +17,6 @@ public class DtUid extends Dt{
 
     private static final long serialVersionUID = 1L;
 
-    
     private final String value;
     
     /**

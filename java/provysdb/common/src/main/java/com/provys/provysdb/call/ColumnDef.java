@@ -14,8 +14,12 @@ import java.sql.Types;
  * @author stehlik
  */
 public class ColumnDef implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
     private int type;
     private int size = -1;
+    private String name;
 
     public ColumnDef() {};
     
@@ -125,6 +129,20 @@ public class ColumnDef implements Serializable {
      */
     public void setSize(int size) {
         this.size = size;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

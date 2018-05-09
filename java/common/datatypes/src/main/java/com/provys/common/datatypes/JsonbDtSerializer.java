@@ -59,7 +59,7 @@ public class JsonbDtSerializer implements JsonbSerializer<Dt> {
                 } catch (InvocationTargetException ex) {
                     throw new ProvysException("Invalid target when calling method adaptToJson", ex);
                 }
-                ctx.serialize(adapted.getClass().getName(), adapted, generator);
+                ctx.serialize(object.getClass().getName(), adapted, generator);
             } else {
                 ctx.serialize(object.getClass().getName(), object, generator);
             }

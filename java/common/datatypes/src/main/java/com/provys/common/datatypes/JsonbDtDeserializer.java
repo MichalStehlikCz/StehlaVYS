@@ -6,7 +6,11 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import javax.json.bind.adapter.JsonbAdapter;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.json.bind.serializer.DeserializationContext;
 import javax.json.bind.serializer.JsonbDeserializer;
 import javax.json.stream.JsonParser;
@@ -28,8 +32,46 @@ public class JsonbDtDeserializer implements JsonbDeserializer<Dt> {
                 String className = parser.getString();
                 parser.next();
                 try {
-                    result = context.deserialize(Class.forName(className).
-                            asSubclass(Dt.class), parser);
+                    // all Dt subclasses have custom Jsonb adapter,
+                    // unfortunatelly it is not picked up by deserialize... so
+                    // we must apply it manually
+                    JsonbTypeAdapter adapterType = Class.forName(className).
+                            getAnnotation(JsonbTypeAdapter.class);
+                    if (adapterType != null) {
+                        JsonbAdapter<?, ?> adapter;
+                        try {
+                            adapter = adapterType.value().newInstance();
+                        } catch (InstantiationException ex) {
+                            throw new ProvysException("Cannot instantiate adapter", ex);
+                        } catch (IllegalAccessException ex) {
+                            throw new ProvysException("Illegal access during adapter instantiation", ex);
+                        }
+                        Method[] methods = adapter.getClass().getMethods();
+                        Method adaptFromJson = null;
+                        for (Method method : methods) {
+                            if (method.getName().equals("adaptFromJson")) {
+                                adaptFromJson = method;
+                                break;
+                            }
+                        }
+                        if (adaptFromJson == null) {
+                            throw new ProvysException("Haven't found adaptFromJson method in adapter");
+                        }
+                        Class<?> objectType = adaptFromJson.getParameterTypes()[0];
+                        Object adapted = context.deserialize(objectType, parser);
+                        try {
+                            result = (Dt) adaptFromJson.invoke(adapter, adapted);
+                        } catch (IllegalAccessException ex) {
+                            throw new ProvysException("Cannot access method adaptToJson in adapter", ex);
+                        } catch (IllegalArgumentException ex) {
+                            throw new ProvysException("Illegal argument to method adaptToJson in adapter", ex);
+                        } catch (InvocationTargetException ex) {
+                            throw new ProvysException("Invalid target when calling method adaptToJson", ex);
+                        }
+                    } else {
+                        result = context.deserialize(Class.forName(className).
+                                asSubclass(Dt.class), parser);
+                    }
                 } catch (ClassNotFoundException e) {
                     throw new DtClassNotFoundException(className, e);
                 }

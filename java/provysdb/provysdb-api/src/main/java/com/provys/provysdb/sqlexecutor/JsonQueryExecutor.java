@@ -39,7 +39,9 @@ public class JsonQueryExecutor extends QueryExecutor implements JsonQueryExecuto
         columns.forEach((index, columnDef) -> 
         {
             try {
-                builder.add(columnDef.getName(), resultSet.getString(index));
+                if (resultSet.getString(index) != null) {
+                    builder.add(columnDef.getName(), resultSet.getString(index));
+                }
             } catch (SQLException e) {
                 throw new ProvysSqlException(e);
             }

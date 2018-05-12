@@ -13,21 +13,24 @@ import javax.ws.rs.core.MediaType;
  *
  * @author stehlik
  */
-@Path("/TestService")
+@Path("")
 @Stateless()
 public class TestService {
 
     @GET
-    @Path("/TestMethod")
-    @Produces({MediaType.TEXT_PLAIN})
-    public String getHello() {
-        return "Hello";
+    @Path("")
+    @Produces({MediaType.APPLICATION_JSON})
+    public TestClass getHello() {
+        TestClass data = new TestClass();
+        data.add(1);
+        data.add(2);
+        return data;
     }
 
-    @GET
-    @Path("/{nameNm : [a-zA-Z][a-zA-Z_0-9]*}")
-    @Produces({MediaType.TEXT_PLAIN})
-    public String getHelloWithText(@PathParam("nameNm") String nameNm) {
-        return "Hello: "+nameNm;
+    @POST
+    @Path("")
+    @Produces({MediaType.APPLICATION_JSON})
+    public TestClass useHello(TestClass data) {
+        return data;
     }
 }

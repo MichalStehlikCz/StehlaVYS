@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.api;
 
+import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtUid;
 import com.provys.provysdb.call.BindValue;
 import com.provys.provysdb.call.SQLCall;
@@ -44,12 +45,21 @@ public class ProvysDbCall {
     }
 
     @GET
-    @Path("/testsql")
+    @Path("/test")
     @Produces({MediaType.APPLICATION_JSON})
-    public SQLCall testSerialisation() {
-        SQLCall sqlCall = new SQLCall();
-        sqlCall.setSql("SELECT 1 FROM dual");
-        sqlCall.addValue(new BindValue("domain_id", new DtUid("123456")));
-        return sqlCall;
+    public BindValue testSerialisation() {
+//        SQLCall sqlCall = new SQLCall();
+//        sqlCall.setSql("SELECT 1 FROM dual");
+//        sqlCall.addValue(new BindValue("domain_id", new DtUid("123456")));
+//        return sqlCall;
+        return new BindValue("domain_id", new DtNameNm("ABC"));
+    }
+
+    @POST
+    @Path("/test")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public BindValue testDeserialization(BindValue value) {
+        return value;
     }
 }    

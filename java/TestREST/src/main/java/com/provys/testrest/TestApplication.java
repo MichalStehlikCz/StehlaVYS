@@ -9,6 +9,6 @@ import javax.ws.rs.core.Application;
  *
  * @author stehlik
  */
-@ApplicationPath("TestApplication")
+@ApplicationPath("")
 public class TestApplication extends Application {
 }

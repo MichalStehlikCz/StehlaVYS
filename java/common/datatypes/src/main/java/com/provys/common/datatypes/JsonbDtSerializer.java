@@ -21,7 +21,7 @@ import javax.json.stream.JsonGenerator;
  * @author stehlik
  */
 public class JsonbDtSerializer implements JsonbSerializer<Dt> {
-    
+
     @Override
     public void serialize(Dt object, JsonGenerator generator,
             SerializationContext ctx) {
@@ -40,14 +40,16 @@ public class JsonbDtSerializer implements JsonbSerializer<Dt> {
                 } catch (IllegalAccessException ex) {
                     throw new ProvysException("Illegal access during adapter instantiation", ex);
                 }
-                Method adaptToJson;
-                try {
-                    adaptToJson = adapter.getClass().getMethod("adaptToJson",
-                            object.getClass());
-                } catch (NoSuchMethodException ex) {
-                    throw new ProvysException("Method adaptToJson not found in adapter", ex);
-                } catch (SecurityException ex) {
-                    throw new ProvysException("Cannot access method adaptToJson in adapter", ex);
+                Method[] methods = adapter.getClass().getMethods();
+                Method adaptToJson = null;
+                for (Method method : methods) {
+                    if (method.getName().equals("adaptToJson")) {
+                        adaptToJson = method;
+                        break;
+                    }
+                }
+                if (adaptToJson == null) {
+                    throw new ProvysException("Haven't found adaptFromJson method in adapter");
                 }
                 Object adapted;
                 try {

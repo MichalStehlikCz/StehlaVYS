@@ -22,5 +22,12 @@
     <build>
         <finalName>TestAPI</finalName>
     </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse</groupId>
+            <artifactId>yasson</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+    </dependencies>
 
 </project>

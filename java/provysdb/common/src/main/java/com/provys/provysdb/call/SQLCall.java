@@ -33,9 +33,9 @@ public class SQLCall implements Serializable {
     private String sql;
     
     /**
-     * values field contains list of bind values to be passed to statement
+     * Values field contains list of bind values to be passed to statement
      */
-    private final List<BindValue> values = new ArrayList<>(10);
+    private List<BindValue> values;
     /**
      * columns field is list of column definitions that will be used to declare
      * expected columns of resulting set
@@ -60,6 +60,9 @@ public class SQLCall implements Serializable {
      * @return the values
      */
     public List<BindValue> getValues() {
+        if (values == null) {
+            return null;
+        }
         return Collections.unmodifiableList(values);
     }
 
@@ -67,14 +70,16 @@ public class SQLCall implements Serializable {
      * @param values the values to set
      */
     public void setValues(List<BindValue> values) {
-        this.values.removeIf((value) -> true);
-        this.values.addAll(values);
+        this.values = new ArrayList<>(values);
     }
 
     /**
-     * @param value is BindValue o be added to given statement
+     * @param value is BindValue to be added to given statement
      */
     public void addValue(BindValue value) {
+        if (this.values == null) {
+            this.values = new ArrayList<>(10);
+        }
         values.add(value);
     }
 
@@ -95,8 +100,7 @@ public class SQLCall implements Serializable {
         if (columns == null) {
             this.columns = null;
         } else {
-            this.columns = new HashMap<>(columns.size());
-            this.columns.putAll(columns);
+            this.columns = new HashMap<>(columns);
         }
     }
     

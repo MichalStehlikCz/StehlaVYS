@@ -6,6 +6,7 @@
 package com.provys.provysdb.call;
 
 import javax.json.Json;
+import javax.json.JsonString;
 import javax.json.JsonValue;
 import javax.json.bind.adapter.JsonbAdapter;
 
@@ -22,7 +23,7 @@ public class JsonbClassAdapter implements JsonbAdapter<Class<?>, JsonValue> {
 
     @Override
     public Class<?> adaptFromJson(JsonValue adapted) throws Exception {
-        return Class.forName(adapted.toString());
+        return Class.forName(((JsonString) adapted).getString());
     }
     
 }

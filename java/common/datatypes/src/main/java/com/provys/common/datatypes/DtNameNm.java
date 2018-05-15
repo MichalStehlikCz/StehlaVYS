@@ -14,7 +14,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  * Used to store PROVYS VARCHAR and NOTE values. Also ancestor for name and
  * name_nm subtypes
  */
-@JsonbTypeAdapter(JsonbDtNameAdapter.class)
+@JsonbTypeAdapter(JsonbDtNameNmAdapter.class)
 public class DtNameNm extends DtName{
 
     static final long serialVersionUID = 3L;

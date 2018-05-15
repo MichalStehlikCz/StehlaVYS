@@ -13,5 +13,6 @@
     <module>sqlbuilder</module>
     <module>common</module>
     <module>provysdb-api</module>
+    <module>provysdb-client</module>
   </modules>
 </project>

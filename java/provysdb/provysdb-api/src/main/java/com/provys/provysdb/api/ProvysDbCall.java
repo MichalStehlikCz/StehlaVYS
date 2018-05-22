@@ -8,7 +8,6 @@ package com.provys.provysdb.api;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.provysdb.call.BindValue;
 import com.provys.provysdb.call.SQLCall;
-import com.provys.provysdb.sqlexecutor.JsonQueryExecutorLocal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,6 +18,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import com.provys.provysdb.sqlexecutor.JsonQueryExecutor;
 
 /**
  * Class is REST facade on ProvysDB database.
@@ -33,7 +33,7 @@ import javax.ws.rs.core.MediaType;
 public class ProvysDbCall {
 
     @Inject
-    private JsonQueryExecutorLocal queryExecutor;
+    private JsonQueryExecutor queryExecutor;
     
     @POST
     @Path("/query")

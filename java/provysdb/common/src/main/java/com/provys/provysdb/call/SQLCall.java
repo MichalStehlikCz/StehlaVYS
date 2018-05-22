@@ -61,7 +61,7 @@ public class SQLCall implements Serializable {
      */
     public List<BindValue> getValues() {
         if (values == null) {
-            return null;
+            return Collections.unmodifiableList(new ArrayList<>(0));
         }
         return Collections.unmodifiableList(values);
     }
@@ -88,7 +88,7 @@ public class SQLCall implements Serializable {
      */
     public Map<Integer, ColumnDef> getColumns() {
         if (columns == null) {
-            return null;
+            return Collections.unmodifiableMap(new HashMap<>(0));
         }
         return Collections.unmodifiableMap(columns);
     }

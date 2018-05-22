@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.provysdb.sqlexecutor;
+package com.provys.provysdb.sqlexecutorlocal;
 
+import com.provys.provysdb.sqlexecutor.JsonQueryExecutor;
 import com.provys.common.error.ProvysSqlException;
 import com.provys.provysdb.call.SQLCall;
 import java.sql.ResultSet;
@@ -24,7 +25,7 @@ import javax.json.JsonObjectBuilder;
  */
 @Stateless
 @Local
-public class JsonQueryExecutor extends QueryExecutor implements JsonQueryExecutorLocal {
+public class JsonQueryExecutorLocal extends QueryExecutor implements JsonQueryExecutor {
     
     private List<JsonObject> data;
 

@@ -11,9 +11,9 @@ import javax.json.JsonObject;
 
 /**
  *
- * @author micha
+ * @author stehlik
  */
-public interface JsonQueryExecutorLocal {
+public interface JsonQueryExecutor {
 
     List<JsonObject> executeQuery(SQLCall sqlCall);
     

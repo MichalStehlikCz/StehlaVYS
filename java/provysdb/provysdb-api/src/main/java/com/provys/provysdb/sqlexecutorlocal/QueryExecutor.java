@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.provysdb.sqlexecutor;
+package com.provys.provysdb.sqlexecutorlocal;
 
 import com.provys.common.error.ProvysSqlException;
 import com.provys.provysdb.call.ColumnDef;
@@ -64,14 +64,9 @@ abstract public class QueryExecutor {
             initData();
             ProvysCallableStatement statement = connection.prepareCall(sqlCall.getSql());
             statement.setBinds(sqlCall.getValues());
-            if (sqlCall.getColumns() != null) {
-                statement.defineColumnTypes(sqlCall.getColumns());
-            }
+            statement.defineColumnTypes(sqlCall.getColumns());
             ResultSet resultSet = statement.executeQuery();
-            if (sqlCall.getColumns() != null) {
-                // columns can be taken from SQLCall
-                columns = sqlCall.getColumns();
-            } else {
+            if (sqlCall.getColumns().isEmpty()) {
                 // columns has to be taken from ResultSet
                 ResultSetMetaData metadata = resultSet.getMetaData();
                 int columnCount = metadata.getColumnCount();
@@ -83,6 +78,9 @@ abstract public class QueryExecutor {
                     column.setSize(metadata.getPrecision(i));
                     this.columns.put(i, column);
                 }
+            } else {
+                // columns can be taken from SQLCall
+                columns = sqlCall.getColumns();
             }
             while (resultSet.next()) {
                 addRow(resultSet);

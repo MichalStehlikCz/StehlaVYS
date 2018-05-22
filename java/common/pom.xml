@@ -14,5 +14,6 @@
         <module>error</module>
         <module>datatypes</module>
         <module>confobj</module>
+        <module>jsonb</module>
     </modules>
 </project>

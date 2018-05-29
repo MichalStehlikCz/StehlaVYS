@@ -2,23 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-    <artifactId>provysdb</artifactId>
-    <groupId>com.provys.provysdb</groupId>
-    <version>1.0</version>
-  </parent>
-
-    <groupId>com.provys.provysdb</groupId>
-    <artifactId>provysdb-api</artifactId>
-    <version>1.0</version>
-    <packaging>war</packaging>
-
-    <name>provysdb-api</name>
-
-    <properties>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-    
+        <groupId>com.provys.provysdb</groupId>
+        <artifactId>provysdb</artifactId>
+        <version>1.0</version>
+    </parent>
+    <artifactId>provysdb-local</artifactId>
+    <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>com.provys.provysdb</groupId>
@@ -28,11 +17,6 @@
         <dependency>
             <groupId>com.provys.common</groupId>
             <artifactId>datatypes</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.provys.provysdb</groupId>
-            <artifactId>provysdb-local</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
@@ -48,8 +32,4 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <build>
-        <finalName>provysdb</finalName>
-    </build>
-
 </project>

@@ -5,7 +5,6 @@
  */
 package com.provys.provysdb.datasourceimpl;
 
-import com.provys.provysdb.datasource.ProvysConnectionPoolDataSourceLocal;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
@@ -13,10 +12,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.ConcurrencyManagement;
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.Local;
-import javax.ejb.Singleton;
 import javax.enterprise.context.ApplicationScoped;
 import javax.sql.CommonDataSource;
 import javax.sql.DataSource;
@@ -32,12 +27,9 @@ import oracle.ucp.jdbc.PoolDataSourceFactory;
  *
  * @author stehlik
  */
-@Singleton
 @ApplicationScoped
-@ConcurrencyManagement(ConcurrencyManagementType.BEAN)
-@Local
 public class ProvysConnectionPoolDataSource implements
-        ProvysConnectionPoolDataSourceLocal, DataSource, CommonDataSource {
+        DataSource, CommonDataSource {
     private static final Logger LOG = Logger.getLogger(ProvysConnectionPoolDataSource.class.getName());
 
     private final PoolDataSource oraclePool;

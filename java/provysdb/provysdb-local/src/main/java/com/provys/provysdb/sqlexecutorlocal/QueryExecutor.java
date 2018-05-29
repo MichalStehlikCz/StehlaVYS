@@ -10,7 +10,7 @@ import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SQLCall;
 import com.provys.provysdb.datasource.ProvysCallableStatement;
 import com.provys.provysdb.datasource.ProvysConnection;
-import com.provys.provysdb.datasource.ProvysConnectionPoolDataSourceLocal;
+import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -29,7 +29,7 @@ import javax.inject.Inject;
 abstract public class QueryExecutor {
 
     @Inject
-    private ProvysConnectionPoolDataSourceLocal dataSource;
+    private ProvysConnectionPoolDataSource dataSource;
 
     /**
      * columns field is list of column definitions that will be used to declare

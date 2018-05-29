@@ -6,7 +6,7 @@
 package com.provys.provysdb.sqlexecutorclient;
 
 import com.provys.provysdb.call.SQLCall;
-import com.provys.provysdb.sqlexecutor.JsonQueryExecutor;
+import com.provys.provysdb.iface.JsonQueryExecutor;
 import java.util.List;
 import javax.json.JsonObject;
 import javax.ws.rs.client.Client;

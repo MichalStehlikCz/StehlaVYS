@@ -2,14 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.catalogue.ejb;
+package com.provys.catalogue.manager;
 
+import com.provys.catalogue.dbloader.ConfAttrLoaderDb;
+import com.provys.catalogue.dbloader.ConfAttrLoaderDb;
 import javax.ejb.Singleton;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
 import com.provys.catalogue.model.ConfAttr;
 import com.provys.common.confobj.*;
-import com.provys.catalogue.iface.ConfAttrManagerBeanLocal;
 import com.provys.common.datatypes.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,6 +18,7 @@ import javax.ejb.Local;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import com.provys.catalogue.iface.ConfAttrManager;
 
 /**
  *
@@ -27,7 +29,7 @@ import javax.inject.Named;
 @ApplicationScoped
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 @Named("ConfAttrManager")
-public class ConfAttrManagerBean extends ConfObjectManager<ConfAttr> implements ConfAttrManagerBeanLocal {
+public class ConfAttrManagerLocal extends ConfObjectManager<ConfAttr> implements ConfAttrManager {
 
     /**
      *
@@ -63,10 +65,10 @@ public class ConfAttrManagerBean extends ConfObjectManager<ConfAttr> implements 
   */
   
     @Inject
-    private ConfAttrLoaderBean confAttrLoader;
+    private ConfAttrLoaderDb confAttrLoader;
 
     @Override
-    protected ConfAttrLoaderBean getConfObjectLoader(){
+    protected ConfAttrLoaderDb getConfObjectLoader(){
         return confAttrLoader;
     }
 

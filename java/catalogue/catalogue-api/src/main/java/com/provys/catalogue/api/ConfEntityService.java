@@ -12,10 +12,10 @@ import com.provys.catalogue.model.ConfEntity;
 import com.provys.catalogue.model.ConfAttr;
 import com.provys.common.datatypes.*;
 import javax.ejb.EJB;
-import com.provys.catalogue.iface.ConfEntityManagerBeanLocal;
 import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import com.provys.catalogue.iface.ConfEntityManager;
 
 /**
  *
@@ -26,7 +26,7 @@ import javax.json.bind.JsonbBuilder;
 public class ConfEntityService {
 
     @Inject
-    private ConfEntityManagerBeanLocal entityManager;
+    private ConfEntityManager entityManager;
 
     @GET
     @Path("/{id : \\d+}")

@@ -16,7 +16,7 @@ import javax.ejb.Local;
  * @author stehlik
  */
 @Local
-public interface ConfEntityManagerBeanLocal {
+public interface ConfEntityManager {
 
     ConfEntity get(DtUid id);
 

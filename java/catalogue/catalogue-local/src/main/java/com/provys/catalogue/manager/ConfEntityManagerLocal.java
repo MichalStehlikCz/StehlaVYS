@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.catalogue.ejb;
+package com.provys.catalogue.manager;
 
-import com.provys.catalogue.iface.ConfEntityManagerBeanLocal;
+import com.provys.catalogue.ejb.ConfAttrManagerBean;
+import com.provys.catalogue.ejb.ConfEntityLoaderBean;
 import javax.ejb.Singleton;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
@@ -16,17 +17,15 @@ import javax.ejb.Local;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import com.provys.catalogue.iface.ConfEntityManager;
 
 /**
  *
  * @author stehlik
  */
-@Local
-@Singleton
 @ApplicationScoped
-@ConcurrencyManagement(ConcurrencyManagementType.BEAN)
-@Named("ConfEntityManager")
-public class ConfEntityManagerBean extends ConfNMObjectManager<ConfEntity> implements ConfEntityManagerBeanLocal {
+public class ConfEntityManagerLocal extends ConfNMObjectManager<ConfEntity>
+        implements ConfEntityManager {
 
     @Inject
     private ConfEntityLoaderBean entityLoader;

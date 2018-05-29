@@ -11,8 +11,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>catalogue-common</module>
-    <module>catalogue-ejb</module>
     <module>catalogue-api</module>
-    <module>catalogue-ear</module>
+    <module>catalogue-local</module>
   </modules>
 </project>

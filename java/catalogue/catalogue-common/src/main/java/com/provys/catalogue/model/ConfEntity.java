@@ -5,9 +5,9 @@
  */
 package com.provys.catalogue.model;
 
+import com.provys.common.confobj.ConfNMObject;
 import com.provys.common.datatypes.*;
 import com.provys.common.error.ProvysException;
-import com.provys.common.confobj.ConfNMObject;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,11 +20,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 @JsonbTypeAdapter(JsonbConfEntityAdapter.class)
 public class ConfEntity extends ConfNMObject{
 
-    public class CannotGetAttrNotLoadedException extends ProvysException {
-        public CannotGetAttrNotLoadedException() {
-            super("Cannot lookup attr - attrs not loaded");
-        }
-    }
+    private static final long serialVersionUID = 1L;
 
     private Map<DtNameNm, ConfAttr> attrMap = null;
     
@@ -58,6 +54,15 @@ public class ConfEntity extends ConfNMObject{
             throw new CannotGetAttrNotLoadedException();
         }
         return attrMap.get(attrNm);
+    }
+
+    @SuppressWarnings("PublicInnerClass")
+    public class CannotGetAttrNotLoadedException extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+        public CannotGetAttrNotLoadedException() {
+            super("Cannot lookup attr - attrs not loaded");
+        }
     }
 
 }

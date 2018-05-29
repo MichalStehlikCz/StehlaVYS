@@ -3,25 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.catalogue.ejb;
+package com.provys.catalogue.dbloader;
 
-import javax.ejb.Stateless;
-import java.sql.Connection;
-import java.sql.SQLException;
 import com.provys.catalogue.model.ConfEntity;
-import com.provys.common.datatypes.*;
-import oracle.jdbc.OraclePreparedStatement;
-import oracle.jdbc.OracleResultSet;
-import oracle.sql.*;
 import com.provys.common.confobj.ConfNMObjectLoader;
-import com.provys.common.confobj.RowidObjectPair;
+import com.provys.common.confobj.ObjectWithRowid;
+import com.provys.common.datatypes.*;
+import java.sql.RowId;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
- *
- * @author micha
+ * Class supports loading entities from provysdb.
+ * Given that catalogue is very low level, it cannot use provys data model to
+ * build load statements and these are coded
+ * 
+ * @author stehlik
  */
-@Stateless
-public class ConfEntityLoaderBean extends ConfNMObjectLoader<ConfEntity> {
+@ApplicationScoped
+public class ConfEntityLoaderDb extends ConfNMObjectLoader<ConfEntity> {
 
     private static final String LOADSELECT =
             "SELECT"
@@ -43,9 +42,10 @@ public class ConfEntityLoaderBean extends ConfNMObjectLoader<ConfEntity> {
             ;
     
     @Override
-    public RowidObjectPair<ConfEntity> load(DtUid id) {
-        ROWID rowid;
+    public ObjectWithRowid<ConfEntity> load(DtUid id) {
+        RowId rowid;
         DtNameNm nameNm;
+        
         try (Connection connection = provysDB.getConnection()){
             OraclePreparedStatement statement
                     = (OraclePreparedStatement) connection.prepareStatement(

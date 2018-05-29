@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.catalogue.ejb;
+package com.provys.catalogue.dbloader;
 
 import javax.ejb.Stateless;
 import java.sql.Connection;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * @author micha
  */
 @Stateless
-public class ConfAttrLoaderBean extends ConfObjectLoader<ConfAttr> {
+public class ConfAttrLoaderDb extends ConfObjectLoader<ConfAttr> {
 
     private static final String LOAD_SELECT =
             "SELECT"

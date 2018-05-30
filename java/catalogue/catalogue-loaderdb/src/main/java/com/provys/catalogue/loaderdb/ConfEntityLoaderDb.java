@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.catalogue.dbloader;
+package com.provys.catalogue.loaderdb;
 
 import com.provys.catalogue.model.ConfEntity;
 import com.provys.common.confobj.ConfNMObjectLoader;

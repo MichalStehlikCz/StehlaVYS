@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.Statement;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import oracle.jdbc.OracleStatement;
 
@@ -320,9 +319,9 @@ public class ProvysStatementImpl implements ProvysStatement {
     public void defineColumnType(int columnIndex, ColumnDef column)
             throws SQLException {
         if (column.getSize() > 0) {
-            defineColumnType(columnIndex, column.getType(), column.getSize());
+            defineColumnType(columnIndex, column.getSqlType(), column.getSize());
         } else {
-            defineColumnType(columnIndex, column.getType());
+            defineColumnType(columnIndex, column.getSqlType());
         }
     }
 

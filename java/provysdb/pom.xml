@@ -10,10 +10,10 @@
     <artifactId>provysdb</artifactId>
     <packaging>pom</packaging>
   <modules>
-    <module>sqlbuilder</module>
     <module>common</module>
+    <module>sqlbuilder</module>
+    <module>provysdb-local</module>
     <module>provysdb-api</module>
     <module>provysdb-client</module>
-    <module>provysdb-local</module>
   </modules>
 </project>

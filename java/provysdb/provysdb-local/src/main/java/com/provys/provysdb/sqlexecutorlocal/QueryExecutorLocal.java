@@ -16,21 +16,24 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.inject.Inject;
 
 /**
- * Parent of various executor classes. Implements logic of parsing SQL
- * statement, binding variables, defining columns and iterating through
- * ResultSet. Registers addRow as method, called on each row of ResultSet. This
- * enables to store results as either individual values or JSON or XML documents
+ * Parent of various executor classes.
+ * Implements logic of parsing SQL statement, binding variables, defining
+ * columns and iterating through ResultSet. Registers addRow as method, called
+ * on each row of ResultSet. This enables to store results as either individual
+ * values or JSON or XML documents
  *
  * @author stehlik
  */
-abstract public class QueryExecutor {
+abstract public class QueryExecutorLocal {
 
-    @Inject
-    private ProvysConnectionPoolDataSource dataSource;
+    private final ProvysConnectionPoolDataSource dataSource;
 
+    public QueryExecutorLocal(ProvysConnectionPoolDataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+    
     /**
      * columns field is list of column definitions that will be used to declare
      * expected columns of resulting set

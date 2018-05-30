@@ -24,7 +24,7 @@ import com.provys.catalogue.iface.ConfEntityManager;
  * @author stehlik
  */
 @ApplicationScoped
-public class ConfEntityManagerLocal extends ConfNMObjectManager<ConfEntity>
+public class ConfEntityManagerImpl extends ConfNMObjectManager<ConfEntity>
         implements ConfEntityManager {
 
     @Inject

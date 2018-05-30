@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.call;
 
+import com.provys.common.datatypes.*;
 import com.provys.common.error.ProvysException;
 import java.io.Serializable;
 import java.sql.Types;
@@ -17,108 +18,93 @@ public class ColumnDef implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    private int type;
+    private Class<? extends Dt> type;
     private int size = -1;
     private String name;
 
     public ColumnDef() {};
     
-    public ColumnDef(int type) {
+    public ColumnDef(Class<? extends Dt> type) {
         this.type = type;
     }
-    
-    public ColumnDef(int type, int size) {
+
+    public ColumnDef(Class<? extends Dt> type, int size) {
         this.type = type;
         this.size = size;
-    }
-    
-    public ColumnDef(Class<?> typeClass) {
-        this.setType(typeClass);
     }
 
     /**
      * @return the type
      */
-    public int getType() {
+    public Class<? extends Dt> getType() {
         return type;
     }
 
     /**
-     * @param type the type to set
-     */
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    /**
      * Set type of column to correspond to supplied class
-     * @param typeClass is class column should be stored in
+     * @param type is class column should be stored in
      */
-    public final void setType(Class<?> typeClass) {
-        switch (typeClass.getSimpleName()) {
+    public void setType(Class<? extends Dt> type) {
+        this.type = type;
+        switch (type.getSimpleName()) {
             case "DtBoolean":
-                type = Types.CHAR;
                 size = 1;
                 break;
             case "DtInteger":
-                type = Types.INTEGER;
+                size = -1;
                 break;
             case "DtName":
             case "DtNameNm":
-                type = Types.VARCHAR;
                 size = 200;
                 break;
             case "DtNumber":
+            case "DtRowId":
             case "DtUid":
-                type = Types.DECIMAL;
+                size = -1;
                 break;
             case "DtVarchar":
-                type = Types.VARCHAR;
                 size = 4000;
-                break;
-            case "Boolean":
-                type = Types.BOOLEAN;
-                break;
-            case "Byte":
-                type = Types.INTEGER;
-                break;
-            case "Short":
-                type = Types.INTEGER;
-                break;
-            case "Integer":
-                type = Types.INTEGER;
-                break;
-            case "Long":
-                type = Types.BIGINT;
-                break;
-            case "Float":
-                type = Types.FLOAT;
-                break;
-            case "Double":
-                type = Types.DOUBLE;
-                break;
-            case "BigDecimal":
-                type = Types.DECIMAL;
-                break;
-            case "String":
-                type = Types.VARCHAR;
-                size = 4000;
-                break;
-            case "Date":
-                type = Types.DATE;
-                break;
-            case "Time":
-                type = Types.TIME;
-                break;
-            case "Timestamp":
-                type = Types.TIMESTAMP;
                 break;
             default:
-                throw new UnsupportedColumnDatatypeException(typeClass);
+                throw new UnsupportedColumnDatatypeException(type);
         }
     }
+    
     /**
-     * @return the size
+     * Set type of column to correspond to supplied SQL type; PROVYS datatype
+     * is guessed from data, parsed from query
+     * @param type is sql datatype parsed from supplied statement
+     */
+    public void setType(int type) {
+        switch (type) {
+            case Types.CHAR:
+                this.type = DtVarchar.class;
+                break;
+            case Types.DATE:
+                throw new UnsupportedSqlTypeException(type);
+            case Types.BIGINT:
+            case Types.DECIMAL:
+            case Types.FLOAT:
+            case Types.DOUBLE:
+            case Types.NUMERIC:
+                this.type = DtNumber.class;
+                break;
+            case Types.INTEGER:
+                this.type = DtInteger.class;
+                break;
+            case Types.ROWID:
+                this.type = DtRowId.class;
+                break;
+            case Types.VARCHAR:
+                this.type = DtVarchar.class;
+                break;
+            default:
+                throw new UnsupportedSqlTypeException(type);
+        }
+    }
+    
+    /**
+     * @return the size corresponding to column type
      */
     public int getSize() {
         return size;
@@ -145,8 +131,54 @@ public class ColumnDef implements Serializable {
         this.name = name;
     }
 
+    public int getSqlType() {
+        switch (type.getSimpleName()) {
+            case "DtBoolean":
+                return Types.CHAR;
+            case "DtInteger":
+                return Types.INTEGER;
+            case "DtName":
+            case "DtNameNm":
+                return  Types.VARCHAR;
+            case "DtNumber":
+                return Types.DECIMAL;
+            case "DtRowId":
+                return Types.ROWID;
+            case "DtUid":
+                return Types.DECIMAL;
+            case "DtVarchar":
+                return Types.VARCHAR;
+            case "Boolean":
+                return Types.BOOLEAN;
+            case "Byte":
+                return Types.INTEGER;
+            case "Short":
+                return Types.INTEGER;
+            case "Integer":
+                return Types.INTEGER;
+            case "Long":
+                return Types.BIGINT;
+            case "Float":
+                return Types.FLOAT;
+            case "Double":
+                return Types.DOUBLE;
+            case "BigDecimal":
+                return Types.DECIMAL;
+            case "String":
+                return Types.VARCHAR;
+            case "Date":
+                return Types.DATE;
+            case "Time":
+                return Types.TIME;
+            case "Timestamp":
+                return Types.TIMESTAMP;
+            default:
+                throw new UnsupportedColumnDatatypeException(this.type);
+        }
+    }
+    
     /**
-     * Exception raised when value supplied to Bind is not one of supported
+     * Exception raised when value supplied to ColumnDef is not one of supported
      * types
      */
     @SuppressWarnings("PublicInnerClass")
@@ -160,4 +192,21 @@ public class ColumnDef implements Serializable {
                     +datatype.getSimpleName());
         }
     }
+
+    /**
+     * Exception raised when SQL type supplied to ColumnDef is not one of
+     * supported types
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class UnsupportedSqlTypeException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        UnsupportedSqlTypeException(int sqlType) {
+            super("Unsupported SQL type code for column definition: "
+                    +sqlType);
+        }
+    }
+
 }

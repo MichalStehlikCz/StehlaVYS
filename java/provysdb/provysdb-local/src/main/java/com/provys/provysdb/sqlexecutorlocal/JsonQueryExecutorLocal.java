@@ -5,15 +5,14 @@
  */
 package com.provys.provysdb.sqlexecutorlocal;
 
-import com.provys.provysdb.sqlexecutor.JsonQueryExecutor;
+import com.provys.provysdb.iface.JsonQueryExecutor;
 import com.provys.common.error.ProvysSqlException;
 import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.Local;
-import javax.ejb.Stateless;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
@@ -23,11 +22,14 @@ import javax.json.JsonObjectBuilder;
  * 
  * @author stehlik
  */
-@Stateless
-@Local
-public class JsonQueryExecutorLocal extends QueryExecutor implements JsonQueryExecutor {
+public class JsonQueryExecutorLocal extends QueryExecutorLocal
+        implements JsonQueryExecutor {
     
     private List<JsonObject> data;
+
+    public JsonQueryExecutorLocal(ProvysConnectionPoolDataSource dataSource) {
+        super(dataSource);
+    }
 
     @Override
     protected void initData() {

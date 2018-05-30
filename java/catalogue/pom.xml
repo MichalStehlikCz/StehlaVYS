@@ -12,6 +12,7 @@
   <modules>
     <module>catalogue-common</module>
     <module>catalogue-api</module>
-    <module>catalogue-local</module>
+    <module>catalogue-loaderdb</module>
+    <module>catalogue-manager</module>
   </modules>
 </project>

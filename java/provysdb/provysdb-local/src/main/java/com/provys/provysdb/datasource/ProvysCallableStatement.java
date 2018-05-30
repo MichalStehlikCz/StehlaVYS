@@ -10,6 +10,7 @@ import com.provys.common.datatypes.DtInteger;
 import com.provys.common.datatypes.DtName;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtNumber;
+import com.provys.common.datatypes.DtRowId;
 import com.provys.common.datatypes.DtUid;
 import com.provys.common.datatypes.DtVarchar;
 import com.provys.provysdb.call.BindParameter;
@@ -183,6 +184,33 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
      * @throws SQLException is thrown when problem is encountered
      */
     public DtUid getDtUid(String parameterName) throws SQLException;
+
+    /**
+     * Set DtRowId type parameter corresponding to bind variable with given
+     * name
+     * @param parameterName is name of bind variable to be associated with given
+     * parameter
+     * @param value is value to be set to given parameter
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public void setDtRowId(String parameterName, DtRowId value)
+            throws SQLException;
+
+    /**
+     * Get value of DtRowId type OUT parameter on given position
+     * @param parameterIndex is position of parameter (indexed from 1)
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public DtRowId getDtRowId(int parameterIndex) throws SQLException;
+
+    /**
+     * Get value of DtRowId type OUT parameter with given bind name
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public DtRowId getDtRowId(String parameterName) throws SQLException;
 
     /**
      * Set DtVarchar type parameter corresponding to bind variable with given

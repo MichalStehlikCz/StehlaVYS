@@ -10,6 +10,7 @@ import com.provys.common.datatypes.DtInteger;
 import com.provys.common.datatypes.DtName;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtNumber;
+import com.provys.common.datatypes.DtRowId;
 import com.provys.common.datatypes.DtUid;
 import com.provys.common.datatypes.DtVarchar;
 import java.sql.PreparedStatement;
@@ -63,6 +64,14 @@ public interface ProvysPreparedStatement extends PreparedStatement
      * @throws SQLException is thrown when problem is encountered
      */
     public void setDtNumber(int parameterIndex, DtNumber value) throws SQLException;
+
+    /**
+     * Set DtRowId type parameter on given position
+     * @param parameterIndex is index of parameter to be set (starting from 1)
+     * @param value is value to be set to given parameter
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public void setDtRowId(int parameterIndex, DtRowId value) throws SQLException;
 
     /**
      * Set DtUid type parameter on given position

@@ -6,9 +6,9 @@
         <artifactId>catalogue</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>catalogue-local</artifactId>
+    <artifactId>catalogue-loaderdb</artifactId>
     <packaging>jar</packaging>
-
+    <name>catalogue-loaderdb</name>
     <dependencies>
         <dependency>
             <groupId>com.provys.catalogue</groupId>

@@ -8,7 +8,8 @@ package com.provys.provysdb.api;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.provysdb.call.BindValue;
 import com.provys.provysdb.call.SQLCall;
-import com.provys.provysdb.sqlexecutor.JsonQueryExecutor;
+import com.provys.provysdb.iface.ExecutorFactory;
+import com.provys.provysdb.iface.JsonQueryExecutor;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -33,14 +34,14 @@ import javax.ws.rs.core.MediaType;
 public class ProvysDbCall {
 
     @Inject
-    private JsonQueryExecutor queryExecutor;
+    private ExecutorFactory executorFactory;
     
     @POST
     @Path("/query")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public List<JsonObject> queryCall(SQLCall sqlCall) {
-        return queryExecutor.executeQuery(sqlCall);
+        return executorFactory.getJsonQueryExecutor().executeQuery(sqlCall);
     }
 
     @GET

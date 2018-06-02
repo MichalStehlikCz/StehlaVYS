@@ -88,7 +88,7 @@ public class SQLCall implements Serializable {
      */
     public Map<Integer, ColumnDef> getColumns() {
         if (columns == null) {
-            return Collections.unmodifiableMap(new HashMap<>(0));
+            return new HashMap<>(0);
         }
         return Collections.unmodifiableMap(columns);
     }

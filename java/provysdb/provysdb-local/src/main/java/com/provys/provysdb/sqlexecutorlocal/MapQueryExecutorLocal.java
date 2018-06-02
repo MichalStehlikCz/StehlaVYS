@@ -13,6 +13,7 @@ import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
 import com.provys.provysdb.iface.MapQueryExecutor;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,6 +31,11 @@ public class MapQueryExecutorLocal extends QueryExecutorLocal
         super(dataSource);
     }
 
+    public MapQueryExecutorLocal(ProvysConnectionPoolDataSource dataSource,
+            SQLCall sqlCall) {
+        super(dataSource, sqlCall);
+    }
+
     @Override
     protected void initData() {
         data = new ArrayList<>(10);
@@ -37,11 +43,12 @@ public class MapQueryExecutorLocal extends QueryExecutorLocal
 
     @Override
     protected void addRow(ProvysResultSet resultSet) {
-        Map<String, Object> row = new ConcurrentHashMap<>(columns.size()*2);
-        columns.forEach((index, columnDef) -> 
+        Map<String, Object> row = new ConcurrentHashMap<>(
+                getSqlCall().getColumns().size()*2);
+        getSqlCall().getColumns().forEach((index, columnDef) -> 
         {
             try {
-                switch (columnDef.getType().getSimpleName()) {
+                switch (columnDef.getType()) {
                     case "DtBoolean":
                         row.put(columnDef.getName(),
                                 resultSet.getDtBoolean(index));
@@ -86,13 +93,16 @@ public class MapQueryExecutorLocal extends QueryExecutorLocal
     }
     
     @Override
-    public List<Map<String, Object>> executeQuery(SQLCall sqlCall) {
-        execute(sqlCall);
-        List<Map<String, Object>> result = data;
-        data = null;
-        return result;
+    public List<Map<String, Object>> executeQuery() {
+        execute();
+        return getData();
     }
 
+    @Override
+    public List<Map<String, Object>> getData() {
+        return Collections.unmodifiableList(data);
+    }
+    
     /**
      * Exception raised when value supplied to ColumnDef is not one of supported
      * types
@@ -103,9 +113,8 @@ public class MapQueryExecutorLocal extends QueryExecutorLocal
 
         private static final long serialVersionUID = 1L;
 
-        UnsupportedColumnDatatypeException(Class<?> datatype) {
-            super("Unsupported class for column definition: "
-                    +datatype.getSimpleName());
+        UnsupportedColumnDatatypeException(String type) {
+            super("Unsupported class for column definition: " + type);
         }
     }
 

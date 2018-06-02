@@ -18,25 +18,25 @@ public class ColumnDef implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    private Class<? extends Dt> type;
+    private String type;
     private int size = -1;
     private String name;
 
     public ColumnDef() {};
     
-    public ColumnDef(Class<? extends Dt> type) {
-        this.type = type;
+    public ColumnDef(Class<? extends Dt> typeClass) {
+        setType(typeClass);
     }
 
-    public ColumnDef(Class<? extends Dt> type, int size) {
-        this.type = type;
+    public ColumnDef(Class<? extends Dt> typeClass, int size) {
+        setType(typeClass);
         this.size = size;
     }
 
     /**
      * @return the type
      */
-    public Class<? extends Dt> getType() {
+    public String getType() {
         return type;
     }
 
@@ -44,9 +44,10 @@ public class ColumnDef implements Serializable {
      * Set type of column to correspond to supplied class
      * @param type is class column should be stored in
      */
-    public void setType(Class<? extends Dt> type) {
-        this.type = type;
-        switch (type.getSimpleName()) {
+    @SuppressWarnings("FinalMethod")
+    public final void setType(Class<? extends Dt> type) {
+        this.type = type.getSimpleName();
+        switch (this.type) {
             case "DtBoolean":
                 size = 1;
                 break;
@@ -66,7 +67,7 @@ public class ColumnDef implements Serializable {
                 size = 4000;
                 break;
             default:
-                throw new UnsupportedColumnDatatypeException(type);
+                throw new UnsupportedColumnDatatypeException(this.type);
         }
     }
     
@@ -76,9 +77,10 @@ public class ColumnDef implements Serializable {
      * @param type is sql datatype parsed from supplied statement
      */
     public void setType(int type) {
+        Class<? extends Dt> typeClass;
         switch (type) {
             case Types.CHAR:
-                this.type = DtVarchar.class;
+                typeClass = DtVarchar.class;
                 break;
             case Types.DATE:
                 throw new UnsupportedSqlTypeException(type);
@@ -87,20 +89,40 @@ public class ColumnDef implements Serializable {
             case Types.FLOAT:
             case Types.DOUBLE:
             case Types.NUMERIC:
-                this.type = DtNumber.class;
+                typeClass = DtNumber.class;
                 break;
             case Types.INTEGER:
-                this.type = DtInteger.class;
+                typeClass = DtInteger.class;
                 break;
             case Types.ROWID:
-                this.type = DtRowId.class;
+                typeClass = DtRowId.class;
                 break;
             case Types.VARCHAR:
-                this.type = DtVarchar.class;
+                typeClass = DtVarchar.class;
                 break;
             default:
                 throw new UnsupportedSqlTypeException(type);
         }
+        setType(typeClass);
+    }
+    
+    /**
+     * Setter method for type.
+     * Method finds corresponding class and calls setType method with class
+     * parameter
+     * 
+     * @param type sets type field
+     */
+    public void setType(String type) {
+        Class<? extends Dt> typeClass;
+        try {
+            typeClass = Class
+                    .forName("com.provys.common.datatypes"+type)
+                    .asSubclass(Dt.class);
+        } catch (ClassNotFoundException ex) {
+            throw new UnsupportedTypeException(type, ex);
+        }
+        setType(typeClass);
     }
     
     /**
@@ -132,7 +154,7 @@ public class ColumnDef implements Serializable {
     }
 
     public int getSqlType() {
-        switch (type.getSimpleName()) {
+        switch (type) {
             case "DtBoolean":
                 return Types.CHAR;
             case "DtInteger":
@@ -187,9 +209,8 @@ public class ColumnDef implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
-        UnsupportedColumnDatatypeException(Class<?> datatype) {
-            super("Unsupported class for column definition: "
-                    +datatype.getSimpleName());
+        UnsupportedColumnDatatypeException(String type) {
+            super("Unsupported class for column definition: "+type);
         }
     }
 
@@ -206,6 +227,21 @@ public class ColumnDef implements Serializable {
         UnsupportedSqlTypeException(int sqlType) {
             super("Unsupported SQL type code for column definition: "
                     +sqlType);
+        }
+    }
+
+    /**
+     * Exception raised when type supplied to ColumnDef (as string) is not one
+     * of supported types
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class UnsupportedTypeException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        UnsupportedTypeException(String type, Throwable cause) {
+            super("Unsupported type for column definition: "+type, cause);
         }
     }
 

@@ -6,8 +6,8 @@
 package com.provys.provysdb.call;
 
 import com.provys.common.datatypes.Dt;
+import com.provys.common.error.ProvysException;
 import java.io.Serializable;
-import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  * BindValue is used to prepare parameters for CallableStatement.
@@ -21,8 +21,7 @@ public class BindValue implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String name;
-    @JsonbTypeAdapter(JsonbClassAdapter.class)
-    private Class<?> datatype;
+    private String type;
     private Dt value = null;
 
     /**
@@ -34,12 +33,12 @@ public class BindValue implements Serializable {
      * Constructor for BindValue with specification of all fields.
      * 
      * @param name is name of bind variable
-     * @param datatype is data type of bind variable (class)
+     * @param typeClass is data type of bind variable (class)
      * @param value is value to be passed to bind variable
      */
-    public BindValue(String name, Class<?> datatype, Dt value) {
+    public BindValue(String name, Class<? extends Dt> typeClass, Dt value) {
         this.name = name;
-        this.datatype = datatype;
+        setType(typeClass);
         this.value = value;
     }
 
@@ -54,7 +53,7 @@ public class BindValue implements Serializable {
     public BindValue(String name, Dt value) {
         this.name = name;
         this.value = value;
-        this.deriveDatatypeFromValue();
+        this.deriveTypeFromValue();
     }
 
     /**
@@ -72,19 +71,40 @@ public class BindValue implements Serializable {
     }
 
     /**
-     * @return the datatype
+     * @return the type
      */
-    public Class<?> getDatatype() {
-        return datatype;
+    public String getType() {
+        return type;
     }
 
     /**
-     * @param datatype the datatype to set
+     * Set type of bind to correspond to supplied class.
+     * @param type is class acceptable as value for given bind
      */
-    public void setDatatype(Class<?> datatype) {
-        this.datatype = datatype;
+    @SuppressWarnings("FinalMethod")
+    public final void setType(Class<? extends Dt> type) {
+        this.type = type.getSimpleName();
     }
-
+    
+    /**
+     * Setter method for type.
+     * Method finds corresponding class and calls setType method with class
+     * parameter
+     * 
+     * @param type sets type field
+     */
+    public void setType(String type) {
+        Class<? extends Dt> typeClass;
+        try {
+            typeClass = Class
+                    .forName("com.provys.common.datatypes"+type)
+                    .asSubclass(Dt.class);
+        } catch (ClassNotFoundException ex) {
+            throw new UnsupportedTypeException(type, ex);
+        }
+        setType(typeClass);
+    }
+    
     /**
      * @return the value
      */
@@ -92,9 +112,9 @@ public class BindValue implements Serializable {
         return value;
     }
 
-    private void deriveDatatypeFromValue() {
+    private void deriveTypeFromValue() {
         if (value != null) {
-            datatype = value.getClass();
+            setType(value.getClass());
         }
     }
 
@@ -107,8 +127,23 @@ public class BindValue implements Serializable {
      */
     public void setValue(Dt value) {
         this.value = value;
-        if ((this.datatype == null) && (this.value != null)) {
-            deriveDatatypeFromValue();
+        if ((this.type == null) && (this.value != null)) {
+            deriveTypeFromValue();
+        }
+    }
+
+    /**
+     * Exception raised when type supplied to ColumnDef (as string) is not one
+     * of supported types
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class UnsupportedTypeException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        UnsupportedTypeException(String type, Throwable cause) {
+            super("Unsupported type for column definition: "+type, cause);
         }
     }
 }

@@ -919,7 +919,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
 
     @Override
     public void setBind(BindValue bind) throws SQLException {
-        switch (bind.getDatatype().getSimpleName()) {
+        switch (bind.getType()) {
             case "DtBoolean":
                 setDtBoolean(bind.getName(), (DtBoolean) bind.getValue());
                 break;
@@ -983,7 +983,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
                 break;
 */
             default:
-                throw new UnsupportedBindDatatypeException(bind.getDatatype());
+                throw new UnsupportedBindDatatypeException(bind.getType());
         }
     }
 
@@ -1004,7 +1004,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
                 || (parameter.getMode() == ParameterMode.OUT)) {
             int type;
             int size = -1;
-            switch (parameter.getDatatype().getSimpleName()) {
+            switch (parameter.getType()) {
                 case "DtBoolean":
                     type = Types.CHAR;
                     size = 1;
@@ -1067,7 +1067,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
                     break;
                 default:
                     throw new UnsupportedBindDatatypeException(
-                            parameter.getDatatype());
+                            parameter.getType());
             }
             if (size > 0) {
                 registerOutParameter(parameter.getName(), type, size);
@@ -1098,7 +1098,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (parameter.getMode() == ParameterMode.IN) {
             throw new CannotGetValueOfINParameter(parameter.getName());
         }
-        switch (parameter.getDatatype().getSimpleName()) {
+        switch (parameter.getType()) {
             case "DtBoolean":
                 return getDtBoolean(parameter.getName());
             case "DtInteger":
@@ -1141,7 +1141,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
                 return getTimestamp(parameter.getName());
             default:
                 throw new UnsupportedBindDatatypeException(
-                        parameter.getDatatype());
+                        parameter.getType());
         }
     }
 
@@ -1172,8 +1172,8 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
 
         private static final long serialVersionUID = 1L;
 
-        UnsupportedBindDatatypeException(Class<?> datatype) {
-            super("Unsupported data type for bind: " + datatype.getSimpleName());
+        UnsupportedBindDatatypeException(String type) {
+            super("Unsupported data type for bind: " + type);
         }
     }
 

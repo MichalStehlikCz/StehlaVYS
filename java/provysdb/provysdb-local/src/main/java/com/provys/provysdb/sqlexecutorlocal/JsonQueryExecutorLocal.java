@@ -12,6 +12,7 @@ import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
 import com.provys.provysdb.iface.JsonQueryExecutor;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -31,6 +32,11 @@ public class JsonQueryExecutorLocal extends QueryExecutorLocal
         super(dataSource);
     }
 
+    public JsonQueryExecutorLocal(ProvysConnectionPoolDataSource dataSource,
+            SQLCall sqlCall) {
+        super(dataSource, sqlCall);
+    }
+
     @Override
     protected void initData() {
         data = new ArrayList<>(10);
@@ -39,7 +45,7 @@ public class JsonQueryExecutorLocal extends QueryExecutorLocal
     @Override
     protected void addRow(ProvysResultSet resultSet) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
-        columns.forEach((index, columnDef) -> 
+        getSqlCall().getColumns().forEach((index, columnDef) -> 
         {
             try {
                 if (resultSet.getString(index) != null) {
@@ -55,11 +61,13 @@ public class JsonQueryExecutorLocal extends QueryExecutorLocal
     }
     
     @Override
-    public List<JsonObject> executeQuery(SQLCall sqlCall) {
-        execute(sqlCall);
-        List<JsonObject> result = data;
-        data = null;
-        return result;
+    public List<JsonObject> executeQuery() {
+        execute();
+        return getData();
     }
 
+    @Override
+    public List<JsonObject> getData() {
+        return Collections.unmodifiableList(data);
+    }
 }

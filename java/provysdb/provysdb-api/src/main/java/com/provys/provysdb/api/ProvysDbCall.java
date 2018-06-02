@@ -6,7 +6,9 @@
 package com.provys.provysdb.api;
 
 import com.provys.common.datatypes.DtNameNm;
+import com.provys.common.datatypes.DtUid;
 import com.provys.provysdb.call.BindValue;
+import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SQLCall;
 import com.provys.provysdb.iface.ExecutorFactory;
 import com.provys.provysdb.iface.JsonQueryExecutor;
@@ -44,23 +46,34 @@ public class ProvysDbCall {
     @Path("/query")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public JsonObject queryCall(SQLCall sqlCall) {
+    public List<JsonObject> queryCall(SQLCall sqlCall) {
+        return executorFactory.getJsonQueryExecutor(sqlCall).executeQuery();
+    }
+
+    @POST
+    @Path("/parseAndQuery")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public JsonObject parseAndQueryCall(SQLCall sqlCall) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         Jsonb jsonb = JsonbBuilder.create();
-        List<JsonObject> data = executorFactory.getJsonQueryExecutor().
-                executeQuery(sqlCall);
-        jsonb.toJson(data);
-        ConfEntity confEntity = entityManager.getByNm(new DtNameNm(nameNm));
-        String result = jsonb.toJson(confEntity);
+        JsonQueryExecutor executor = executorFactory.getJsonQueryExecutor(
+                sqlCall);
+        executor.executeQuery();
+        builder.add("columns", jsonb.toJson(executor.getColumns()));
+        builder.add("data", jsonb.toJson(executor.getData()));
+        return builder.build();
     }
 
     @GET
     @Path("/test")
     @Produces({MediaType.APPLICATION_JSON})
-    public SQLCall testSerialisation() {
-        SQLCall result = new SQLCall();
+    public ColumnDef testSerialisation() {
+/**        SQLCall result = new SQLCall();
         result.setSql("SELECT 1 from dual");
         result.addValue(new BindValue("domain_id", new DtNameNm("ABC")));
+        result.addColumn(1, new ColumnDef(DtUid.class));*/
+        ColumnDef result = new ColumnDef(DtUid.class);
         return result;
     }
 

@@ -12,6 +12,7 @@ import com.provys.provysdb.datasource.ProvysCallableStatement;
 import com.provys.provysdb.datasource.ProvysConnection;
 import com.provys.provysdb.datasource.ProvysResultSet;
 import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
+import com.provys.provysdb.iface.QueryExecutor;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -26,18 +27,23 @@ import java.util.Map;
  *
  * @author stehlik
  */
-abstract public class QueryExecutorLocal {
+abstract public class QueryExecutorLocal implements QueryExecutor {
 
     private final ProvysConnectionPoolDataSource dataSource;
 
     /**
-     * columns field is list of column definitions that will be used to declare
-     * expected columns of resulting set
+     * defines statement(s) to be executed
      */
-    protected Map<Integer, ColumnDef> columns;
+    private SQLCall sqlCall;
 
     public QueryExecutorLocal(ProvysConnectionPoolDataSource dataSource) {
         this.dataSource = dataSource;
+    }
+    
+    public QueryExecutorLocal(ProvysConnectionPoolDataSource dataSource,
+            SQLCall sqlCall) {
+        this.dataSource = dataSource;
+        this.sqlCall = sqlCall;
     }
     
     /**
@@ -57,33 +63,26 @@ abstract public class QueryExecutorLocal {
      * Binds all values, executes statement and returns resulting ResultSet.
      * This method should only be used with simple SELECT statement. For update
      * statements, executeUpdate should be used instead
-     *
-     * @param sqlCall is SQL statement with binds and column definitions
-     * describing query to be executed
      */
-    protected void execute(SQLCall sqlCall) {
+    protected void execute() {
 
         try (ProvysConnection connection = dataSource.getConnection()) {
             initData();
-            ProvysCallableStatement statement = connection.prepareCall(sqlCall.getSql());
-            statement.setBinds(sqlCall.getValues());
-            statement.defineColumnTypes(sqlCall.getColumns());
+            ProvysCallableStatement statement = connection.prepareCall(getSqlCall().getSql());
+            statement.setBinds(getSqlCall().getValues());
+            statement.defineColumnTypes(getSqlCall().getColumns());
             ProvysResultSet resultSet = statement.executeQuery();
-            if (sqlCall.getColumns().isEmpty()) {
+            if (getSqlCall().getColumns().isEmpty()) {
                 // columns has to be taken from ResultSet
                 ResultSetMetaData metadata = resultSet.getMetaData();
                 int columnCount = metadata.getColumnCount();
-                this.columns = new HashMap<>(columnCount);
                 for (int i = 1; i<= columnCount; i++) {
                     ColumnDef column = new ColumnDef();
                     column.setName(metadata.getColumnName(i));
                     column.setType(metadata.getColumnType(i));
                     column.setSize(metadata.getPrecision(i));
-                    this.columns.put(i, column);
+                    getSqlCall().addColumn(i, column);
                 }
-            } else {
-                // columns can be taken from SQLCall
-                columns = sqlCall.getColumns();
             }
             while (resultSet.next()) {
                 addRow(resultSet);
@@ -91,6 +90,22 @@ abstract public class QueryExecutorLocal {
         } catch (SQLException e) {
             throw new ProvysSqlException(e);
         }
+    }
+
+    /**
+     * @return the sqlCall
+     */
+    @Override
+    public SQLCall getSqlCall() {
+        return sqlCall;
+    }
+
+    /**
+     * @param sqlCall the sqlCall to set
+     */
+    @Override
+    public void setSqlCall(SQLCall sqlCall) {
+        this.sqlCall = sqlCall;
     }
     
 }

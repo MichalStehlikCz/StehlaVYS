@@ -5,6 +5,8 @@
  */
 package com.provys.provysdb.iface;
 
+import com.provys.provysdb.call.SQLCall;
+
 /**
  * Factory class to produce various executors
  * 
@@ -12,5 +14,7 @@ package com.provys.provysdb.iface;
  */
 public interface ExecutorFactory {
     public JsonQueryExecutor getJsonQueryExecutor();
+    public JsonQueryExecutor getJsonQueryExecutor(SQLCall sqlCall);
     public MapQueryExecutor getMapQueryExecutor();
+    public MapQueryExecutor getMapQueryExecutor(SQLCall sqlCall);
 }

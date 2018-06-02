@@ -5,7 +5,6 @@
  */
 package com.provys.provysdb.iface;
 
-import com.provys.provysdb.call.SQLCall;
 import java.util.List;
 import javax.json.JsonObject;
 
@@ -13,8 +12,8 @@ import javax.json.JsonObject;
  *
  * @author stehlik
  */
-public interface JsonQueryExecutor {
+public interface JsonQueryExecutor extends QueryExecutor {
 
-    List<JsonObject> executeQuery(SQLCall sqlCall);
-    
+    List<JsonObject> executeQuery();
+    List<JsonObject> getData();
 }

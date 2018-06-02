@@ -13,7 +13,11 @@ import com.provys.provysdb.iface.JsonQueryExecutor;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -40,8 +44,14 @@ public class ProvysDbCall {
     @Path("/query")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public List<JsonObject> queryCall(SQLCall sqlCall) {
-        return executorFactory.getJsonQueryExecutor().executeQuery(sqlCall);
+    public JsonObject queryCall(SQLCall sqlCall) {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        Jsonb jsonb = JsonbBuilder.create();
+        List<JsonObject> data = executorFactory.getJsonQueryExecutor().
+                executeQuery(sqlCall);
+        jsonb.toJson(data);
+        ConfEntity confEntity = entityManager.getByNm(new DtNameNm(nameNm));
+        String result = jsonb.toJson(confEntity);
     }
 
     @GET

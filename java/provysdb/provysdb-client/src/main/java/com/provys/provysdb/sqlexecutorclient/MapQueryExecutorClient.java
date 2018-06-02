@@ -6,12 +6,14 @@
 package com.provys.provysdb.sqlexecutorclient;
 
 import com.provys.provysdb.call.SQLCall;
-import com.provys.provysdb.iface.JsonQueryExecutor;
+import com.provys.provysdb.iface.MapQueryExecutor;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -19,20 +21,22 @@ import javax.ws.rs.core.MediaType;
  * 
  * @author stehlik
  */
-public class JsonQueryExecutorClient implements JsonQueryExecutor {
+public class MapQueryExecutorClient implements MapQueryExecutor {
 
     private final Client client;
     
-    JsonQueryExecutorClient(Client client) {
+    MapQueryExecutorClient(Client client) {
         this.client = client;
     }
     
     @Override
-    public List<JsonObject> executeQuery(SQLCall sqlCall) {
-        return client.target("http://localhost:8080/provysdb/query")
+    public List<Map<String, Object>> executeQuery(SQLCall sqlCall) {
+        JsonObject jsonResult = client.target("http://localhost:8080/provysdb/query")
                 .request(MediaType.APPLICATION_JSON)
-                .post(Entity.json(sqlCall),
-                        new GenericType<List<JsonObject>>() {});
+                .post(Entity.json(sqlCall), JsonObject.class);
+        List<Map<String, Object>> result = new ArrayList<>(10);
+        
+        return result;
     }
 
 }

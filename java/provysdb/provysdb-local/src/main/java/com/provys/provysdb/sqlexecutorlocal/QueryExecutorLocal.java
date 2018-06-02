@@ -10,8 +10,8 @@ import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SQLCall;
 import com.provys.provysdb.datasource.ProvysCallableStatement;
 import com.provys.provysdb.datasource.ProvysConnection;
+import com.provys.provysdb.datasource.ProvysResultSet;
 import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
-import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -30,15 +30,15 @@ abstract public class QueryExecutorLocal {
 
     private final ProvysConnectionPoolDataSource dataSource;
 
-    public QueryExecutorLocal(ProvysConnectionPoolDataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-    
     /**
      * columns field is list of column definitions that will be used to declare
      * expected columns of resulting set
      */
     protected Map<Integer, ColumnDef> columns;
+
+    public QueryExecutorLocal(ProvysConnectionPoolDataSource dataSource) {
+        this.dataSource = dataSource;
+    }
     
     /**
      * Initializes result set.
@@ -51,7 +51,7 @@ abstract public class QueryExecutorLocal {
      * 
      * @param resultSet is result set navigated to the row to be added
     */
-    abstract protected void addRow(ResultSet resultSet);
+    abstract protected void addRow(ProvysResultSet resultSet);
     
     /**
      * Binds all values, executes statement and returns resulting ResultSet.
@@ -68,7 +68,7 @@ abstract public class QueryExecutorLocal {
             ProvysCallableStatement statement = connection.prepareCall(sqlCall.getSql());
             statement.setBinds(sqlCall.getValues());
             statement.defineColumnTypes(sqlCall.getColumns());
-            ResultSet resultSet = statement.executeQuery();
+            ProvysResultSet resultSet = statement.executeQuery();
             if (sqlCall.getColumns().isEmpty()) {
                 // columns has to be taken from ResultSet
                 ResultSetMetaData metadata = resultSet.getMetaData();

@@ -5,11 +5,11 @@
  */
 package com.provys.provysdb.sqlexecutorlocal;
 
-import com.provys.provysdb.iface.JsonQueryExecutor;
 import com.provys.common.error.ProvysSqlException;
 import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.datasource.ProvysResultSet;
 import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
-import java.sql.ResultSet;
+import com.provys.provysdb.iface.JsonQueryExecutor;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class JsonQueryExecutorLocal extends QueryExecutorLocal
     }
 
     @Override
-    protected void addRow(ResultSet resultSet) {
+    protected void addRow(ProvysResultSet resultSet) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         columns.forEach((index, columnDef) -> 
         {

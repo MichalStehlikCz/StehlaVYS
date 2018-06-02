@@ -7,6 +7,7 @@ package com.provys.provysdb.datasourceimpl;
 
 import com.provys.common.datatypes.*;
 import com.provys.provysdb.datasource.ProvysPreparedStatement;
+import com.provys.provysdb.datasource.ProvysResultSet;
 import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
@@ -19,7 +20,6 @@ import java.sql.NClob;
 import java.sql.ParameterMetaData;
 import java.sql.PreparedStatement;
 import java.sql.Ref;
-import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.RowId;
 import java.sql.SQLException;
@@ -64,8 +64,8 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public ResultSet executeQuery() throws SQLException {
-        return getStatement().executeQuery();
+    public ProvysResultSet executeQuery() throws SQLException {
+        return new ProvysResultSetImpl(getStatement().executeQuery());
     }
 
     @Override

@@ -17,6 +17,12 @@ import java.util.Map;
  */
 public interface ProvysStatement extends Statement {
     
+    @Override
+    public ProvysResultSet executeQuery(String sql) throws SQLException;
+
+    @Override
+    public ProvysResultSet getResultSet() throws SQLException;
+
     /**
      * Defines the type you will use to retrieve data from a particular database
      * table column.

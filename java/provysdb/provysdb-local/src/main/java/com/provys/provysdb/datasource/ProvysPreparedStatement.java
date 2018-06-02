@@ -25,6 +25,9 @@ import java.sql.SQLException;
 public interface ProvysPreparedStatement extends PreparedStatement
         , ProvysStatement {
 
+    @Override
+    public ProvysResultSet executeQuery() throws SQLException;
+
     /**
      * Set DtBoolean type parameter on given position
      * @param parameterIndex is index of parameter to be set (starting from 1)

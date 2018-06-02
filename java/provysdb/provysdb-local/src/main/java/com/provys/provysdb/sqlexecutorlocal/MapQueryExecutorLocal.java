@@ -5,12 +5,12 @@
  */
 package com.provys.provysdb.sqlexecutorlocal;
 
-import com.provys.common.datatypes.*;
+import com.provys.common.error.ProvysException;
 import com.provys.common.error.ProvysSqlException;
 import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.datasource.ProvysResultSet;
 import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
 import com.provys.provysdb.iface.MapQueryExecutor;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,38 +36,47 @@ public class MapQueryExecutorLocal extends QueryExecutorLocal
     }
 
     @Override
-    protected void addRow(ResultSet resultSet) {
+    protected void addRow(ProvysResultSet resultSet) {
         Map<String, Object> row = new ConcurrentHashMap<>(columns.size()*2);
         columns.forEach((index, columnDef) -> 
         {
             try {
                 switch (columnDef.getType().getSimpleName()) {
                     case "DtBoolean":
-                        String value = resultSet.getString(index);
-                        if (resultSet.wasNull()) {
-                            row.put(columnDef.getName(), null);
-                        } else {
-                            row.put(columnDef.getName(), DtBoolean.fromStringValue(value));
-                        }
+                        row.put(columnDef.getName(),
+                                resultSet.getDtBoolean(index));
                         break;
                     case "DtInteger":
-                        size = -1;
+                        row.put(columnDef.getName(),
+                                resultSet.getDtInteger(index));
                         break;
                     case "DtName":
+                        row.put(columnDef.getName(),
+                                resultSet.getDtName(index));
+                        break;
                     case "DtNameNm":
-                        size = 200;
+                        row.put(columnDef.getName(),
+                                resultSet.getDtNameNm(index));
                         break;
                     case "DtNumber":
+                        row.put(columnDef.getName(),
+                                resultSet.getDtNumber(index));
+                        break;
                     case "DtRowId":
+                        row.put(columnDef.getName(),
+                                resultSet.getDtRowId(index));
+                        break;
                     case "DtUid":
-                        size = -1;
+                        row.put(columnDef.getName(),
+                                resultSet.getDtUid(index));
                         break;
                     case "DtVarchar":
-                }
-                if (resultSet.getString(index) != null) {
-                    builder.add(columnDef.getName(), resultSet.getString(index));
-                } else {
-                    builder.addNull(columnDef.getName());
+                        row.put(columnDef.getName(),
+                                resultSet.getDtVarchar(index));
+                        break;
+                    default:
+                        throw new UnsupportedColumnDatatypeException(
+                                columnDef.getType());
                 }
             } catch (SQLException e) {
                 throw new ProvysSqlException(e);
@@ -82,6 +91,22 @@ public class MapQueryExecutorLocal extends QueryExecutorLocal
         List<Map<String, Object>> result = data;
         data = null;
         return result;
+    }
+
+    /**
+     * Exception raised when value supplied to ColumnDef is not one of supported
+     * types
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class UnsupportedColumnDatatypeException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        UnsupportedColumnDatatypeException(Class<?> datatype) {
+            super("Unsupported class for column definition: "
+                    +datatype.getSimpleName());
+        }
     }
 
 }

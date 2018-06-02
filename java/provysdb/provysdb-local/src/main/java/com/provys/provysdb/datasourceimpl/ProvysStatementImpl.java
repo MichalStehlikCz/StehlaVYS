@@ -7,6 +7,7 @@ package com.provys.provysdb.datasourceimpl;
 
 import com.provys.common.error.ProvysSqlException;
 import com.provys.provysdb.call.ColumnDef;
+import com.provys.provysdb.datasource.ProvysResultSet;
 import com.provys.provysdb.datasource.ProvysStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -74,8 +75,8 @@ public class ProvysStatementImpl implements ProvysStatement {
     }
 
     @Override
-    public ResultSet executeQuery(String sql) throws SQLException {
-        return getStatement().executeQuery(sql);
+    public ProvysResultSet executeQuery(String sql) throws SQLException {
+        return new ProvysResultSetImpl(getStatement().executeQuery(sql));
     }
 
     @Override
@@ -134,8 +135,8 @@ public class ProvysStatementImpl implements ProvysStatement {
     }
 
     @Override
-    public ResultSet getResultSet() throws SQLException {
-        return getStatement().getResultSet();
+    public ProvysResultSet getResultSet() throws SQLException {
+        return new ProvysResultSetImpl(getStatement().getResultSet());
     }
 
     @Override

@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.sqlexecutorclient;
 
+import com.provys.provysdb.call.SQLCall;
 import com.provys.provysdb.iface.ExecutorFactory;
 import com.provys.provysdb.iface.JsonQueryExecutor;
 import com.provys.provysdb.iface.MapQueryExecutor;
@@ -29,8 +30,18 @@ public class ExecutorFactoryClient implements ExecutorFactory {
     }
     
     @Override
+    public JsonQueryExecutor getJsonQueryExecutor(SQLCall sqlCall) {
+        return new JsonQueryExecutorClient(client, sqlCall);
+    }
+
+    @Override
     public MapQueryExecutor getMapQueryExecutor() {
         return new MapQueryExecutorClient(client);
+    }
+
+    @Override
+    public MapQueryExecutor getMapQueryExecutor(SQLCall sqlCall) {
+        return new MapQueryExecutorClient(client, sqlCall);
     }
     
 }

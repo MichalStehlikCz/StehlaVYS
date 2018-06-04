@@ -12,14 +12,12 @@ import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SQLCall;
 import com.provys.provysdb.iface.ExecutorFactory;
 import com.provys.provysdb.iface.JsonQueryExecutor;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.json.Json;
 import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -54,15 +52,14 @@ public class ProvysDbCall {
     @Path("/parseAndQuery")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public JsonObject parseAndQueryCall(SQLCall sqlCall) {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        Jsonb jsonb = JsonbBuilder.create();
+    public Map<String, Object> parseAndQueryCall(SQLCall sqlCall) {
         JsonQueryExecutor executor = executorFactory.getJsonQueryExecutor(
                 sqlCall);
         executor.executeQuery();
-        builder.add("columns", jsonb.toJson(executor.getColumns()));
-        builder.add("data", jsonb.toJson(executor.getData()));
-        return builder.build();
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("columns", executor.getColumns());
+        map.put("data", executor.getData());
+        return map;
     }
 
     @GET

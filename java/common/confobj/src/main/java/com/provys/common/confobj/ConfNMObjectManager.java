@@ -28,11 +28,10 @@ abstract public class ConfNMObjectManager<T extends ConfNMObject> extends ConfOb
     }
     
     @Override
-    protected T add(ObjectWithRowid<T> confObjectWithRowid) {
-        T result = super.add(confObjectWithRowid);
+    protected T add(T confObject) {
+        T result = super.add(confObject);
         if (result == null){
-          mapByNm.put(confObjectWithRowid.getObject().getNameNm()
-                  , confObjectWithRowid.getObject());
+          mapByNm.put(confObject.getNameNm(), confObject);
         }
         return result;
     }
@@ -55,8 +54,7 @@ abstract public class ConfNMObjectManager<T extends ConfNMObject> extends ConfOb
 
     public void loadByNm(DtNameNm nameNm){
         if (!mapByNm.containsKey(nameNm)){
-            ObjectWithRowid<T> confObjectWithRowid = this.getConfObjectLoader().loadByNm(nameNm);
-            this.add(confObjectWithRowid);
+            this.add(getConfObjectLoader().loadByNm(nameNm));
         }
     }
 

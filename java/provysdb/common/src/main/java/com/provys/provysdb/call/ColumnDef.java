@@ -9,6 +9,7 @@ import com.provys.common.datatypes.*;
 import com.provys.common.error.ProvysException;
 import java.io.Serializable;
 import java.sql.Types;
+import javax.json.bind.annotation.JsonbTransient;
 
 /**
  *
@@ -153,6 +154,7 @@ public class ColumnDef implements Serializable {
         this.name = name;
     }
 
+    @JsonbTransient
     public int getSqlType() {
         switch (type) {
             case "DtBoolean":

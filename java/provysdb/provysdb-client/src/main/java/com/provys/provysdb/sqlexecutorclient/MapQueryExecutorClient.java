@@ -50,15 +50,29 @@ public class MapQueryExecutorClient implements MapQueryExecutor {
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(sqlCall), JsonObject.class);
         Jsonb jsonb = JsonbBuilder.create();
-        if (jsonResult.containsKey("columns")) {
-            Type type = new ConcurrentHashMap<Integer, ColumnDef>(0) {}
-                .getClass().getGenericSuperclass();
-            sqlCall.setColumns(jsonb.fromJson(
-                    jsonResult.getJsonObject("columns").toString(),
-                    type));
-        }
+        Type type = new ConcurrentHashMap<Integer, ColumnDef>(0) {}
+            .getClass().getGenericSuperclass();
+        sqlCall.setColumns(jsonb.fromJson(
+                jsonResult.getJsonObject("columns").toString(),
+                type));
         JsonArray jsonData = jsonResult.getJsonArray("data");
-        jsonData.forEach(     );
+        jsonData.forEach((jsonValue) -> 
+            {
+                Map<String, Object> row = new ConcurrentHashMap<>(
+                        getSqlCall().getColumns().size()*2);
+                getSqlCall().getColumns().forEach((index, columnDef) -> 
+                    {
+                        String value = jsonValue.asJsonObject().
+                                get(columnDef.getName()).toString();
+                        if (value.isEmpty()) {
+                            row.put(columnDef.getName(), null);
+                        } else {
+                            row.put(columnDef.getName(), jsonb.fromJson(value,
+                                    columnDef.getClass()));
+                        }
+                    });
+                data.add(row);
+            });
         return getData();
     }
 

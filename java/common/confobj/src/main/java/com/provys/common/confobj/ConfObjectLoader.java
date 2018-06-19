@@ -6,17 +6,19 @@
 package com.provys.common.confobj;
 
 import com.provys.common.datatypes.DtUid;
-import javax.annotation.Resource;
-import javax.sql.DataSource;
 
 /**
- *
+ * Generic loader ancestor for configuration objects.
+ * Its only functionality is that it supplies interface to load object of
+ * given type from chosen source. Particular implementations than allow either
+ * load from database or retrieve object from particular service
+ * 
  * @author stehlik
  * @param <T> Configuration object class this loader retrieves from database
  * 
  */
 public abstract class ConfObjectLoader<T extends ConfObject> {
     
-    public abstract ObjectWithRowid<T> load(DtUid id);
+    public abstract T load(DtUid id);
     
 }

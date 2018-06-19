@@ -28,10 +28,14 @@ public interface ConfEntityManager {
     
     public ConfAttr getAttrByNm(DtUid entityId, DtNameNm attrNm);
     
-    public ConfAttr getAttrByNm(DtNameNm nameNm, DtNameNm attrNm);
+    default public ConfAttr getAttrByNm(DtNameNm nameNm, DtNameNm attrNm) {
+        return getAttrByNm(getByNm(nameNm).getId(), attrNm);
+    };
     
     public void loadAttrs(DtUid entityId);
 
-    public void loadAttrsByNm(DtNameNm nameNm);
+    default public void loadAttrsByNm(DtNameNm nameNm) {
+        loadAttrs(getByNm(nameNm).getId());
+    }
 
 }

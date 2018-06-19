@@ -4,20 +4,11 @@
  */
 package com.provys.catalogue.manager;
 
-import com.provys.catalogue.ejb.ConfAttrManagerBean;
-import com.provys.catalogue.ejb.ConfEntityLoaderBean;
-import javax.ejb.Singleton;
-import javax.ejb.ConcurrencyManagement;
-import javax.ejb.ConcurrencyManagementType;
+import com.provys.catalogue.iface.ConfEntityManager;
 import com.provys.catalogue.model.ConfEntity;
-import com.provys.catalogue.model.ConfAttr;
-import com.provys.common.confobj.*;
-import com.provys.common.datatypes.*;
-import javax.ejb.Local;
+import com.provys.common.confobj.ConfNMObjectManager;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
-import com.provys.catalogue.iface.ConfEntityManager;
 
 /**
  *
@@ -28,7 +19,7 @@ public class ConfEntityManagerImpl extends ConfNMObjectManager<ConfEntity>
         implements ConfEntityManager {
 
     @Inject
-    private ConfEntityLoaderBean entityLoader;
+    private ConfEntityLoader entityLoader;
     
     @Inject
     private ConfAttrManagerBean attrManager;

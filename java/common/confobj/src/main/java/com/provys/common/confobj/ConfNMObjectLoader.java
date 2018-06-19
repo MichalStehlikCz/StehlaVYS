@@ -8,6 +8,10 @@ package com.provys.common.confobj;
 import com.provys.common.datatypes.*;
 
 /**
+ * Configuration object loader extension for objects with internal name.
+ * This extension allows to load object specified by internal name instead of
+ * Id. This allows some optimisation, as very often objects are identified by
+ * internal name instead of Id.
  *
  * @author stehlik
  * @param <T> Configuration object class this loader retrieves from database
@@ -15,5 +19,5 @@ import com.provys.common.datatypes.*;
 */
 abstract public class ConfNMObjectLoader<T extends ConfNMObject> extends ConfObjectLoader<T> {
 
-    abstract public ObjectWithRowid<T> loadByNm(DtNameNm nameNm);
+    abstract public T loadByNm(DtNameNm nameNm);
 }

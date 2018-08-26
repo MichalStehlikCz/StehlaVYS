@@ -9,6 +9,7 @@ import com.provys.common.confobj.ConfNMObject;
 import com.provys.common.datatypes.*;
 import com.provys.common.error.ProvysException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.json.bind.annotation.JsonbTypeAdapter;
@@ -29,15 +30,17 @@ public class ConfEntity extends ConfNMObject{
     }
 
     public Map<DtNameNm, ConfAttr> getAttrMap() {
-        Map<DtNameNm, ConfAttr> result = null;
-        if (attrMap != null) {
-            result = new ConcurrentHashMap<>(attrMap.size());
-            result.putAll(attrMap);
-        }
-        return result;
+        return Collections.unmodifiableMap(attrMap);
     }
     
+    public synchronized void setAttrMap(Map<DtNameNm, ConfAttr> attrMap){
+        this.attrMap=new ConcurrentHashMap<>(attrMap);
+    }
+
     public Collection<ConfAttr> getAttrs() {
+        if (attrMap == null) {
+            throw new CannotGetAttrNotLoadedException();
+        }
         return attrMap.values();
     }
 
@@ -45,10 +48,6 @@ public class ConfEntity extends ConfNMObject{
         return attrMap;
     }
     
-    public synchronized void setAttrMap(Map<DtNameNm, ConfAttr> attrMap){
-        this.attrMap=attrMap;
-    }
-
     public ConfAttr getAttrByNm(DtNameNm attrNm) {
         if (attrMap == null) {
             throw new CannotGetAttrNotLoadedException();

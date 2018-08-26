@@ -5,7 +5,7 @@
  */
 package com.provys.provysdb.sqlbuilder;
 
-import com.provys.provysdb.api.BindValue;
+import com.provys.provysdb.call.BindValue;
 import java.util.List;
 
 /**

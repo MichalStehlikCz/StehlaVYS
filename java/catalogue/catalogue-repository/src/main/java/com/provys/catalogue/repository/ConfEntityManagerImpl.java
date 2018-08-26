@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.catalogue.manager;
+package com.provys.catalogue.repository;
 
 import com.provys.catalogue.iface.ConfEntityManager;
 import com.provys.catalogue.model.ConfEntity;

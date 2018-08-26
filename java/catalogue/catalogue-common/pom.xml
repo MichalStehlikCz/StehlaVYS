@@ -6,7 +6,8 @@
         <artifactId>catalogue</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>catalogue-common</artifactId>
+    <name>catalogue-common</name>
+    <artifactId>common</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>

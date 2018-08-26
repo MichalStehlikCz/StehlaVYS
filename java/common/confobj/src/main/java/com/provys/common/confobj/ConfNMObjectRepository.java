@@ -14,15 +14,15 @@ import java.util.concurrent.ConcurrentHashMap;
  * @param <T> Configuration object class this storage is used for
  * 
  */
-abstract public class ConfNMObjectManager<T extends ConfNMObject> extends ConfObjectManager<T> {
+abstract public class ConfNMObjectRepository<T extends ConfNMObject> extends ConfObjectRepository<T> {
 
     private final Map<DtNameNm, T> mapByNm;
     
-    public ConfNMObjectManager() {
+    public ConfNMObjectRepository() {
         mapByNm=new ConcurrentHashMap<>(20);
     }
     
-    public ConfNMObjectManager(int initialCacheSize) {
+    public ConfNMObjectRepository(int initialCacheSize) {
         super(initialCacheSize);
         mapByNm=new ConcurrentHashMap<>(initialCacheSize);
     }

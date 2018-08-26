@@ -7,6 +7,7 @@
         <version>1.0</version>
     </parent>
     <groupId>com.provys.provysdb</groupId>
+    <name>provysdb</name>
     <artifactId>provysdb</artifactId>
     <packaging>pom</packaging>
   <modules>

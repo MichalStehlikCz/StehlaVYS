@@ -6,7 +6,6 @@
 package com.provys.common.confobj;
 
 import com.provys.common.datatypes.DtUid;
-import java.sql.RowId;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -20,15 +19,15 @@ import java.util.concurrent.ConcurrentHashMap;
  * @param <T> Configuration object class this storage is used for
  * 
 */
-public abstract class ConfObjectManager<T extends ConfObject>{
+public abstract class ConfObjectRepository<T extends ConfObject>{
 
     protected final Map<DtUid, T> mapById;
 
-    public ConfObjectManager() {
+    public ConfObjectRepository() {
         mapById = new ConcurrentHashMap<>(20);
     }
     
-    public ConfObjectManager(int initialCacheSize) {
+    public ConfObjectRepository(int initialCacheSize) {
         mapById = new ConcurrentHashMap<>(initialCacheSize);
     }
     

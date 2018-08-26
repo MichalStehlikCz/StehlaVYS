@@ -5,8 +5,8 @@
  */
 package com.provys.catalogue.model;
 
-import com.provys.common.datatypes.*;
 import com.provys.common.confobj.ConfObject;
+import com.provys.common.datatypes.*;
 import javax.json.bind.annotation.JsonbCreator;
 import javax.json.bind.annotation.JsonbProperty;
 /**
@@ -14,6 +14,8 @@ import javax.json.bind.annotation.JsonbProperty;
  * @author stehlik
  */
 public class ConfAttr extends ConfObject{
+
+    private static final long serialVersionUID = 1L;
     
     private DtUid entityId;
     private DtNameNm nameNm;

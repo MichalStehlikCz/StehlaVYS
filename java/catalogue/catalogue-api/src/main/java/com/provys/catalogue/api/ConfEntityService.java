@@ -15,7 +15,7 @@ import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
-import com.provys.catalogue.iface.ConfEntityManager;
+import com.provys.catalogue.iface.ConfEntityRepository;
 
 /**
  *
@@ -26,7 +26,7 @@ import com.provys.catalogue.iface.ConfEntityManager;
 public class ConfEntityService {
 
     @Inject
-    private ConfEntityManager entityManager;
+    private ConfEntityRepository entityManager;
 
     @GET
     @Path("/{id : \\d+}")

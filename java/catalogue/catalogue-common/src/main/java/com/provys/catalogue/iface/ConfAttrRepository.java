@@ -16,7 +16,7 @@ import javax.ejb.Local;
  * @author stehlik
  */
 @Local
-public interface ConfAttrManager {
+public interface ConfAttrRepository {
 
     ConfAttr get(DtUid id);
 

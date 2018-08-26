@@ -18,37 +18,37 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  *
  * @author stehlik
  */
-@JsonbTypeAdapter(JsonbConfEntityAdapter.class)
-public class ConfEntity extends ConfNMObject{
+@JsonbTypeAdapter(JsonbEntityAdapter.class)
+public class Entity extends ConfNMObject{
 
     private static final long serialVersionUID = 1L;
 
-    private Map<DtNameNm, ConfAttr> attrMap = null;
+    private Map<DtNameNm, Attr> attrMap = null;
     
-    public ConfEntity(DtUid id, DtNameNm nameNm){
+    public Entity(DtUid id, DtNameNm nameNm){
         super(id, nameNm);
     }
 
-    public Map<DtNameNm, ConfAttr> getAttrMap() {
+    public Map<DtNameNm, Attr> getAttrMap() {
         return Collections.unmodifiableMap(attrMap);
     }
     
-    public synchronized void setAttrMap(Map<DtNameNm, ConfAttr> attrMap){
+    public synchronized void setAttrMap(Map<DtNameNm, Attr> attrMap){
         this.attrMap=new ConcurrentHashMap<>(attrMap);
     }
 
-    public Collection<ConfAttr> getAttrs() {
+    public Collection<Attr> getAttrs() {
         if (attrMap == null) {
             throw new CannotGetAttrNotLoadedException();
         }
         return attrMap.values();
     }
 
-    public Map<DtNameNm, ConfAttr> getAttrMapRef() {
+    public Map<DtNameNm, Attr> getAttrMapRef() {
         return attrMap;
     }
     
-    public ConfAttr getAttrByNm(DtNameNm attrNm) {
+    public Attr getAttrByNm(DtNameNm attrNm) {
         if (attrMap == null) {
             throw new CannotGetAttrNotLoadedException();
         }

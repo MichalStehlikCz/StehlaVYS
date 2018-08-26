@@ -5,8 +5,8 @@
  */
 package com.provys.catalogue.iface;
 
-import com.provys.catalogue.model.ConfAttr;
-import com.provys.catalogue.model.ConfEntity;
+import com.provys.catalogue.model.Attr;
+import com.provys.catalogue.model.Entity;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtUid;
 import javax.ejb.Local;
@@ -16,19 +16,19 @@ import javax.ejb.Local;
  * @author stehlik
  */
 @Local
-public interface ConfEntityRepository {
+public interface EntityRepository {
 
-    ConfEntity get(DtUid id);
+    Entity get(DtUid id);
 
-    ConfEntity getByNm(DtNameNm nameNm);
+    Entity getByNm(DtNameNm nameNm);
 
     void load(DtUid id);
 
     void loadByNm(DtNameNm nameNm);
     
-    public ConfAttr getAttrByNm(DtUid entityId, DtNameNm attrNm);
+    public Attr getAttrByNm(DtUid entityId, DtNameNm attrNm);
     
-    default public ConfAttr getAttrByNm(DtNameNm nameNm, DtNameNm attrNm) {
+    default public Attr getAttrByNm(DtNameNm nameNm, DtNameNm attrNm) {
         return getAttrByNm(getByNm(nameNm).getId(), attrNm);
     };
     

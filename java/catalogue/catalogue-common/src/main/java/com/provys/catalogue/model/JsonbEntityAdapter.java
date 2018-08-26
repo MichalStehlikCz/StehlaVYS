@@ -17,21 +17,21 @@ import javax.json.bind.adapter.JsonbAdapter;
  *
  * @author stehlik
  */
-public class JsonbConfEntityAdapter implements JsonbAdapter<ConfEntity, JsonObject> {
+public class JsonbEntityAdapter implements JsonbAdapter<Entity, JsonObject> {
     
     private boolean includeAttrId = false;
     private boolean includeAttr = false;
 
-    public JsonbConfEntityAdapter() {
+    public JsonbEntityAdapter() {
     }
     
-    public JsonbConfEntityAdapter(boolean includeAttrId, boolean includeAttr) {
+    public JsonbEntityAdapter(boolean includeAttrId, boolean includeAttr) {
         this.includeAttrId = includeAttrId;
         this.includeAttr = includeAttr;
     }
     
     @Override
-    public JsonObject adaptToJson(ConfEntity original) {
+    public JsonObject adaptToJson(Entity original) {
         Jsonb jsonb = JsonbBuilder.create();
         JsonObjectBuilder builder = Json.createObjectBuilder()
                 .add("ENTITY_ID", jsonb.toJson(original.getId()))
@@ -49,7 +49,7 @@ public class JsonbConfEntityAdapter implements JsonbAdapter<ConfEntity, JsonObje
     }
 
     @Override
-    public ConfEntity adaptFromJson(JsonObject adptd) throws Exception {
+    public Entity adaptFromJson(JsonObject adptd) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

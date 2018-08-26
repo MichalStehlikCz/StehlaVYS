@@ -15,10 +15,5 @@
             <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.provys.common</groupId>
-            <artifactId>datatypes</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 </project>

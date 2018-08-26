@@ -13,7 +13,7 @@ import javax.json.bind.annotation.JsonbProperty;
  *
  * @author stehlik
  */
-public class ConfAttr extends ConfObject{
+public class Attr extends ConfObject{
 
     private static final long serialVersionUID = 1L;
     
@@ -21,11 +21,11 @@ public class ConfAttr extends ConfObject{
     private DtNameNm nameNm;
     
     @JsonbCreator
-    public ConfAttr(@JsonbProperty("ATTR_ID") DtUid id) {
+    public Attr(@JsonbProperty("ATTR_ID") DtUid id) {
         super(id);
     }
     
-    public ConfAttr(DtUid id, DtUid entityId, DtNameNm nameNm){
+    public Attr(DtUid id, DtUid entityId, DtNameNm nameNm){
         super(id);
         this.entityId = entityId;
         this.nameNm = nameNm;

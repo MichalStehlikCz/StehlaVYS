@@ -5,7 +5,7 @@
  */
 package com.provys.catalogue.iface;
 
-import com.provys.catalogue.model.ConfAttr;
+import com.provys.catalogue.model.Attr;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtUid;
 import java.util.Map;
@@ -16,11 +16,11 @@ import javax.ejb.Local;
  * @author stehlik
  */
 @Local
-public interface ConfAttrRepository {
+public interface AttrRepository {
 
-    ConfAttr get(DtUid id);
+    Attr get(DtUid id);
 
     void load(DtUid id);
 
-    public Map<DtNameNm, ConfAttr> loadByEntityId(DtUid entityId);
+    public Map<DtNameNm, Attr> loadByEntityId(DtUid entityId);
 }

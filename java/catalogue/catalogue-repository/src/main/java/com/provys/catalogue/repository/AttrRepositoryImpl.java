@@ -29,7 +29,7 @@ import com.provys.catalogue.iface.ConfAttrManager;
 @ApplicationScoped
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 @Named("ConfAttrManager")
-public class ConfAttrManagerImpl extends ConfObjectManager<ConfAttr> implements ConfAttrManager {
+public class AttrRepositoryImpl extends ConfObjectManager<ConfAttr> implements ConfAttrManager {
 
     /**
      *

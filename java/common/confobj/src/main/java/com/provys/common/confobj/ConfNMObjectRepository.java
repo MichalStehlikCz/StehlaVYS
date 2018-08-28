@@ -5,57 +5,22 @@
  */
 package com.provys.common.confobj;
 
-import com.provys.common.datatypes.*;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.provys.common.datatypes.DtNameNm;
+
 /**
- *
- * @author stehlik
- * @param <T> Configuration object class this storage is used for
+ * Interface for repository holding configuration objects, identified by
+ * internal name.
  * 
+ * @author stehlik
+ * @param <T> Configuration object class this interface holds
  */
-abstract public class ConfNMObjectRepository<T extends ConfNMObject> extends ConfObjectRepository<T> {
+public interface ConfNMObjectRepository<T extends ConfNMObject>
+        extends ConfObjectRepository<T> {
 
-    private final Map<DtNameNm, T> mapByNm;
+    T getByNm(DtNameNm nameNm);
+
+    T getExistingByNm(DtNameNm nameNm);
+
+    void loadByNm(DtNameNm nameNm);
     
-    public ConfNMObjectRepository() {
-        mapByNm=new ConcurrentHashMap<>(20);
-    }
-    
-    public ConfNMObjectRepository(int initialCacheSize) {
-        super(initialCacheSize);
-        mapByNm=new ConcurrentHashMap<>(initialCacheSize);
-    }
-    
-    @Override
-    protected T add(T confObject) {
-        T result = super.add(confObject);
-        if (result == null){
-          mapByNm.put(confObject.getNameNm(), confObject);
-        }
-        return result;
-    }
-
-    @Override
-    abstract protected ConfNMObjectLoader<T> getConfObjectLoader();
-
-    public T getByNm(DtNameNm nameNm) {
-        T result=mapByNm.get(nameNm);
-        if (result==null){
-            loadByNm(nameNm);
-            result=mapByNm.get(nameNm);
-        }
-        return result;
-    }
-
-    public T getExistingByNm(DtNameNm nameNm) {
-        return mapByNm.get(nameNm);
-    }
-
-    public void loadByNm(DtNameNm nameNm){
-        if (!mapByNm.containsKey(nameNm)){
-            this.add(getConfObjectLoader().loadByNm(nameNm));
-        }
-    }
-
 }

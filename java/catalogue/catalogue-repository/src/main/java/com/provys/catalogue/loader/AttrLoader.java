@@ -3,21 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.catalogue.iface;
+package com.provys.catalogue.loader;
 
 import com.provys.catalogue.model.Attr;
-import com.provys.common.confobj.ConfObjectRepository;
+import com.provys.common.confobj.ConfObjectLoader;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtUid;
-import java.util.Map;
-import javax.ejb.Local;
+import java.util.List;
 
 /**
  *
- * @author stehlik
+ * @author micha
  */
-@Local
-public interface AttrRepository extends ConfObjectRepository<Attr> {
+public interface AttrLoader extends ConfObjectLoader<Attr> {
+    
+    public List<Attr> loadByEntityId(DtUid entityId);
+    
+    public Attr loadByEntityIdAndNm(DtUid entityId, DtNameNm attrNm);
 
-    public Map<DtNameNm, Attr> loadByEntityId(DtUid entityId);
 }

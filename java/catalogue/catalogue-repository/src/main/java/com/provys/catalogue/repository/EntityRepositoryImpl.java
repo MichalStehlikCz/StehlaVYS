@@ -4,10 +4,12 @@
  */
 package com.provys.catalogue.repository;
 
+import com.provys.catalogue.iface.CatalogueManager;
 import com.provys.catalogue.iface.EntityRepository;
+import com.provys.catalogue.loader.EntityLoader;
 import com.provys.catalogue.model.Attr;
 import com.provys.catalogue.model.Entity;
-import com.provys.common.confobj.ConfNMObjectRepository;
+import com.provys.common.confobj.ConfNMObjectRepositoryImpl;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtUid;
 import javax.inject.Inject;
@@ -16,12 +18,17 @@ import javax.inject.Inject;
  *
  * @author stehlik
  */
-public class EntityRepositoryImpl extends ConfNMObjectRepository<Entity>
+public class EntityRepositoryImpl extends ConfNMObjectRepositoryImpl<Entity>
         implements EntityRepository {
 
     @Inject
     private EntityLoader entityLoader;
+    private final CatalogueManager catalogueManager;
     
+    EntityRepositoryImpl(CatalogueManager catalogueManager) {
+        this.catalogueManager = catalogueManager;
+    }
+            
     @Override
     protected EntityLoader getConfObjectLoader(){
         return entityLoader;
@@ -33,13 +40,14 @@ public class EntityRepositoryImpl extends ConfNMObjectRepository<Entity>
     }
     
     @Override
-    public ConfAttr getAttrByNm(DtUid entityId, DtNameNm attrNm) {
+    public Attr getAttrByNm(DtUid entityId, DtNameNm attrNm) {
         return getAttrByNm(get(entityId), attrNm);
     }
     
-    private void loadAttrs(ConfEntity confEntity) {
+    private void loadAttrs(Entity confEntity) {
         if (confEntity.getAttrMapRef() == null) {
-            confEntity.setAttrMap(attrManager.loadByEntityId(confEntity.getId()));
+            confEntity.setAttrMap(catalogueManager.getAttrRepository()
+                    .loadByEntityId(confEntity.getId()));
         }
     }
 
@@ -51,16 +59,6 @@ public class EntityRepositoryImpl extends ConfNMObjectRepository<Entity>
     @Override
     public void loadAttrsByNm(DtNameNm nameNm) {
         loadAttrs(getByNm(nameNm));
-    }
-
-    @Override
-    public Attr getAttrByNm(DtUid entityId, DtNameNm attrNm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void loadAttrs(DtUid entityId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

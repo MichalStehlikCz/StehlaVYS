@@ -17,8 +17,8 @@ import com.provys.common.datatypes.DtUid;
  * @param <T> Configuration object class this loader retrieves from database
  * 
  */
-public abstract class ConfObjectLoader<T extends ConfObject> {
+public interface ConfObjectLoader<T extends ConfObject> {
     
-    public abstract T load(DtUid id);
+    public T load(DtUid id);
     
 }

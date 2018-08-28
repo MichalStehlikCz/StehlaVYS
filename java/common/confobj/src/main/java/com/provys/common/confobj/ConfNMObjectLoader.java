@@ -17,7 +17,8 @@ import com.provys.common.datatypes.*;
  * @param <T> Configuration object class this loader retrieves from database
  * 
 */
-abstract public class ConfNMObjectLoader<T extends ConfNMObject> extends ConfObjectLoader<T> {
+public interface ConfNMObjectLoader<T extends ConfNMObject>
+        extends ConfObjectLoader<T> {
 
-    abstract public T loadByNm(DtNameNm nameNm);
+    public T loadByNm(DtNameNm nameNm);
 }

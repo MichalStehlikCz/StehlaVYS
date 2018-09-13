@@ -13,7 +13,6 @@
     <module>catalogue-common</module>
     <module>catalogue-api</module>
     <module>catalogue-loaderdb</module>
-    <module>catalogue-manager</module>
     <module>catalogue-repository</module>
   </modules>
 </project>

@@ -6,14 +6,10 @@
         <artifactId>provys</artifactId>
         <version>1.0</version>
     </parent>
-    <groupId>com.provys.provysdb</groupId>
-    <name>provysdb</name>
-    <artifactId>provysdb</artifactId>
+    <artifactId>sqlbuilder</artifactId>
     <packaging>pom</packaging>
-  <modules>
-    <module>common</module>
-    <module>provysdb-local</module>
-    <module>provysdb-api</module>
-    <module>provysdb-client</module>
-  </modules>
+    <modules>
+        <module>sqlbuilder</module>
+    </modules>
+    <name>sqlbuilder</name>
 </project>

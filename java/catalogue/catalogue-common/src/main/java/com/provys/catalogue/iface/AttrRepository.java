@@ -7,9 +7,8 @@ package com.provys.catalogue.iface;
 
 import com.provys.catalogue.model.Attr;
 import com.provys.common.confobj.ConfObjectRepository;
-import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtUid;
-import java.util.Map;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -19,5 +18,5 @@ import javax.ejb.Local;
 @Local
 public interface AttrRepository extends ConfObjectRepository<Attr> {
 
-    public Map<DtNameNm, Attr> loadByEntityId(DtUid entityId);
+    public List<Attr> loadByEntityId(DtUid entityId);
 }

@@ -10,6 +10,7 @@ import com.provys.common.datatypes.*;
 import com.provys.common.error.ProvysException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.json.bind.annotation.JsonbTypeAdapter;
@@ -38,6 +39,11 @@ public class Entity extends ConfNMObject{
     
     public synchronized void setAttrMap(Map<DtNameNm, Attr> attrMap){
         this.attrMap=new ConcurrentHashMap<>(attrMap);
+    }
+
+    public synchronized void setAttrMap(List<Attr> attrList){
+        this.attrMap=new ConcurrentHashMap<>(attrList.size());
+        attrList.forEach((Attr attr) -> {attrMap.put(attr.getNameNm(), attr);});
     }
 
     public Collection<Attr> getAttrs() {

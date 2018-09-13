@@ -5,73 +5,56 @@
 package com.provys.catalogue.repository;
 
 import com.provys.catalogue.iface.AttrRepository;
+import com.provys.catalogue.iface.CatalogueManager;
 import com.provys.catalogue.loader.AttrLoader;
 import com.provys.catalogue.model.Attr;
 import com.provys.common.confobj.ConfObjectRepositoryImpl;
 import com.provys.common.datatypes.*;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
- *
+ * Implementation class for Attr repository.
+ * 
  * @author stehlik
  */
 
 public class AttrRepositoryImpl extends ConfObjectRepositoryImpl<Attr>
         implements AttrRepository {
 
-    /**
-     *
-     * @author stehlik
-     * 
-     * Used to notify EntityManager about load of new attribute(s)
-     *
-    public class AttrCreated {
-        
-        /**
-         * Array of created attributes 
-         *
-        final private ConfAttr[] attrId;
-        
-        public AttrCreated(ConfAttr[] attrId){
-            this.attrId = attrId;
-        }
-        
-        public ConfAttr[] getConfAttr() {
-            return attrId;
-        }
-    }
-    
-    public class EntityChanged {
-        DtUid oldEntityId;
-        DtUid newEntityId;
-        
-        public EntityChanged(DtUid oldEntityId, DtUid newEntityId){
-            this.oldEntityId = oldEntityId;
-            this.newEntityId = newEntityId;
-        }
-    }
-  */
-  
     @Inject
     private AttrLoader attrLoader;
 
+    private final CatalogueManager catalogueManager;
+    
+    public AttrRepositoryImpl(CatalogueManager catalogueManager) {
+        this.catalogueManager = catalogueManager;
+    }
+            
     @Override
     protected AttrLoader getConfObjectLoader(){
         return attrLoader;
     }
 
-    public Map<DtNameNm, ConfAttr> loadByEntityId(DtUid entityId){
-        Map<DtNameNm, ConfAttr> result = new ConcurrentHashMap<>();
+    /**
+     * Loads attributes of given entity that were not loaded yet and returns
+     * list of all attributes of given entity. In return value, even attributes
+     * that were already loaded previously are included.
+     * 
+     * @param entityId
+     * @return list of all attributes of specified entity
+     */
+    @Override
+    public List<Attr> loadByEntityId(DtUid entityId){
+        List<Attr> result = new ArrayList<>();
         getConfObjectLoader().loadByEntityId(entityId)
-                .forEach((RowidObjectPair<ConfAttr> confAttrWithRowid) -> {
-                    ConfAttr confAttr = add(confAttrWithRowid);
-                    if (confAttr == null) {
-                        result.put(confAttrWithRowid.getObject().getNameNm()
-                                , confAttrWithRowid.getObject());
+                .forEach((Attr attr) -> {
+                    Attr oldAttr = add(attr);
+                    if (oldAttr == null) {
+                        result.add(attr);
                     } else {
-                        result.put(confAttr.getNameNm(), confAttr);
+                        result.add(oldAttr);
                     }
         });
         return result;

@@ -12,8 +12,11 @@ import com.provys.common.datatypes.DtUid;
 import java.util.List;
 
 /**
- *
- * @author micha
+ * Interface for attribute loader.
+ * Apart from generic methods, it supports loading of all attributes of given
+ * entity and attribute identified by entity and internal name
+ * 
+ * @author stehlik
  */
 public interface AttrLoader extends ConfObjectLoader<Attr> {
     

@@ -5,7 +5,6 @@
  */
 package com.provys.catalogue.iface;
 
-import com.provys.catalogue.model.Attr;
 import com.provys.catalogue.model.Entity;
 import com.provys.common.confobj.ConfNMObjectRepository;
 import com.provys.common.datatypes.DtNameNm;
@@ -19,12 +18,6 @@ import javax.ejb.Local;
 @Local
 public interface EntityRepository extends ConfNMObjectRepository<Entity> {
 
-    public Attr getAttrByNm(DtUid entityId, DtNameNm attrNm);
-    
-    default public Attr getAttrByNm(DtNameNm nameNm, DtNameNm attrNm) {
-        return getAttrByNm(getByNm(nameNm).getId(), attrNm);
-    };
-    
     public void loadAttrs(DtUid entityId);
 
     default public void loadAttrsByNm(DtNameNm nameNm) {

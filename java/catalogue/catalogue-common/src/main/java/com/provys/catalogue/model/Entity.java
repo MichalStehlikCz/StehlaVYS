@@ -30,6 +30,9 @@ public class Entity extends ConfNMObject{
     }
 
     public Map<DtNameNm, Attr> getAttrMap() {
+        if (attrMap == null) {
+            throw new CannotGetAttrNotLoadedException();
+        }
         return Collections.unmodifiableMap(attrMap);
     }
     
@@ -44,6 +47,7 @@ public class Entity extends ConfNMObject{
         return attrMap.values();
     }
 
+    @SuppressWarnings("ReturnOfCollectionOrArrayField")
     public Map<DtNameNm, Attr> getAttrMapRef() {
         return attrMap;
     }

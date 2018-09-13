@@ -4,32 +4,22 @@
  */
 package com.provys.catalogue.repository;
 
-import com.provys.catalogue.dbloader.ConfAttrLoaderDb;
-import com.provys.catalogue.dbloader.ConfAttrLoaderDb;
-import javax.ejb.Singleton;
-import javax.ejb.ConcurrencyManagement;
-import javax.ejb.ConcurrencyManagementType;
-import com.provys.catalogue.model.ConfAttr;
-import com.provys.common.confobj.*;
+import com.provys.catalogue.iface.AttrRepository;
+import com.provys.catalogue.loader.AttrLoader;
+import com.provys.catalogue.model.Attr;
+import com.provys.common.confobj.ConfObjectRepositoryImpl;
 import com.provys.common.datatypes.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import javax.ejb.Local;
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
-import com.provys.catalogue.iface.ConfAttrManager;
 
 /**
  *
  * @author stehlik
  */
-@Local
-@Singleton
-@ApplicationScoped
-@ConcurrencyManagement(ConcurrencyManagementType.BEAN)
-@Named("ConfAttrManager")
-public class AttrRepositoryImpl extends ConfObjectManager<ConfAttr> implements ConfAttrManager {
+
+public class AttrRepositoryImpl extends ConfObjectRepositoryImpl<Attr>
+        implements AttrRepository {
 
     /**
      *
@@ -65,11 +55,11 @@ public class AttrRepositoryImpl extends ConfObjectManager<ConfAttr> implements C
   */
   
     @Inject
-    private ConfAttrLoaderDb confAttrLoader;
+    private AttrLoader attrLoader;
 
     @Override
-    protected ConfAttrLoaderDb getConfObjectLoader(){
-        return confAttrLoader;
+    protected AttrLoader getConfObjectLoader(){
+        return attrLoader;
     }
 
     public Map<DtNameNm, ConfAttr> loadByEntityId(DtUid entityId){

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<XMI xmi.version="1.1" xmlns:UML="omg.org/UML1.3" timestamp="2018-09-15 22:07:05">
+	<XMI.header>
+		<XMI.documentation>
+			<XMI.exporter>Enterprise Architect</XMI.exporter>
+			<XMI.exporterVersion>2.5</XMI.exporterVersion>
+		</XMI.documentation>
+	</XMI.header>
+	<XMI.content>
+		<UML:Model name="EA Model" xmi.id="MX_EAID_68199556_72E3_473d_BDC1_BC329ED2C520">
+			<UML:Namespace.ownedElement>
+				<UML:Class name="EARootClass" xmi.id="EAID_11111111_5487_4080_A7F4_41526CB0AA00" isRoot="true" isLeaf="false" isAbstract="false"/>
+				<UML:Package name="annotation" xmi.id="EAPK_68199556_72E3_473d_BDC1_BC329ED2C520" isRoot="false" isLeaf="false" isAbstract="false" visibility="public">
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue tag="parent" value="EAPK_ED909244_5866_47aa_B937_5C191750610A"/>
+						<UML:TaggedValue tag="created" value="2018-09-15 21:50:42"/>
+						<UML:TaggedValue tag="modified" value="2018-09-15 21:50:42"/>
+						<UML:TaggedValue tag="iscontrolled" value="TRUE"/>
+						<UML:TaggedValue tag="xmlpath" value="C:\Java\StehlaVYS\ea\java\common\annotation.xml"/>
+						<UML:TaggedValue tag="lastsavedate" value="2018-09-15 22:07:04"/>
+						<UML:TaggedValue tag="version" value="1.0"/>
+						<UML:TaggedValue tag="isprotected" value="FALSE"/>
+						<UML:TaggedValue tag="usedtd" value="FALSE"/>
+						<UML:TaggedValue tag="owner" value="stehlik"/>
+						<UML:TaggedValue tag="xmiver" value="Enterprise Architect XMI/UML 1.3"/>
+						<UML:TaggedValue tag="logxml" value="FALSE"/>
+						<UML:TaggedValue tag="packageFlags" value="Recurse=1;CRC=0;"/>
+						<UML:TaggedValue tag="batchsave" value="1"/>
+						<UML:TaggedValue tag="batchload" value="1"/>
+						<UML:TaggedValue tag="phase" value="1.0"/>
+						<UML:TaggedValue tag="status" value="Proposed"/>
+						<UML:TaggedValue tag="author" value="stehlik"/>
+						<UML:TaggedValue tag="complexity" value="1"/>
+						<UML:TaggedValue tag="ea_stype" value="Public"/>
+						<UML:TaggedValue tag="tpos" value="0"/>
+						<UML:TaggedValue tag="gentype" value="Java"/>
+					</UML:ModelElement.taggedValue>
+					<UML:Namespace.ownedElement>
+						<UML:Interface name="ProvysEntity" xmi.id="EAID_1752607B_68BC_4643_A27A_989276BC08F2" visibility="public" namespace="EAPK_68199556_72E3_473d_BDC1_BC329ED2C520" isRoot="false" isLeaf="false" isAbstract="true">
+							<UML:ModelElement.stereotype>
+								<UML:Stereotype name="annotation"/>
+							</UML:ModelElement.stereotype>
+							<UML:ModelElement.taggedValue>
+								<UML:TaggedValue tag="isSpecification" value="false"/>
+								<UML:TaggedValue tag="ea_stype" value="Interface"/>
+								<UML:TaggedValue tag="ea_ntype" value="0"/>
+								<UML:TaggedValue tag="version" value="1.0"/>
+								<UML:TaggedValue tag="isActive" value="false"/>
+								<UML:TaggedValue tag="package" value="EAPK_68199556_72E3_473d_BDC1_BC329ED2C520"/>
+								<UML:TaggedValue tag="date_created" value="2018-09-15 21:50:42"/>
+								<UML:TaggedValue tag="date_modified" value="2018-09-15 21:50:42"/>
+								<UML:TaggedValue tag="genfile" value="C:\Java\StehlaVYS\java\common\annotation\src\main\java\com\provys\common\annotation\ProvysEntity.java"/>
+								<UML:TaggedValue tag="gentype" value="Java"/>
+								<UML:TaggedValue tag="tagged" value="0"/>
+								<UML:TaggedValue tag="package_name" value="annotation"/>
+								<UML:TaggedValue tag="phase" value="1.0"/>
+								<UML:TaggedValue tag="author" value="stehlik  Connects specified class to entity in PROVYS metadata catalogue. Together with field level mappings using @ProvysKey and @ProvysAttr annotations it enables loader or manipulator classes to prepare SQL and load / modify data in underlying PROVYS d"/>
+								<UML:TaggedValue tag="complexity" value="1"/>
+								<UML:TaggedValue tag="status" value="Proposed"/>
+								<UML:TaggedValue tag="stereotype" value="annotation"/>
+								<UML:TaggedValue tag="tpos" value="0"/>
+								<UML:TaggedValue tag="ea_localid" value="32"/>
+								<UML:TaggedValue tag="ea_eleType" value="element"/>
+								<UML:TaggedValue tag="eventflags" value="OBJ=1555;"/>
+								<UML:TaggedValue tag="style" value="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
+								<UML:TaggedValue tag="$ea_xref_property" value="$XREFPROP=$XID={8411D355-0191-4021-89FC-E9B6296DC28F}$XID;$NAM=Stereotypes$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=annotation;FQName=Java::annotation;@ENDSTEREO;$DES;$CLT={1752607B-68BC-4643-A27A-989276BC08F2}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+							</UML:ModelElement.taggedValue>
+							<UML:Classifier.feature>
+								<UML:Operation name="value" visibility="public" ownerScope="instance" isQuery="false" concurrency="sequential">
+									<UML:ModelElement.taggedValue>
+										<UML:TaggedValue tag="documentation" value="Returns internal name of entity.&#xA;@return internal name of entity"/>
+										<UML:TaggedValue tag="type" value="String"/>
+										<UML:TaggedValue tag="const" value="false"/>
+										<UML:TaggedValue tag="synchronised" value="0"/>
+										<UML:TaggedValue tag="concurrency" value="Sequential"/>
+										<UML:TaggedValue tag="position" value="0"/>
+										<UML:TaggedValue tag="returnarray" value="0"/>
+										<UML:TaggedValue tag="pure" value="0"/>
+										<UML:TaggedValue tag="ea_guid" value="{E2246462-5550-4cba-9554-796E70B60752}"/>
+										<UML:TaggedValue tag="ea_localid" value="50"/>
+									</UML:ModelElement.taggedValue>
+									<UML:BehavioralFeature.parameter>
+										<UML:Parameter kind="return" visibility="public">
+											<UML:Parameter.type>
+												<UML:Classifier xmi.idref="eaxmiid0"/>
+											</UML:Parameter.type>
+											<UML:ModelElement.taggedValue>
+												<UML:TaggedValue tag="pos" value="0"/>
+												<UML:TaggedValue tag="type" value="String"/>
+												<UML:TaggedValue tag="const" value="0"/>
+												<UML:TaggedValue tag="ea_guid" value="{RETURNID-5550-4cba-9554-796E70B60752}"/>
+											</UML:ModelElement.taggedValue>
+											<UML:Parameter.defaultValue>
+												<UML:Expression/>
+											</UML:Parameter.defaultValue>
+										</UML:Parameter>
+									</UML:BehavioralFeature.parameter>
+								</UML:Operation>
+							</UML:Classifier.feature>
+						</UML:Interface>
+						<UML:Interface name="ProvysKey" xmi.id="EAID_5B4FD645_844C_46f0_BFAC_291BA712E385" visibility="public" namespace="EAPK_68199556_72E3_473d_BDC1_BC329ED2C520" isRoot="false" isLeaf="false" isAbstract="true">
+							<UML:ModelElement.stereotype>
+								<UML:Stereotype name="annotation"/>
+							</UML:ModelElement.stereotype>
+							<UML:ModelElement.taggedValue>
+								<UML:TaggedValue tag="isSpecification" value="false"/>
+								<UML:TaggedValue tag="ea_stype" value="Interface"/>
+								<UML:TaggedValue tag="ea_ntype" value="0"/>
+								<UML:TaggedValue tag="version" value="1.0"/>
+								<UML:TaggedValue tag="isActive" value="false"/>
+								<UML:TaggedValue tag="package" value="EAPK_68199556_72E3_473d_BDC1_BC329ED2C520"/>
+								<UML:TaggedValue tag="date_created" value="2018-09-15 21:50:42"/>
+								<UML:TaggedValue tag="date_modified" value="2018-09-15 21:50:42"/>
+								<UML:TaggedValue tag="genfile" value="C:\Java\StehlaVYS\java\common\annotation\src\main\java\com\provys\common\annotation\ProvysKey.java"/>
+								<UML:TaggedValue tag="gentype" value="Java"/>
+								<UML:TaggedValue tag="tagged" value="0"/>
+								<UML:TaggedValue tag="package_name" value="annotation"/>
+								<UML:TaggedValue tag="phase" value="1.0"/>
+								<UML:TaggedValue tag="author" value="stehlik  Marks given field as entity key. Together with class level entity mapping using @ProvysEntity and field level mapping using @ProvysAttr annotation it enables loader or manipulator classes to prepare SQL and load / modify data in underlying PROVYS"/>
+								<UML:TaggedValue tag="complexity" value="1"/>
+								<UML:TaggedValue tag="status" value="Proposed"/>
+								<UML:TaggedValue tag="stereotype" value="annotation"/>
+								<UML:TaggedValue tag="tpos" value="0"/>
+								<UML:TaggedValue tag="ea_localid" value="33"/>
+								<UML:TaggedValue tag="ea_eleType" value="element"/>
+								<UML:TaggedValue tag="eventflags" value="OBJ=1555;"/>
+								<UML:TaggedValue tag="style" value="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
+								<UML:TaggedValue tag="$ea_xref_property" value="$XREFPROP=$XID={EB0F5830-0D68-4fb5-975F-7295949E5AFE}$XID;$NAM=Stereotypes$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=annotation;FQName=Java::annotation;@ENDSTEREO;$DES;$CLT={5B4FD645-844C-46f0-BFAC-291BA712E385}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+							</UML:ModelElement.taggedValue>
+						</UML:Interface>
+						<UML:Interface name="ProvysAttr" xmi.id="EAID_5EAE1EA0_1C19_49e2_AFB3_54181EDBA083" visibility="public" namespace="EAPK_68199556_72E3_473d_BDC1_BC329ED2C520" isRoot="false" isLeaf="false" isAbstract="true">
+							<UML:ModelElement.stereotype>
+								<UML:Stereotype name="annotation"/>
+							</UML:ModelElement.stereotype>
+							<UML:ModelElement.taggedValue>
+								<UML:TaggedValue tag="isSpecification" value="false"/>
+								<UML:TaggedValue tag="ea_stype" value="Interface"/>
+								<UML:TaggedValue tag="ea_ntype" value="0"/>
+								<UML:TaggedValue tag="version" value="1.0"/>
+								<UML:TaggedValue tag="isActive" value="false"/>
+								<UML:TaggedValue tag="package" value="EAPK_68199556_72E3_473d_BDC1_BC329ED2C520"/>
+								<UML:TaggedValue tag="date_created" value="2018-09-15 21:50:42"/>
+								<UML:TaggedValue tag="date_modified" value="2018-09-15 21:50:42"/>
+								<UML:TaggedValue tag="genfile" value="C:\Java\StehlaVYS\java\common\annotation\src\main\java\com\provys\common\annotation\ProvysAttr.java"/>
+								<UML:TaggedValue tag="gentype" value="Java"/>
+								<UML:TaggedValue tag="tagged" value="0"/>
+								<UML:TaggedValue tag="package_name" value="annotation"/>
+								<UML:TaggedValue tag="phase" value="1.0"/>
+								<UML:TaggedValue tag="author" value="stehlik  Connects specified field to attribute in PROVYS metadata catalogue. Together with entity level mapping using @ProvysEntity annotation and field level mapping using @ProvysKey annotation it enables loader or manipulator classes to prepare SQL and "/>
+								<UML:TaggedValue tag="complexity" value="1"/>
+								<UML:TaggedValue tag="status" value="Proposed"/>
+								<UML:TaggedValue tag="stereotype" value="annotation"/>
+								<UML:TaggedValue tag="tpos" value="0"/>
+								<UML:TaggedValue tag="ea_localid" value="31"/>
+								<UML:TaggedValue tag="ea_eleType" value="element"/>
+								<UML:TaggedValue tag="eventflags" value="OBJ=1555;"/>
+								<UML:TaggedValue tag="style" value="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
+								<UML:TaggedValue tag="$ea_xref_property" value="$XREFPROP=$XID={F29FDE7A-9A0B-4f4a-908A-DA099DAADEC2}$XID;$NAM=Stereotypes$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=annotation;FQName=Java::annotation;@ENDSTEREO;$DES;$CLT={5EAE1EA0-1C19-49e2-AFB3-54181EDBA083}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+							</UML:ModelElement.taggedValue>
+							<UML:Classifier.feature>
+								<UML:Operation name="value" visibility="public" ownerScope="instance" isQuery="false" concurrency="sequential">
+									<UML:ModelElement.taggedValue>
+										<UML:TaggedValue tag="documentation" value="Returns internal name of attribute.&#xA;@return internal name of attribute"/>
+										<UML:TaggedValue tag="type" value="String"/>
+										<UML:TaggedValue tag="const" value="false"/>
+										<UML:TaggedValue tag="synchronised" value="0"/>
+										<UML:TaggedValue tag="concurrency" value="Sequential"/>
+										<UML:TaggedValue tag="position" value="0"/>
+										<UML:TaggedValue tag="returnarray" value="0"/>
+										<UML:TaggedValue tag="pure" value="0"/>
+										<UML:TaggedValue tag="ea_guid" value="{E2C0C243-E3BA-4cd5-8E8A-30E1484B9316}"/>
+										<UML:TaggedValue tag="ea_localid" value="49"/>
+									</UML:ModelElement.taggedValue>
+									<UML:BehavioralFeature.parameter>
+										<UML:Parameter kind="return" visibility="public">
+											<UML:Parameter.type>
+												<UML:Classifier xmi.idref="eaxmiid0"/>
+											</UML:Parameter.type>
+											<UML:ModelElement.taggedValue>
+												<UML:TaggedValue tag="pos" value="0"/>
+												<UML:TaggedValue tag="type" value="String"/>
+												<UML:TaggedValue tag="const" value="0"/>
+												<UML:TaggedValue tag="ea_guid" value="{RETURNID-E3BA-4cd5-8E8A-30E1484B9316}"/>
+											</UML:ModelElement.taggedValue>
+											<UML:Parameter.defaultValue>
+												<UML:Expression/>
+											</UML:Parameter.defaultValue>
+										</UML:Parameter>
+									</UML:BehavioralFeature.parameter>
+								</UML:Operation>
+							</UML:Classifier.feature>
+						</UML:Interface>
+					</UML:Namespace.ownedElement>
+				</UML:Package>
+				<UML:DataType xmi.id="eaxmiid0" name="String" visibility="private" isRoot="false" isLeaf="false" isAbstract="false"/>
+			</UML:Namespace.ownedElement>
+		</UML:Model>
+		<UML:TaggedValue tag="annotations" xmi.id="EAID_6D11D3D5_D2DF_4e9d_9771_F78BBD8D4DE9" value="@Documented@Retention(value=RetentionPolicy.RUNTIME)@Target(value=ElementType.TYPE)" modelElement="EAID_1752607B_68BC_4643_A27A_989276BC08F2"/>
+		<UML:TaggedValue tag="annotations" xmi.id="EAID_321CA181_19B7_4074_A16D_1C87B4507246" value="@Documented@Retention(value=RetentionPolicy.RUNTIME)@Target(value=ElementType.FIELD)" modelElement="EAID_5B4FD645_844C_46f0_BFAC_291BA712E385"/>
+		<UML:TaggedValue tag="annotations" xmi.id="EAID_FF8C604B_8FF2_4c18_B776_9952ED300F5D" value="@Documented@Retention(value=RetentionPolicy.RUNTIME)@Target(value=ElementType.FIELD)" modelElement="EAID_5EAE1EA0_1C19_49e2_AFB3_54181EDBA083"/>
+	</XMI.content>
+	<XMI.difference/>
+	<XMI.extensions xmi.extender="Enterprise Architect 2.5"/>
+</XMI>

@@ -11,16 +11,17 @@ import javax.json.bind.annotation.JsonbTypeDeserializer;
 import javax.json.bind.annotation.JsonbTypeSerializer;
 
 /**
- * Abstract ancestor of PROVYS datatype classes. All values in PROVYS objects
- * are kept in datatype classes, primitive types are not used. This enables
- * seemless translation to database types, formatting etc. PROVYS datatypes
- * support null value by using null pointer; if object exists, it always
- * contains non-null value. Values are final, change is achieved by assigning
- * new instance of datatype class
+ * Abstract ancestor of PROVYS datatype classes.
+ * All values in PROVYS objects are kept in datatype classes, primitive types
+ * are not used. This enables seemless translation to database types,
+ * formatting etc.
+ * PROVYS datatypes support null value by using null pointer; if object exists,
+ * it always contains non-null value. Values are final, change is achieved by
+ * assigning new instance of datatype class
  *
  * All subclasses have to implement value based comparison and hashing. They
- * also define customized Json serializer / deserializer, as simple types are
- * serialized as value, not as object
+ * also define customized Json serializer / deserializer, as simple types should
+ * be serialized as value, not as object
  *
  * @author stehlik
  */

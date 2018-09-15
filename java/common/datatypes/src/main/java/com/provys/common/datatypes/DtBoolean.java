@@ -8,6 +8,14 @@ package com.provys.common.datatypes;
 import com.provys.common.error.ProvysException;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
+/**
+ * Represents values of PROVYS domain BOOLEAN.
+ * Value is represented as CHAR(1 BYTE) in Oracle tables, with TRUE/FALSE
+ * values represented by 'Y'/'N'. In Java, value is stored as boolean TRUE
+ * or FALSE value.
+ * 
+ * @author stehlik
+ */
 @JsonbTypeAdapter(JsonbDtBooleanAdapter.class)
 public class DtBoolean extends Dt {
 

@@ -9,7 +9,9 @@ import com.provys.common.error.ProvysException;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
- * Class represents values of provys domain NAME
+ * Represents value of provys domain NAME.
+ * NAME domain is stored as VARCAR2(200) in Oracle database. It is mostly
+ * used on properties, that contain descriptive name of an object
  *
  * @author stehlik
  */

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.provysdb.sqlbuilder;
+package com.provys.sqlbuilder.iface;
 
 import com.provys.provysdb.call.BindValue;
 import java.util.List;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.provysdb.sqlbuilder;
+package com.provys.sqlbuilder.iface;
 
 import com.provys.provysdb.call.BindValue;
 import java.util.List;
@@ -25,7 +25,7 @@ public interface WhereCond {
      * conditions connected using OR, it is surrounded by parentheses to allow
      * combination using AND with other conditions
      * 
-     * @param alias represents alias associated with table
+     * @param alias represents alias associated with current table
      * @param binds used to add binds to list of binds associated with statement
      * @return String representing WHERE clause representing this condition
      */
@@ -34,8 +34,8 @@ public interface WhereCond {
     /**
      * Returns estimated cost of generated condition.
      * Cost estimation is much worse than that provided by Oracle optimiser, but
-     * can be used to choose optimal JOIN condition wen navigating to additional
-     * tables
+     * can be used to choose optimal JOIN condition when navigating to
+     * additional tables
      * - 1 - indexed access
      * - 1000 - non-indexed access
      * 

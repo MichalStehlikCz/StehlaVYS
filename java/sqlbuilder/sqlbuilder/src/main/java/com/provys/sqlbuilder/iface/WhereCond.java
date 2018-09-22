@@ -5,9 +5,6 @@
  */
 package com.provys.sqlbuilder.iface;
 
-import com.provys.provysdb.call.BindValue;
-import java.util.List;
-
 /**
  * Represents WHERE condition in SQL builder.
  * Different implementations allow to create WHERE conditions based on
@@ -18,18 +15,15 @@ import java.util.List;
  */
 public interface WhereCond {
     /**
-     * Returns String expression that should be used in WHERE clause of the
-     * SQL query.
-     * Resulting string can be added to SQL statement. It can be combined with
-     * other conditions, connecting it using AND; if built statement contains
-     * conditions connected using OR, it is surrounded by parentheses to allow
-     * combination using AND with other conditions
+     * Adds expression that should be used in WHERE clause of the SQL query.
+     * Condition can be combined with other conditions, connecting it using AND;
+     * if built statement contains conditions connected using OR, it is
+     * surrounded by parentheses to allow combination using AND with other
+     * conditions
      * 
-     * @param alias represents alias associated with current table
-     * @param binds used to add binds to list of binds associated with statement
-     * @return String representing WHERE clause representing this condition
+     * @param code is CodeBuilder used to build resulting statement
      */
-    public String getWhere(String alias, List<BindValue> binds);
+    public void buildWhere(CodeBuilder code);
     
     /**
      * Returns estimated cost of generated condition.

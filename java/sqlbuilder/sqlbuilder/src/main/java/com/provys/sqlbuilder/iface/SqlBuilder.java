@@ -20,7 +20,8 @@ import java.util.List;
  * - it is possible to attach condition to SQLBuilder
  * - it is possible to use SQLBuilder + relation as condition in SQLBuilder
  * - it is possible to attach additional column to SQLBuilder
- * - it is possible to use SQLBuilder and reference to its 
+ * - it is possible to retrieve select statement, list of binds and columns from
+ * SQLBuilder
  * 
  * @author stehlik
  */

@@ -43,6 +43,19 @@ public class BindValue implements Serializable {
     }
 
     /**
+     * Constructor for BindValue with specification of all fields.
+     * 
+     * @param name is name of bind variable
+     * @param type is data type of bind variable (as string)
+     * @param value is value to be passed to bind variable
+     */
+    public BindValue(String name, String type, Dt value) {
+        this.name = name;
+        setType(type);
+        this.value = value;
+    }
+
+    /**
      * Constructor for BindValue with specification of name and value.
      * Datatype is taken from value. Note that value should not be null for this
      * constructor to work properly
@@ -93,7 +106,8 @@ public class BindValue implements Serializable {
      * 
      * @param type sets type field
      */
-    public void setType(String type) {
+    @SuppressWarnings("FinalMethod")
+    public final void setType(String type) {
         Class<? extends Dt> typeClass;
         try {
             typeClass = Class

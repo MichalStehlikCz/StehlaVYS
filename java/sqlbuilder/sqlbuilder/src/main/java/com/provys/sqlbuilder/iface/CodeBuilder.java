@@ -18,20 +18,27 @@ import java.util.List;
 public interface CodeBuilder {
 
     /**
-     * Adds line of text to already existing code.
-     * 
-     * @param line contains text to be added (without newline char)
-     * @return returns self to support chaining
-     */
-    public CodeBuilder addLine(String line);
-
-    /**
-     * Adds piece of text to already existing code.
+     * Appends piece of text to already existing code.
      * 
      * @param text contains text to be added
      * @return returns self to support chaining
      */
-    public CodeBuilder add(String text);
+    public CodeBuilder append(String text);
+
+    /**
+     * Finishes line in already existing code.
+     * 
+     * @return returns self to support chaining
+     */
+    public CodeBuilder appendLine();
+
+    /**
+     * Appends line of text to already existing code.
+     * 
+     * @param line contains text to be added (without newline char)
+     * @return returns self to support chaining
+     */
+    public CodeBuilder appendLine(String line);
 
     /**
      * Increases ident level (using spaces).
@@ -39,7 +46,7 @@ public interface CodeBuilder {
      * @param chars is number of additional characters, must be positive number
      * @return self to allow chaining
      */
-    public CodeBuilder increaseIdentBy(int chars);
+    public CodeBuilder increaseIdent(int chars);
 
     /**
      * Decrease ident level by cutting given number of characters from the end.
@@ -47,7 +54,7 @@ public interface CodeBuilder {
      * @param chars is number of characters to be removed
      * @return self to allow chaining
      */
-    public CodeBuilder decreaseIdentBy(int chars);
+    public CodeBuilder decreaseIdent(int chars);
 
     /**
      * Decrease ident level to specified value.
@@ -115,15 +122,15 @@ public interface CodeBuilder {
             , int chars);
 
     /**
-     * Adds given text to identation.
+     * Appends given text to identation.
      * 
      * @param text is string to be appended to ident
      * @return self to support chaining
      */
-    public CodeBuilder addIdent(String text);
+    public CodeBuilder appendIdent(String text);
 
     /**
-     * Add given text to identation, using different ident on the first line.
+     * Appends given text to identation, using different ident on the first line.
      * Often used with list of parameters and such, as first line is spaces
      * only, starting from second line, comma is used. Any subsequent operation
      * ident will cancel first ident
@@ -133,8 +140,32 @@ public interface CodeBuilder {
      * second line
      * @return self to support chaining
      */
-    public CodeBuilder addIdent(String firstIdent, String regularIdent);
+    public CodeBuilder appendIdent(String firstIdent, String regularIdent);
 
+    /**
+     * Increase ident length by defined number of characters and replace ident
+     * with specified text, left padded with spaces.
+     * 
+     * @param ident new ident text, left padded ith spaces to required length
+     * @param increaseBy is number of characters ident should be increased by
+     * @return self to support chaining
+     */
+    public CodeBuilder increaseIdent(String ident, int increaseBy);
+    
+    /**
+     * Increase ident length by defined number of characters and replace ident
+     * with specified text, left padded with spaces. First line will get
+     * different ident
+     * 
+     * @param firstIdent is ident text that will be used first line, after left
+     * padding it with spaces to required length
+     * @param regularIdent is ident text that will be used from second line on
+     * @param increaseBy is number of characters ident should be increased by
+     * @return self to support chaining
+     */
+    public CodeBuilder increaseIdent(String firstIdent, String regularIdent,
+            int increaseBy);
+    
     /**
      * Set identation to specified text temporarily.
      * Temporary ident means that it is possible to return to previous setting
@@ -168,10 +199,11 @@ public interface CodeBuilder {
      * @param text is string to be appended to ident
      * @return self to support chaining
      */
-    public CodeBuilder addTempIdent(String text);
+    public CodeBuilder appendTempIdent(String text);
 
     /**
-     * Add temporary text to identation, using different ident on the first line.
+     * Appends temporary text to identation, using different ident on the first
+     * line.
      * Often used with list of parameters and such, as first line is spaces
      * only, starting from second line, comma is used. Temporary ident means
      * that it is possible to return to previous setting using removeTempIdent
@@ -182,8 +214,46 @@ public interface CodeBuilder {
      * second line
      * @return self to support chaining
      */
-    public CodeBuilder addTempIdent(String firstIdent, String regularIdent);
+    public CodeBuilder appendTempIdent(String firstIdent, String regularIdent);
 
+    /**
+     * Increase ident length by defined number of characters and replace ident
+     * with spaces.
+     * Temporary ident means that it is possible to return to previous setting
+     * using removeTempIdent method instead of decreaseIdent
+     * 
+     * @param increaseBy is number of characters ident should be increased by
+     * @return self to support chaining
+     */
+    public CodeBuilder increaseTempIdent(int increaseBy);
+    
+    /**
+     * Increase ident length by defined number of characters and replace ident
+     * with specified text, left padded with spaces.
+     * Temporary ident means that it is possible to return to previous setting
+     * using removeTempIdent method instead of decreaseIdent
+     * 
+     * @param ident new ident text, left padded ith spaces to required length
+     * @param increaseBy is number of characters ident should be increased by
+     * @return self to support chaining
+     */
+    public CodeBuilder increaseTempIdent(String ident, int increaseBy);
+    
+    /**
+     * Increase ident length by defined number of characters and replace ident
+     * with specified text, left padded with spaces. First line will get
+     * different ident. Temporary ident means that it is possible to return to
+     * previous setting using removeTempIdent method instead of decreaseIdent
+     * 
+     * @param firstIdent is ident text that will be used first line, after left
+     * padding it with spaces to required length
+     * @param regularIdent is ident text that will be used from second line on
+     * @param increaseBy is number of characters ident should be increased by
+     * @return self to support chaining
+     */
+    public CodeBuilder increaseTempIdent(String firstIdent, String regularIdent,
+            int increaseBy);
+    
     /**
      * Removes last added temporary identation.
      * 

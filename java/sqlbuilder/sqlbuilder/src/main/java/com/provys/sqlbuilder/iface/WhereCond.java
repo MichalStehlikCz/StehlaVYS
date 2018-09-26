@@ -37,4 +37,11 @@ public interface WhereCond {
      */
     public int getCost();
     
+    /**
+     * Reports if where condition is empty and can be ignored.
+     * 
+     * @return true if where condition is empty, false if it will generate some
+     * non-trivial code
+     */
+    public boolean isEmpty();
 }

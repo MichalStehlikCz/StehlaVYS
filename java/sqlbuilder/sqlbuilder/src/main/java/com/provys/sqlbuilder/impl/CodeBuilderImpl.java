@@ -9,7 +9,6 @@ import com.provys.common.error.ProvysException;
 import com.provys.provysdb.call.BindValue;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -28,23 +27,18 @@ public class CodeBuilderImpl implements CodeBuilder {
     private String ident;
     private String firstIdent;
     final Stack<String> tempIdents;
+    final Stack<String> tempFirstIdents;
 
     public CodeBuilderImpl() {
         text = new StringBuilder(100);
         bindValues = new ConcurrentHashMap<> (10);
         tempIdents = new Stack<>();
+        tempFirstIdents = new Stack<>();
         ident = "";
     }
 
     @Override
-    public CodeBuilder addLine(String line) {
-        add(line);
-        setNewLine(true);
-        return this;
-    }
-
-    @Override
-    public CodeBuilder add(String text) {
+    public CodeBuilder append(String text) {
         if (isNewLine()) {
             if (this.getFirstIdent() != null) {
                 this.text.append(getFirstIdent());
@@ -59,21 +53,24 @@ public class CodeBuilderImpl implements CodeBuilder {
     }
 
     @Override
-    public CodeBuilder increaseIdentBy(int chars) {
-        if (chars < 0) {
-            throw new IncreaseByNegativeException();
-        }
-        StringBuilder identBuilder = new StringBuilder(chars+getIdent().length())
-                .append(getIdent());
-        for (int i=1;i<=chars;i++) {
-            identBuilder.append(' ');
-        }
-        setIdent(identBuilder.toString());
+    public CodeBuilder appendLine() {
+        setNewLine(true);
         return this;
     }
 
     @Override
-    public CodeBuilder decreaseIdentBy(int chars) {
+    public CodeBuilder appendLine(String line) {
+        append(line);
+        return appendLine();
+    }
+
+    @Override
+    public CodeBuilder increaseIdent(int chars) {
+        return increaseIdent(" ", chars);
+    }
+
+    @Override
+    public CodeBuilder decreaseIdent(int chars) {
         if (chars < 0) {
             throw new DecreaseByNegativeException();
         }
@@ -100,7 +97,7 @@ public class CodeBuilderImpl implements CodeBuilder {
     public CodeBuilder setIdent(int chars) {
         ident = "";
         this.setFirstIdent(null);
-        return increaseIdentBy(chars);
+        return increaseIdent(chars);
     }
 
     @Override
@@ -156,13 +153,13 @@ public class CodeBuilderImpl implements CodeBuilder {
     }
 
     @Override
-    public CodeBuilder addIdent(String text) {
+    public CodeBuilder appendIdent(String text) {
         setIdent(getIdent() + text);
         return this;
     }
 
     @Override
-    public CodeBuilder addIdent(String firstIdent, String regularIdent) {
+    public CodeBuilder appendIdent(String firstIdent, String regularIdent) {
         // SetIdent cancels first ident - thus, we have to save first ident to
         // local variable
         String newFirstIdent = getIdent() + firstIdent;
@@ -172,31 +169,82 @@ public class CodeBuilderImpl implements CodeBuilder {
     }
 
     @Override
-    public CodeBuilder setTempIdent(String ident) {
+    public CodeBuilder increaseIdent(String ident, int increaseBy) {
+        if (increaseBy < 0) {
+            throw new IncreaseByNegativeException();
+        }
+        setIdent(ident, getIdent().length()+increaseBy);
+        return this;
+    }
+
+    @Override
+    public CodeBuilder increaseIdent(String firstIdent, String regularIdent
+            , int increaseBy) {
+        if (increaseBy < 0) {
+            throw new IncreaseByNegativeException();
+        }
+        setIdent(firstIdent, regularIdent, getIdent().length()+increaseBy);
+        return this;
+    }
+
+    private void putTempIdent() {
         tempIdents.push(getIdent());
+        tempFirstIdents.push(getFirstIdent());
+    }
+
+    @Override
+    public CodeBuilder setTempIdent(String ident) {
+        putTempIdent();
         return setIdent(ident);
     }
 
     @Override
     public CodeBuilder setTempIdent(String firstIdent, String regularIdent) {
-        tempIdents.push(getIdent());
+        putTempIdent();
         return setIdent(firstIdent, regularIdent);
     }
 
     @Override
-    public CodeBuilder addTempIdent(String text) {
-        tempIdents.push(getIdent());
-        return addIdent(text);
+    public CodeBuilder appendTempIdent(String text) {
+        putTempIdent();
+        return appendIdent(text);
     }
 
     @Override
-    public CodeBuilder addTempIdent(String firstIdent, String regularIdent) {
-        tempIdents.push(getIdent());
-        return addIdent(firstIdent, regularIdent);
+    public CodeBuilder appendTempIdent(String firstIdent, String regularIdent) {
+        putTempIdent();
+        return appendIdent(firstIdent, regularIdent);
+    }
+
+    @Override
+    public CodeBuilder increaseTempIdent(int increaseBy) {
+        return increaseTempIdent("", increaseBy);
+    }
+
+    @Override
+    public CodeBuilder increaseTempIdent(String ident, int increaseBy) {
+        if (increaseBy < 0) {
+            throw new IncreaseByNegativeException();
+        }
+        putTempIdent();
+        setIdent(ident, getIdent().length()+increaseBy);
+        return this;
+    }
+
+    @Override
+    public CodeBuilder increaseTempIdent(String firstIdent, String regularIdent
+            , int increaseBy) {
+        if (increaseBy < 0) {
+            throw new IncreaseByNegativeException();
+        }
+        putTempIdent();
+        setIdent(firstIdent, regularIdent, getIdent().length()+increaseBy);
+        return this;
     }
 
     @Override
     public CodeBuilder removeTempIdent() {
+        setFirstIdent(tempFirstIdents.pop());
         return setIdent(tempIdents.pop());
     }
 

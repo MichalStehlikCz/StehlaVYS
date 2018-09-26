@@ -12,29 +12,29 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Holds multiple conditions, connected by AND operator.
+ * Holds multiple conditions, connected by OR operator.
  * 
  * @author stehlik
  */
-public class WhereCondAnd implements WhereCond {
+public class WhereCondOr implements WhereCond {
     
     private final List<WhereCond> conditions;
     
-    public WhereCondAnd() {
+    public WhereCondOr() {
         this.conditions = new ArrayList<>(2);
     }
     
     @Override
     public void buildWhere(CodeBuilder code) {
         if (getNonEmptyCount() > 1)
-            code.appendLine("(").increaseTempIdent("    ", "AND ", 2);
+            code.appendLine("(").increaseTempIdent("    ", "OR  ", 2);
         conditions.forEach((condition) -> {
-            if (condition instanceof WhereCondAnd)
-                ((WhereCondAnd) condition).buildWhereNoBrackets(code);
+            if (condition instanceof WhereCondOr)
+                ((WhereCondOr) condition).buildWhereNoBrackets(code);
             else
                 condition.buildWhere(code);
         });
-        if (getNonEmptyCount() > 1)
+        if (conditions.size() > 1)
             code.removeTempIdent().appendLine(")");
     }
 
@@ -49,30 +49,32 @@ public class WhereCondAnd implements WhereCond {
         conditions.forEach((condition) -> {condition.buildWhere(code);});
     }
 
-    private class MinCostCounter implements Consumer<WhereCond> {
+    private class MaxCostCounter implements Consumer<WhereCond> {
         
-        private int minCost = 1000;
+        private int maxCost = 0;
         
-        public MinCostCounter() {
+        public MaxCostCounter() {
         }
 
         @Override
         public void accept(WhereCond whereCond) {
             int cost = whereCond.getCost();
-            if (cost < minCost)
-                minCost = cost;
+            if (cost > maxCost)
+                maxCost = cost;
         }
         
         public int getCost() {
-            return minCost;
+            if (maxCost == 0)
+                return 1000;
+            return maxCost;
         }
     }
 
-   @Override
+    @Override
     public int getCost() {
-        MinCostCounter minCost = new MinCostCounter();
-        conditions.forEach(minCost);
-        return minCost.getCost();
+        MaxCostCounter cost = new MaxCostCounter();
+        conditions.forEach(cost);
+        return cost.getCost();
     }
 
     private int getNonEmptyCount() {
@@ -85,8 +87,5 @@ public class WhereCondAnd implements WhereCond {
     public boolean isEmpty() {
         return (getNonEmptyCount() == 0);
     }
-
-    public void add(WhereCond whereCond) {
-        this.conditions.add(whereCond);
-    }
+    
 }

@@ -28,7 +28,9 @@ public class WhereCondSimpleWithBind extends WhereCondSimple {
 
     @Override
     public void buildWhere(CodeBuilder code) {
-        code.addLine(getSql()).addBind(this.bindValues);
+        if (getSql() == null)
+            throw new ConditionNotSpecifiedException();
+        code.appendLine(getSql()).addBind(this.bindValues);
     }
 
     /**

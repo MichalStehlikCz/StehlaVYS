@@ -5,6 +5,7 @@
  */
 package com.provys.sqlbuilder.impl;
 
+import com.provys.common.error.ProvysException;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import com.provys.sqlbuilder.iface.WhereCond;
 
@@ -28,7 +29,9 @@ public class WhereCondSimple implements WhereCond {
     
     @Override
     public void buildWhere(CodeBuilder code) {
-        code.addLine(getSql());
+        if (sql == null)
+            throw new ConditionNotSpecifiedException();
+        code.appendLine(getSql());
     }
 
     @Override
@@ -36,6 +39,11 @@ public class WhereCondSimple implements WhereCond {
         return 1000;
     }
 
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+    
     /**
      * @return the sql
      */
@@ -43,4 +51,16 @@ public class WhereCondSimple implements WhereCond {
         return sql;
     }
     
+    /**
+     * Condition was not specified
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class ConditionNotSpecifiedException extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        ConditionNotSpecifiedException() {
+            super("Condition was not specified");
+        }
+    }
 }

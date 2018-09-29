@@ -48,6 +48,14 @@ abstract public class DtString extends Dt{
     }
     
     @Override
+    public String toSqlLiteral() {
+        // replace ', newline and CHR(0) characters to prevent SQL injection
+        return "'" + this.value.replace("'", "''")
+                .replace("\n", "'||CHR(10)||'")
+                .replace("\0", "\\0") + "'";
+    }
+    
+    @Override
     public boolean equals(Object secondObject){
         if (this == secondObject) {
             return true;

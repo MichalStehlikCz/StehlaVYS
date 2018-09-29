@@ -11,5 +11,20 @@ package com.provys.sqlbuilder.iface;
  * @author stehlik
  */
 public enum JoinType {
-    IN, EXISTS, JOIN
+
+    /**
+     * IN join - condition built as {column} IN (SELECT ...)
+     */
+    IN, 
+
+    /**
+     * EXISTS join - condition build as EXISTS(SELECT ...)
+     */
+    EXISTS, 
+
+    /**
+     * attempt to add expression using join; if it is for some reason not
+     * possible, IN join will be used instead
+     */
+    JOIN
 }

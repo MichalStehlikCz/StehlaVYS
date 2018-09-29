@@ -12,9 +12,11 @@ import com.provys.sqlbuilder.iface.SqlBuilder;
 import com.provys.sqlbuilder.iface.SqlColumn;
 import com.provys.sqlbuilder.iface.WhereCond;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
 
 /**
  * SqlBuilder class used for simple queries (no UNION - just SELECT / FROM
@@ -38,8 +40,9 @@ public class SqlBuilderSimple implements SqlBuilder {
         this.columns = new ArrayList<>(1);
         this.columns.add(column);
         this.fromElems = new ConcurrentHashMap<>(1);
-        if (fromElem.getAlias() == null)
+        if (fromElem.getAlias() == null) {
             fromElem.setAlias(fromElem.getDefAlias());
+        }
         this.fromElems.put(fromElem.getAlias(), fromElem);
         this.whereCond = new WhereCondAnd();
     }
@@ -49,26 +52,36 @@ public class SqlBuilderSimple implements SqlBuilder {
         this.columns = new ArrayList<>(1);
         this.columns.add(column);
         this.fromElems = new ConcurrentHashMap<>(1);
-        if (fromElem.getAlias() == null)
+        if (fromElem.getAlias() == null) {
             fromElem.setAlias(fromElem.getDefAlias());
+        }
         this.fromElems.put(fromElem.getAlias(), fromElem);
         this.whereCond = new WhereCondAnd();
         this.whereCond.add(whereCond);
     }
 
+    private boolean hasJoinSql() {
+        JoinSqlCounter joinSqlCounter = new JoinSqlCounter();
+        this.fromElems.forEach(joinSqlCounter);
+        return joinSqlCounter.getCount()>0;
+    }
+    
     @Override
     public void buildSql(CodeBuilder code) {
         code.appendLine("SELECT").increaseTempIdent("  ", ", ", 4);
         columns.forEach((column) -> {
-            column.buildSql(code);
+            column.buildSql(code, true);
         });
         code.removeTempIdent().appendLine("FROM").increaseTempIdent("  ", ", ", 4);
         fromElems.forEach((alias, fromElem) -> {
             fromElem.buildSql(code);
         });
         code.removeTempIdent();
-        if (!whereCond.isEmpty()) {
+        if (!whereCond.isEmpty() | hasJoinSql()) {
             code.appendLine("WHERE").increaseTempIdent(6);
+            fromElems.forEach((alias, fromElem) -> {
+                fromElem.buildJoinSql(code);
+            });
             whereCond.buildWhereNoBrackets(code);
             code.removeTempIdent();
         }
@@ -86,9 +99,9 @@ public class SqlBuilderSimple implements SqlBuilder {
         whereCond.buildWhereNoBrackets(code);
         for (int i = 0; i < columns.size(); i++) {
             code.append("(");
-            columns.get(i).buildSqlNoNewLine(code);
+            columns.get(i).buildSqlNoNewLine(code, false);
             code.append("=");
-            equalColumns.get(i).buildSqlNoNewLine(code);
+            equalColumns.get(i).buildSqlNoNewLine(code, false);
             code.appendLine(")");
         }
         code.removeTempIdent();
@@ -101,7 +114,7 @@ public class SqlBuilderSimple implements SqlBuilder {
 
     @Override
     public List<SqlColumn> getColumns() {
-        return columns;
+        return Collections.unmodifiableList(columns);
     }
     
     public void addColumn(SqlColumn column) {
@@ -109,19 +122,22 @@ public class SqlBuilderSimple implements SqlBuilder {
     }
     
     public void addFromElem(FromElem fromElem) {
-        if (fromElem.getAlias() == null)
+        if (fromElem.getAlias() == null) {
             addFromElemUniqueAlias(fromElem);
-        else
-            if (fromElems.putIfAbsent(fromElem.getAlias(), fromElem) != null)
+        } else {
+            if (fromElems.putIfAbsent(fromElem.getAlias(), fromElem) != null) {
                 throw new DuplicateAliasException(fromElem.getAlias());
+            }
+        }
     }
     
     public void addFromElemUniqueAlias(FromElem fromElem) {
         String defAlias;
-        if (fromElem.getAlias() == null)
+        if (fromElem.getAlias() == null) {
             defAlias = fromElem.getDefAlias();
-        else
+        } else {
             defAlias = fromElem.getAlias();
+        }
         String alias = defAlias;
         int index = 1;
         while (this.fromElems.containsKey(alias)) {
@@ -146,5 +162,22 @@ public class SqlBuilderSimple implements SqlBuilder {
         DuplicateAliasException(String alias) {
             super("Alias is already used " + alias);
         }
+    }
+    
+    private class JoinSqlCounter implements BiConsumer<String, FromElem> {
+        
+        int count = 0;
+        
+        @Override
+        public void accept(String alias, FromElem fromElem) {
+            if (fromElem.hasJoinSql()) {
+                count++;
+            }
+        }
+        
+        int getCount() {
+            return this.count;
+        }
+        
     }
 }

@@ -40,6 +40,15 @@ abstract public class Dt implements Serializable {
      */
     abstract public String toStringValue();
 
+    /**
+     * Translation of value to SQL literal.
+     * Used when SQL statement is being constructed and value should be put in
+     * statement as literal, not as string
+     * 
+     * @return String representing value as SQL literal
+     */
+    abstract public String toSqlLiteral();
+    
     @Override
     abstract public boolean equals(Object second);
 
@@ -50,6 +59,7 @@ abstract public class Dt implements Serializable {
      * Exception raised on attempt to create new instance of one of PROVYS
      * datatype classes with null value
      */
+    @SuppressWarnings("PublicInnerClass")
     static public class NullValueNotSupportedException extends ProvysException {
 
         private static final long serialVersionUID = 1L;

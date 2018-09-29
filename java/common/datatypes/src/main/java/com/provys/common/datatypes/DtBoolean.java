@@ -133,6 +133,15 @@ public class DtBoolean extends Dt {
     }
 
     @Override
+    public String toSqlLiteral() {
+        if (this.value) {
+            return "'Y'";
+        } else {
+            return "'N'";
+        }
+    }
+    
+    @Override
     public boolean equals(Object secondObject) {
         if (this == secondObject) {
             return true;

@@ -26,16 +26,19 @@ public class WhereCondOr implements WhereCond {
     
     @Override
     public void buildWhere(CodeBuilder code) {
-        if (getNonEmptyCount() > 1)
+        if (getNonEmptyCount() > 1) {
             code.appendLine("(").increaseTempIdent("    ", "OR  ", 2);
-        conditions.forEach((condition) -> {
-            if (condition instanceof WhereCondOr)
+        }
+        conditions.forEach((WhereCond condition) -> {
+            if (condition instanceof WhereCondOr) {
                 ((WhereCondOr) condition).buildWhereNoBrackets(code);
-            else
+            } else {
                 condition.buildWhere(code);
+            }
         });
-        if (conditions.size() > 1)
+        if (conditions.size() > 1) {
             code.removeTempIdent().appendLine(")");
+        }
     }
 
     /**
@@ -47,27 +50,6 @@ public class WhereCondOr implements WhereCond {
      */
     public void buildWhereNoBrackets(CodeBuilder code) {
         conditions.forEach((condition) -> {condition.buildWhere(code);});
-    }
-
-    private class MaxCostCounter implements Consumer<WhereCond> {
-        
-        private int maxCost = 0;
-        
-        public MaxCostCounter() {
-        }
-
-        @Override
-        public void accept(WhereCond whereCond) {
-            int cost = whereCond.getCost();
-            if (cost > maxCost)
-                maxCost = cost;
-        }
-        
-        public int getCost() {
-            if (maxCost == 0)
-                return 1000;
-            return maxCost;
-        }
     }
 
     @Override
@@ -86,6 +68,29 @@ public class WhereCondOr implements WhereCond {
     @Override
     public boolean isEmpty() {
         return (getNonEmptyCount() == 0);
+    }
+    
+    private class MaxCostCounter implements Consumer<WhereCond> {
+        
+        private int maxCost = 0;
+        
+        MaxCostCounter() {
+        }
+
+        @Override
+        public void accept(WhereCond whereCond) {
+            int cost = whereCond.getCost();
+            if (cost > maxCost) {
+                maxCost = cost;
+            }
+        }
+        
+        public int getCost() {
+            if (maxCost == 0) {
+                return 1000;
+            }
+            return maxCost;
+        }
     }
     
 }

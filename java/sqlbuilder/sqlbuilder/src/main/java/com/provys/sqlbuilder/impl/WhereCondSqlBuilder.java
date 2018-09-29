@@ -9,11 +9,12 @@ import com.provys.common.error.ProvysException;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import com.provys.sqlbuilder.iface.JoinType;
 import static com.provys.sqlbuilder.iface.JoinType.*;
-import java.util.List;
 import com.provys.sqlbuilder.iface.SqlBuilder;
 import com.provys.sqlbuilder.iface.SqlColumn;
 import com.provys.sqlbuilder.iface.WhereCond;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Condition built using SqlBuilder.
@@ -67,11 +68,13 @@ public class WhereCondSqlBuilder implements WhereCond {
     public void buildWhere(CodeBuilder code) {
         checkUseable();
         JoinType useJoinType = this.joinType;
-        if (useJoinType == null)
-            if (subquery.getCost() > 10)
+        if (useJoinType == null) {
+            if (subquery.getCost() > 10) {
                 useJoinType = EXISTS;
-            else
+            } else {
                 useJoinType = IN;
+            }
+        }
         switch (useJoinType) {
             case EXISTS:
                 code.appendLine("EXISTS(").increaseTempIdent(4);
@@ -82,12 +85,13 @@ public class WhereCondSqlBuilder implements WhereCond {
             case JOIN: // join has to be done when adding condition, not usable
                        // in condition itself..
                 code.append("(");
-                if (columns.size() == 1)
-                    columns.get(0).buildSqlNoNewLine(code);
-                else {
+                if (columns.size() == 1) {
+                    columns.get(0).buildSqlNoNewLine(code, false);
+                } else {
                     code.appendLine().appendLine("  (")
                             .increaseTempIdent("  ", ", ", 6);
-                    columns.forEach((column) -> {column.buildSql(code);});
+                    columns.forEach((SqlColumn column)
+                            -> {column.buildSql(code, false);});
                     code.removeTempIdent().append("  )");
                 }
                 code.appendLine(" IN (").increaseTempIdent(2);
@@ -99,8 +103,9 @@ public class WhereCondSqlBuilder implements WhereCond {
 
     @Override
     public int getCost() {
-        if (getSubquery() == null)
+        if (getSubquery() == null) {
             throw new SubqueryMissingException();
+        }
         return getSubquery().getCost();
     }
 
@@ -110,16 +115,20 @@ public class WhereCondSqlBuilder implements WhereCond {
     }
     
     private void checkColumns() {
-        if ((this.columns != null) & (this.subquery != null))
-            if (this.columns.size() != this.subquery.getColumns().size())
+        if ((this.columns != null) & (this.subquery != null)) {
+            if (this.columns.size() != this.subquery.getColumns().size()) {
                 throw new ColumnsNumberMismatchException();
+            }
+        }
     }
 
     private void checkUseable() {
-        if (this.columns == null)
+        if (this.columns == null) {
             throw new ColumnsMissingException();
-        if (this.subquery == null)
+        }
+        if (this.subquery == null) {
             throw new SubqueryMissingException();
+        }
         checkColumns();
     }
 
@@ -127,7 +136,7 @@ public class WhereCondSqlBuilder implements WhereCond {
      * @return the columns
      */
     public List<SqlColumn> getColumns() {
-        return columns;
+        return Collections.unmodifiableList(columns);
     }
 
     /**

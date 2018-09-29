@@ -22,7 +22,7 @@ public class DtNumber extends DtNumeric{
     private final BigDecimal value;
     
     /**
-     * Creates provys number value from supplied value
+     * Creates provys number value from supplied value.
      * @param value - value new object will be initialised to
      */
     public DtNumber(BigDecimal value) {
@@ -30,6 +30,22 @@ public class DtNumber extends DtNumeric{
             throw new Dt.NullValueNotSupportedException();
         }
         this.value=value;
+    }
+    
+    /**
+     * Creates provys number value from supplied float value.
+     * @param value - value new object will be initialised to
+     */
+    public DtNumber(float value) {
+        this.value=new BigDecimal(value);
+    }
+    
+    /**
+     * Creates provys number value from supplied double value.
+     * @param value - value new object will be initialised to
+     */
+    public DtNumber(double value) {
+        this.value=new BigDecimal(value);
     }
     
     /**

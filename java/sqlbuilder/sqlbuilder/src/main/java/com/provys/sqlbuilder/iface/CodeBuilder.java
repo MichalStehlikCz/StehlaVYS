@@ -293,8 +293,18 @@ public interface CodeBuilder {
      */
     public String addUniqueBind(BindValue bindValue, boolean allowReuse);
     
+    /**
+     * Method retrieves code, produced by CodeBuilder.
+     * 
+     * @return code that has been built using this builder
+     */
     public String getCode();
     
+    /**
+     * Method for accessing bind variables associated with code.
+     * 
+     * @return list of bind variables used in code
+     */
     public List<BindValue> getBindValues();
 }
     

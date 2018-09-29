@@ -55,6 +55,11 @@ public class DtUid extends Dt{
     }
     
     @Override
+    public String toSqlLiteral() {
+        return this.value;
+    }
+    
+    @Override
     public boolean equals(Object secondObject){
         if (this == secondObject) {
             return true;

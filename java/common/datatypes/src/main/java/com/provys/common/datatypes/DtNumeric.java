@@ -12,6 +12,13 @@ package com.provys.common.datatypes;
  * method for value retrieval as double
  */
 abstract public class DtNumeric extends Dt {
+
+    private static final long serialVersionUID = 1L;
+    
+    @Override
+    public String toSqlLiteral() {
+        return this.toStringValue();
+    }
     
     /**
      * returns value of PROVYS number object, converted to double

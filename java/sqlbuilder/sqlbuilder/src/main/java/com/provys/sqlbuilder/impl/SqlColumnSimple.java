@@ -13,21 +13,20 @@ import com.provys.sqlbuilder.iface.SqlColumn;
  * 
  * @author stehlik
  */
-public class SqlColumnSimple implements SqlColumn {
+public class SqlColumnSimple extends SqlColumn {
     
-    final String column;
+    final String column; // text representing table column
+    
     
     public SqlColumnSimple(String column) {
         this.column = column;
     }
 
     @Override
-    public void buildSql(CodeBuilder code) {
-        code.appendLine(column);
-    }
-
-    @Override
-    public void buildSqlNoNewLine(CodeBuilder code) {
+    public void buildSqlNoNewLine(CodeBuilder code, boolean addAliasClause) {
         code.append(column);
+        if (addAliasClause) {
+            appendAlias(code);
+        }
     }
 }

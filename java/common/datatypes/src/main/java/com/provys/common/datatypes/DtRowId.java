@@ -69,6 +69,11 @@ public class DtRowId extends Dt{
     }
     
     @Override
+    public String toSqlLiteral() {
+        throw new RowidLiteralNotSupportedException();
+    }
+
+    @Override
     public boolean equals(Object secondObject){
         if (this == secondObject) {
             return true;
@@ -87,6 +92,7 @@ public class DtRowId extends Dt{
     public int hashCode(){
         return this.value.hashCode();
     }
+
     /**
      * Exception indicating that supplied value is not valid Oracle ROWID
      */
@@ -101,8 +107,21 @@ public class DtRowId extends Dt{
          * @param cause - reported SQL exception
          */
         public InvalidRowIdException(String value, SQLException cause) {
-            super("Value supplied to Uid constructor is not a number ("
+            super("Value supplied to Rowid constructor is not valid ROWID ("
                     +value+")", cause);
+        }
+    }
+
+    /**
+     * Raised on attempt to convert RowId to SQL literal.
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class RowidLiteralNotSupportedException extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        public RowidLiteralNotSupportedException() {
+            super("System cannot convert Rowid value to SQL literal");
         }
     }
 }

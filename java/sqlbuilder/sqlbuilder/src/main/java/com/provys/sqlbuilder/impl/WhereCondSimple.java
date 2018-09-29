@@ -29,8 +29,9 @@ public class WhereCondSimple implements WhereCond {
     
     @Override
     public void buildWhere(CodeBuilder code) {
-        if (sql == null)
+        if (sql == null) {
             throw new ConditionNotSpecifiedException();
+        }
         code.appendLine(getSql());
     }
 

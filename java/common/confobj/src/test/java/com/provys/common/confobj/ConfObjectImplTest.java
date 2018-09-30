@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
  * @author micha
  */
 @RunWith(JUnitParamsRunner.class)
-public class ConfObjectTest {
+public class ConfObjectImplTest {
     
     private List<Object[]> parametersForGetId() {
         return asList(
@@ -29,23 +29,23 @@ public class ConfObjectTest {
     }
 
     /**
-     * Test of getId method, of class ConfObject.
-     * @param id used to create test instance of ConfObject
+     * Test of getId method, of class ConfObjectImpl.
+     * @param id used to create test instance of ConfObjectImpl
      * @param expectedResult is compared with result of getId method
      */
     @Test
     @Parameters(method = "parametersForGetId")
     public void testGetId(DtUid id, DtUid expectedResult) {
-        ConfObject instance = new ConfObjectImpl(id);
+        ConfObjectImpl instance = new ConfObjectImplNonAbstract(id);
         DtUid result = instance.getId();
         assertEquals(expectedResult, result);
     }
 
-    static public class ConfObjectImpl extends ConfObject {
+    static private class ConfObjectImplNonAbstract extends ConfObjectImpl {
 
         private static final long serialVersionUID = 1L;
 
-        public ConfObjectImpl(DtUid id) {
+        ConfObjectImplNonAbstract(DtUid id) {
             super(id);
         }
     }

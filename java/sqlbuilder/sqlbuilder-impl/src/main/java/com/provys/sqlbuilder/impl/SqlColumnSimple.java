@@ -6,14 +6,13 @@
 package com.provys.sqlbuilder.impl;
 
 import com.provys.sqlbuilder.iface.CodeBuilder;
-import com.provys.sqlbuilder.iface.SqlColumn;
 
 /**
  * Represents simple column, specified as text, without alias.
  * 
  * @author stehlik
  */
-public class SqlColumnSimple extends SqlColumn {
+public class SqlColumnSimple extends SqlColumnAncestor {
     
     final String column; // text representing table column
     

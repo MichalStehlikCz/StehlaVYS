@@ -10,16 +10,7 @@ package com.provys.sqlbuilder.iface;
  * 
  * @author stehlik
  */
-abstract public class SqlColumn {
-    
-    private String alias;
-    
-    public SqlColumn() {
-    }
-    
-    public SqlColumn(String alias) {
-        this.alias = alias;
-    }
+public interface SqlColumn {
     
     /**
      * Build SQL code for column (full line).
@@ -28,10 +19,7 @@ abstract public class SqlColumn {
      * @param addAliasClause defines if alias clause should be placed after
      * column code
      */
-    public void buildSql(CodeBuilder code, boolean addAliasClause) {
-        buildSqlNoNewLine(code, addAliasClause);
-        code.appendLine();
-    }
+    public void buildSql(CodeBuilder code, boolean addAliasClause);
     
     /**
      * Build SQL code for column; if possible, build it in line.
@@ -43,27 +31,17 @@ abstract public class SqlColumn {
      * @param addAliasClause defines if alias clause should be placed after
      * column code
      */
-    abstract public void buildSqlNoNewLine(CodeBuilder code
+    public void buildSqlNoNewLine(CodeBuilder code
             , boolean addAliasClause);
-
-    protected void appendAlias(CodeBuilder code) {
-        if (getAlias() != null) {
-            code.append(" ").append(getAlias());
-        }
-    }
 
     /**
      * @return the alias
      */
-    public String getAlias() {
-        return alias;
-    }
+    public String getAlias();
 
     /**
      * @param alias the alias to set
      */
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
+    public void setAlias(String alias);
 
 }

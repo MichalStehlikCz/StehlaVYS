@@ -5,7 +5,7 @@
  */
 package com.provys.catalogue.model;
 
-import com.provys.common.confobj.ConfNMObject;
+import com.provys.common.confobj.ConfNMObjectImpl;
 import com.provys.common.datatypes.*;
 import com.provys.common.error.ProvysException;
 import java.util.Collection;
@@ -20,7 +20,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  * @author stehlik
  */
 @JsonbTypeAdapter(JsonbEntityAdapter.class)
-public class Entity extends ConfNMObject{
+public class Entity extends ConfNMObjectImpl {
 
     private static final long serialVersionUID = 1L;
 

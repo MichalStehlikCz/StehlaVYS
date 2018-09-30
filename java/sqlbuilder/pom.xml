@@ -6,10 +6,12 @@
         <artifactId>provys</artifactId>
         <version>1.0</version>
     </parent>
+    <groupId>com.provys.sqlbuilder</groupId>
     <artifactId>sqlbuilder</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>sqlbuilder</module>
+        <module>sqlbuilder-common</module>
+        <module>sqlbuilder-impl</module>
     </modules>
     <name>sqlbuilder</name>
 </project>

@@ -5,31 +5,17 @@
  */
 package com.provys.common.confobj;
 
-import com.provys.common.annotation.*;
-import com.provys.common.datatypes.*;
+import com.provys.common.datatypes.DtNameNm;
 
 /**
- *
+ * Interface defines functionality for configuration object, identified by
+ * internal name.
+ * 
  * @author stehlik
  */
-abstract public class ConfNMObject extends ConfObject {
+public interface ConfNMObject extends ConfObject {
 
-    private static final long serialVersionUID = 1L;
-
-    @ProvysAttr("NAME_NM")
-    private DtNameNm nameNm;
-
-    public ConfNMObject(DtUid id, DtNameNm nameNm){
-        super(id);
-        this.nameNm=nameNm;
-    }
+    public DtNameNm getNameNm();
     
-    
-    public synchronized DtNameNm getNameNm(){
-        return this.nameNm;
-    }
-    
-    public synchronized void setNameNm(DtNameNm nameNm){
-        this.nameNm=nameNm;
-    }
+    public void setNameNm(DtNameNm nameNm);
 }

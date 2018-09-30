@@ -5,7 +5,7 @@
  */
 package com.provys.catalogue.model;
 
-import com.provys.common.confobj.ConfObject;
+import com.provys.common.confobj.ConfObjectImpl;
 import com.provys.common.datatypes.*;
 import javax.json.bind.annotation.JsonbCreator;
 import javax.json.bind.annotation.JsonbProperty;
@@ -13,7 +13,7 @@ import javax.json.bind.annotation.JsonbProperty;
  *
  * @author stehlik
  */
-public class Attr extends ConfObject{
+public class Attr extends ConfObjectImpl{
 
     private static final long serialVersionUID = 1L;
     

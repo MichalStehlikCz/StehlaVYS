@@ -10,14 +10,13 @@ import com.provys.common.datatypes.DtInteger;
 import com.provys.common.datatypes.DtNumber;
 import com.provys.common.datatypes.DtVarchar;
 import com.provys.sqlbuilder.iface.CodeBuilder;
-import com.provys.sqlbuilder.iface.SqlColumn;
 
 /**
  * Represents SQL literal.
  * 
  * @author stehlik
  */
-public class SqlColumnValue extends SqlColumn {
+public class SqlColumnValue extends SqlColumnAncestor {
     
     final Dt value;
     

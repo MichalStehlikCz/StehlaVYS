@@ -11,16 +11,14 @@ package com.provys.sqlbuilder.iface;
  * 
  * @author stehlik
  */
-public abstract class FromElem {
+public interface FromElem {
 
-    private String alias;
- 
     /**
      * Add from clause, associated with this element to supplied CodeBuilder.
      * 
      * @param code is CodeBuilder object used to build SQL statement
      */
-    abstract public void buildSql(CodeBuilder code);
+    public void buildSql(CodeBuilder code);
     
     /**
      * Add join clause associated with this element to supplied CodeBuilder.
@@ -29,26 +27,15 @@ public abstract class FromElem {
      * 
      * @param code is CodeBuilder used to build SQL statement
      */
-    abstract public void buildJoinSql(CodeBuilder code);
+    public void buildJoinSql(CodeBuilder code);
     
-    /**
-     * Appends alias (if set) to supplied CodeBuilder.
-     * 
-     * @param code is CodeBuilder used to build SQL statement.
-     */
-    protected void appendAlias(CodeBuilder code) {
-        if (getAlias() != null) {
-            code.append(getAlias());
-        }
-    }
-
     /**
      * Method indicates if this from element will produce join statement to
      * WHERE clause.
      * 
      * @return whether from element will add join clause to WHERE clause
      */
-    abstract public boolean hasJoinSql();
+    public boolean hasJoinSql();
     
     /**
      * Retrieve alias valid for give WHERE element.
@@ -57,18 +44,14 @@ public abstract class FromElem {
      * 
      * @return alias used for given statement
      */
-    public String getAlias() {
-        return alias;
-    }
+    public String getAlias();
 
     /**
      * Set alias associated with given element.
      * 
      * @param alias is new alias to be used with given from element.
      */
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
+    public void setAlias(String alias);
     
     /**
      * Returns default alias for given where condition.
@@ -79,8 +62,6 @@ public abstract class FromElem {
      * 
      * @return default alias for given from clause.
      */
-    public String getDefAlias() {
-        return "al";
-    }
+    public String getDefAlias();
 
 }

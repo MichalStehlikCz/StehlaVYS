@@ -6,7 +6,7 @@
 package com.provys.provysdb.iface;
 
 import com.provys.provysdb.call.ColumnDef;
-import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.call.SqlCall;
 import java.util.Map;
 
 /**
@@ -18,18 +18,18 @@ public interface QueryExecutor {
     /**
      * @return the sqlCall
      */
-    public SQLCall getSqlCall();
+    public SqlCall getSqlCall();
 
     /**
      * @param sqlCall the sqlCall to set
      */
-    public void setSqlCall(SQLCall sqlCall);
+    public void setSqlCall(SqlCall sqlCall);
     
     /**
      * Retrieves list of available columns.
-     * Initially, columns can be supplied by SQLCall. If they are not supplied,
-     * they are parsed from supplied statement during execution and might be
-     * later retrieved using this call
+     * Initially, columns can be supplied by SqlCall. If they are not supplied,
+ they are parsed from supplied statement during execution and might be
+ later retrieved using this call
      * 
      * @return list of available columns
      */

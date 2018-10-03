@@ -5,10 +5,12 @@
  */
 package com.provys.sqlbuilder.impl;
 
+import com.provys.common.error.ProvysException;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import com.provys.sqlbuilder.iface.SqlColumn;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -39,12 +41,23 @@ public class FromElemSimple extends FromElemAncestor {
 
     @Override
     public void buildJoinSql(CodeBuilder code) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        checkColumns();
+        Iterator<SqlColumn> joinColumnIterator = this.joinColumns.iterator();
+        Iterator<SqlColumn> joinToIterator = this.joinTos.iterator();
+        while (joinColumnIterator.hasNext()) {
+            SqlColumn joinColumn = joinColumnIterator.next();
+            SqlColumn joinTo = joinToIterator.next();
+            code.append("(").increaseTempIdent(2);
+            joinColumn.buildSqlNoNewLine(code, false);
+            code.append("=");
+            joinTo.buildSqlNoNewLine(code, false);
+            code.removeTempIdent().append(")");
+        }
     }
 
     @Override
     public boolean hasJoinSql() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.joinColumns.size()>0;
     }
 
     /**
@@ -98,7 +111,7 @@ public class FromElemSimple extends FromElemAncestor {
     }
 
     public void addJoinColumn(SqlColumn joinColumn) {
-        this.joinColumns.add(joinColumn);
+        this.getJoinColumns().add(joinColumn);
     }
 
     /**
@@ -107,6 +120,30 @@ public class FromElemSimple extends FromElemAncestor {
     public void setJoinColumns(List<SqlColumn> joinColumns) {
         this.joinColumns.clear();
         joinColumns.forEach((joinColumn) -> addJoinColumn(joinColumn));
+    }
+    
+    /**
+     * Checks if condition can be build from columns.
+     * Pre-condition is that both column sets are empty or both contain same
+     * number of elements.
+     */
+    private void checkColumns() {
+        if (this.joinColumns.size() != this.joinTos.size()) {
+            
+        }
+    }
+
+    /**
+     * Column number mismatch.
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class ColumnNumberMismatchException extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        ColumnNumberMismatchException() {
+            super("Numbers of join columns and join to columns do not match");
+        }
     }
     
 }

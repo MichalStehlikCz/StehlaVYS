@@ -8,23 +8,15 @@ package com.provys.sqlbuilder.iface;
 import com.provys.common.error.ProvysException;
 
 /**
- * Enumerates available SQL operators.
+ * Enumerates available SQL single operand operators.
  * 
  * @author stehlik
  */
-public enum SqlOperator {
-    EQUAL("=", "!="),
-    NOTEQUAL("!=", "="),
-    GREATER(">", "<="),
-    GREATEROREQUAL(">=", "<"),
-    LESS("<", ">="),
-    LESSOREQUAL("<=", ">"),
-    LIKE("LIKE", "NOT LIKE"),
-    MEMBEROF("MEMBER OF", "NOT MEMBER OF"),
-    INLIST("IN", "NOT IN");
-    
-    static SqlOperator getByOperator(String operator) {
-        for (SqlOperator sqlOperator : SqlOperator.values()) {
+public enum SqlOperator1 {
+     NULL("IS NULL", "IS NOT NULL");
+
+    static SqlOperator2 getByOperator(String operator) {
+        for (SqlOperator2 sqlOperator : SqlOperator2.values()) {
             if (operator.equalsIgnoreCase(sqlOperator.getOperator())) {
                 return sqlOperator;
             }
@@ -35,7 +27,7 @@ public enum SqlOperator {
     private final String operator;
     private final String negOperator;
     
-    SqlOperator(String operator, String negOperator) {
+    SqlOperator1(String operator, String negOperator) {
         this.operator = operator;
         this.negOperator = negOperator;
     }
@@ -68,3 +60,4 @@ public enum SqlOperator {
     }
     
 }
+

@@ -35,7 +35,7 @@ public interface WhereCond {
      * 
      * @return estimated cost of statement if it is used as primary condition 
      */
-    public int getCost();
+    public double getCost();
     
     /**
      * Reports if where condition is empty and can be ignored.

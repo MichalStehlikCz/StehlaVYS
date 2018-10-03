@@ -36,7 +36,7 @@ public class WhereCondSimple implements WhereCond {
     }
 
     @Override
-    public int getCost() {
+    public double getCost() {
         return 1000;
     }
 

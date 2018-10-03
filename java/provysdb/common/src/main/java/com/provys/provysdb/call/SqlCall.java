@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * SQLCall is used for passing of SQL (mostly SELECT) statement for execution.
+ * SqlCall is used for passing of SQL (mostly SELECT) statement for execution.
  * It is similar to Statement, but methods do not require connection, making it
  * possible to implement class as serializable (even though it goes at the price
  * of not verifying that parameters are valid as they are added) and then
@@ -21,7 +21,7 @@ import java.util.Map;
  * 
  * @author stehlik
  */
-public class SQLCall implements Serializable {
+public class SqlCall implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -101,6 +101,20 @@ public class SQLCall implements Serializable {
             this.columns = null;
         } else {
             this.columns = new HashMap<>(columns);
+        }
+    }
+    
+    /**
+     * @param columns the columns to set
+     */
+    public void setColumns(List<ColumnDef> columns) {
+        if (columns == null) {
+            this.columns = null;
+        } else {
+            this.columns = new HashMap<>(columns.size());
+            columns.forEach((column) -> {
+                this.columns.put(this.columns.size(), column);
+            });
         }
     }
     

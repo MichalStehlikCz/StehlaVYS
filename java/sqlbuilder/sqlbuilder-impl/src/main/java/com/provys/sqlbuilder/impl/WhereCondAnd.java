@@ -26,16 +26,19 @@ public class WhereCondAnd implements WhereCond {
     
     @Override
     public void buildWhere(CodeBuilder code) {
-        if (getNonEmptyCount() > 1)
+        if (getNonEmptyCount() > 1) {
             code.appendLine("(").increaseTempIdent("    ", "AND ", 2);
+        }
         conditions.forEach((condition) -> {
-            if (condition instanceof WhereCondAnd)
+            if (condition instanceof WhereCondAnd) {
                 ((WhereCondAnd) condition).buildWhereNoBrackets(code);
-            else
+            } else {
                 condition.buildWhere(code);
+            }
         });
-        if (getNonEmptyCount() > 1)
+        if (getNonEmptyCount() > 1) {
             code.removeTempIdent().appendLine(")");
+        }
     }
 
     /**
@@ -49,27 +52,8 @@ public class WhereCondAnd implements WhereCond {
         conditions.forEach((condition) -> {condition.buildWhere(code);});
     }
 
-    private class MinCostCounter implements Consumer<WhereCond> {
-        
-        private int minCost = 1000;
-        
-        public MinCostCounter() {
-        }
-
-        @Override
-        public void accept(WhereCond whereCond) {
-            int cost = whereCond.getCost();
-            if (cost < minCost)
-                minCost = cost;
-        }
-        
-        public int getCost() {
-            return minCost;
-        }
-    }
-
    @Override
-    public int getCost() {
+    public double getCost() {
         MinCostCounter minCost = new MinCostCounter();
         conditions.forEach(minCost);
         return minCost.getCost();
@@ -88,5 +72,24 @@ public class WhereCondAnd implements WhereCond {
 
     public void add(WhereCond whereCond) {
         this.conditions.add(whereCond);
+    }
+    private class MinCostCounter implements Consumer<WhereCond> {
+        
+        private double minCost = 1000;
+        
+        MinCostCounter() {
+        }
+        
+        @Override
+        public void accept(WhereCond whereCond) {
+            double cost = whereCond.getCost();
+            if (cost < minCost) {
+                minCost = cost;
+            }
+        }
+        
+        public double getCost() {
+            return minCost;
+        }
     }
 }

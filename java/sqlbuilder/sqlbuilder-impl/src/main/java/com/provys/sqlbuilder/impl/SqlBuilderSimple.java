@@ -8,7 +8,6 @@ package com.provys.sqlbuilder.impl;
 import com.provys.common.error.ProvysException;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import com.provys.sqlbuilder.iface.FromElem;
-import com.provys.sqlbuilder.iface.SqlBuilder;
 import com.provys.sqlbuilder.iface.SqlColumn;
 import com.provys.sqlbuilder.iface.WhereCond;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import java.util.function.BiConsumer;
  * 
  * @author stehlik
  */
-public class SqlBuilderSimple implements SqlBuilder {
+public class SqlBuilderSimple {
 
     final List<SqlColumn> columns;
     final Map<String, FromElem> fromElems;
@@ -33,6 +32,16 @@ public class SqlBuilderSimple implements SqlBuilder {
     public SqlBuilderSimple() {
         this.columns = new ArrayList<>(1);
         this.fromElems = new ConcurrentHashMap<>(1);
+        this.whereCond = new WhereCondAnd();
+    }
+
+    public SqlBuilderSimple(FromElem fromElem) {
+        this.columns = new ArrayList<>(1);
+        this.fromElems = new ConcurrentHashMap<>(1);
+        if (fromElem.getAlias() == null) {
+            fromElem.setAlias(fromElem.getDefAlias());
+        }
+        this.fromElems.put(fromElem.getAlias(), fromElem);
         this.whereCond = new WhereCondAnd();
     }
 
@@ -66,7 +75,6 @@ public class SqlBuilderSimple implements SqlBuilder {
         return joinSqlCounter.getCount()>0;
     }
     
-    @Override
     public void buildSql(CodeBuilder code) {
         code.appendLine("SELECT").increaseTempIdent("  ", ", ", 4);
         columns.forEach((column) -> {
@@ -87,41 +95,11 @@ public class SqlBuilderSimple implements SqlBuilder {
         }
     }
 
-    @Override
-    public void buildExistsSql(CodeBuilder code, List<SqlColumn> equalColumns) {
-        code.appendLine("SELECT").appendLine("    1").appendLine("FROM")
-                .increaseTempIdent("  ", ", ", 4);
-        fromElems.forEach((alias, fromElem) -> {
-            fromElem.buildSql(code);
-        });
-        code.removeTempIdent();
-        code.appendLine("WHERE").increaseTempIdent("    ", "AND ", 6);
-        whereCond.buildWhereNoBrackets(code);
-        for (int i = 0; i < columns.size(); i++) {
-            code.append("(");
-            columns.get(i).buildSqlNoNewLine(code, false);
-            code.append("=");
-            equalColumns.get(i).buildSqlNoNewLine(code, false);
-            code.appendLine(")");
-        }
-        code.removeTempIdent();
-    }
-
-    @Override
-    public int getCost() {
-        return whereCond.getCost();
-    }
-
-    @Override
     public List<SqlColumn> getColumns() {
         return Collections.unmodifiableList(columns);
     }
     
-    public void addColumn(SqlColumn column) {
-        columns.add(column);
-    }
-    
-    public void addFromElem(FromElem fromElem) {
+    public SqlBuilderSimple addFromElem(FromElem fromElem) {
         if (fromElem.getAlias() == null) {
             addFromElemUniqueAlias(fromElem);
         } else {
@@ -129,9 +107,10 @@ public class SqlBuilderSimple implements SqlBuilder {
                 throw new DuplicateAliasException(fromElem.getAlias());
             }
         }
+        return this;
     }
     
-    public void addFromElemUniqueAlias(FromElem fromElem) {
+    public SqlBuilderSimple addFromElemUniqueAlias(FromElem fromElem) {
         String defAlias;
         if (fromElem.getAlias() == null) {
             defAlias = fromElem.getDefAlias();
@@ -145,10 +124,12 @@ public class SqlBuilderSimple implements SqlBuilder {
         }
         fromElem.setAlias(alias);
         fromElems.put(fromElem.getAlias(), fromElem);
+        return this;
     }
     
-    public void addWhereCond(WhereCond whereCond) {
+    public SqlBuilderSimple addWhereCond(WhereCond whereCond) {
         this.whereCond.add(whereCond);
+        return this;
     }
 
     /**

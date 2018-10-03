@@ -24,7 +24,17 @@ public class SqlColumnValue extends SqlColumnAncestor {
         this.value = value;
     }
 
+    public SqlColumnValue(Dt value, String alias) {
+        super(alias);
+        this.value = value;
+    }
+
     public SqlColumnValue(String value) {
+        this.value = new DtVarchar(value);
+    }
+
+    public SqlColumnValue(String value, String alias) {
+        super(alias);
         this.value = new DtVarchar(value);
     }
 
@@ -32,11 +42,26 @@ public class SqlColumnValue extends SqlColumnAncestor {
         this.value = new DtInteger(value);
     }
 
+    public SqlColumnValue(int value, String alias) {
+        super(alias);
+        this.value = new DtInteger(value);
+    }
+
     public SqlColumnValue(float value) {
         this.value = new DtNumber(value);
     }
 
+    public SqlColumnValue(float value, String alias) {
+        super(alias);
+        this.value = new DtNumber(value);
+    }
+
     public SqlColumnValue(double value) {
+        this.value = new DtNumber(value);
+    }
+
+    public SqlColumnValue(double value, String alias) {
+        super(alias);
         this.value = new DtNumber(value);
     }
 

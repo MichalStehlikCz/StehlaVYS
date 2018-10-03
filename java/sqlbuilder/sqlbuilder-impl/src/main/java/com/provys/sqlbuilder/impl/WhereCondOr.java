@@ -53,7 +53,7 @@ public class WhereCondOr implements WhereCond {
     }
 
     @Override
-    public int getCost() {
+    public double getCost() {
         MaxCostCounter cost = new MaxCostCounter();
         conditions.forEach(cost);
         return cost.getCost();
@@ -72,20 +72,20 @@ public class WhereCondOr implements WhereCond {
     
     private class MaxCostCounter implements Consumer<WhereCond> {
         
-        private int maxCost = 0;
+        private double maxCost = 0;
         
         MaxCostCounter() {
         }
 
         @Override
         public void accept(WhereCond whereCond) {
-            int cost = whereCond.getCost();
+            double cost = whereCond.getCost();
             if (cost > maxCost) {
                 maxCost = cost;
             }
         }
         
-        public int getCost() {
+        public double getCost() {
             if (maxCost == 0) {
                 return 1000;
             }

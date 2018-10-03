@@ -9,7 +9,7 @@ import com.provys.common.error.ProvysException;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import com.provys.sqlbuilder.iface.JoinType;
 import static com.provys.sqlbuilder.iface.JoinType.*;
-import com.provys.sqlbuilder.iface.SqlBuilder;
+import com.provys.sqlbuilder.iface.QueryBuilder;
 import com.provys.sqlbuilder.iface.SqlColumn;
 import com.provys.sqlbuilder.iface.WhereCond;
 import java.util.ArrayList;
@@ -22,46 +22,42 @@ import java.util.List;
  * 
  * @author stehlik
  */
-public class WhereCondSqlBuilder implements WhereCond {
+public class WhereCondQueryBuilder implements WhereCond {
     
     private List<SqlColumn> columns;
-    private SqlBuilder subquery;
+    private QueryBuilder subquery;
     private JoinType joinType = null; // without preference by default - it
     // defers decision to query cost
     
-    public WhereCondSqlBuilder() {
+    public WhereCondQueryBuilder() {
         this.columns = new ArrayList<>(1);
     }
     
-    public WhereCondSqlBuilder(SqlColumn column, SqlBuilder subquery) {
+    public WhereCondQueryBuilder(SqlColumn column, QueryBuilder subquery) {
         this.columns = new ArrayList<>(1);
         this.columns.add(column);
         this.subquery = subquery;
-        checkColumns();
     }
     
-    public WhereCondSqlBuilder(SqlColumn column, SqlBuilder subquery
+    public WhereCondQueryBuilder(SqlColumn column, QueryBuilder subquery
             , JoinType joinType)
     {
         this.columns = new ArrayList<>(1);
         this.columns.add(column);
         this.subquery = subquery;
         this.joinType = joinType;
-        checkColumns();
     }
 
-    public WhereCondSqlBuilder(List<SqlColumn> columns, SqlBuilder subquery) {
+    public WhereCondQueryBuilder(List<SqlColumn> columns, QueryBuilder subquery) {
         this.columns = new ArrayList<>(columns);
         this.subquery = subquery;
-        checkColumns();
     }
 
-    public WhereCondSqlBuilder(List<SqlColumn> columns, SqlBuilder subquery
+    public WhereCondQueryBuilder(List<SqlColumn> columns, QueryBuilder subquery
             , JoinType joinType) {
         this.columns = new ArrayList<>(columns);
         this.subquery = subquery;
         this.joinType = joinType;
-        checkColumns();
     }
 
     @Override
@@ -77,32 +73,18 @@ public class WhereCondSqlBuilder implements WhereCond {
         }
         switch (useJoinType) {
             case EXISTS:
-                code.appendLine("EXISTS(").increaseTempIdent(4);
                 subquery.buildExistsSql(code, this.columns);
-                code.removeTempIdent().appendLine("  )");
                 break;
             case IN:
             case JOIN: // join has to be done when adding condition, not usable
                        // in condition itself..
-                code.append("(");
-                if (columns.size() == 1) {
-                    columns.get(0).buildSqlNoNewLine(code, false);
-                } else {
-                    code.appendLine().appendLine("  (")
-                            .increaseTempIdent("  ", ", ", 6);
-                    columns.forEach((SqlColumn column)
-                            -> {column.buildSql(code, false);});
-                    code.removeTempIdent().append("  )");
-                }
-                code.appendLine(" IN (").increaseTempIdent(2);
-                subquery.buildSql(code);
-                code.removeTempIdent().appendLine(")");
+                subquery.buildInSql(code, this.columns);
                 break;
         }
     }
 
     @Override
-    public int getCost() {
+    public double getCost() {
         if (getSubquery() == null) {
             throw new SubqueryMissingException();
         }
@@ -114,14 +96,6 @@ public class WhereCondSqlBuilder implements WhereCond {
         return false;
     }
     
-    private void checkColumns() {
-        if ((this.columns != null) & (this.subquery != null)) {
-            if (this.columns.size() != this.subquery.getColumns().size()) {
-                throw new ColumnsNumberMismatchException();
-            }
-        }
-    }
-
     private void checkUseable() {
         if (this.columns == null) {
             throw new ColumnsMissingException();
@@ -129,7 +103,6 @@ public class WhereCondSqlBuilder implements WhereCond {
         if (this.subquery == null) {
             throw new SubqueryMissingException();
         }
-        checkColumns();
     }
 
     /**
@@ -144,22 +117,20 @@ public class WhereCondSqlBuilder implements WhereCond {
      */
     public void setColumns(List<SqlColumn> columns) {
         this.columns = new ArrayList<>(columns);
-        checkColumns();
     }
 
     /**
      * @return the subquery
      */
-    public SqlBuilder getSubquery() {
+    public QueryBuilder getSubquery() {
         return subquery;
     }
 
     /**
      * @param subquery the subquery to set
      */
-    public void setSubquery(SqlBuilder subquery) {
+    public void setSubquery(QueryBuilder subquery) {
         this.subquery = subquery;
-        checkColumns();
     }
 
     /**
@@ -202,16 +173,4 @@ public class WhereCondSqlBuilder implements WhereCond {
         }
     }
 
-    /**
-     * Number of columns does not match subquery.
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class ColumnsNumberMismatchException extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        ColumnsNumberMismatchException() {
-            super("Number of columns does not match subquery");
-        }
-    }
 }

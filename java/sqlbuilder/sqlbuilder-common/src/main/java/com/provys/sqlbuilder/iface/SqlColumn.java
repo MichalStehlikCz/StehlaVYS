@@ -5,6 +5,8 @@
  */
 package com.provys.sqlbuilder.iface;
 
+import com.provys.provysdb.call.ColumnDef;
+
 /**
  * Represents column in select query.
  * 
@@ -35,6 +37,14 @@ public interface SqlColumn {
             , boolean addAliasClause);
 
     /**
+     * Translates SqlColumn to ColumnDef, used by SqlCall.
+     * 
+     * @return ColumnDef describing given column, null if ColumnDef cannot be
+     * constructed from SqlColumn
+     */
+    public ColumnDef getColumnDef();
+   
+    /**
      * @return the alias
      */
     public String getAlias();
@@ -43,5 +53,15 @@ public interface SqlColumn {
      * @param alias the alias to set
      */
     public void setAlias(String alias);
+
+    /**
+     * @return the indexed flag
+     */
+    public boolean isIndexed();
+
+    /**
+     * @param indexed the indexed value to set
+     */
+    public void setIndexed(boolean indexed);
 
 }

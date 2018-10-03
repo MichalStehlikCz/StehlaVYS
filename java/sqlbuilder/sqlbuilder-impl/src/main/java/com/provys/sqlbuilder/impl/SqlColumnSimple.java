@@ -28,4 +28,5 @@ public class SqlColumnSimple extends SqlColumnAncestor {
             appendAlias(code);
         }
     }
+
 }

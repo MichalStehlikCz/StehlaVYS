@@ -5,11 +5,9 @@
  */
 package com.provys.provysdb.api;
 
-import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtUid;
-import com.provys.provysdb.call.BindValue;
 import com.provys.provysdb.call.ColumnDef;
-import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.iface.ExecutorFactory;
 import com.provys.provysdb.iface.JsonQueryExecutor;
 import java.util.HashMap;
@@ -44,7 +42,7 @@ public class ProvysDbCall {
     @Path("/query")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public List<JsonObject> queryCall(SQLCall sqlCall) {
+    public List<JsonObject> queryCall(SqlCall sqlCall) {
         return executorFactory.getJsonQueryExecutor(sqlCall).executeQuery();
     }
 
@@ -52,7 +50,7 @@ public class ProvysDbCall {
     @Path("/parseAndQuery")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Map<String, Object> parseAndQueryCall(SQLCall sqlCall) {
+    public Map<String, Object> parseAndQueryCall(SqlCall sqlCall) {
         JsonQueryExecutor executor = executorFactory.getJsonQueryExecutor(
                 sqlCall);
         executor.executeQuery();
@@ -78,7 +76,7 @@ public class ProvysDbCall {
     @Path("/test")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public SQLCall testDeserialization(SQLCall value) {
+    public SqlCall testDeserialization(SqlCall value) {
         return value;
     }
 }    

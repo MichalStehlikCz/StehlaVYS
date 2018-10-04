@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.sqlbuilder.catiface;
+package com.provys.sqlbuilder.catmanager;
 
 import com.provys.common.confobj.ConfNMObject;
 import com.provys.common.datatypes.Dt;

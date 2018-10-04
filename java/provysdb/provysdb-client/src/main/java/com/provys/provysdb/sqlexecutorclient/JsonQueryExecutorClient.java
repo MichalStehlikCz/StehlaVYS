@@ -5,7 +5,7 @@
  */
 package com.provys.provysdb.sqlexecutorclient;
 
-import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.iface.JsonQueryExecutor;
 import java.util.Collections;
 import java.util.List;
@@ -23,14 +23,14 @@ import javax.ws.rs.core.MediaType;
 public class JsonQueryExecutorClient implements JsonQueryExecutor {
 
     private final Client client;
-    private SQLCall sqlCall;
+    private SqlCall sqlCall;
     private List<JsonObject> data;
     
     JsonQueryExecutorClient(Client client) {
         this.client = client;
     }
     
-    JsonQueryExecutorClient(Client client, SQLCall sqlCall) {
+    JsonQueryExecutorClient(Client client, SqlCall sqlCall) {
         this.client = client;
         this.sqlCall = sqlCall;
     }
@@ -50,12 +50,12 @@ public class JsonQueryExecutorClient implements JsonQueryExecutor {
     }
 
     @Override
-    public SQLCall getSqlCall() {
+    public SqlCall getSqlCall() {
         return sqlCall;
     }
 
     @Override
-    public void setSqlCall(SQLCall sqlCall) {
+    public void setSqlCall(SqlCall sqlCall) {
         this.sqlCall = sqlCall;
     }
 

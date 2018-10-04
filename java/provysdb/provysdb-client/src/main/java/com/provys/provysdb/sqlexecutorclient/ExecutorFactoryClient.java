@@ -5,7 +5,7 @@
  */
 package com.provys.provysdb.sqlexecutorclient;
 
-import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.iface.ExecutorFactory;
 import com.provys.provysdb.iface.JsonQueryExecutor;
 import com.provys.provysdb.iface.MapQueryExecutor;
@@ -30,7 +30,7 @@ public class ExecutorFactoryClient implements ExecutorFactory {
     }
     
     @Override
-    public JsonQueryExecutor getJsonQueryExecutor(SQLCall sqlCall) {
+    public JsonQueryExecutor getJsonQueryExecutor(SqlCall sqlCall) {
         return new JsonQueryExecutorClient(client, sqlCall);
     }
 
@@ -40,7 +40,7 @@ public class ExecutorFactoryClient implements ExecutorFactory {
     }
 
     @Override
-    public MapQueryExecutor getMapQueryExecutor(SQLCall sqlCall) {
+    public MapQueryExecutor getMapQueryExecutor(SqlCall sqlCall) {
         return new MapQueryExecutorClient(client, sqlCall);
     }
     

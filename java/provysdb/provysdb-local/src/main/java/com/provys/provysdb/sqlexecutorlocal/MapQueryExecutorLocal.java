@@ -7,7 +7,7 @@ package com.provys.provysdb.sqlexecutorlocal;
 
 import com.provys.common.error.ProvysException;
 import com.provys.common.error.ProvysSqlException;
-import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.datasource.ProvysResultSet;
 import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
 import com.provys.provysdb.iface.MapQueryExecutor;
@@ -32,7 +32,7 @@ public class MapQueryExecutorLocal extends QueryExecutorLocal
     }
 
     public MapQueryExecutorLocal(ProvysConnectionPoolDataSource dataSource,
-            SQLCall sqlCall) {
+            SqlCall sqlCall) {
         super(dataSource, sqlCall);
     }
 

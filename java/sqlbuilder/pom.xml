@@ -12,6 +12,7 @@
     <modules>
         <module>sqlbuilder-common</module>
         <module>sqlbuilder-impl</module>
+        <module>sqlbuilder-catmanager</module>
     </modules>
     <name>sqlbuilder</name>
 </project>

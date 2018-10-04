@@ -6,7 +6,7 @@
 package com.provys.provysdb.sqlexecutorlocal;
 
 import com.provys.common.error.ProvysSqlException;
-import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.datasource.ProvysResultSet;
 import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
 import com.provys.provysdb.iface.JsonQueryExecutor;
@@ -33,7 +33,7 @@ public class JsonQueryExecutorLocal extends QueryExecutorLocal
     }
 
     public JsonQueryExecutorLocal(ProvysConnectionPoolDataSource dataSource,
-            SQLCall sqlCall) {
+            SqlCall sqlCall) {
         super(dataSource, sqlCall);
     }
 

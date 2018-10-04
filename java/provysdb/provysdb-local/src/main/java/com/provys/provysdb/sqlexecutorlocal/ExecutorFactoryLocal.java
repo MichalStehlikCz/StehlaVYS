@@ -5,7 +5,7 @@
  */
 package com.provys.provysdb.sqlexecutorlocal;
 
-import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
 import com.provys.provysdb.iface.ExecutorFactory;
 import com.provys.provysdb.iface.JsonQueryExecutor;
@@ -29,7 +29,7 @@ public class ExecutorFactoryLocal implements ExecutorFactory {
     }
     
     @Override
-    public JsonQueryExecutor getJsonQueryExecutor(SQLCall sqlCall) {
+    public JsonQueryExecutor getJsonQueryExecutor(SqlCall sqlCall) {
         return new JsonQueryExecutorLocal(dataSource, sqlCall);
     }
     
@@ -39,7 +39,7 @@ public class ExecutorFactoryLocal implements ExecutorFactory {
     }
     
     @Override
-    public MapQueryExecutor getMapQueryExecutor(SQLCall sqlCall) {
+    public MapQueryExecutor getMapQueryExecutor(SqlCall sqlCall) {
         return new MapQueryExecutorLocal(dataSource, sqlCall);
     }
     

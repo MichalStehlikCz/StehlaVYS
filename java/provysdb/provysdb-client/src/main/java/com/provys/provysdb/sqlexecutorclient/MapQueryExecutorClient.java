@@ -6,10 +6,9 @@
 package com.provys.provysdb.sqlexecutorclient;
 
 import com.provys.provysdb.call.ColumnDef;
-import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.iface.MapQueryExecutor;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +19,6 @@ import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -31,14 +29,14 @@ import javax.ws.rs.core.MediaType;
 public class MapQueryExecutorClient implements MapQueryExecutor {
 
     private final Client client;
-    private SQLCall sqlCall;
+    private SqlCall sqlCall;
     private List<Map<String, Object>> data;
     
     MapQueryExecutorClient(Client client) {
         this.client = client;
     }
     
-    MapQueryExecutorClient(Client client, SQLCall sqlCall) {
+    MapQueryExecutorClient(Client client, SqlCall sqlCall) {
         this.client = client;
         this.sqlCall = sqlCall;
     }
@@ -52,7 +50,7 @@ public class MapQueryExecutorClient implements MapQueryExecutor {
         Jsonb jsonb = JsonbBuilder.create();
         Type type = new ConcurrentHashMap<Integer, ColumnDef>(0) {}
             .getClass().getGenericSuperclass();
-        sqlCall.setColumns(jsonb.fromJson(
+        sqlCall.setColumns((Map<Integer, ColumnDef>) jsonb.fromJson(
                 jsonResult.getJsonObject("columns").toString(),
                 type));
         JsonArray jsonData = jsonResult.getJsonArray("data");
@@ -82,12 +80,12 @@ public class MapQueryExecutorClient implements MapQueryExecutor {
     }
 
     @Override
-    public SQLCall getSqlCall() {
+    public SqlCall getSqlCall() {
         return sqlCall;
     }
 
     @Override
-    public void setSqlCall(SQLCall sqlCall) {
+    public void setSqlCall(SqlCall sqlCall) {
         this.sqlCall = sqlCall;
     }
 

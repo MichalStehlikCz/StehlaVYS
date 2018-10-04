@@ -6,7 +6,7 @@
 package com.provys.provysdb.datasourceimpl;
 
 import com.provys.provysdb.call.ProcCall;
-import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.datasource.ProvysCallableStatement;
 import com.provys.provysdb.datasource.ProvysConnection;
 import com.provys.provysdb.datasource.ProvysPreparedStatement;
@@ -343,7 +343,7 @@ public class ProvysConnectionImpl implements ProvysConnection {
     }
 
     @Override
-    public int executeUpdate(SQLCall sqlCall) throws SQLException {
+    public int executeUpdate(SqlCall sqlCall) throws SQLException {
         ProvysCallableStatement statement = this.prepareCall(sqlCall.getSql());
         if (sqlCall.getValues() != null) {
             statement.setBinds(sqlCall.getValues());

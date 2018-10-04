@@ -26,6 +26,10 @@ abstract public class SqlColumnAncestor implements SqlColumn {
     public SqlColumnAncestor() {
     }
     
+    public SqlColumnAncestor(Class<? extends Dt> type) {
+        this.type = type.getSimpleName();
+    }
+    
     public SqlColumnAncestor(String alias, Class<? extends Dt> type) {
         this.alias = alias;
         this.type = type.getSimpleName();
@@ -52,13 +56,16 @@ abstract public class SqlColumnAncestor implements SqlColumn {
 
     @Override
     public ColumnDef getColumnDef() {
-        if ((this.type != null) & (this.alias != null)) {
-            ColumnDef result = new ColumnDef();
-            result.setType(this.type);
-            result.setName(this.alias);
-            return result;
+        if (this.alias == null) {
+            throw new ColumnAliasMissingException();
         }
-        return null;
+        if (this.type == null) {
+            throw new ColumnTypeMissingException();
+        }
+        ColumnDef result = new ColumnDef();
+        result.setType(this.type);
+        result.setName(this.alias);
+        return result;
     }
 
     @Override
@@ -130,7 +137,7 @@ abstract public class SqlColumnAncestor implements SqlColumn {
     }
 
     /**
-     * Exception raised when value supplied to ColumnDef is not one of supported
+     * Exception raised when value supplied to SqlColumn is not one of supported
      * types
      */
     @SuppressWarnings("PublicInnerClass")
@@ -145,7 +152,7 @@ abstract public class SqlColumnAncestor implements SqlColumn {
     }
 
     /**
-     * Exception raised when type supplied to ColumnDef (as string) is not one
+     * Exception raised when type supplied to SqlColumn (as string) is not one
      * of supported types
      */
     @SuppressWarnings("PublicInnerClass")
@@ -156,6 +163,36 @@ abstract public class SqlColumnAncestor implements SqlColumn {
 
         UnsupportedTypeException(String type, Throwable cause) {
             super("Unsupported type for column definition: "+type, cause);
+        }
+    }
+
+    /**
+     * Exception raised when trying to get column definition and alias is not
+     * specified for column
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class ColumnAliasMissingException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        ColumnAliasMissingException() {
+            super("Cannot build column definition - alias is not specified");
+        }
+    }
+
+    /**
+     * Exception raised when trying to get column definition and type is not
+     * specified for column
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class ColumnTypeMissingException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        ColumnTypeMissingException() {
+            super("Cannot build column definition - type is not specified");
         }
     }
 }

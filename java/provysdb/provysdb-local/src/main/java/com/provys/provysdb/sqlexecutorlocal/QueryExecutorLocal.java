@@ -7,7 +7,7 @@ package com.provys.provysdb.sqlexecutorlocal;
 
 import com.provys.common.error.ProvysSqlException;
 import com.provys.provysdb.call.ColumnDef;
-import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.datasource.ProvysCallableStatement;
 import com.provys.provysdb.datasource.ProvysConnection;
 import com.provys.provysdb.datasource.ProvysResultSet;
@@ -32,14 +32,14 @@ abstract public class QueryExecutorLocal implements QueryExecutor {
     /**
      * defines statement(s) to be executed
      */
-    private SQLCall sqlCall;
+    private SqlCall sqlCall;
 
     public QueryExecutorLocal(ProvysConnectionPoolDataSource dataSource) {
         this.dataSource = dataSource;
     }
     
     public QueryExecutorLocal(ProvysConnectionPoolDataSource dataSource,
-            SQLCall sqlCall) {
+            SqlCall sqlCall) {
         this.dataSource = dataSource;
         this.sqlCall = sqlCall;
     }
@@ -94,7 +94,7 @@ abstract public class QueryExecutorLocal implements QueryExecutor {
      * @return the sqlCall
      */
     @Override
-    public SQLCall getSqlCall() {
+    public SqlCall getSqlCall() {
         return sqlCall;
     }
 
@@ -102,7 +102,7 @@ abstract public class QueryExecutorLocal implements QueryExecutor {
      * @param sqlCall the sqlCall to set
      */
     @Override
-    public void setSqlCall(SQLCall sqlCall) {
+    public void setSqlCall(SqlCall sqlCall) {
         this.sqlCall = sqlCall;
     }
     

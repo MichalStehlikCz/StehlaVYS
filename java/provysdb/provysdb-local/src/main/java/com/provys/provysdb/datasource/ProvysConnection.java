@@ -6,7 +6,7 @@
 package com.provys.provysdb.datasource;
 
 import com.provys.provysdb.call.ProcCall;
-import com.provys.provysdb.call.SQLCall;
+import com.provys.provysdb.call.SqlCall;
 import java.sql.Array;
 import java.sql.Blob;
 import java.sql.Clob;
@@ -196,7 +196,7 @@ public interface ProvysConnection extends Connection {
      * @throws java.sql.SQLException when any exception occurs during SQL
      * processing
      */
-    public int executeUpdate(SQLCall sqlCall) throws SQLException;
+    public int executeUpdate(SqlCall sqlCall) throws SQLException;
 
     /**
      * Binds all variables, executes statement and returns values of OUT

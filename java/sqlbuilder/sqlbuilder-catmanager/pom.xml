@@ -6,14 +6,6 @@
         <artifactId>sqlbuilder</artifactId>
         <version>1.0</version>
     </parent>
-    <name>sqlbuilder-common</name>
-    <artifactId>common</artifactId>
+    <artifactId>sqlbuilder-catmanager</artifactId>
     <packaging>jar</packaging>
-    <dependencies>
-        <dependency>
-            <groupId>com.provys.provysdb</groupId>
-            <artifactId>common</artifactId>
-            <version>1.0</version>
-        </dependency>
-    </dependencies>
 </project>

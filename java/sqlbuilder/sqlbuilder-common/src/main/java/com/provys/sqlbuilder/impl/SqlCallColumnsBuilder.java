@@ -18,7 +18,6 @@ import java.util.function.Consumer;
  */
 class SqlCallColumnsBuilder implements Consumer<SqlColumn> {
     
-    private boolean undefined = false;
     private final List<ColumnDef> columns;
 
     SqlCallColumnsBuilder(int size) {
@@ -27,7 +26,6 @@ class SqlCallColumnsBuilder implements Consumer<SqlColumn> {
 
     @Override
     public void accept(SqlColumn column) {
-        if ()
         getColumns().add(column.getColumnDef());
     }
 

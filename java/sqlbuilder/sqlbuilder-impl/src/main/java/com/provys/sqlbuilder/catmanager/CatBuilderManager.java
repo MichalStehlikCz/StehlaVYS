@@ -10,26 +10,26 @@ package com.provys.sqlbuilder.catmanager;
  * 
  * @author stehlik
  */
-public interface SqlBuilderManager {
+public interface CatBuilderManager {
 
     /**
      * Function retrieves SqlBuilder compatible entity repository.
      * 
      * @return Entity repository
      */
-    SqlBuilderEntityRepository<?> getEntityRepository();
+    CatBuilderEntityRepository<?> getEntityRepository();
 
     /**
      * Function retrieves SqlBuilder compatible attribute repository.
      * 
      * @return Attr repository
      */
-    SqlBuilderAttrRepository<?> getAttrRepository();
+    CatBuilderAttrRepository<?> getAttrRepository();
     
     /**
      * Function retrieves SqlBuilder compatible domain repository.
      * 
      * @return Domain repository
      */
-    SqlBuilderDomainRepository<?> getDomainRepository();
+    CatBuilderDomainRepository<?> getDomainRepository();
 }

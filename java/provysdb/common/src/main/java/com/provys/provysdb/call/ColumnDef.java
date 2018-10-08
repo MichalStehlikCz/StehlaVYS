@@ -42,6 +42,21 @@ public class ColumnDef implements Serializable {
     }
 
     /**
+     * @return the type as class (subclass of Dt)
+     */
+    public Class<? extends Dt> getTypeClass() {
+        Class<? extends Dt> typeClass;
+        try {
+            typeClass = Class
+                    .forName("com.provys.common.datatypes"+type)
+                    .asSubclass(Dt.class);
+        } catch (ClassNotFoundException ex) {
+            throw new UnsupportedTypeException(type, ex);
+        }
+        return typeClass;
+    }
+
+    /**
      * Set type of column to correspond to supplied class
      * @param type is class column should be stored in
      */

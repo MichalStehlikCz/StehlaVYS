@@ -26,6 +26,16 @@ public interface CodeBuilder {
     public CodeBuilder append(String text);
 
     /**
+     * Appends piece of text that might span multiple lines to already existing
+     * code.
+     * Inserts proper identation to newlines in supplied text.
+     * 
+     * @param text contains text to be added
+     * @return returns self to support chaining
+     */
+    public CodeBuilder appendWrapped(String text);
+
+    /**
      * Finishes line in already existing code.
      * 
      * @return returns self to support chaining
@@ -74,13 +84,6 @@ public interface CodeBuilder {
      * @return self to allow chaining
      */
     public CodeBuilder setIdent(int chars);
-
-    /**
-     * Gets current ident string.
-     * 
-     * @return current ident
-     */
-    public String getIdent();
 
     /**
      * Sets ident to given string.
@@ -254,6 +257,26 @@ public interface CodeBuilder {
     public CodeBuilder increaseTempIdent(String firstIdent, String regularIdent,
             int increaseBy);
     
+    /**
+     * Increase temporary ident to build AND condition.
+     * If already inside AND condition, does only increases temp ident level.
+     * Otherwise, increases indent by 2 and sets ident to AND and first ident
+     * to nothing
+     * 
+     * @return self to support chaining
+     */
+    public CodeBuilder increaseTempIdentAnd();
+
+    /**
+     * Increase temporary ident to build OR condition.
+     * If already inside OR condition, does only increases temp ident level.
+     * Otherwise, increases indent by 2 and sets ident to OR and first ident
+     * to nothing
+     * 
+     * @return self to support chaining
+     */
+    public CodeBuilder increaseTempIdentOr();
+
     /**
      * Removes last added temporary identation.
      * 

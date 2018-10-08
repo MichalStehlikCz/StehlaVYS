@@ -6,6 +6,7 @@
 package com.provys.common.confobj;
 
 import com.provys.common.datatypes.DtUid;
+import com.provys.common.error.ProvysException;
 
 /**
  * Generic loader ancestor for configuration objects.
@@ -20,5 +21,39 @@ import com.provys.common.datatypes.DtUid;
 public interface ConfObjectLoader<T extends ConfObject> {
     
     public T load(DtUid id);
+    
+    /**
+     * Exception raised when object is not found using Id.
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class ConfObjectNotFoundUsingIdException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        public ConfObjectNotFoundUsingIdException(Class<?> confObjectClass
+                , DtUid id) {
+            super("Object not found using Id, class "
+                    + confObjectClass.getSimpleName()
+                    + ", Id=" + id.toString());
+        }
+    }
+    
+    /**
+     * Exception raised when more objects are not found using Id.
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class ConfObjectNotUniqueUsingIdException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        public ConfObjectNotUniqueUsingIdException(Class<?> confObjectClass
+                , DtUid id) {
+            super("Object not found using Id, class "
+                    + confObjectClass.getSimpleName()
+                    + ", Id=" + id.toString());
+        }
+    }
     
 }

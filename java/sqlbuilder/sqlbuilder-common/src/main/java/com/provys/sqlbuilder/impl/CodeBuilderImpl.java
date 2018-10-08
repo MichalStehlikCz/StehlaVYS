@@ -24,23 +24,22 @@ public class CodeBuilderImpl implements CodeBuilder {
     final StringBuilder text;
     private boolean newLine = false;
     final Map<String, BindValue> bindValues;
-    private String ident;
-    private String firstIdent;
-    final Stack<String> tempIdents;
-    final Stack<String> tempFirstIdents;
+    private IdentStatus ident = new IdentStatus();
+    final Stack<IdentStatus> tempIdents = new Stack<>();
 
+    /**
+     * Default constructor for CodeBuilder.
+     * Sets all fields to their default values.
+     */
     public CodeBuilderImpl() {
         text = new StringBuilder(100);
         bindValues = new ConcurrentHashMap<> (10);
-        tempIdents = new Stack<>();
-        tempFirstIdents = new Stack<>();
-        ident = "";
     }
 
     @Override
     public CodeBuilder append(String text) {
         if (isNewLine()) {
-            if (this.getFirstIdent() != null) {
+            if (getFirstIdent() != null) {
                 this.text.append(getFirstIdent());
                 this.setFirstIdent(null);
             } else {
@@ -50,6 +49,12 @@ public class CodeBuilderImpl implements CodeBuilder {
         }
         this.text.append(text);
         return this;
+    }
+
+    @Override
+    public CodeBuilder appendWrapped(String text) {
+       return append(text.replace("\n", String.format("%1$-"
+                + this.ident.getIdent().length() + "s", "\n")));
     }
 
     @Override
@@ -74,10 +79,11 @@ public class CodeBuilderImpl implements CodeBuilder {
         if (chars < 0) {
             throw new DecreaseByNegativeException();
         }
-        if (chars>getIdent().length()) {
+        if (chars>this.ident.getIdent().length()) {
             throw new NegativeIdentLengthException();
         }
-        setIdent(getIdent().substring(0, getIdent().length() - chars));
+        setIdent(this.ident.getIdent().substring(0
+                , this.ident.getIdent().length() - chars));
         return this;
     }
 
@@ -86,29 +92,31 @@ public class CodeBuilderImpl implements CodeBuilder {
         if (chars < 0) {
             throw new NegativeIdentLengthException();
         }
-        if (chars > getIdent().length()) {
+        if (chars > this.ident.getIdent().length()) {
             throw new DecreaseByNegativeException();
         }
-        setIdent(getIdent().substring(0, chars));
+        setIdent(this.ident.getIdent().substring(0, chars));
         return this;
+    }
+
+    private String getIdent() {
+        return this.ident.getIdent();
     }
 
     @Override
     public CodeBuilder setIdent(int chars) {
-        ident = "";
-        this.setFirstIdent(null);
+        setIdent("");
         return increaseIdent(chars);
     }
 
-    @Override
-    public String getIdent() {
-        return ident;
+    private CodeBuilder setIdent(IdentStatus ident) {
+        this.ident = ident;
+        return this;
     }
 
     @Override
     public CodeBuilder setIdent(String ident) {
-        this.ident = ident;
-        this.setFirstIdent(null);
+        this.ident = new IdentStatus(ident);
         return this;
     }
 
@@ -122,8 +130,7 @@ public class CodeBuilderImpl implements CodeBuilder {
 
     @Override
     public CodeBuilder setIdent(String firstIdent, String regularIdent) {
-        this.setIdent(regularIdent);
-        this.setFirstIdent(firstIdent);
+        this.ident = new IdentStatus(firstIdent, regularIdent);
         return this;
     }
     
@@ -133,23 +140,32 @@ public class CodeBuilderImpl implements CodeBuilder {
         if ((firstIdent.length() > chars) | (regularIdent.length() > chars)) {
             throw new SuppliedLengthTooShortException();
         }
-        this.setIdent(String.format("%1$" + chars + "s", regularIdent));
-        this.setFirstIdent(String.format("%1$" + chars + "s", firstIdent));
+        this.setIdent(String.format("%1$" + chars + "s", regularIdent)
+                , String.format("%1$" + chars + "s", firstIdent));
         return this;
     }
     
-    /**
-     * @return the nextIdent
-     */
-    public String getFirstIdent() {
-        return firstIdent;
+    private CodeBuilder setIdent(String firstIdent, String regularIdent
+            , int chars, CombinationType combinationType) {
+        if ((firstIdent.length() > chars) | (regularIdent.length() > chars)) {
+            throw new SuppliedLengthTooShortException();
+        }
+        this.ident = new IdentStatus(
+                String.format("%1$" + chars + "s", regularIdent)
+              , String.format("%1$" + chars + "s", firstIdent)
+              , combinationType);
+        return this;
+    }
+    
+    private String getFirstIdent() {
+        return this.ident.getFirstIdent();
     }
 
     /**
      * @param firstIdent the firstIdent to set
      */
     public void setFirstIdent(String firstIdent) {
-        this.firstIdent = firstIdent;
+        this.ident.setFirstIdent(firstIdent);
     }
 
     @Override
@@ -162,9 +178,7 @@ public class CodeBuilderImpl implements CodeBuilder {
     public CodeBuilder appendIdent(String firstIdent, String regularIdent) {
         // SetIdent cancels first ident - thus, we have to save first ident to
         // local variable
-        String newFirstIdent = getIdent() + firstIdent;
-        setIdent(getIdent() + regularIdent);
-        setFirstIdent(newFirstIdent);
+        setIdent(getIdent() + firstIdent, getIdent() + regularIdent);
         return this;
     }
 
@@ -187,9 +201,13 @@ public class CodeBuilderImpl implements CodeBuilder {
         return this;
     }
 
+    /**
+     * Put current ident on temporary idents stack.
+     * Note that it should never be used without subsequent replacement of
+     * ident
+     */
     private void putTempIdent() {
-        tempIdents.push(getIdent());
-        tempFirstIdents.push(getFirstIdent());
+        tempIdents.push(this.ident);
     }
 
     @Override
@@ -231,21 +249,64 @@ public class CodeBuilderImpl implements CodeBuilder {
         return this;
     }
 
-    @Override
-    public CodeBuilder increaseTempIdent(String firstIdent, String regularIdent
-            , int increaseBy) {
+    private CodeBuilder increaseTempIdent(String firstIdent, String regularIdent
+            , int increaseBy, CombinationType combinationType) {
         if (increaseBy < 0) {
             throw new IncreaseByNegativeException();
         }
         putTempIdent();
-        setIdent(firstIdent, regularIdent, getIdent().length()+increaseBy);
+        setIdent(firstIdent, regularIdent, getIdent().length()+increaseBy
+                , combinationType);
+        return this;
+    }
+
+    @Override
+    public CodeBuilder increaseTempIdent(String firstIdent, String regularIdent
+            , int increaseBy) {
+        return increaseTempIdent(firstIdent, regularIdent, increaseBy
+                , CombinationType.NONE);
+    }
+
+    @Override
+    public CodeBuilder increaseTempIdentAnd() {
+        if (this.ident.getCombinationType() == CombinationType.AND) {
+            this.ident.increaseTempLevel();
+        } else {
+            if (this.ident.getCombinationType() == CombinationType.OR) {
+                appendLine("(");
+                this.ident.setAddBracket(true);
+            }
+            increaseTempIdent("", "AND", 2, CombinationType.AND);
+        }
+        return this;
+    }
+
+    @Override
+    public CodeBuilder increaseTempIdentOr() {
+        if (this.ident.getCombinationType() == CombinationType.OR) {
+            this.ident.increaseTempLevel();
+        } else {
+            if (this.ident.getCombinationType() == CombinationType.AND) {
+                appendLine("(");
+                this.ident.setAddBracket(true);
+            }
+            increaseTempIdent("", "OR", 2, CombinationType.OR);
+        }
         return this;
     }
 
     @Override
     public CodeBuilder removeTempIdent() {
-        setFirstIdent(tempFirstIdents.pop());
-        return setIdent(tempIdents.pop());
+        if (this.ident.getTempLevel()>0) {
+            this.ident.decreaseTempLevel();
+        } else {
+            setIdent(tempIdents.pop());
+            if (this.ident.isAddBracket()) {
+                appendLine(")");
+                this.ident.setAddBracket(false);
+            }
+        }
+        return this;
     }
 
     @Override
@@ -375,5 +436,120 @@ public class CodeBuilderImpl implements CodeBuilder {
             super("Required ident length is shorter than supplied text");
         }
     }
+    private enum CombinationType{NONE, AND, OR}
 
+    /**
+     * Holds identation state of CodeBuilder.
+     */
+    private class IdentStatus {
+        protected String ident;
+        protected String firstIdent;
+        protected CombinationType combinationType = CombinationType.NONE;
+        protected int tempLevel = 0;
+        protected boolean addBracket = false;
+
+        IdentStatus() {
+            this.ident = "";
+        }
+
+        IdentStatus(String ident) {
+            this.ident = ident;
+        }
+
+        IdentStatus(String firstIdent, String regularIdent) {
+            this.ident = regularIdent;
+            this.firstIdent = firstIdent;
+        }
+
+        IdentStatus(String firstIdent, String regularIdent
+                , CombinationType combinationType) {
+            this.ident = regularIdent;
+            this.firstIdent = firstIdent;
+            this.combinationType = combinationType;
+        }
+
+        /**
+         * @return the ident
+         */
+        public String getIdent() {
+            return ident;
+        }
+
+        /**
+         * @param ident the ident to set
+         */
+        public void setIdent(String ident) {
+            this.ident = ident;
+        }
+
+        /**
+         * @return the firstIdent
+         */
+        public String getFirstIdent() {
+            return firstIdent;
+        }
+
+        /**
+         * @param firstIdent the firstIdent to set
+         */
+        public void setFirstIdent(String firstIdent) {
+            this.firstIdent = firstIdent;
+        }
+
+        /**
+         * @return the combinationType
+         */
+        public CombinationType getCombinationType() {
+            return combinationType;
+        }
+
+        /**
+         * @param combinationType the combinationType to set
+         */
+        public void setCombinationType(CombinationType combinationType) {
+            this.combinationType = combinationType;
+        }
+
+        /**
+         * @return the tempLevel
+         */
+        public int getTempLevel() {
+            return tempLevel;
+        }
+
+        /**
+         * @param tempLevel the tempLevel to set
+         */
+        public void setTempLevel(int tempLevel) {
+            this.tempLevel = tempLevel;
+        }
+        
+        /**
+         * Increases temporary level by one.
+         */
+        public void increaseTempLevel() {
+            this.tempLevel++;
+        }
+
+        /**
+         * Decreases temporary level by one.
+         */
+        public void decreaseTempLevel() {
+            this.tempLevel--;
+        }
+
+        /**
+         * @return the addBracket
+         */
+        public boolean isAddBracket() {
+            return addBracket;
+        }
+
+        /**
+         * @param addBracket the addBracket to set
+         */
+        public void setAddBracket(boolean addBracket) {
+            this.addBracket = addBracket;
+        }
+    }
 }

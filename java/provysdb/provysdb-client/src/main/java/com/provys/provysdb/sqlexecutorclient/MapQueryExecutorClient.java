@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.sqlexecutorclient;
 
+import com.provys.common.datatypes.Dt;
 import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.iface.MapQueryExecutor;
@@ -30,7 +31,7 @@ public class MapQueryExecutorClient implements MapQueryExecutor {
 
     private final Client client;
     private SqlCall sqlCall;
-    private List<Map<String, Object>> data;
+    private List<Map<String, Dt>> data;
     
     MapQueryExecutorClient(Client client) {
         this.client = client;
@@ -42,21 +43,23 @@ public class MapQueryExecutorClient implements MapQueryExecutor {
     }
     
     @Override
-    public List<Map<String, Object>> executeQuery() {
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Dt>> executeQuery() {
         JsonObject jsonResult = client.target(
                 "http://localhost:8080/provysdb/parseAndQuery")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(sqlCall), JsonObject.class);
         Jsonb jsonb = JsonbBuilder.create();
-        Type type = new ConcurrentHashMap<Integer, ColumnDef>(0) {}
-            .getClass().getGenericSuperclass();
+        Type type;
+        type = new ConcurrentHashMap<Integer, ColumnDef>(0) {}
+                .getClass().getGenericSuperclass();
         sqlCall.setColumns((Map<Integer, ColumnDef>) jsonb.fromJson(
                 jsonResult.getJsonObject("columns").toString(),
                 type));
         JsonArray jsonData = jsonResult.getJsonArray("data");
         jsonData.forEach((jsonValue) -> 
             {
-                Map<String, Object> row = new ConcurrentHashMap<>(
+                Map<String, Dt> row = new ConcurrentHashMap<>(
                         getSqlCall().getColumns().size()*2);
                 getSqlCall().getColumns().forEach((index, columnDef) -> 
                     {
@@ -66,7 +69,7 @@ public class MapQueryExecutorClient implements MapQueryExecutor {
                             row.put(columnDef.getName(), null);
                         } else {
                             row.put(columnDef.getName(), jsonb.fromJson(value,
-                                    columnDef.getClass()));
+                                    columnDef.getTypeClass()));
                         }
                     });
                 data.add(row);
@@ -75,7 +78,7 @@ public class MapQueryExecutorClient implements MapQueryExecutor {
     }
 
     @Override
-    public List<Map<String, Object>> getData() {
+    public List<Map<String, Dt>> getData() {
         return Collections.unmodifiableList(data);
     }
 

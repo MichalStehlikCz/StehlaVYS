@@ -6,13 +6,15 @@
 package com.provys.sqlbuilder.catmanager;
 
 import com.provys.common.confobj.ConfNMObject;
+import com.provys.common.datatypes.DtNameNm;
 
 /**
  * Interface defines contract needed by SqlBuilder from Entity implementation.
  * 
  * @author stehlik
  */
-public interface SqlBuilderEntity extends ConfNMObject {
+public interface CatBuilderEntity extends ConfNMObject {
     public String getTable();
     public String getKey();
+    public CatBuilderAttr getAttrByNm(DtNameNm attrNm);
 }

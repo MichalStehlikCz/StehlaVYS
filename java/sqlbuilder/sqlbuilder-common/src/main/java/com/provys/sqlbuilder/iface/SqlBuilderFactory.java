@@ -6,6 +6,7 @@
 package com.provys.sqlbuilder.iface;
 
 import com.provys.common.datatypes.Dt;
+import com.provys.provysdb.call.BindValue;
 
 /**
  * Creates instances of basic SqlBuilder objects.
@@ -15,28 +16,36 @@ import com.provys.common.datatypes.Dt;
 public interface SqlBuilderFactory {
 
     /**
-     * Create simple SelectBuilder based on supplied table name and alias.
+     * Create simple SqlSelectBuilder based on supplied table name and alias.
      * 
      * @param table is table name or expression to be used in stead in FROM
      * clause
      * @param alias is alias to be given to this table
-     * @return SelectBuilder object based on supplied table
+     * @return SqlSelectBuilder object based on supplied table
      */
-    public SelectBuilder getSimpleSelect(String table, String alias);
+    public SqlSelectBuilder getSimpleSelect(String table, String alias);
 
     /**
-     * Create simple SelectBuilder based on supplied column, table name
-     * and alias.
+     * Create simple SqlSelectBuilder based on supplied column, table name
+ and alias.
      * 
      * @param column is column to be selected from resulting select expression
      * @param table is table name or expression to be used in stead in FROM
      * clause
      * @param alias is alias to be given to this table
-     * @return SelectBuilder object based on supplied table
+     * @return SqlSelectBuilder object based on supplied table
      */
-    public SelectBuilder getSimpleSelect(SqlColumn column, String table
+    public SqlSelectBuilder getSimpleSelect(SqlColumn column, String table
             , String alias);
     
+    /**
+     * Create simple SqlQueryBuilder based on bind value, representing key.
+     * 
+     * @param bindValue is supplied bind value, to be used for column
+     * @return 
+     */
+    public SqlQueryBuilder getBindQuery(BindValue bindValue);
+
     /**
      * Get column, representing supplied (constant) value.
      * 
@@ -123,11 +132,28 @@ public interface SqlBuilderFactory {
     public SqlColumn getValue(double value, String alias);
     
     /**
+     * Get column, representing single bind variable.
+     * 
+     * @param bindValue is bind value, 
+     * @return SqlColumn representing single bind variable
+     */
+    public SqlColumn getBindColumn(BindValue bindValue);
+    
+    /**
+     * Get column, representing single bind variable.
+     * 
+     * @param bindValue is bind value, 
+     * @param alias is alias to be assigned to column
+     * @return SqlColumn representing single bind variable
+     */
+    public SqlColumn getBindColumn(BindValue bindValue, String alias);
+    
+    /**
      * Get simple from element (table or expression with alias, no join).
      * 
      * @param table is name of table or SQL expression enclosed in ()
      * @param alias is alias to be assigned to this table
      * @return from clause representing given table and alias
      */
-    public FromElem getFromElem(String table, String alias);
+    public SqlFromElem getFromElem(String table, String alias);
 }

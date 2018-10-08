@@ -5,8 +5,8 @@
  */
 package com.provys.sqlbuilder.impl;
 
-import com.provys.sqlbuilder.iface.WhereCond;
 import java.util.function.Consumer;
+import com.provys.sqlbuilder.iface.SqlWhereCond;
 
 /**
  * Class enables counting number of non-empty where conditions in collection.
@@ -14,7 +14,7 @@ import java.util.function.Consumer;
  * 
  * @author stehlik
  */
-class NonEmptyWhereCondCounter implements Consumer<WhereCond> {
+class NonEmptyWhereCondCounter implements Consumer<SqlWhereCond> {
         
     private int nonEmptyCount = 0;
         
@@ -22,7 +22,7 @@ class NonEmptyWhereCondCounter implements Consumer<WhereCond> {
     }
 
     @Override
-    public void accept(WhereCond whereCond) {
+    public void accept(SqlWhereCond whereCond) {
         if (!whereCond.isEmpty())
             nonEmptyCount++;
     }

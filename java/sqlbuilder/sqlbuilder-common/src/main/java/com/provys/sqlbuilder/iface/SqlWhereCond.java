@@ -13,7 +13,7 @@ package com.provys.sqlbuilder.iface;
  * 
  * @author stehlik
  */
-public interface WhereCond {
+public interface SqlWhereCond {
     /**
      * Adds expression that should be used in WHERE clause of the SQL query.
      * Condition can be combined with other conditions, connecting it using AND;

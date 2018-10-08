@@ -6,19 +6,19 @@
 package com.provys.sqlbuilder.impl;
 
 import com.provys.sqlbuilder.iface.CodeBuilder;
-import com.provys.sqlbuilder.iface.WhereCond;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import com.provys.sqlbuilder.iface.SqlWhereCond;
 
 /**
  * Holds multiple conditions, connected by OR operator.
  * 
  * @author stehlik
  */
-public class WhereCondOr implements WhereCond {
+public class WhereCondOr implements SqlWhereCond {
     
-    private final List<WhereCond> conditions;
+    private final List<SqlWhereCond> conditions;
     
     public WhereCondOr() {
         this.conditions = new ArrayList<>(2);
@@ -27,29 +27,14 @@ public class WhereCondOr implements WhereCond {
     @Override
     public void buildWhere(CodeBuilder code) {
         if (getNonEmptyCount() > 1) {
-            code.appendLine("(").increaseTempIdent("    ", "OR  ", 2);
+            code.increaseTempIdentOr();
         }
-        conditions.forEach((WhereCond condition) -> {
-            if (condition instanceof WhereCondOr) {
-                ((WhereCondOr) condition).buildWhereNoBrackets(code);
-            } else {
-                condition.buildWhere(code);
-            }
+        conditions.forEach((SqlWhereCond condition) -> {
+            condition.buildWhere(code);
         });
         if (conditions.size() > 1) {
-            code.removeTempIdent().appendLine(")");
+            code.removeTempIdent();
         }
-    }
-
-    /**
-     * Build where clause without enclosing brackets and increased ident.
-     * Primary use is in nested WhereCondAnd, where conditions from all levels
-     * can be placed on the same level
-     * 
-     * @param code is CodeBuilder used to build statement text 
-     */
-    public void buildWhereNoBrackets(CodeBuilder code) {
-        conditions.forEach((condition) -> {condition.buildWhere(code);});
     }
 
     @Override
@@ -70,7 +55,7 @@ public class WhereCondOr implements WhereCond {
         return (getNonEmptyCount() == 0);
     }
     
-    private class MaxCostCounter implements Consumer<WhereCond> {
+    private class MaxCostCounter implements Consumer<SqlWhereCond> {
         
         private double maxCost = 0;
         
@@ -78,7 +63,7 @@ public class WhereCondOr implements WhereCond {
         }
 
         @Override
-        public void accept(WhereCond whereCond) {
+        public void accept(SqlWhereCond whereCond) {
             double cost = whereCond.getCost();
             if (cost > maxCost) {
                 maxCost = cost;

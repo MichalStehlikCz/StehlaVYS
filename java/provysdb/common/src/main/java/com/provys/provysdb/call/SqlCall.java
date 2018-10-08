@@ -5,12 +5,15 @@
  */
 package com.provys.provysdb.call;
 
+import com.provys.common.datatypes.Dt;
+import com.provys.common.error.ProvysException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * SqlCall is used for passing of SQL (mostly SELECT) statement for execution.
@@ -35,12 +38,12 @@ public class SqlCall implements Serializable {
     /**
      * Values field contains list of bind values to be passed to statement
      */
-    private List<BindValue> values;
+    private final Map<String, BindValue> values = new ConcurrentHashMap<>(1);
     /**
      * columns field is list of column definitions that will be used to declare
      * expected columns of resulting set
      */
-    private Map<Integer, ColumnDef> columns;
+    private final Map<Integer, ColumnDef> columns = new ConcurrentHashMap<>(1);
 
     /**
      * @return the sql
@@ -60,36 +63,57 @@ public class SqlCall implements Serializable {
      * @return the values
      */
     public List<BindValue> getValues() {
-        if (values == null) {
-            return Collections.unmodifiableList(new ArrayList<>(0));
-        }
-        return Collections.unmodifiableList(values);
+        return new ArrayList<>(values.values());
     }
 
     /**
      * @param values the values to set
      */
     public void setValues(List<BindValue> values) {
-        this.values = new ArrayList<>(values);
+        this.values.clear();
+        values.forEach((value) -> {this.values.put(value.getName(), value);});
     }
 
     /**
      * @param value is BindValue to be added to given statement
      */
     public void addValue(BindValue value) {
-        if (this.values == null) {
-            this.values = new ArrayList<>(10);
-        }
-        values.add(value);
+        values.put(value.getName(), value);
     }
 
+    /**
+     * Set value of specified bind.
+     * Note that this does not replace addBind - bind already have to exist for
+     * setValue to be successful.
+     * 
+     * @param name is name of the bind to be set
+     * @param value is desired value
+     */
+    public void setValue(String name, Dt value) {
+        BindValue bindValue = values.get(name);
+        if (bindValue == null) {
+            throw new BindValueDoesNotExistException(name);
+        }
+        bindValue.setValue(value);
+    }
+    
+    /**
+     * Set value of specified bind.
+     * 
+     * @param name is name of the bind to be set
+     * @param value is desired value
+     */
+    public void setValueIfExists(String name, Dt value) {
+        BindValue bindValue = values.get(name);
+        if (bindValue != null) {
+            bindValue.setValue(value);
+        }
+    }
+    
     /**
      * @return the columns
      */
     public Map<Integer, ColumnDef> getColumns() {
-        if (columns == null) {
-            return new HashMap<>(0);
-        }
         return Collections.unmodifiableMap(columns);
     }
 
@@ -97,37 +121,41 @@ public class SqlCall implements Serializable {
      * @param columns the columns to set
      */
     public void setColumns(Map<Integer, ColumnDef> columns) {
-        if (columns == null) {
-            this.columns = null;
-        } else {
-            this.columns = new HashMap<>(columns);
-        }
+        this.columns.clear();
+        this.columns.putAll(columns);
     }
     
     /**
      * @param columns the columns to set
      */
     public void setColumns(List<ColumnDef> columns) {
-        if (columns == null) {
-            this.columns = null;
-        } else {
-            this.columns = new HashMap<>(columns.size());
-            columns.forEach((column) -> {
-                this.columns.put(this.columns.size(), column);
-            });
-        }
+        this.columns.clear();
+        columns.forEach((column) -> {
+            this.columns.put(this.columns.size(), column);
+        });
     }
     
     /**
      * Adds given column definition to sql command
-     * @param columnIndex is index of column to be defined (starting from 1)
+     * @param columnIndex is index of column to be defined (starting from 0)
      * @param def is definition, describing column data type
      */
     public void addColumn(int columnIndex, ColumnDef def) {
-        if (columns == null) {
-            columns=new HashMap<>(10);
-        }
         columns.put(columnIndex, def);
     }
     
+    /**
+     * Exception raised when trying to set value of bind variable that does not
+     * exist
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class BindValueDoesNotExistException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        BindValueDoesNotExistException(String name) {
+            super("Bind value does not exist: " + name);
+        }
+    }
 }

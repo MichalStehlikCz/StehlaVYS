@@ -5,9 +5,10 @@
  */
 package com.provys.sqlbuilder.impl;
 
+import com.provys.common.datatypes.Dt;
 import com.provys.common.error.ProvysException;
 import com.provys.sqlbuilder.iface.CodeBuilder;
-import com.provys.sqlbuilder.iface.FromElem;
+import com.provys.sqlbuilder.iface.SqlFromElem;
 
 /**
  * Column defined as SQL expression with alias <<0>>.
@@ -17,10 +18,29 @@ import com.provys.sqlbuilder.iface.FromElem;
  */
 public class SqlColumnSimpleWithTable extends SqlColumnSimple {
     
-    private final FromElem fromElem;
+    private final SqlFromElem fromElem;
     
-    public SqlColumnSimpleWithTable(String column, FromElem fromElem) {
-        super(column);
+    public SqlColumnSimpleWithTable(String column, Class<? extends Dt> type
+            , SqlFromElem fromElem) {
+        super(column, type);
+        this.fromElem = fromElem;
+    }
+
+    public SqlColumnSimpleWithTable(String column, Class<? extends Dt> type
+            , boolean indexed, SqlFromElem fromElem) {
+        super(column, type, indexed);
+        this.fromElem = fromElem;
+    }
+
+    public SqlColumnSimpleWithTable(String column, String alias
+            , Class<? extends Dt> type, SqlFromElem fromElem) {
+        super(column, alias, type);
+        this.fromElem = fromElem;
+    }
+
+    public SqlColumnSimpleWithTable(String column, String alias
+            , Class<? extends Dt> type, boolean indexed, SqlFromElem fromElem) {
+        super(column, alias, type, indexed);
         this.fromElem = fromElem;
     }
 
@@ -31,11 +51,8 @@ public class SqlColumnSimpleWithTable extends SqlColumnSimple {
                 throw new FromAliasMissingException();
             }
         }
-        // add identation before newlines
-        String sqlText = column.replace("\n", String.format("%1$-"
-                + code.getIdent().length() + "s", "\n"));
         // replace table alias
-        sqlText = sqlText.replace("<<0>>", fromElem.getAlias());
+        String sqlText = column.replace("<<0>>", fromElem.getAlias());
         // and generate further aliases (doesn't make much sense, but long time
         // ago it seemed to make sense and it is thus used in SQL attributes and
         // queries
@@ -44,7 +61,7 @@ public class SqlColumnSimpleWithTable extends SqlColumnSimple {
             sqlText = sqlText.replace("<<" + aliasNum + ">>", "al" + aliasNum);
             aliasNum++;
         }
-        code.append(sqlText);
+        code.appendWrapped(sqlText);
         if (addAliasClause) {
             appendAlias(code);
         }
@@ -53,7 +70,7 @@ public class SqlColumnSimpleWithTable extends SqlColumnSimple {
     /**
      * @return the fromElem - table this statement is built on
      */
-    public FromElem getFromElem() {
+    public SqlFromElem getFromElem() {
         return fromElem;
     }
     
@@ -66,7 +83,7 @@ public class SqlColumnSimpleWithTable extends SqlColumnSimple {
         private static final long serialVersionUID = 1L;
 
         FromAliasMissingException() {
-            super("From element does not rpovide aliaas needed to build column");
+            super("From element does not provide alias needed to build column");
         }
     }
     

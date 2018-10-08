@@ -6,16 +6,16 @@
 package com.provys.sqlbuilder.impl;
 
 import com.provys.sqlbuilder.iface.CodeBuilder;
-import com.provys.sqlbuilder.iface.SqlColumn;
 import com.provys.sqlbuilder.iface.SqlOperator2;
-import com.provys.sqlbuilder.iface.WhereCond;
+import com.provys.sqlbuilder.iface.SqlColumn;
+import com.provys.sqlbuilder.iface.SqlWhereCond;
 
 /**
  * Builds condition, based on two columns (might be constants) and operator.
  * 
  * @author stehlik
  */
-public class WhereCondTwoOp implements WhereCond {
+public class WhereCondTwoOp implements SqlWhereCond {
     
     private boolean negative = false;
     private SqlColumn column1;

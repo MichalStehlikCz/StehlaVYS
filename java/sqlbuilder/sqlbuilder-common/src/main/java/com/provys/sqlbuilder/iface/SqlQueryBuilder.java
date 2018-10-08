@@ -15,10 +15,10 @@ import java.util.List;
  * 
  * @author stehlik
  */
-public interface QueryBuilder {
+public interface SqlQueryBuilder {
     
     /**
-     * Build SQL IN code based on QueryBuilder.
+     * Build SQL IN code based on SqlQueryBuilder.
      * 
      * @param code - CodeBuilder used to build and then retrieve SQL code.
      * @param columns - columns to be placed in IN clause
@@ -26,7 +26,7 @@ public interface QueryBuilder {
     public void buildInSql(CodeBuilder code, List<SqlColumn> columns);
 
     /**
-     * Build SQL EXISTS code based on QueryBuilder.
+     * Build SQL EXISTS code based on SqlQueryBuilder.
      * 
      * @param code - CodeBuilder used to build and then retrieve SQL code.
      * @param columns - columns to be added to WHERE clause
@@ -37,8 +37,8 @@ public interface QueryBuilder {
      * Checks that Query builder's columns can be used together with supplied
      * columns to build IN or EXISTS query.
      * 
-     * @param columns - columns to be compared against QueryBuilder's own set of
-     * columns
+     * @param columns - columns to be compared against SqlQueryBuilder's own set of
+ columns
      */
     public void checkColumns(List<SqlColumn> columns);
     

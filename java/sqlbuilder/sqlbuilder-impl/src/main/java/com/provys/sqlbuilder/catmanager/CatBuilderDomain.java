@@ -13,6 +13,7 @@ import com.provys.common.datatypes.Dt;
  * 
  * @author stehlik
  */
-public interface SqlBuilderDomain extends ConfNMObject {
-    public Class<? extends Dt> getDtType();
+public interface CatBuilderDomain extends ConfNMObject {
+    
+    public Class<? extends Dt> getTypeClass();
 }

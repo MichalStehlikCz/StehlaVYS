@@ -7,10 +7,10 @@ package com.provys.sqlbuilder.impl;
 
 import com.provys.provysdb.call.SqlCall;
 import com.provys.sqlbuilder.iface.CodeBuilder;
-import com.provys.sqlbuilder.iface.FromElem;
-import com.provys.sqlbuilder.iface.SelectBuilder;
 import com.provys.sqlbuilder.iface.SqlColumn;
-import com.provys.sqlbuilder.iface.WhereCond;
+import com.provys.sqlbuilder.iface.SqlFromElem;
+import com.provys.sqlbuilder.iface.SqlSelectBuilder;
+import com.provys.sqlbuilder.iface.SqlWhereCond;
 
 /**
  * Simple SELECT statement builder implementation.
@@ -18,22 +18,22 @@ import com.provys.sqlbuilder.iface.WhereCond;
  * 
  * @author stehlik
  */
-public class SelectBuilderSimple extends SqlBuilderSimple
-        implements SelectBuilder {
+public class SqlSelectBuilderSimple extends SqlBuilderSimple
+        implements SqlSelectBuilder {
     
-    public SelectBuilderSimple() {
+    public SqlSelectBuilderSimple() {
     }
 
-    public SelectBuilderSimple(FromElem fromElem) {
+    public SqlSelectBuilderSimple(SqlFromElem fromElem) {
         super(fromElem);
     }
 
-    public SelectBuilderSimple(SqlColumn column, FromElem fromElem) {
+    public SqlSelectBuilderSimple(SqlColumn column, SqlFromElem fromElem) {
         super(column, fromElem);
     }
 
-    public SelectBuilderSimple(SqlColumn column, FromElem fromElem
-            , WhereCond whereCond) {
+    public SqlSelectBuilderSimple(SqlColumn column, SqlFromElem fromElem
+            , SqlWhereCond whereCond) {
         super(column, fromElem, whereCond);
     }
 
@@ -52,19 +52,19 @@ public class SelectBuilderSimple extends SqlBuilderSimple
     }
 
     @Override
-    public SelectBuilder addColumn(SqlColumn sqlColumn) {
+    public SqlSelectBuilder addColumn(SqlColumn sqlColumn) {
         this.columns.add(sqlColumn);
         return this;
     }
 
     @Override
-    public SelectBuilderSimple addFromElem(FromElem fromElem) {
+    public SqlSelectBuilderSimple addFromElem(SqlFromElem fromElem) {
         super.addFromElem(fromElem);
         return this;
     }
 
     @Override
-    public SelectBuilderSimple addWhereCond(WhereCond whereCond) {
+    public SqlSelectBuilderSimple addWhereCond(SqlWhereCond whereCond) {
         super.addWhereCond(whereCond);
         return this;
     }

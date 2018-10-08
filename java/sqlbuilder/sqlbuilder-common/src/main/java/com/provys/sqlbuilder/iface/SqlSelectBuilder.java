@@ -9,7 +9,7 @@ import com.provys.provysdb.call.SqlCall;
 import java.util.List;
 
 /**
- * SelectBuilder class provides means to easily build SQL SELECT statements.
+ * SqlSelectBuilder class provides means to easily build SQL SELECT statements.
  * SqlBuilder allows to build queries both using native SQL and to exploit
  * PROVYS metadata catalogue. Latter is reason why 3rd party library cannot be
  * reasonably utilised - as no 3rd part library has link to catalogue module.
@@ -25,10 +25,10 @@ import java.util.List;
  * 
  * @author stehlik
  */
-public interface SelectBuilder {
+public interface SqlSelectBuilder {
 
     /**
-     * Build SQL code based on SelectBuilder.
+     * Build SQL code based on SqlSelectBuilder.
      * 
      * @param code - CodeBuilder used to build and then retrieve SQL code.
      */
@@ -42,7 +42,7 @@ public interface SelectBuilder {
     public List<SqlColumn> getColumns();
     
     /**
-     * Build select statement (executable by ProvysDb) based on SelectBuilder.
+     * Build select statement (executable by ProvysDb) based on SqlSelectBuilder.
      * 
      * @return select statement as ProvysDb SqlCall
      */
@@ -54,7 +54,25 @@ public interface SelectBuilder {
      * @param sqlColumn is column to be added
      * @return itself to support chaining
      */
-    public SelectBuilder addColumn(SqlColumn sqlColumn);
+    public SqlSelectBuilder addColumn(SqlColumn sqlColumn);
+    
+    /**
+     * Get FROM element with specified alias.
+     * If element is not found, throw exception.
+     * 
+     * @param alias is alias that is being looked for
+     * @return from element with specified alias if found
+     */
+    public SqlFromElem getFromElemByAlias(String alias);
+    
+    /**
+     * Get FROM element with specified alias if exists.
+     * If element is not found, return null
+     * 
+     * @param alias is alias that is being looked for
+     * @return from element with specified alias if found, null otherwise
+     */
+    public SqlFromElem getFromElemByAliasIfExists(String alias);
     
     /**
      * Add element to from clause.
@@ -62,7 +80,7 @@ public interface SelectBuilder {
      * @param fromElem is table or select to be added to FROM clause
      * @return itself to support chaining
      */
-    public SelectBuilder addFromElem(FromElem fromElem);
+    public SqlSelectBuilder addFromElem(SqlFromElem fromElem);
     
     /**
      * Add additional condition to WHERE clause.
@@ -70,5 +88,5 @@ public interface SelectBuilder {
      * @param whereCond is condition to be added to WHERE clause
      * @return itself to support chaining
      */
-    public SelectBuilder addWhereCond(WhereCond whereCond);
+    public SqlSelectBuilder addWhereCond(SqlWhereCond whereCond);
 }

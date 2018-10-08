@@ -14,6 +14,6 @@ import javax.json.JsonObject;
  */
 public interface JsonQueryExecutor extends QueryExecutor {
 
-    List<JsonObject> executeQuery();
-    List<JsonObject> getData();
+    public List<JsonObject> executeQuery();
+    public List<JsonObject> getData();
 }

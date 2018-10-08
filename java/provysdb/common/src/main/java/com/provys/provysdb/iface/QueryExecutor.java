@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.iface;
 
+import com.provys.common.datatypes.Dt;
 import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SqlCall;
 import java.util.Map;
@@ -25,6 +26,26 @@ public interface QueryExecutor {
      */
     public void setSqlCall(SqlCall sqlCall);
     
+    /**
+     * Set bind value.
+     * 
+     * @param name name of the bind to be set
+     * @param value to be set
+     */
+    default public void setValue(String name, Dt value) {
+        getSqlCall().setValue(name, value);
+    }
+
+    /**
+     * Set bind value is bind variable with this name exists.
+     * 
+     * @param name name of the bind to be set
+     * @param value to be set
+     */
+    default public void setValueIfExists(String name, Dt value) {
+        getSqlCall().setValueIfExists(name, value);
+    }
+
     /**
      * Retrieves list of available columns.
      * Initially, columns can be supplied by SqlCall. If they are not supplied,

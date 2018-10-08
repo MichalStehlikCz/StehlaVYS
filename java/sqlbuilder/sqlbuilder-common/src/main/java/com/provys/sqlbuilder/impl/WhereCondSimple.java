@@ -7,14 +7,14 @@ package com.provys.sqlbuilder.impl;
 
 import com.provys.common.error.ProvysException;
 import com.provys.sqlbuilder.iface.CodeBuilder;
-import com.provys.sqlbuilder.iface.WhereCond;
+import com.provys.sqlbuilder.iface.SqlWhereCond;
 
 /**
  * Simple Where condition, specified as String.
  * 
  * @author stehlik
  */
-public class WhereCondSimple implements WhereCond {
+public class WhereCondSimple implements SqlWhereCond {
     
     private final String sql;
     

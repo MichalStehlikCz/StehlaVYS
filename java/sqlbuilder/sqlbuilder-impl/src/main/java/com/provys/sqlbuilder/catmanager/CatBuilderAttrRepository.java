@@ -14,11 +14,11 @@ import javax.ejb.Local;
  * Class defines contract with attribute repository for SqlBuilder.
  * 
  * @author stehlik
- * @param <T> is class implementing SqlBuilderAttr interface that will act as
- * representation of PROVYS attributes
+ * @param <T> is class implementing CatBuilderAttr interface that will act as
+ representation of PROVYS attributes
  */
 @Local
-public interface SqlBuilderAttrRepository<T extends SqlBuilderAttr>
+public interface CatBuilderAttrRepository<T extends CatBuilderAttr>
         extends ConfObjectRepository<T> {
 
     public List<T> loadByEntityId(DtUid entityId);

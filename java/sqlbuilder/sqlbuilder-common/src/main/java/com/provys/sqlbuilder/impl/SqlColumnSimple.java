@@ -5,6 +5,7 @@
  */
 package com.provys.sqlbuilder.impl;
 
+import com.provys.common.datatypes.Dt;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 
 /**
@@ -16,8 +17,26 @@ public class SqlColumnSimple extends SqlColumnAncestor {
     
     final String column; // text representing table column
     
-    
-    public SqlColumnSimple(String column) {
+    public SqlColumnSimple(String column, Class<? extends Dt> type) {
+        super(type);
+        this.column = column;
+    }
+
+    public SqlColumnSimple(String column, Class<? extends Dt> type
+            , boolean indexed) {
+        super(type, indexed);
+        this.column = column;
+    }
+
+    public SqlColumnSimple(String column, String alias
+            , Class<? extends Dt> type) {
+        super(alias, type);
+        this.column = column;
+    }
+
+    public SqlColumnSimple(String column, String alias
+            , Class<? extends Dt> type, boolean indexed) {
+        super(alias, type, indexed);
         this.column = column;
     }
 

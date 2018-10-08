@@ -9,12 +9,12 @@ import com.provys.common.error.ProvysException;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import com.provys.sqlbuilder.iface.JoinType;
 import static com.provys.sqlbuilder.iface.JoinType.*;
-import com.provys.sqlbuilder.iface.QueryBuilder;
-import com.provys.sqlbuilder.iface.SqlColumn;
-import com.provys.sqlbuilder.iface.WhereCond;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import com.provys.sqlbuilder.iface.SqlQueryBuilder;
+import com.provys.sqlbuilder.iface.SqlColumn;
+import com.provys.sqlbuilder.iface.SqlWhereCond;
 
 /**
  * Condition built using SqlBuilder.
@@ -22,10 +22,10 @@ import java.util.List;
  * 
  * @author stehlik
  */
-public class WhereCondQueryBuilder implements WhereCond {
+public class WhereCondQueryBuilder implements SqlWhereCond {
     
     private List<SqlColumn> columns;
-    private QueryBuilder subquery;
+    private SqlQueryBuilder subquery;
     private JoinType joinType = null; // without preference by default - it
     // defers decision to query cost
     
@@ -33,13 +33,13 @@ public class WhereCondQueryBuilder implements WhereCond {
         this.columns = new ArrayList<>(1);
     }
     
-    public WhereCondQueryBuilder(SqlColumn column, QueryBuilder subquery) {
+    public WhereCondQueryBuilder(SqlColumn column, SqlQueryBuilder subquery) {
         this.columns = new ArrayList<>(1);
         this.columns.add(column);
         this.subquery = subquery;
     }
     
-    public WhereCondQueryBuilder(SqlColumn column, QueryBuilder subquery
+    public WhereCondQueryBuilder(SqlColumn column, SqlQueryBuilder subquery
             , JoinType joinType)
     {
         this.columns = new ArrayList<>(1);
@@ -48,12 +48,12 @@ public class WhereCondQueryBuilder implements WhereCond {
         this.joinType = joinType;
     }
 
-    public WhereCondQueryBuilder(List<SqlColumn> columns, QueryBuilder subquery) {
+    public WhereCondQueryBuilder(List<SqlColumn> columns, SqlQueryBuilder subquery) {
         this.columns = new ArrayList<>(columns);
         this.subquery = subquery;
     }
 
-    public WhereCondQueryBuilder(List<SqlColumn> columns, QueryBuilder subquery
+    public WhereCondQueryBuilder(List<SqlColumn> columns, SqlQueryBuilder subquery
             , JoinType joinType) {
         this.columns = new ArrayList<>(columns);
         this.subquery = subquery;
@@ -122,14 +122,14 @@ public class WhereCondQueryBuilder implements WhereCond {
     /**
      * @return the subquery
      */
-    public QueryBuilder getSubquery() {
+    public SqlQueryBuilder getSubquery() {
         return subquery;
     }
 
     /**
      * @param subquery the subquery to set
      */
-    public void setSubquery(QueryBuilder subquery) {
+    public void setSubquery(SqlQueryBuilder subquery) {
         this.subquery = subquery;
     }
 

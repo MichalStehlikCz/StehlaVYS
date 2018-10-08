@@ -18,21 +18,27 @@ import com.provys.sqlbuilder.iface.SqlColumn;
  */
 abstract public class SqlColumnAncestor implements SqlColumn {
     
-    private String alias;
-    private String type;
-    private int size = -1;
-    private boolean indexed = false;
-    
-    public SqlColumnAncestor() {
-    }
+    private final String alias;
+    private final String type;
+    private final int size = -1;
+    private final boolean indexed;
     
     public SqlColumnAncestor(Class<? extends Dt> type) {
+        this.alias = null;
         this.type = type.getSimpleName();
+        this.indexed = false;
+    }
+    
+    public SqlColumnAncestor(Class<? extends Dt> type, boolean indexed) {
+        this.alias = null;
+        this.type = type.getSimpleName();
+        this.indexed = indexed;
     }
     
     public SqlColumnAncestor(String alias, Class<? extends Dt> type) {
         this.alias = alias;
         this.type = type.getSimpleName();
+        this.indexed = false;
     }
     
     public SqlColumnAncestor(String alias, Class<? extends Dt> type
@@ -73,38 +79,6 @@ abstract public class SqlColumnAncestor implements SqlColumn {
         return alias;
     }
 
-    @Override
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
-    /**
-     * Setter method for type.
-     * Method finds corresponding class and calls setType method with class
-     * parameter
-     * 
-     * @param type sets type field
-     */
-    public void setType(String type) {
-        Class<? extends Dt> typeClass;
-        try {
-            typeClass = Class
-                    .forName("com.provys.common.datatypes"+type)
-                    .asSubclass(Dt.class);
-        } catch (ClassNotFoundException ex) {
-            throw new UnsupportedTypeException(type, ex);
-        }
-        setType(typeClass);
-    }
-    
-    /**
-     * Set type of column to correspond to supplied class
-     * @param type is class column should be stored in
-     */
-    public void setType(Class<? extends Dt> type) {
-        this.type = type.getSimpleName();
-    }
-    
     /**
      * @return the type
      */
@@ -117,53 +91,11 @@ abstract public class SqlColumnAncestor implements SqlColumn {
         return indexed;
     }
 
-    @Override
-    public void setIndexed(boolean indexed) {
-        this.indexed = indexed;
-    }
-
     /**
      * @return the size
      */
     public int getSize() {
         return size;
-    }
-
-    /**
-     * @param size the size to set
-     */
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    /**
-     * Exception raised when value supplied to SqlColumn is not one of supported
-     * types
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class UnsupportedColumnDatatypeException
-            extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        UnsupportedColumnDatatypeException(String type) {
-            super("Unsupported class for column definition: "+type);
-        }
-    }
-
-    /**
-     * Exception raised when type supplied to SqlColumn (as string) is not one
-     * of supported types
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class UnsupportedTypeException
-            extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        UnsupportedTypeException(String type, Throwable cause) {
-            super("Unsupported type for column definition: "+type, cause);
-        }
     }
 
     /**

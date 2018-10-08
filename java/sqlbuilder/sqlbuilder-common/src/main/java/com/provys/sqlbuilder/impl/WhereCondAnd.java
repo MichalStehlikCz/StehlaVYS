@@ -6,19 +6,19 @@
 package com.provys.sqlbuilder.impl;
 
 import com.provys.sqlbuilder.iface.CodeBuilder;
-import com.provys.sqlbuilder.iface.WhereCond;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import com.provys.sqlbuilder.iface.SqlWhereCond;
 
 /**
  * Holds multiple conditions, connected by AND operator.
  * 
  * @author stehlik
  */
-public class WhereCondAnd implements WhereCond {
+public class WhereCondAnd implements SqlWhereCond {
     
-    private final List<WhereCond> conditions;
+    private final List<SqlWhereCond> conditions;
     
     public WhereCondAnd() {
         this.conditions = new ArrayList<>(2);
@@ -27,29 +27,14 @@ public class WhereCondAnd implements WhereCond {
     @Override
     public void buildWhere(CodeBuilder code) {
         if (getNonEmptyCount() > 1) {
-            code.appendLine("(").increaseTempIdent("    ", "AND ", 2);
+            code.increaseTempIdentAnd();
         }
         conditions.forEach((condition) -> {
-            if (condition instanceof WhereCondAnd) {
-                ((WhereCondAnd) condition).buildWhereNoBrackets(code);
-            } else {
-                condition.buildWhere(code);
-            }
+            condition.buildWhere(code);
         });
         if (getNonEmptyCount() > 1) {
-            code.removeTempIdent().appendLine(")");
+            code.removeTempIdent();
         }
-    }
-
-    /**
-     * Build where clause without enclosing brackets and increased ident.
-     * Primary use is in nested WhereCondAnd, where conditions from all levels
-     * can be placed on the same level
-     * 
-     * @param code is CodeBuilder used to build statement text 
-     */
-    public void buildWhereNoBrackets(CodeBuilder code) {
-        conditions.forEach((condition) -> {condition.buildWhere(code);});
     }
 
    @Override
@@ -70,10 +55,10 @@ public class WhereCondAnd implements WhereCond {
         return (getNonEmptyCount() == 0);
     }
 
-    public void add(WhereCond whereCond) {
+    public void add(SqlWhereCond whereCond) {
         this.conditions.add(whereCond);
     }
-    private class MinCostCounter implements Consumer<WhereCond> {
+    private class MinCostCounter implements Consumer<SqlWhereCond> {
         
         private double minCost = 1000;
         
@@ -81,7 +66,7 @@ public class WhereCondAnd implements WhereCond {
         }
         
         @Override
-        public void accept(WhereCond whereCond) {
+        public void accept(SqlWhereCond whereCond) {
             double cost = whereCond.getCost();
             if (cost < minCost) {
                 minCost = cost;

@@ -5,8 +5,9 @@
  */
 package com.provys.sqlbuilder.impl;
 
+import com.provys.common.datatypes.Dt;
 import com.provys.sqlbuilder.iface.CodeBuilder;
-import com.provys.sqlbuilder.iface.FromElem;
+import com.provys.sqlbuilder.iface.SqlFromElem;
 
 /**
  * Implements simple column, with alias specified as referenced fromElem.
@@ -18,10 +19,29 @@ import com.provys.sqlbuilder.iface.FromElem;
  */
 public class SqlColumnColumnWithTable extends SqlColumnSimple {
     
-    final FromElem fromElem;
+    private final SqlFromElem fromElem;
     
-    public SqlColumnColumnWithTable(String column, FromElem fromElem) {
-        super(column);
+    public SqlColumnColumnWithTable(String column, Class<? extends Dt> type
+            , SqlFromElem fromElem) {
+        super(column, type);
+        this.fromElem = fromElem;
+    }
+
+    public SqlColumnColumnWithTable(String column, Class<? extends Dt> type
+            , boolean indexed, SqlFromElem fromElem) {
+        super(column, type, indexed);
+        this.fromElem = fromElem;
+    }
+
+    public SqlColumnColumnWithTable(String column, String alias
+            , Class<? extends Dt> type, SqlFromElem fromElem) {
+        super(column, alias, type);
+        this.fromElem = fromElem;
+    }
+
+    public SqlColumnColumnWithTable(String column, String alias
+            , Class<? extends Dt> type, boolean indexed, SqlFromElem fromElem) {
+        super(column, alias, type, indexed);
         this.fromElem = fromElem;
     }
 

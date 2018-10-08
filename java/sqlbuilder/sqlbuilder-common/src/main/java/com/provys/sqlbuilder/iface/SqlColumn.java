@@ -40,7 +40,7 @@ public interface SqlColumn {
      * Translates SqlColumn to ColumnDef, used by SqlCall.
      * 
      * @return ColumnDef describing given column, null if ColumnDef cannot be
-     * constructed from SqlColumn
+ constructed from SqlColumn
      */
     public ColumnDef getColumnDef();
    
@@ -50,18 +50,8 @@ public interface SqlColumn {
     public String getAlias();
 
     /**
-     * @param alias the alias to set
-     */
-    public void setAlias(String alias);
-
-    /**
      * @return the indexed flag
      */
     public boolean isIndexed();
-
-    /**
-     * @param indexed the indexed value to set
-     */
-    public void setIndexed(boolean indexed);
 
 }

@@ -15,5 +15,6 @@
     <module>provysdb-local</module>
     <module>provysdb-api</module>
     <module>provysdb-client</module>
+    <module>provydb-loader</module>
   </modules>
 </project>

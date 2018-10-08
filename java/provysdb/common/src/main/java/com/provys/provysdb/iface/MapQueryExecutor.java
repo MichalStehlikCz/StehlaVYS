@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.iface;
 
+import com.provys.common.datatypes.Dt;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,6 @@ import java.util.Map;
  */
 public interface MapQueryExecutor extends QueryExecutor {
 
-    List<Map<String, Object>> executeQuery();
-    List<Map<String, Object>> getData();
+    List<Map<String, Dt>> executeQuery();
+    List<Map<String, Dt>> getData();
 }

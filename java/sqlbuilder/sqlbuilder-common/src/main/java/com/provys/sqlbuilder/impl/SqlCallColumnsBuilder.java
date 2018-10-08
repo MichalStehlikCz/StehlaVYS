@@ -6,10 +6,10 @@
 package com.provys.sqlbuilder.impl;
 
 import com.provys.provysdb.call.ColumnDef;
-import com.provys.sqlbuilder.iface.SqlColumn;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import com.provys.sqlbuilder.iface.SqlColumn;
 
 /**
  * Builds map of columns requested by SqlCall from list of columns.

@@ -38,8 +38,8 @@ public class BindValue implements Serializable {
      */
     public BindValue(String name, Class<? extends Dt> typeClass, Dt value) {
         this.name = name;
-        setType(typeClass);
         this.value = value;
+        setType(typeClass);
     }
 
     /**
@@ -51,8 +51,8 @@ public class BindValue implements Serializable {
      */
     public BindValue(String name, String type, Dt value) {
         this.name = name;
-        setType(type);
         this.value = value;
+        setType(type);
     }
 
     /**
@@ -91,12 +91,25 @@ public class BindValue implements Serializable {
     }
 
     /**
+     * @return type as Class
+     */
+    public Class<? extends Dt> getTypeClass() {
+        try {
+            return Class.forName("com.provys.common.datatypes"+type)
+                    .asSubclass(Dt.class);
+        } catch (ClassNotFoundException ex) {
+            throw new UnsupportedTypeException(type, ex);
+        }
+    }
+
+    /**
      * Set type of bind to correspond to supplied class.
      * @param type is class acceptable as value for given bind
      */
     @SuppressWarnings("FinalMethod")
     public final void setType(Class<? extends Dt> type) {
         this.type = type.getSimpleName();
+        checkType();
     }
     
     /**
@@ -143,6 +156,20 @@ public class BindValue implements Serializable {
         this.value = value;
         if ((this.type == null) && (this.value != null)) {
             deriveTypeFromValue();
+        } else {
+            checkType();
+        }
+    }
+
+    /**
+     * Check value against type and report mismatch.
+     */
+    private void checkType() {
+        if ((type != null) & (value != null)) {
+            if (!getTypeClass().isInstance(value)) {
+                throw new IncompatibleValueAndTypeException(getTypeClass()
+                        , value.getClass());
+            }
         }
     }
 
@@ -151,8 +178,7 @@ public class BindValue implements Serializable {
      * of supported types
      */
     @SuppressWarnings("PublicInnerClass")
-    static public class UnsupportedTypeException
-            extends ProvysException {
+    static public class UnsupportedTypeException extends ProvysException {
 
         private static final long serialVersionUID = 1L;
 
@@ -160,4 +186,20 @@ public class BindValue implements Serializable {
             super("Unsupported type for column definition: "+type, cause);
         }
     }
+    
+    /**
+     * Exception raised when assigned value and type do not match.
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class IncompatibleValueAndTypeException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        IncompatibleValueAndTypeException(Class<?> type, Class<?> valuetype) {
+            super("Value and type mismatch; type: " + type.getSimpleName()
+                    + ", value" + valuetype.getSimpleName());
+        }
+    }
+    
 }

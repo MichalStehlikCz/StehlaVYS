@@ -6,10 +6,12 @@
 package com.provys.sqlbuilder.impl;
 
 import com.provys.common.datatypes.Dt;
-import com.provys.sqlbuilder.iface.FromElem;
-import com.provys.sqlbuilder.iface.SelectBuilder;
+import com.provys.provysdb.call.BindValue;
 import com.provys.sqlbuilder.iface.SqlBuilderFactory;
 import com.provys.sqlbuilder.iface.SqlColumn;
+import com.provys.sqlbuilder.iface.SqlFromElem;
+import com.provys.sqlbuilder.iface.SqlQueryBuilder;
+import com.provys.sqlbuilder.iface.SqlSelectBuilder;
 
 /**
  * Implementation of factory, producing SqlBuilder and related objects.
@@ -19,13 +21,18 @@ import com.provys.sqlbuilder.iface.SqlColumn;
 public class SqlBuilderFactoryImpl implements SqlBuilderFactory {
     
     @Override
-    public SelectBuilder getSimpleSelect(String table, String alias) {
-        return new SelectBuilderSimple(getFromElem(table, alias));
+    public SqlSelectBuilder getSimpleSelect(String table, String alias) {
+        return new SqlSelectBuilderSimple(getFromElem(table, alias));
     }
 
     @Override
-    public SelectBuilder getSimpleSelect(SqlColumn column, String table, String alias) {
-        return new SelectBuilderSimple(column, getFromElem(table, alias));
+    public SqlSelectBuilder getSimpleSelect(SqlColumn column, String table, String alias) {
+        return new SqlSelectBuilderSimple(column, getFromElem(table, alias));
+    }
+
+    @Override
+    public SqlQueryBuilder getBindQuery(BindValue bindValue) {
+        return new QueryBuilderSimple(getBindColumn(bindValue));
     }
 
     @Override
@@ -79,10 +86,17 @@ public class SqlBuilderFactoryImpl implements SqlBuilderFactory {
     }
     
     @Override
-    public FromElem getFromElem(String table, String alias) {
-        FromElemSimple fromElem = new FromElemSimple();
-        fromElem.setAlias(alias);
-        fromElem.setTable(table);
-        return fromElem;
+    public SqlColumn getBindColumn(BindValue bindValue) {
+        return new SqlColumnBind(bindValue);
+    }
+    
+    @Override
+    public SqlColumn getBindColumn(BindValue bindValue, String alias) {
+        return new SqlColumnBind(bindValue, alias);
+    }
+
+    @Override
+    public SqlFromElem getFromElem(String table, String alias) {
+        return new SqlFromElemSimple(table, alias);
     }
 }

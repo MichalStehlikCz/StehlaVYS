@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.sqlexecutorlocal;
 
+import com.provys.common.datatypes.Dt;
 import com.provys.common.error.ProvysSqlException;
 import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SqlCall;
@@ -90,17 +91,11 @@ abstract public class QueryExecutorLocal implements QueryExecutor {
         }
     }
 
-    /**
-     * @return the sqlCall
-     */
     @Override
     public SqlCall getSqlCall() {
         return sqlCall;
     }
 
-    /**
-     * @param sqlCall the sqlCall to set
-     */
     @Override
     public void setSqlCall(SqlCall sqlCall) {
         this.sqlCall = sqlCall;

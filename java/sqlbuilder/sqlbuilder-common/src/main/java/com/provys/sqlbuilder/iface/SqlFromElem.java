@@ -6,12 +6,12 @@
 package com.provys.sqlbuilder.iface;
 
 /**
- * FromElem represents source table in SqlBuilder statement.
+ * SqlFromElem represents source table in SqlBuilder statement.
  * Source table is kept together with its associated join condition.
  * 
  * @author stehlik
  */
-public interface FromElem {
+public interface SqlFromElem {
 
     /**
      * Add from clause, associated with this element to supplied CodeBuilder.

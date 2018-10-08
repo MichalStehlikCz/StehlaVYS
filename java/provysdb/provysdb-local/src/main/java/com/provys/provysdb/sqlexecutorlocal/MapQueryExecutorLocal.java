@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.sqlexecutorlocal;
 
+import com.provys.common.datatypes.Dt;
 import com.provys.common.error.ProvysException;
 import com.provys.common.error.ProvysSqlException;
 import com.provys.provysdb.call.SqlCall;
@@ -25,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MapQueryExecutorLocal extends QueryExecutorLocal
         implements MapQueryExecutor {
 
-    private List<Map<String, Object>> data;
+    private List<Map<String, Dt>> data;
 
     public MapQueryExecutorLocal(ProvysConnectionPoolDataSource dataSource) {
         super(dataSource);
@@ -43,7 +44,7 @@ public class MapQueryExecutorLocal extends QueryExecutorLocal
 
     @Override
     protected void addRow(ProvysResultSet resultSet) {
-        Map<String, Object> row = new ConcurrentHashMap<>(
+        Map<String, Dt> row = new ConcurrentHashMap<>(
                 getSqlCall().getColumns().size()*2);
         getSqlCall().getColumns().forEach((index, columnDef) -> 
         {
@@ -93,16 +94,16 @@ public class MapQueryExecutorLocal extends QueryExecutorLocal
     }
     
     @Override
-    public List<Map<String, Object>> executeQuery() {
+    public List<Map<String, Dt>> executeQuery() {
         execute();
         return getData();
     }
 
     @Override
-    public List<Map<String, Object>> getData() {
+    public List<Map<String, Dt>> getData() {
         return Collections.unmodifiableList(data);
     }
-    
+
     /**
      * Exception raised when value supplied to ColumnDef is not one of supported
      * types

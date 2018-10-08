@@ -8,13 +8,12 @@ package com.provys.sqlbuilder.catmanager;
 import com.provys.common.confobj.ConfNMObjectRepository;
 
 /**
- * Domain repository functionality needed to support SqlBuilder.
- * 
+ *
  * @author stehlik
- * @param <T> is implementation of domain model, compatible with SqlBuilder
+ * @param <T> is implementation of entity model, compatible with SqlBuilder
  */
 @SuppressWarnings("MarkerInterface")
-public interface SqlBuilderDomainRepository<T extends SqlBuilderDomain>
+public interface CatBuilderEntityRepository<T extends CatBuilderEntity>
         extends ConfNMObjectRepository<T> {
     
 }

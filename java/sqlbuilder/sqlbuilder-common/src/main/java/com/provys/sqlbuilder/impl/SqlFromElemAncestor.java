@@ -6,22 +6,21 @@
 package com.provys.sqlbuilder.impl;
 
 import com.provys.sqlbuilder.iface.CodeBuilder;
-import com.provys.sqlbuilder.iface.FromElem;
+import com.provys.sqlbuilder.iface.SqlFromElem;
 
 /**
- * FromElem represents source table in SqlBuilder statement.
- * Source table is kept together with its associated join condition.
+ * SqlFromElemAncestor implements alias handling for SqlFromElem.
  * 
  * @author stehlik
  */
-public abstract class FromElemAncestor implements FromElem {
+public abstract class SqlFromElemAncestor implements SqlFromElem {
 
     private String alias;
  
-    public FromElemAncestor() {
+    public SqlFromElemAncestor() {
     }
 
-    public FromElemAncestor(String alias) {
+    public SqlFromElemAncestor(String alias) {
         this.alias = alias;
     }
     

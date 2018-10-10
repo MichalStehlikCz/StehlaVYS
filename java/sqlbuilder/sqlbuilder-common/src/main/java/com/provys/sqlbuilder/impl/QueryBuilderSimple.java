@@ -12,21 +12,20 @@ import com.provys.sqlbuilder.iface.SqlColumn;
 
 /**
  * Basic implementation of SqlQueryBuilder interface, based on SqlBuilder.
- * 
+ *
  * @author stehlik
  */
 public class QueryBuilderSimple extends SqlBuilderSimple implements SqlQueryBuilder {
 
     /**
-     * Default constructor for SqlQueryBuilder.
-     * Creates empty SqlQueryBuilder.
+     * Default constructor for SqlQueryBuilder. Creates empty SqlQueryBuilder.
      */
     public QueryBuilderSimple() {
     }
 
     /**
      * Creates simple query, containing only column (usually bind value).
-     * 
+     *
      * @param column is column to be placed in query (as a key)
      */
     public QueryBuilderSimple(SqlColumn column) {
@@ -35,22 +34,22 @@ public class QueryBuilderSimple extends SqlBuilderSimple implements SqlQueryBuil
 
     /**
      * Build equality comparison between supplied columns and my columns.
-     * 
+     *
      * @param code
-     * @param columns 
+     * @param columns
      */
     private void buildEquals(CodeBuilder code, List<SqlColumn> columns) {
-        if (this.columns.size() > 1) {
+        if (this.getColumns().size() > 1) {
             code.increaseTempIdentAnd();
         }
         for (int i = 0; i < columns.size(); i++) {
             code.append("(");
-            this.columns.get(i).buildSqlNoNewLine(code, false);
+            this.getColumns().get(i).buildSqlNoNewLine(code, false);
             code.append("=");
             columns.get(i).buildSqlNoNewLine(code, false);
             code.appendLine(")");
         }
-        if (this.columns.size() > 1) {
+        if (this.getColumns().size() > 1) {
             code.removeTempIdent();
         }
     }
@@ -58,19 +57,19 @@ public class QueryBuilderSimple extends SqlBuilderSimple implements SqlQueryBuil
     @Override
     public void buildExistsSql(CodeBuilder code, List<SqlColumn> columns) {
         checkColumns(columns);
-        if (this.fromElems.isEmpty()) { // we can build simple comparison
+        if (getFromElems().isEmpty()) { // we can build simple comparison
             buildEquals(code, columns);
         } else {
             code.appendLine("EXISTS(").increaseTempIdent(4).appendLine("SELECT")
                     .appendLine("    1").appendLine("FROM")
                     .increaseTempIdent("  ", ", ", 4);
-            fromElems.forEach((fromElem) -> {
+            getFromElems().forEach((fromElem) -> {
                 fromElem.buildSql(code);
             });
             code.removeTempIdent();
             code.appendLine("WHERE").increaseTempIdent(4)
                     .increaseTempIdentAnd();
-            whereCond.buildWhere(code);
+            getWhereCond().buildWhere(code);
             buildEquals(code, columns);
             code.removeTempIdent().removeTempIdent().removeTempIdent();
         }
@@ -79,7 +78,7 @@ public class QueryBuilderSimple extends SqlBuilderSimple implements SqlQueryBuil
     @Override
     public void buildInSql(CodeBuilder code, List<SqlColumn> columns) {
         checkColumns(columns);
-        if (this.fromElems.isEmpty()) { // we can build simple comparison
+        if (getFromElems().isEmpty()) { // we can build simple comparison
             buildEquals(code, columns);
         } else {
             code.append("(");
@@ -102,15 +101,13 @@ public class QueryBuilderSimple extends SqlBuilderSimple implements SqlQueryBuil
 
     @Override
     public double getCost() {
-        return whereCond.getCost();
+        return getWhereCond().getCost();
     }
 
     @Override
     public void checkColumns(List<SqlColumn> columns) {
-        if (this.columns != null) {
-            if (this.columns.size() != columns.size()) {
-                throw new ColumnsNumberMismatchException();
-            }
+        if (getColumns().size() != columns.size()) {
+            throw new ColumnsNumberMismatchException();
         }
     }
 

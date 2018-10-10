@@ -5,9 +5,11 @@
  */
 package com.provys.sqlbuilder.catimpl;
 
+import com.provys.common.error.ProvysException;
 import com.provys.provysdb.call.SqlCall;
 import com.provys.sqlbuilder.catbuilder.CatSelectBuilder;
 import com.provys.sqlbuilder.catmanager.CatBuilderAttr;
+import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import com.provys.sqlbuilder.iface.SqlColumn;
 import com.provys.sqlbuilder.iface.SqlFromElem;
@@ -58,7 +60,9 @@ public class CatSelectBuilderSimple implements CatSelectBuilder {
 
     @Override
     public CatSelectBuilder addColumn(CatBuilderAttr attr, String alias) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sqlSelectBuilder.addColumn(new CatColumnAttr(attr, alias
+                , getFromElemByEntity(attr.getEntity())));
+        return this;
     }
 
     @Override
@@ -72,6 +76,18 @@ public class CatSelectBuilderSimple implements CatSelectBuilder {
     }
     
     @Override
+    public SqlFromElem getFromElemByEntity(CatBuilderEntity entity) {
+        for (SqlFromElem fromElem : sqlSelectBuilder.getFromElems()) {
+            if (fromElem instanceof CatFromElemEntity) {
+                if (((CatFromElemEntity) fromElem).getEntity().equals(entity)) {
+                    return fromElem;
+                }
+            }
+        }
+        throw new ElemNotFoundByEntityException(entity);
+    }
+
+    @Override
     public SqlSelectBuilder addFromElem(SqlFromElem fromElem) {
         sqlSelectBuilder.addFromElem(fromElem);
         return this;
@@ -81,6 +97,20 @@ public class CatSelectBuilderSimple implements CatSelectBuilder {
     public SqlSelectBuilder addWhereCond(SqlWhereCond whereCond) {
         sqlSelectBuilder.addWhereCond(whereCond);
         return this;
+    }
+
+    /**
+     * FROM element was looked up but not found using alias.
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class ElemNotFoundByEntityException extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        ElemNotFoundByEntityException(CatBuilderEntity entity) {
+            super("FROM element not found using entity:"
+                    + entity.getNameNm().toString());
+        }
     }
 
 }

@@ -15,6 +15,7 @@ import com.provys.common.datatypes.DtNameNm;
  * @author stehlik
  */
 public interface CatBuilderAttr extends ConfObject {
+    public CatBuilderEntity getEntity();
     public DtNameNm getNm();
     public String getSql(boolean useView);
     public boolean needsTable();

@@ -43,8 +43,8 @@ public class SqlSelectBuilderSimple extends SqlBuilderSimple
         CodeBuilder code = new CodeBuilderImpl();
         this.buildSql(code);
         SqlCallColumnsBuilder columnsBuilder = new SqlCallColumnsBuilder(
-                this.columns.size());
-        this.columns.forEach(columnsBuilder);
+                getColumns().size());
+        getColumns().forEach(columnsBuilder);
         sqlCall.setColumns(columnsBuilder.getColumns());
         sqlCall.setSql(code.getCode());
         sqlCall.setValues(code.getBindValues());
@@ -52,8 +52,8 @@ public class SqlSelectBuilderSimple extends SqlBuilderSimple
     }
 
     @Override
-    public SqlSelectBuilder addColumn(SqlColumn sqlColumn) {
-        this.columns.add(sqlColumn);
+    public SqlSelectBuilderSimple addColumn(SqlColumn sqlColumn) {
+        super.addColumn(sqlColumn);
         return this;
     }
 

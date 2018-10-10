@@ -15,7 +15,7 @@ import com.provys.sqlbuilder.iface.SqlQueryBuilder;
  * 
  * @author stehlik
  */
-public interface CatlBuilderFactory extends SqlBuilderFactory {
+public interface CatBuilderFactory extends SqlBuilderFactory {
 
     /**
      * Creates new SqlSelectBuilder based on specified entity.

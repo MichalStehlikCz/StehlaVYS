@@ -17,16 +17,16 @@ import com.provys.common.error.ProvysException;
 import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.iface.ExecutorFactory;
 import com.provys.provysdb.iface.MapQueryExecutor;
+import com.provys.sqlbuilder.catbuilder.CatBuilderFactory;
 import com.provys.sqlbuilder.catbuilder.CatSelectBuilder;
+import com.provys.sqlbuilder.catmanager.CatBuilderAttr;
+import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
+import com.provys.sqlbuilder.catmanager.CatBuilderManager;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
-import com.provys.sqlbuilder.catbuilder.CatlBuilderFactory;
-import com.provys.sqlbuilder.catmanager.CatBuilderAttr;
-import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
-import com.provys.sqlbuilder.catmanager.CatBuilderManager;
 
 /**
  * Loader implementation that uses ProvysDb as data source.
@@ -57,7 +57,7 @@ public class ConfObjectLoaderDB<T extends ConfObject>
      * Enables building of SELECT statement to retrieve data from database.
      */
     @Inject
-    protected CatlBuilderFactory sqlBuilderFactory;
+    protected CatBuilderFactory sqlBuilderFactory;
     
     final private Class<T> confObjectClass;
     private SqlCall idCall;

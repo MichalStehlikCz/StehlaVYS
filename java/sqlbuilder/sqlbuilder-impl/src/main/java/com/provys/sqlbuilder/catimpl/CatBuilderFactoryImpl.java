@@ -6,13 +6,13 @@
 package com.provys.sqlbuilder.catimpl;
 
 import com.provys.sqlbuilder.catbuilder.CatSelectBuilder;
-import com.provys.sqlbuilder.catbuilder.CatlBuilderFactory;
 import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
 import com.provys.sqlbuilder.iface.SqlFromElem;
 import com.provys.sqlbuilder.iface.SqlQueryBuilder;
 import com.provys.sqlbuilder.iface.SqlSelectBuilder;
 import com.provys.sqlbuilder.impl.QueryBuilderSimple;
 import com.provys.sqlbuilder.impl.SqlBuilderFactoryImpl;
+import com.provys.sqlbuilder.catbuilder.CatBuilderFactory;
 
 /**
  * Factory class for catalogue related SqlBuilder objects.
@@ -20,7 +20,7 @@ import com.provys.sqlbuilder.impl.SqlBuilderFactoryImpl;
  * @author stehlik
  */
 public class CatBuilderFactoryImpl
-        extends SqlBuilderFactoryImpl implements CatlBuilderFactory {
+        extends SqlBuilderFactoryImpl implements CatBuilderFactory {
     
     @Override
     public CatSelectBuilder getSelectBuilder(CatBuilderEntity entity) {

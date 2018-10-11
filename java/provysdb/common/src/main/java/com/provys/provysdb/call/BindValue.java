@@ -7,7 +7,6 @@ package com.provys.provysdb.call;
 
 import com.provys.common.datatypes.Dt;
 import com.provys.common.error.ProvysException;
-import java.io.Serializable;
 
 /**
  * BindValue is used to prepare parameters for CallableStatement.
@@ -16,19 +15,12 @@ import java.io.Serializable;
  * 
  * @author stehlik
  */
-public class BindValue implements Serializable {
+public class BindValue extends BindVariable {
 
     private static final long serialVersionUID = 1L;
 
-    private String name;
-    private String type;
     private Dt value = null;
 
-    /**
-     * Default constructor for BindValue
-     */
-    public BindValue() {};
-    
     /**
      * Constructor for BindValue with specification of all fields.
      * 

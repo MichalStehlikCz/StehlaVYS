@@ -149,7 +149,7 @@ public class DtBoolean extends Dt {
         if (secondObject == null) {
             return false;
         }
-        if (this.getClass().equals(secondObject.getClass())) {
+        if (secondObject instanceof DtBoolean) {
             return this.value == ((DtBoolean) secondObject).getValue();
         }
         return false;

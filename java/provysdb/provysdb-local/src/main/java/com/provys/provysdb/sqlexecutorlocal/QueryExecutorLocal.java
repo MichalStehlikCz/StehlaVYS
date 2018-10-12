@@ -5,7 +5,6 @@
  */
 package com.provys.provysdb.sqlexecutorlocal;
 
-import com.provys.common.datatypes.Dt;
 import com.provys.common.error.ProvysSqlException;
 import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SqlCall;

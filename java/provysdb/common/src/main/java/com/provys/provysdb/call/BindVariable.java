@@ -7,7 +7,6 @@ package com.provys.provysdb.call;
 
 import com.provys.common.datatypes.Dt;
 import com.provys.common.error.ProvysException;
-import java.io.Serializable;
 import javax.json.bind.annotation.JsonbCreator;
 import javax.json.bind.annotation.JsonbProperty;
 

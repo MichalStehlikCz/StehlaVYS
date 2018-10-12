@@ -7,10 +7,8 @@ package com.provys.provysdb.call;
 
 import com.provys.common.datatypes.Dt;
 import com.provys.common.error.ProvysException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,10 +22,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * 
  * @author stehlik
  */
-public class SqlCall implements Serializable {
+public class SqlCall {
 
-    private static final long serialVersionUID = 1L;
-    
     /**
      * sql field contains SQL statement that is to be executed; most often,
      * it is SELECT statement, even though UPDATEs and DELETEs are supported

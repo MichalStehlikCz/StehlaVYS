@@ -7,6 +7,7 @@ package com.provys.provysdb.call;
 
 import com.provys.common.datatypes.Dt;
 import com.provys.common.error.ProvysException;
+import java.util.Optional;
 
 /**
  * BindValue is used to prepare parameters for CallableStatement.
@@ -29,9 +30,9 @@ public class BindValue extends BindVariable {
      * @param value is value to be passed to bind variable
      */
     public BindValue(String name, Class<? extends Dt> typeClass, Dt value) {
-        this.name = name;
+        super(name, typeClass);
         this.value = value;
-        setType(typeClass);
+        checkType();
     }
 
     /**
@@ -42,9 +43,9 @@ public class BindValue extends BindVariable {
      * @param value is value to be passed to bind variable
      */
     public BindValue(String name, String type, Dt value) {
-        this.name = name;
+        super(name, type);
         this.value = value;
-        setType(type);
+        checkType();
     }
 
     /**
@@ -56,85 +57,16 @@ public class BindValue extends BindVariable {
      * @param value is value to be passed to bind variable
      */
     public BindValue(String name, Dt value) {
-        this.name = name;
+        super(name, value.getClass());
         this.value = value;
-        this.deriveTypeFromValue();
-    }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the type
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * @return type as Class
-     */
-    public Class<? extends Dt> getTypeClass() {
-        try {
-            return Class.forName("com.provys.common.datatypes"+type)
-                    .asSubclass(Dt.class);
-        } catch (ClassNotFoundException ex) {
-            throw new UnsupportedTypeException(type, ex);
-        }
-    }
-
-    /**
-     * Set type of bind to correspond to supplied class.
-     * @param type is class acceptable as value for given bind
-     */
-    @SuppressWarnings("FinalMethod")
-    public final void setType(Class<? extends Dt> type) {
-        this.type = type.getSimpleName();
         checkType();
     }
-    
-    /**
-     * Setter method for type.
-     * Method finds corresponding class and calls setType method with class
-     * parameter
-     * 
-     * @param type sets type field
-     */
-    @SuppressWarnings("FinalMethod")
-    public final void setType(String type) {
-        Class<? extends Dt> typeClass;
-        try {
-            typeClass = Class
-                    .forName("com.provys.common.datatypes"+type)
-                    .asSubclass(Dt.class);
-        } catch (ClassNotFoundException ex) {
-            throw new UnsupportedTypeException(type, ex);
-        }
-        setType(typeClass);
-    }
-    
+
     /**
      * @return the value
      */
     public Dt getValue() {
         return value;
-    }
-
-    private void deriveTypeFromValue() {
-        if (value != null) {
-            setType(value.getClass());
-        }
     }
 
     /**
@@ -146,18 +78,15 @@ public class BindValue extends BindVariable {
      */
     public void setValue(Dt value) {
         this.value = value;
-        if ((this.type == null) && (this.value != null)) {
-            deriveTypeFromValue();
-        } else {
-            checkType();
-        }
+        checkType();
     }
 
     /**
      * Check value against type and report mismatch.
      */
-    private void checkType() {
-        if ((type != null) & (value != null)) {
+    @SuppressWarnings("FinalPrivateMethod")
+    private final void checkType() {
+        if (value != null) {
             if (!getTypeClass().isInstance(value)) {
                 throw new IncompatibleValueAndTypeException(getTypeClass()
                         , value.getClass());
@@ -165,20 +94,6 @@ public class BindValue extends BindVariable {
         }
     }
 
-    /**
-     * Exception raised when type supplied to ColumnDef (as string) is not one
-     * of supported types
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class UnsupportedTypeException extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        UnsupportedTypeException(String type, Throwable cause) {
-            super("Unsupported type for column definition: "+type, cause);
-        }
-    }
-    
     /**
      * Exception raised when assigned value and type do not match.
      */

@@ -5,6 +5,8 @@
  */
 package com.provys.provysdb.call;
 
+import com.provys.common.datatypes.Dt;
+
 /**
  * BindParameter extends BindValue with specification of access mode.
  * Default access mode for bind parameters is IN
@@ -16,6 +18,18 @@ public class BindParameter extends BindValue {
     private static final long serialVersionUID = 1L;
     
     private ParameterMode mode = ParameterMode.IN;
+
+    public BindParameter(String name, Class<? extends Dt> typeClass, Dt value) {
+        super(name, typeClass, value);
+    }
+
+    public BindParameter(String name, String type, Dt value) {
+        super(name, type, value);
+    }
+
+    public BindParameter(String name, Dt value) {
+        super(name, value);
+    }
 
     /**
      * Plain getter got mode

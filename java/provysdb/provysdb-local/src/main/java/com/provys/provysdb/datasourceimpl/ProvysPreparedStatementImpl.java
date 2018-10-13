@@ -400,15 +400,6 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     }
 
     @Override
-    public void setDtRowId(int parameterIndex, DtRowId value) throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterIndex, Types.ROWID);
-        } else {
-            getStatement().setRowId(parameterIndex, value.getValue());
-        }
-    }
-
-    @Override
     public void setDtUid(int parameterIndex, DtUid value) throws SQLException {
         if (value == null) {
             getStatement().setNull(parameterIndex, Types.NUMERIC);

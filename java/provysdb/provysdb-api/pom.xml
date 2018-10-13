@@ -8,7 +8,7 @@
     </parent>
     <name>provysdb-api</name>
     <groupId>com.provys.provysdb</groupId>
-    <artifactId>api</artifactId>
+    <artifactId>provysdb-api</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
     <properties>
@@ -19,17 +19,17 @@
     <dependencies>
         <dependency>
             <groupId>com.provys.provysdb</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>provysdb-common</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.provys.common</groupId>
-            <artifactId>datatypes</artifactId>
+            <artifactId>provys-common</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.provys.provysdb</groupId>
-            <artifactId>local</artifactId>
+            <artifactId>provysdb-local</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>

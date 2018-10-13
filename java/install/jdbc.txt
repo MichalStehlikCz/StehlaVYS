@@ -1,0 +1,7 @@
+C:
+cd \Java\netbeans\java\maven\bin
+mvn install:install-file -Dfile=D:/OneDrive/Documents/Java/oracle_jdbc/odbc8/ojdbc8.jar -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=12.2.0 -Dpackaging=jar
+mvn install:install-file -Dfile=D:/OneDrive/Documents/Java/oracle_jdbc/odbc8/ucp.jar -DgroupId=com.oracle -DartifactId=ucp -Dversion=12.2.0 -Dpackaging=jar
+
+
+copy ojdbc8.jar and ucp.jar to C:\Java\payara5\glassfish\domains\domain1\lib\ext

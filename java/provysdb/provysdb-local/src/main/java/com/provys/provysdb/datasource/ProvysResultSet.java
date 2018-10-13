@@ -158,34 +158,6 @@ public interface ProvysResultSet extends ResultSet {
   
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtRowId</code> type
-     *
-     * @param columnIndex the first column is 1, the second is 2, ...
-     * @return <code>DtRowId</code> value corresponding to specified
-     * <code>ROWID</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
-     * @exception SQLException if the columnIndex is not valid, if a database
-     * access error occurs or this method is called on a closed result set
-     */
-    DtRowId getDtRowId(int columnIndex) throws SQLException;
-
-    /**
-     * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtRowId</code>
-     *
-     * @param columnLabel the label for the column specified with the SQL AS
-     * clause.  If the SQL AS clause was not specified, then the label is the
-     * name of the column
-     * @return <code>DtRowId</code> value corresponding to specified
-     * <code>ROWID</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
-     * @exception SQLException if the columnLabel is not valid, if a database
-     * access error occurs or this method is called on a closed result set
-     */
-    DtRowId getDtRowId(String columnLabel) throws SQLException;
-  
-    /**
-     * Retrieves the value of the designated column in the current row
      * of this <code>ResultSet</code> object as a <code>DtUid</code> type
      *
      * @param columnIndex the first column is 1, the second is 2, ...

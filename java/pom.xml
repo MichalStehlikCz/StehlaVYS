@@ -8,19 +8,16 @@
     <packaging>pom</packaging>
     <modules>
         <module>common</module>
-        <module>catalogue</module>
-        <module>TestREST</module>
         <module>provysdb</module>
         <module>sqlbuilder</module>
+        <module>catalogue</module>
+        <module>TestREST</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <integration.container.id>glassfish5x</integration.container.id>
-        <glassfish.home>C:/Java/glassfish5</glassfish.home>
-        <glassfish.domain.name>domain1</glassfish.domain.name>
-        <junit.version>4.11</junit.version>
-        <eclipselink.version>2.5.0</eclipselink.version>
-        <glassfish.embedded.version>5.0</glassfish.embedded.version>
+        <payara.home>C:/Java/payara5</payara.home>
+        <payara.domain.name>domain1</payara.domain.name>
         <maven.deploy.skip>true</maven.deploy.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
         <maven.source.skip>true</maven.source.skip>
@@ -90,13 +87,13 @@
                     <container>
                         <containerId>${integration.container.id}</containerId>
                         <type>installed</type>
-                        <home>${glassfish.home}</home>
+                        <home>${payara.home}</home>
                     </container>
                     <configuration>
                         <type>existing</type>
-                        <home>${glassfish.home}/glassfish/domains</home>
+                        <home>${payara.home}/glassfish/domains</home>
                         <properties>
-                            <cargo.glassfish.domain.name>${glassfish.domain.name}</cargo.glassfish.domain.name>
+                            <cargo.glassfish.domain.name>${payara.domain.name}</cargo.glassfish.domain.name>
                             <!--cargo.remote.username></cargo.remote.username-->
                             <cargo.remote.password/>
                         </properties>
@@ -137,12 +134,6 @@
     </build>
  
     <dependencies>
-        <dependency>
-            <groupId>org.eclipse</groupId>
-            <artifactId>yasson</artifactId>
-            <version>1.0.1</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>

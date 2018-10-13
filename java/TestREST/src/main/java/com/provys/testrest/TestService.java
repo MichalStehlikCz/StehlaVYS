@@ -20,17 +20,28 @@ public class TestService {
     @GET
     @Path("")
     @Produces({MediaType.APPLICATION_JSON})
-    public TestClass getHello() {
+    public TestClass getSimpleList() {
         TestClass data = new TestClass();
         data.add(1);
         data.add(2);
         return data;
     }
 
+    @GET
+    @Path("subtest")
+    @Produces({MediaType.APPLICATION_JSON})
+    public TestClass getSubList() {
+        TestClass data = new TestClass();
+        data.add(1);
+        data.add(2);
+        data.add(3);
+        return data;
+    }
+
     @POST
     @Path("")
     @Produces({MediaType.APPLICATION_JSON})
-    public TestClass useHello(TestClass data) {
+    public TestClass useSimpleList(TestClass data) {
         return data;
     }
 }

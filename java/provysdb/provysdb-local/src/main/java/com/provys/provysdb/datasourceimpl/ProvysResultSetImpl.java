@@ -145,26 +145,6 @@ public class ProvysResultSetImpl implements ProvysResultSet {
     }
 
     @Override
-    public DtRowId getDtRowId(int columnIndex) throws SQLException {
-        RowId value = resultSet.getRowId(columnIndex);
-        if (resultSet.wasNull()) {
-            return null;
-        } else {
-            return new DtRowId(value);
-        }
-    }
-
-    @Override
-    public DtRowId getDtRowId(String columnLabel) throws SQLException {
-        RowId value = resultSet.getRowId(columnLabel);
-        if (resultSet.wasNull()) {
-            return null;
-        } else {
-            return new DtRowId(value);
-        }
-    }
-
-    @Override
     public DtUid getDtUid(int columnIndex) throws SQLException {
         BigDecimal value = resultSet.getBigDecimal(columnIndex);
         if (resultSet.wasNull()) {

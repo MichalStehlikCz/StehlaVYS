@@ -11,10 +11,10 @@
     <artifactId>provysdb</artifactId>
     <packaging>pom</packaging>
   <modules>
-    <module>common</module>
+    <module>provysdb-common</module>
     <module>provysdb-local</module>
-    <module>provysdb-api</module>
     <module>provysdb-client</module>
-    <module>provydb-loader</module>
+    <module>provysdb-api</module>
+    <module>provysdb-loader</module>
   </modules>
 </project>

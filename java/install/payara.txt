@@ -1,0 +1,2 @@
+download payara server from https://www.payara.fish/ (currently used payara server 183 full)
+deploy to C:\Java\payara5

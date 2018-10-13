@@ -10,7 +10,6 @@ import com.provys.common.datatypes.DtInteger;
 import com.provys.common.datatypes.DtName;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtNumber;
-import com.provys.common.datatypes.DtRowId;
 import com.provys.common.datatypes.DtUid;
 import com.provys.common.datatypes.DtVarchar;
 import com.provys.common.error.ProvysException;
@@ -829,35 +828,6 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     }
 
     @Override
-    public void setDtRowId(String parameterName, DtRowId value) throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterName, Types.ROWID);
-        } else {
-            getStatement().setRowId(parameterName, value.getValue());
-        }
-    }
-
-    @Override
-    public DtRowId getDtRowId(int parameterIndex) throws SQLException {
-        RowId value = getStatement().getRowId(parameterIndex);
-        if (getStatement().wasNull()) {
-            return null;
-        } else {
-            return new DtRowId(value);
-        }
-    }
-
-    @Override
-    public DtRowId getDtRowId(String parameterName) throws SQLException {
-        RowId value = getStatement().getRowId(parameterName);
-        if (getStatement().wasNull()) {
-            return null;
-        } else {
-            return new DtRowId(value);
-        }
-    }
-
-    @Override
     public void setDtUid(String parameterName, DtUid value) throws SQLException {
         if (value == null) {
             getStatement().setNull(parameterName, Types.NUMERIC);
@@ -937,9 +907,6 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
                 break;
             case "DtUid":
                 setDtUid(bind.getName(), (DtUid) bind.getValue());
-                break;
-            case "DtRowId":
-                setDtRowId(bind.getName(), (DtRowId) bind.getValue());
                 break;
             case "DtVarchar":
                 setDtVarchar(bind.getName(), (DtVarchar) bind.getValue());
@@ -1111,8 +1078,6 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
                 return getDtNumber(parameter.getName());
             case "DtUid":
                 return getDtUid(parameter.getName());
-            case "DtRowId":
-                return getDtRowId(parameter.getName());
             case "DtVarchar":
                 return getDtVarchar(parameter.getName());
             case "Boolean":

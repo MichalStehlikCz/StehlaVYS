@@ -70,10 +70,6 @@ public class MapQueryExecutorLocal extends QueryExecutorLocal
                         row.put(columnDef.getName(),
                                 resultSet.getDtNumber(index));
                         break;
-                    case "DtRowId":
-                        row.put(columnDef.getName(),
-                                resultSet.getDtRowId(index));
-                        break;
                     case "DtUid":
                         row.put(columnDef.getName(),
                                 resultSet.getDtUid(index));

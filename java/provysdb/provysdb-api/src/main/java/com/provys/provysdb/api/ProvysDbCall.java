@@ -13,7 +13,7 @@ import com.provys.provysdb.iface.JsonQueryExecutor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
@@ -32,14 +32,14 @@ import javax.ws.rs.core.MediaType;
  * @author stehlik
  */
 @Path("")
-@RequestScoped()
+@Stateless()
 public class ProvysDbCall {
 
     @Inject
     private ExecutorFactory executorFactory;
     
     @POST
-    @Path("/query")
+    @Path("query")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public List<JsonObject> queryCall(SqlCall sqlCall) {
@@ -47,7 +47,7 @@ public class ProvysDbCall {
     }
 
     @POST
-    @Path("/parseAndQuery")
+    @Path("parseAndQuery")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Map<String, Object> parseAndQueryCall(SqlCall sqlCall) {
@@ -61,7 +61,7 @@ public class ProvysDbCall {
     }
 
     @GET
-    @Path("/test")
+    @Path("test")
     @Produces({MediaType.APPLICATION_JSON})
     public ColumnDef testSerialisation() {
 /**        SQLCall result = new SQLCall();
@@ -73,7 +73,7 @@ public class ProvysDbCall {
     }
 
     @POST
-    @Path("/test")
+    @Path("test")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public SqlCall testDeserialization(SqlCall value) {

@@ -17,18 +17,16 @@ public class BindParameter extends BindValue {
     
     private static final long serialVersionUID = 1L;
     
-    private ParameterMode mode = ParameterMode.IN;
-
-    public BindParameter(String name, Class<? extends Dt> typeClass, Dt value) {
-        super(name, typeClass, value);
-    }
-
-    public BindParameter(String name, String type, Dt value) {
-        super(name, type, value);
-    }
+    private final ParameterMode mode;
 
     public BindParameter(String name, Dt value) {
         super(name, value);
+        this.mode = ParameterMode.IN;
+    }
+
+    public BindParameter(String name, Dt value, ParameterMode mode) {
+        super(name, value);
+        this.mode = mode;
     }
 
     /**
@@ -39,12 +37,4 @@ public class BindParameter extends BindValue {
         return mode;
     }
 
-    /**
-     * Plain setter for mode
-     * @param mode the mode to set
-     */
-    public void setMode(ParameterMode mode) {
-        this.mode = mode;
-    }
-    
 }

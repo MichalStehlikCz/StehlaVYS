@@ -7,7 +7,7 @@ package com.provys.provysdb.call;
 
 import com.provys.common.datatypes.Dt;
 import com.provys.common.error.ProvysException;
-import java.util.Optional;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  * BindValue is used to prepare parameters for CallableStatement.
@@ -16,6 +16,7 @@ import java.util.Optional;
  * 
  * @author stehlik
  */
+@JsonbTypeAdapter(JsonbBindValueAdapter.class)
 public class BindValue extends BindVariable {
 
     private static final long serialVersionUID = 1L;

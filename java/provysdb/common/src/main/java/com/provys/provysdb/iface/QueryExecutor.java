@@ -32,8 +32,8 @@ public interface QueryExecutor {
      * @param name name of the bind to be set
      * @param value to be set
      */
-    default public void setValue(String name, Dt value) {
-        getSqlCall().setValue(name, value);
+    default public void modifyValue(String name, Dt value) {
+        getSqlCall().modifyValue(name, value);
     }
 
     /**
@@ -42,8 +42,8 @@ public interface QueryExecutor {
      * @param name name of the bind to be set
      * @param value to be set
      */
-    default public void setValueIfExists(String name, Dt value) {
-        getSqlCall().setValueIfExists(name, value);
+    default public void modifyValueIfExists(String name, Dt value) {
+        getSqlCall().modifyValueIfExists(name, value);
     }
 
     /**

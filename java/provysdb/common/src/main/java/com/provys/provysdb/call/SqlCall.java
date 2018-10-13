@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 
 /**
  * SqlCall is used for passing of SQL (mostly SELECT) statement for execution.
@@ -30,11 +32,10 @@ public class SqlCall {
      * as well
      */
     private String sql;
-    
-    /**
-     * Values field contains list of bind values to be passed to statement
-     */
-    private final Map<String, BindValue> values = new ConcurrentHashMap<>(1);
+    private final List<BindValue> values = new ArrayList<>(1);
+    private final Map<String, BindValue> valuesByName
+            = new ConcurrentHashMap<>(1);
+
     /**
      * columns field is list of column definitions that will be used to declare
      * expected columns of resulting set
@@ -59,7 +60,7 @@ public class SqlCall {
      * @return the values
      */
     public List<BindValue> getValues() {
-        return new ArrayList<>(values.values());
+        return Collections.unmodifiableList(values);
     }
 
     /**
@@ -67,26 +68,31 @@ public class SqlCall {
      */
     public void setValues(List<BindValue> values) {
         this.values.clear();
-        values.forEach((value) -> {this.values.put(value.getName(), value);});
+        this.valuesByName.clear();
+        values.forEach((value) -> {addValue(value);});
     }
 
     /**
      * @param value is BindValue to be added to given statement
      */
-    public void addValue(BindValue value) {
-        values.put(value.getName(), value);
+    public synchronized void addValue(BindValue value) {
+        if (this.valuesByName.containsKey(value.getName())) {
+            throw new BindValueAlreadyExistsException(value.getName());
+        }
+        values.add(value);
+        valuesByName.put(value.getName(), value);
     }
 
     /**
      * Set value of specified bind.
-     * Note that this does not replace addBind - bind already have to exist for
+     * Note that this does not replace addValue - bind already have to exist for
      * setValue to be successful.
      * 
      * @param name is name of the bind to be set
      * @param value is desired value
      */
-    public void setValue(String name, Dt value) {
-        BindValue bindValue = values.get(name);
+    public void modifyValue(String name, Dt value) {
+        BindValue bindValue = valuesByName.get(name);
         if (bindValue == null) {
             throw new BindValueDoesNotExistException(name);
         }
@@ -99,8 +105,8 @@ public class SqlCall {
      * @param name is name of the bind to be set
      * @param value is desired value
      */
-    public void setValueIfExists(String name, Dt value) {
-        BindValue bindValue = values.get(name);
+    public void modifyValueIfExists(String name, Dt value) {
+        BindValue bindValue = valuesByName.get(name);
         if (bindValue != null) {
             bindValue.setValue(value);
         }
@@ -140,6 +146,21 @@ public class SqlCall {
         columns.put(columnIndex, def);
     }
     
+    /**
+     * Exception raised when trying to add bind and bind with same name already
+     * exists
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class BindValueAlreadyExistsException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        BindValueAlreadyExistsException(String name) {
+            super("Bind value already exists: " + name);
+        }
+    }
+
     /**
      * Exception raised when trying to set value of bind variable that does not
      * exist

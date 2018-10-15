@@ -75,10 +75,7 @@ abstract public class QueryExecutorLocal implements QueryExecutor {
                 ResultSetMetaData metadata = resultSet.getMetaData();
                 int columnCount = metadata.getColumnCount();
                 for (int i = 1; i<= columnCount; i++) {
-                    ColumnDef column = new ColumnDef();
-                    column.setName(metadata.getColumnName(i));
-                    column.setType(metadata.getColumnType(i));
-                    column.setSize(metadata.getPrecision(i));
+                    ColumnDef column = new ColumnDef(metadata.getColumnName(i), metadata.getColumnType(i), metadata.getPrecision(i));
                     getSqlCall().addColumn(i, column);
                 }
             }

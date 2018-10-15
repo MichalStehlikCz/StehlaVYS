@@ -6,6 +6,9 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
+import java.sql.Types;
+import java.util.List;
+import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
@@ -97,6 +100,34 @@ public class DtBoolean extends Dt {
         throw new InvalidString(value);
     }
 
+    /**
+     * Returns type that is used to represent values of DtBoolean in SQL - CHAR.
+     * 
+     * @return code for CHAR SQL type
+     */
+    public static int getSqlType() {
+        return Types.CHAR;
+    }
+
+    /**
+     * Returns size of column of this type - 1.
+     * 
+     * @return 1
+     */
+    public static int getSqlSize() {
+        return 1;
+    }
+
+    /**
+     * Returns array of SQL types this type is default representation of.
+     * Such list is empty for DtBoolean class.
+     * 
+     * @return empty
+     */
+    public Optional<List<Integer>> getDefaultForSqlTypes() {
+        return Optional.empty();
+    }
+    
     private final boolean value;
 
     /**

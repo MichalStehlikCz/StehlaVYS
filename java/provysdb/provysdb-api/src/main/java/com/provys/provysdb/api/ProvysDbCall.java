@@ -5,7 +5,7 @@
  */
 package com.provys.provysdb.api;
 
-import com.provys.common.datatypes.DtUid;
+import com.provys.common.datatypes.DtInteger;
 import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.iface.ExecutorFactory;
@@ -68,7 +68,7 @@ public class ProvysDbCall {
         result.setSql("SELECT 1 from dual");
         result.addValue(new BindValue("domain_id", new DtNameNm("ABC")));
         result.addColumn(1, new ColumnDef(DtUid.class));*/
-        ColumnDef result = new ColumnDef(DtUid.class);
+        ColumnDef result = new ColumnDef("test", DtInteger.class);
         return result;
     }
 

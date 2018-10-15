@@ -7,7 +7,7 @@ package com.provys.provysdb.call;
 
 import com.provys.common.datatypes.*;
 import com.provys.common.error.ProvysException;
-import java.sql.Types;
+import java.util.Optional;
 import javax.json.bind.annotation.JsonbCreator;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
@@ -23,43 +23,29 @@ public class ColumnDef {
 
 
     private static String validateType(String type) {
-        Class<? extends Dt> typeClass;
+        String name;
         try {
-            typeClass = Class
-                    .forName("com.provys.common.datatypes."+type)
-                    .asSubclass(Dt.class);
-        } catch (ClassNotFoundException ex) {
+            name = DtRepository.getName(type);
+        } catch (DtRepository.UnknownDtTypeException ex) {
             throw new UnsupportedTypeException(type, ex);
         }
-        return typeClass.getSimpleName();
+        return type;
+    }
+
+    private static String validateType(int sqlType) {
+        String name;
+        try {
+            name = DtRepository.getDtBySqlType(sqlType);
+        } catch (DtRepository.SqlTypeNotMappedException ex) {
+            throw new UnsupportedSqlTypeException(sqlType, ex);
+        }
+        return name;
     }
 
     private static int validateSize(String type, int size) {
         int defSize = size;
-        switch (type) {
-            case "DtBoolean":
-                defSize = 1;
-                break;
-            case "DtInteger":
-                defSize = -1;
-                break;
-            case "DtName":
-            case "DtNameNm":
-                if (defSize == -1) {
-                    defSize = 200;
-                }
-                break;
-            case "DtNumber":
-            case "DtUid":
-                defSize = -1;
-                break;
-            case "DtVarchar":
-                if (defSize == -1) {
-                    defSize = 4000;
-                }
-                break;
-            default:
-                throw new UnsupportedColumnDatatypeException(type);
+        if (defSize == -1) {
+            defSize = DtRepository.getSqlSize(type);
         }
         return defSize;
     }
@@ -67,6 +53,7 @@ public class ColumnDef {
     private static int validateSize(String type) {
         return validateSize(type, -1);
     }
+
     private final String name;
     private final String type;
     private final int size;
@@ -100,36 +87,13 @@ public class ColumnDef {
     }
 
     /**
-     * Create column definition based on type.
-     * 
-     * @param type
-     */
-    public ColumnDef(String type) {
-        this.name = null;
-        this.type = validateType(type);
-        this.size = validateSize(this.type);
-    }
-    
-    /**
-     * Create column definition based on type and column size.
-     * 
-     * @param type
-     * @param size
-     */
-    public ColumnDef(String type, int size) {
-        this.name = null;
-        this.type = validateType(type);
-        this.size = validateSize(this.type, size);
-    }
-
-    /**
      * Create column definition based on name and class.
      * @param name
      * @param typeClass
      */
     public ColumnDef(String name, Class<? extends Dt> typeClass) {
         this.name = name;
-        this.type = typeClass.getSimpleName();
+        this.type = validateType(typeClass.getSimpleName());
         this.size = validateSize(this.type);
     }
     
@@ -142,31 +106,42 @@ public class ColumnDef {
      */
     public ColumnDef(String name, Class<? extends Dt> typeClass, int size) {
         this.name = name;
-        this.type = typeClass.getSimpleName();
+        this.type = validateType(typeClass.getSimpleName());
         this.size = validateSize(this.type, size);
     }
 
     /**
-     * Create column definition based on class.
+     * Create column definition based on name, SQL type and column size.
      * 
-     * @param typeClass
-     */
-    public ColumnDef(Class<? extends Dt> typeClass) {
-        this.name = null;
-        this.type = typeClass.getSimpleName();
-        this.size = validateSize(this.type);
-    }
-    
-    /**
-     * Create column definition based on class and column size.
-     * 
-     * @param typeClass
+     * @param name
+     * @param sqlType is SQL type code (java.sql.Types) of SQL type for which
+     * column should be created
      * @param size
      */
-    public ColumnDef(Class<? extends Dt> typeClass, int size) {
-        this.name = null;
-        this.type = typeClass.getSimpleName();
+    public ColumnDef(String name, int sqlType, int size) {
+        this.name = name;
+        this.type = validateType(sqlType);
         this.size = validateSize(this.type, size);
+    }
+
+    /**
+     * Create column definition based on name and SQL type.
+     * 
+     * @param name
+     * @param sqlType is SQL type code (java.sql.Types) of SQL type for which
+     * column should be created
+     */
+    public ColumnDef(String name, int sqlType) {
+        this.name = name;
+        this.type = validateType(sqlType);
+        this.size = validateSize(this.type);
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
     }
 
     /**
@@ -181,15 +156,7 @@ public class ColumnDef {
      */
     @JsonbTransient
     public Class<? extends Dt> getTypeClass() {
-        Class<? extends Dt> typeClass;
-        try {
-            typeClass = Class
-                    .forName("com.provys.common.datatypes." + type)
-                    .asSubclass(Dt.class);
-        } catch (ClassNotFoundException ex) {
-            throw new UnsupportedTypeException(type, ex);
-        }
-        return typeClass;
+        return DtRepository.getClass(type);
     }
 
     /**
@@ -200,79 +167,15 @@ public class ColumnDef {
     }
 
     /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
      * Return SQL Type (java.sql.Types) correspnding to column type.
      * 
      * @return SQL type constant corresponding to actual type
      */
     @JsonbTransient
     public int getSqlType() {
-        switch (type) {
-            case "DtBoolean":
-                return Types.CHAR;
-            case "DtInteger":
-                return Types.INTEGER;
-            case "DtName":
-            case "DtNameNm":
-                return  Types.VARCHAR;
-            case "DtNumber":
-                return Types.DECIMAL;
-            case "DtRowId":
-                return Types.ROWID;
-            case "DtUid":
-                return Types.DECIMAL;
-            case "DtVarchar":
-                return Types.VARCHAR;
-            case "Boolean":
-                return Types.BOOLEAN;
-            case "Byte":
-                return Types.INTEGER;
-            case "Short":
-                return Types.INTEGER;
-            case "Integer":
-                return Types.INTEGER;
-            case "Long":
-                return Types.BIGINT;
-            case "Float":
-                return Types.FLOAT;
-            case "Double":
-                return Types.DOUBLE;
-            case "BigDecimal":
-                return Types.DECIMAL;
-            case "String":
-                return Types.VARCHAR;
-            case "Date":
-                return Types.DATE;
-            case "Time":
-                return Types.TIME;
-            case "Timestamp":
-                return Types.TIMESTAMP;
-            default:
-                throw new UnsupportedColumnDatatypeException(this.type);
-        }
+        return DtRepository.getSqlType(this.type);
     }
     
-    /**
-     * Exception raised when value supplied to ColumnDef is not one of supported
-     * types
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class UnsupportedColumnDatatypeException
-            extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        UnsupportedColumnDatatypeException(String type) {
-            super("Unsupported class for column definition: "+type);
-        }
-    }
-
     /**
      * Exception raised when SQL type supplied to ColumnDef is not one of
      * supported types
@@ -283,9 +186,9 @@ public class ColumnDef {
 
         private static final long serialVersionUID = 1L;
 
-        UnsupportedSqlTypeException(int sqlType) {
+        UnsupportedSqlTypeException(int sqlType, Throwable cause) {
             super("Unsupported SQL type code for column definition: "
-                    +sqlType);
+                    + sqlType, cause);
         }
     }
 
@@ -300,7 +203,7 @@ public class ColumnDef {
         private static final long serialVersionUID = 1L;
 
         UnsupportedTypeException(String type, Throwable cause) {
-            super("Unsupported type for column definition: "+type, cause);
+            super("Unsupported type for column definition: " + type, cause);
         }
     }
 

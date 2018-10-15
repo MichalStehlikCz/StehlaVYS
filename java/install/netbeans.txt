@@ -1,6 +1,8 @@
-jdk 11 needeed to run netbeans downloaded from http://jdk.java.net/java-se-ri/9
-deploy, set JAVA_HOME + JRE_HOME
+jdk 11 needeed to run netbeans downloaded from http://jdk.java.net/11
+copy to appropriate directory, set JAVA_HOME + JRE_HOME
 netbeans development environment downloaded from https://netbeans.apache.org/
+
+install nbjavac plugin
 
 to enable support for Jakarta EE
 - Tools > Plugins

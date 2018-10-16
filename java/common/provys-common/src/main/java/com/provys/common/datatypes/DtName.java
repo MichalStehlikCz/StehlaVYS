@@ -6,6 +6,8 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
+import java.sql.Types;
+import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
@@ -18,8 +20,17 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 @JsonbTypeAdapter(JsonbDtNameAdapter.class)
 public class DtName extends DtString {
 
+    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     static final long serialVersionUID = 2L;
 
+    /**
+     * Register DtName type to Dt types repository.
+     */
+    static void register() {
+        DtRepository.registerDtType(DtName.class, Types.VARCHAR
+                , Optional.of(200));
+    }
+    
     /**
      * Creates DtName from supplied value. Verifies, that supplied value is
      * non-empty string not longer than 200 characters

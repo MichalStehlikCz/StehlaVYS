@@ -101,31 +101,11 @@ public class DtBoolean extends Dt {
     }
 
     /**
-     * Returns type that is used to represent values of DtBoolean in SQL - CHAR.
-     * 
-     * @return code for CHAR SQL type
+     * Register DtBoolean type to Dt types repository.
      */
-    public static int getSqlType() {
-        return Types.CHAR;
-    }
-
-    /**
-     * Returns size of column of this type - 1.
-     * 
-     * @return 1
-     */
-    public static int getSqlSize() {
-        return 1;
-    }
-
-    /**
-     * Returns array of SQL types this type is default representation of.
-     * Such list is empty for DtBoolean class.
-     * 
-     * @return empty
-     */
-    public Optional<List<Integer>> getDefaultForSqlTypes() {
-        return Optional.empty();
+    static void register() {
+        DtRepository.registerDtType(DtBoolean.class, Types.CHAR, Optional.of(1)
+                , Optional.of(1));
     }
     
     private final boolean value;

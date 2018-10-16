@@ -8,6 +8,7 @@ package com.provys.provysdb.sqlexecutorlocal;
 import com.provys.common.datatypes.Dt;
 import com.provys.common.error.ProvysException;
 import com.provys.common.error.ProvysSqlException;
+import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.datasource.ProvysResultSet;
 import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
@@ -28,10 +29,6 @@ public class MapQueryExecutorLocal extends QueryExecutorLocal
 
     private List<Map<String, Dt>> data;
 
-    public MapQueryExecutorLocal(ProvysConnectionPoolDataSource dataSource) {
-        super(dataSource);
-    }
-
     public MapQueryExecutorLocal(ProvysConnectionPoolDataSource dataSource,
             SqlCall sqlCall) {
         super(dataSource, sqlCall);
@@ -45,47 +42,48 @@ public class MapQueryExecutorLocal extends QueryExecutorLocal
     @Override
     protected void addRow(ProvysResultSet resultSet) {
         Map<String, Dt> row = new ConcurrentHashMap<>(
-                getSqlCall().getColumns().size()*2);
-        getSqlCall().getColumns().forEach((index, columnDef) -> 
-        {
+                getColumns().size());
+        for (int index = 1; index <= getColumns().size(); index++) {
+            // Array indexed from 0, SQL columns from 1
+            ColumnDef column = getColumns().get(index-1);
             try {
-                switch (columnDef.getType()) {
+                switch (column.getType()) {
                     case "DtBoolean":
-                        row.put(columnDef.getName(),
+                        row.put(column.getName(),
                                 resultSet.getDtBoolean(index));
                         break;
                     case "DtInteger":
-                        row.put(columnDef.getName(),
+                        row.put(column.getName(),
                                 resultSet.getDtInteger(index));
                         break;
                     case "DtName":
-                        row.put(columnDef.getName(),
+                        row.put(column.getName(),
                                 resultSet.getDtName(index));
                         break;
                     case "DtNameNm":
-                        row.put(columnDef.getName(),
+                        row.put(column.getName(),
                                 resultSet.getDtNameNm(index));
                         break;
                     case "DtNumber":
-                        row.put(columnDef.getName(),
+                        row.put(column.getName(),
                                 resultSet.getDtNumber(index));
                         break;
                     case "DtUid":
-                        row.put(columnDef.getName(),
+                        row.put(column.getName(),
                                 resultSet.getDtUid(index));
                         break;
                     case "DtVarchar":
-                        row.put(columnDef.getName(),
+                        row.put(column.getName(),
                                 resultSet.getDtVarchar(index));
                         break;
                     default:
                         throw new UnsupportedColumnDatatypeException(
-                                columnDef.getType());
+                                column.getType());
                 }
             } catch (SQLException e) {
                 throw new ProvysSqlException(e);
             }
-        });
+        }
         data.add(row);
     }
     

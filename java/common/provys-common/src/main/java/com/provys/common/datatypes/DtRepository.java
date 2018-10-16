@@ -6,98 +6,98 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- * Registers all Dt classes and allows lookups by simple name, Provys domain or
- * SQL Type.
- * All classes implementing Dt interface should be registered here. ClassGraph
- * or similar library can be used in future, but at the time, it is not deemed
- * necessary as static mapping is just fine.
- * 
- * @author stehlik
- */
+
 public class DtRepository {
-    static Map<String, String> nameBySimpleName;
-    static Map<String, Integer> sqlTypeBySimpleName;
-    static Map<String, Integer> sqlSizeBySimpleName;
-    static Map<Integer, String> simpleNameBySqlType;
+    private final static Map<String, String> nameBySimpleName = new HashMap<>(10);
+    private final static Map<String, Integer> sqlTypeBySimpleName = new HashMap<>(10);
+    private final static Map<String, Optional<Integer>> sqlDefaultSizeBySimpleName
+            = new HashMap<>(10);
+    private final static Map<String, Optional<Integer>> sqlSizeBySimpleName
+            = new HashMap<>(10);
+    private final static Map<Integer, String> simpleNameBySqlType = new HashMap<>(10);
+    private static boolean initialized = false;
 
-    private static void addSqlType(Class<? extends Dt> dtClass) {
-        final Method getSqlType;
-        try {
-            getSqlType = dtClass.getMethod("getSqlType");
-        } catch (NoSuchMethodException | SecurityException ex) {
-            throw new GetSqlTypeNotFoundException(dtClass, ex);
-        }
-        try {
-            sqlTypeBySimpleName.put(dtClass.getSimpleName()
-                    , (Integer) getSqlType.invoke(null));
-        } catch (IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException ex) {
-            throw new GetSqlTypeInvocationFailedException(dtClass, ex);
-        }
-    }
-
-    private static void addSqlSize(Class<? extends Dt> dtClass) {
-        Method getSqlSize;
-        try {
-            getSqlSize = dtClass.getMethod("getSqlSize");
-        } catch (NoSuchMethodException ex) {
-            getSqlSize = null;
-        }
-        if (getSqlSize != null) {
-            try {
-                sqlTypeBySimpleName.put(dtClass.getSimpleName(),
-                         (Integer) getSqlSize.invoke(null));
-            } catch (IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException ex) {
-                throw new GetSqlSizeInvocationFailedException(dtClass, ex);
-            }
-        } else {
-            sqlSizeBySimpleName.put(dtClass.getSimpleName(), -1);
-        }
-    }
-
-    private static void addForSqlType(Class<? extends Dt> dtClass) {
-        Method getDefaultForSqlTypes;
-        try {
-            getDefaultForSqlTypes = dtClass.getMethod("getDefaultForSqlTypes");
-        } catch (NoSuchMethodException ex) {
-            getDefaultForSqlTypes = null;
-        }
-        if (getDefaultForSqlTypes != null) {
-            try {
-                Optional<List<Integer>> defaultFor = (Optional<List<Integer>>)
-                        getDefaultForSqlTypes.invoke(null);
-                if (defaultFor.isPresent()) {
-                    defaultFor.get().forEach((sqlType) -> {
-                        if (simpleNameBySqlType.containsKey(sqlType)) {
-                            throw new DuplicateDtDefaultTypeException(dtClass
-                                    , sqlType);
-                        }
-                        simpleNameBySqlType.put(sqlType, dtClass.getSimpleName());
-                    });
+    /**
+     * Register Dt descendant in repository.
+     * 
+     * @param dtClass Dt impleemntor class to be registered
+     * @param sqlType is java.sql.Types type values of this type are converted
+     * to
+     * @param defaultSize is default size for items of this type
+     * @param size is size for items of this type (when size is fixed)
+     * @param defForSqlType is list of sql types that can be converted to value
+     * of this type
+     */
+    public static void registerDtType(Class<? extends Dt> dtClass, int sqlType
+            , Optional<Integer> defaultSize, Optional<Integer> size
+            , List<Integer> defForSqlType) {
+        nameBySimpleName.put(dtClass.getSimpleName()
+                , dtClass.getCanonicalName());
+        sqlTypeBySimpleName.put(dtClass.getSimpleName(), sqlType);
+        sqlDefaultSizeBySimpleName.put(dtClass.getSimpleName(), defaultSize);
+        sqlSizeBySimpleName.put(dtClass.getSimpleName(), size);
+        defForSqlType.forEach((defaultForSqlType) -> {
+            String oldMapping = simpleNameBySqlType.put(defaultForSqlType
+                    , dtClass.getSimpleName());
+            if (oldMapping != null) {
+                if (!oldMapping.equals(dtClass.getSimpleName())) {
+                    throw new DuplicateDtDefaultTypeException(dtClass
+                        , defaultForSqlType);
                 }
-            } catch (IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException ex) {
-                throw new GetDefaultForSqlTypesInvocationFailedException(dtClass, ex);
             }
-        }
+        });
     }
-
-    private static void addClass(Class<? extends Dt> dtClass) {
-        nameBySimpleName.put(dtClass.getSimpleName(), dtClass.getName());
-        addSqlType(dtClass);
-        addSqlSize(dtClass);
-        addForSqlType(dtClass);
+    
+    /**
+     * Register Dt descendant in repository.
+     * 
+     * @param dtClass Dt impleemntor class to be registered
+     * @param sqlType is java.sql.Types type values of this type are converted
+     * to
+     * @param defaultSize is default size for items of this type
+     * @param defForSqlType is list of sql types that can be converted to value
+     * of this type
+     */
+    public static void registerDtType(Class<? extends Dt> dtClass, int sqlType
+            , Optional<Integer> defaultSize
+            , List<Integer> defForSqlType) {
+        registerDtType(dtClass, sqlType, defaultSize, Optional.empty()
+                , defForSqlType);
+    }
+    
+    /**
+     * Register Dt descendant in repository.Variant with no default SQL types
+     * 
+     * @param dtClass Dt implementor class to be registered
+     * @param sqlType is java.sql.Types type values of this type are converted
+     * to
+     * @param defSize is default size for items of this type
+     * @param size is size for items of this type (when size is fixed)
+     */
+    public static void registerDtType(Class<? extends Dt> dtClass, int sqlType
+            , Optional<Integer> defSize, Optional<Integer> size) {
+        registerDtType(dtClass, sqlType, defSize, size
+                , new ArrayList<>(1));
+    }
+    
+    /**
+     * Register Dt descendant in repository. Variant with no default SQL types
+     * 
+     * @param dtClass Dt impleemntor class to be registered
+     * @param sqlType is java.sql.Types type values of this type are converted
+     * to
+     * @param defSize is default size for items of this type
+     */
+    public static void registerDtType(Class<? extends Dt> dtClass, int sqlType
+            , Optional<Integer> defSize) {
+        registerDtType(dtClass, sqlType, defSize, Optional.empty()
+                , new ArrayList<>(1));
     }
     
     /**
@@ -107,6 +107,9 @@ public class DtRepository {
      * @return full name of java class
      */
     public static String getName(String simpleName) {
+        if (!initialized) {
+            initialize();
+        }
         final String name = nameBySimpleName.get(simpleName);
         if (name == null) {
             throw new UnknownDtTypeException(simpleName);
@@ -121,6 +124,9 @@ public class DtRepository {
      * @return java class, implementing Dt
      */
     public static Class<? extends Dt> getClass(String simpleName) {
+        if (!initialized) {
+            initialize();
+        }
         final String name = nameBySimpleName.get(simpleName);
         if (name == null) {
             throw new UnknownDtTypeException(simpleName);
@@ -140,6 +146,9 @@ public class DtRepository {
      * @return code of sql type used to communicate values of this type to DB
      */
     public static int getSqlType(String simpleName) {
+        if (!initialized) {
+            initialize();
+        }
         final Integer sqlType = sqlTypeBySimpleName.get(simpleName);
         if (sqlType == null) {
             throw new UnknownDtTypeException(simpleName);
@@ -148,14 +157,35 @@ public class DtRepository {
     }
 
     /**
-     * Retrieve size that should be defined for SQL column.
+     * Retrieve default size that should be defined for SQL column.
      * Size is number of characters
      * 
      * @param simpleName is simple name of class (Dt implementation)
-     * @return number of characters, -1 if not defined
+     * @return number of characters
      */
-    public static int getSqlSize(String simpleName) {
-        final Integer sqlSize = sqlSizeBySimpleName.get(simpleName);
+    public static Optional<Integer> getDefaultSqlSize(String simpleName) {
+        if (!initialized) {
+            initialize();
+        }
+        final Optional<Integer> sqlSize = sqlSizeBySimpleName.get(simpleName);
+        if (sqlSize == null) {
+            throw new UnknownDtTypeException(simpleName);
+        }
+        return sqlSize;
+    }
+
+    /**
+     * Retrieve fixed size that should be defined for SQL column.
+     * Size is number of characters
+     * 
+     * @param simpleName is simple name of class (Dt implementation)
+     * @return number of characters
+     */
+    public static Optional<Integer> getSqlSize(String simpleName) {
+        if (!initialized) {
+            initialize();
+        }
+        final Optional<Integer> sqlSize = sqlSizeBySimpleName.get(simpleName);
         if (sqlSize == null) {
             throw new UnknownDtTypeException(simpleName);
         }
@@ -170,6 +200,9 @@ public class DtRepository {
      * @return simple name of DT class that should handle given type by default
      */
     public static String getDtBySqlType(int sqlType) {
+        if (!initialized) {
+            initialize();
+        }
         final String simpleName = simpleNameBySqlType.get(sqlType);
         if (simpleName == null) {
             throw new SqlTypeNotMappedException(sqlType);
@@ -177,80 +210,15 @@ public class DtRepository {
         return simpleName;
     }
 
-    static {
-        nameBySimpleName = new HashMap<>(10);
-        sqlTypeBySimpleName = new HashMap<>(10);
-        sqlSizeBySimpleName = new HashMap<>(10);
-        simpleNameBySqlType = new HashMap<>(10);
-        addClass(DtBoolean.class);
-    }
-
-    /**
-     * Exception raised when method getSqlType is not found in one of Dt
-     * implementation classes.
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class GetSqlTypeNotFoundException
-            extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        GetSqlTypeNotFoundException(Class<? extends Dt> dtClass
-                , Throwable cause) {
-            super("Method getSqlType not found in class "+dtClass.getName()
-                    , cause);
-        }
-    }
-
-    /**
-     * Exception raised when invocation of method getSqlType or retype of result
-     * to Integer fails.
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class GetSqlTypeInvocationFailedException
-            extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        GetSqlTypeInvocationFailedException(Class<? extends Dt> dtClass
-                , Throwable cause) {
-            super("Method getSqlType invocation failed for class "
-                    +dtClass.getName(), cause);
-        }
-    }
-
-    /**
-     * Exception raised when invocation of method getSqlSize or retype of result
-     * to Integer fails.
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class GetSqlSizeInvocationFailedException
-            extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        GetSqlSizeInvocationFailedException(Class<? extends Dt> dtClass
-                , Throwable cause) {
-            super("Method getSqlSize invocation failed for class "
-                    +dtClass.getName(), cause);
-        }
-    }
-
-    /**
-     * Exception raised when invocation of method getDefaultForSqlTypes or
-     * retype of result to Optional(List(Integer)) fails.
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class GetDefaultForSqlTypesInvocationFailedException
-            extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        GetDefaultForSqlTypesInvocationFailedException(Class<? extends Dt> dtClass
-                , Throwable cause) {
-            super("Method getDefaultForSqlTypes invocation failed for class "
-                    +dtClass.getName(), cause);
-        }
+    static private void initialize() {
+        DtBoolean.register();
+        DtInteger.register();
+        DtName.register();
+        DtNameNm.register();
+        DtNumber.register();
+        DtUid.register();
+        DtVarchar.register();
+        initialized = true;
     }
 
     /**
@@ -309,6 +277,9 @@ public class DtRepository {
         SqlTypeNotMappedException(int sqlType) {
             super("No Dt class for supplied SQL type " + sqlType);
         }
+    }
+
+    private DtRepository() {
     }
 
 }

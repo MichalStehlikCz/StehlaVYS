@@ -8,7 +8,7 @@ package com.provys.provysdb.datasource;
 import com.provys.provysdb.call.ColumnDef;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Interface that wraps Statement for PROVYS use
@@ -53,10 +53,10 @@ public interface ProvysStatement extends Statement {
             throws SQLException;
 
     /**
-     * Defines types of columns based on Map of ColumnDefs.
-     * @param columns is map of column definitions, indexed by column index
+     * Defines types of columns based on list of ColumnDefs.
+     * @param columns is list of column definitions
      * @throws SQLException is exception thrown during assignment
      */
-    public void defineColumnTypes(Map<Integer, ColumnDef> columns)
+    public void defineColumnTypes(List<ColumnDef> columns)
             throws SQLException;
 }

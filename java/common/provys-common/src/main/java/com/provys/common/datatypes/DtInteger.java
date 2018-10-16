@@ -21,26 +21,15 @@ public class DtInteger extends DtNumeric{
     private static final long serialVersionUID = 1L;
 
     /**
-     * Returns type that is used to represent values of DtBoolean in SQL - CHAR.
-     * 
-     * @return code for CHAR SQL type
+     * Register DtInteger type to Dt types repository.
      */
-    public static int getSqlType() {
-        return Types.INTEGER;
-    }
-
-    /**
-     * Returns array of SQL types this type is default representation of.
-     * Such list is empty for DtBoolean class.
-     * 
-     * @return empty
-     */
-    public Optional<List<Integer>> getDefaultForSqlTypes() {
-        List<Integer> sqlTypes = new ArrayList<>(3);
-        sqlTypes.add(Types.INTEGER);
-        sqlTypes.add(Types.SMALLINT);
-        sqlTypes.add(Types.TINYINT);
-        return Optional.of(sqlTypes);
+    static void register() {
+        final List<Integer> defaultForSqlTypes = new ArrayList<>(3);
+        defaultForSqlTypes.add(Types.INTEGER);
+        defaultForSqlTypes.add(Types.SMALLINT);
+        defaultForSqlTypes.add(Types.TINYINT);
+        DtRepository.registerDtType(DtInteger.class, Types.INTEGER
+                , Optional.empty(), defaultForSqlTypes);
     }
     
     private final int value;

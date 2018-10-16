@@ -6,6 +6,8 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
+import java.sql.Types;
+import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
@@ -17,6 +19,14 @@ public class DtUid extends Dt{
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Register DtUid type to Dt types repository.
+     */
+    static void register() {
+        DtRepository.registerDtType(DtUid.class, Types.VARCHAR
+                , Optional.empty());
+    }
+    
     private final String value;
     
     /**

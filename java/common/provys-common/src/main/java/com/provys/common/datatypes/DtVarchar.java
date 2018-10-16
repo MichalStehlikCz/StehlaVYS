@@ -7,6 +7,10 @@ package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
 import static java.lang.String.valueOf;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
@@ -16,8 +20,22 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 @JsonbTypeAdapter(JsonbDtVarcharAdapter.class)
 public class DtVarchar extends DtString {
 
+    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Register DtVarchar type to Dt types repository.
+     */
+    static void register() {
+        final List<Integer> defaultForSqlTypes = new ArrayList<>(4);
+        defaultForSqlTypes.add(Types.CHAR);
+        defaultForSqlTypes.add(Types.NCHAR);
+        defaultForSqlTypes.add(Types.NVARCHAR);
+        defaultForSqlTypes.add(Types.VARCHAR);
+        DtRepository.registerDtType(DtBoolean.class, Types.VARCHAR
+                , Optional.of(4000), defaultForSqlTypes);
+    }
+    
     /**
      *
      * @param value

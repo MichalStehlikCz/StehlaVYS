@@ -13,8 +13,6 @@ import com.provys.provysdb.call.SqlCall;
  * @author stehlik
  */
 public interface ExecutorFactory {
-    public JsonQueryExecutor getJsonQueryExecutor();
     public JsonQueryExecutor getJsonQueryExecutor(SqlCall sqlCall);
-    public MapQueryExecutor getMapQueryExecutor();
     public MapQueryExecutor getMapQueryExecutor(SqlCall sqlCall);
 }

@@ -6,6 +6,7 @@
 package com.provys.provysdb.datasourceimpl;
 
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class ProvysConnectionPoolDataSource implements
         DataSource, CommonDataSource {
     private static final Logger LOG = Logger.getLogger(ProvysConnectionPoolDataSource.class.getName());
 
-    private final PoolDataSource oraclePool;
+    final private PoolDataSource oraclePool;
 
     /**
      *
@@ -43,7 +44,7 @@ public class ProvysConnectionPoolDataSource implements
         oraclePool.setConnectionFactoryClassName(
                 "oracle.jdbc.pool.OracleDataSource");
         oraclePool.setUser("KER");
-        oraclePool.setPassword("khumbulasijani");
+        oraclePool.setPassword("ker");
         oraclePool.setURL("jdbc:oracle:thin:@localhost:1521:PVYS");
         oraclePool.setConnectionPoolName("ProvysDB");
         oraclePool.setMinPoolSize(1);

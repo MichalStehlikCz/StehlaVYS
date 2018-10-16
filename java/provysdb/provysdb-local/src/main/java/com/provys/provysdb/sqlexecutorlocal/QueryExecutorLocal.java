@@ -15,6 +15,10 @@ import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
 import com.provys.provysdb.iface.QueryExecutor;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Parent of various executor classes.
@@ -32,16 +36,20 @@ abstract public class QueryExecutorLocal implements QueryExecutor {
     /**
      * defines statement(s) to be executed
      */
-    private SqlCall sqlCall;
+    final private SqlCall sqlCall;
+    final private List<ColumnDef> columns;
 
-    public QueryExecutorLocal(ProvysConnectionPoolDataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-    
     public QueryExecutorLocal(ProvysConnectionPoolDataSource dataSource,
             SqlCall sqlCall) {
         this.dataSource = dataSource;
         this.sqlCall = sqlCall;
+        if (sqlCall.getColumns().isEmpty()) {
+            columns = new ArrayList<>(1);
+        } else {
+            // we can directly assign columns, as they are never modified when
+            // defined in SQLCall
+            columns = sqlCall.getColumns();
+        }
     }
     
     /**
@@ -68,15 +76,18 @@ abstract public class QueryExecutorLocal implements QueryExecutor {
             initData();
             ProvysCallableStatement statement = connection.prepareCall(getSqlCall().getSql());
             statement.setBinds(getSqlCall().getValues());
-            statement.defineColumnTypes(getSqlCall().getColumns());
+            statement.defineColumnTypes(getColumns());
             ProvysResultSet resultSet = statement.executeQuery();
-            if (getSqlCall().getColumns().isEmpty()) {
+            if (columns.isEmpty()) {
                 // columns has to be taken from ResultSet
                 ResultSetMetaData metadata = resultSet.getMetaData();
                 int columnCount = metadata.getColumnCount();
-                for (int i = 1; i<= columnCount; i++) {
-                    ColumnDef column = new ColumnDef(metadata.getColumnName(i), metadata.getColumnType(i), metadata.getPrecision(i));
-                    getSqlCall().addColumn(i, column);
+                for (int i = 1; i <= columnCount; i++) {
+                    ColumnDef column = new ColumnDef(metadata.getColumnName(i)
+                            , metadata.getColumnType(i)
+                            , (metadata.getPrecision(i)==0) ? Optional.empty()
+                                    : Optional.of(metadata.getPrecision(i)));
+                    columns.add(column);
                 }
             }
             while (resultSet.next()) {
@@ -92,9 +103,12 @@ abstract public class QueryExecutorLocal implements QueryExecutor {
         return sqlCall;
     }
 
+    /**
+     * @return the columns
+     */
     @Override
-    public void setSqlCall(SqlCall sqlCall) {
-        this.sqlCall = sqlCall;
+    public List<ColumnDef> getColumns() {
+        return Collections.unmodifiableList(columns);
     }
-    
+
 }

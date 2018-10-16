@@ -42,21 +42,20 @@ public class ColumnDef {
         return name;
     }
 
-    private static int validateSize(String type, int size) {
-        int defSize = size;
-        if (defSize == -1) {
-            defSize = DtRepository.getSqlSize(type);
-        }
-        return defSize;
+    private static Optional<Integer> validateSize(String type, Optional<Integer> size) {
+        return Optional.ofNullable(DtRepository.getSqlSize(type)
+                .orElse(size
+                        .orElse(DtRepository.getDefaultSqlSize(type)
+                                .orElse(null))));
     }
     
-    private static int validateSize(String type) {
-        return validateSize(type, -1);
+    private static Optional<Integer> validateSize(String type) {
+        return validateSize(type, Optional.empty());
     }
 
     private final String name;
     private final String type;
-    private final int size;
+    private final Optional<Integer> size;
 
     /**
      * Create column definition based on name and type.
@@ -80,7 +79,7 @@ public class ColumnDef {
     @JsonbCreator
     public ColumnDef(@JsonbProperty("name") String name
             , @JsonbProperty("type") String type
-            , @JsonbProperty("size") int size) {
+            , @JsonbProperty("size") Optional<Integer> size) {
         this.name = name;
         this.type = validateType(type);
         this.size = validateSize(this.type, size);
@@ -104,7 +103,8 @@ public class ColumnDef {
      * @param typeClass
      * @param size
      */
-    public ColumnDef(String name, Class<? extends Dt> typeClass, int size) {
+    public ColumnDef(String name, Class<? extends Dt> typeClass
+            , Optional<Integer> size) {
         this.name = name;
         this.type = validateType(typeClass.getSimpleName());
         this.size = validateSize(this.type, size);
@@ -118,7 +118,7 @@ public class ColumnDef {
      * column should be created
      * @param size
      */
-    public ColumnDef(String name, int sqlType, int size) {
+    public ColumnDef(String name, int sqlType, Optional<Integer> size) {
         this.name = name;
         this.type = validateType(sqlType);
         this.size = validateSize(this.type, size);
@@ -162,7 +162,7 @@ public class ColumnDef {
     /**
      * @return the size corresponding to column type
      */
-    public int getSize() {
+    public Optional<Integer> getSize() {
         return size;
     }
 

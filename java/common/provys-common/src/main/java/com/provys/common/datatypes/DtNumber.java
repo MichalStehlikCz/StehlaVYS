@@ -6,6 +6,10 @@
 package com.provys.common.datatypes;
 
 import java.math.BigDecimal;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
@@ -19,6 +23,21 @@ public class DtNumber extends DtNumeric{
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Register DtNumber type to Dt types repository.
+     */
+    static void register() {
+        final List<Integer> defaultForSqlTypes = new ArrayList<>(6);
+        defaultForSqlTypes.add(Types.BIGINT);
+        defaultForSqlTypes.add(Types.DECIMAL);
+        defaultForSqlTypes.add(Types.DOUBLE);
+        defaultForSqlTypes.add(Types.FLOAT);
+        defaultForSqlTypes.add(Types.NUMERIC);
+        defaultForSqlTypes.add(Types.REAL);
+        DtRepository.registerDtType(DtNumber.class, Types.NUMERIC
+                , Optional.empty(), defaultForSqlTypes);
+    }
+    
     private final BigDecimal value;
     
     /**

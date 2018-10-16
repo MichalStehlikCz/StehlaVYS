@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import oracle.jdbc.OracleStatement;
@@ -319,24 +320,25 @@ public class ProvysStatementImpl implements ProvysStatement {
     @Override
     public void defineColumnType(int columnIndex, ColumnDef column)
             throws SQLException {
-        if (column.getSize() > 0) {
-            defineColumnType(columnIndex, column.getSqlType(), column.getSize());
+        if (column.getSize().isPresent()) {
+            defineColumnType(columnIndex, column.getSqlType()
+                    , column.getSize().get());
         } else {
             defineColumnType(columnIndex, column.getSqlType());
         }
     }
 
     @Override
-    public void defineColumnTypes(Map<Integer, ColumnDef> columns)
+    public void defineColumnTypes(List<ColumnDef> columns)
             throws SQLException {
-        columns.forEach((columnIndex, column) -> {
+        for (int index = 0; index < columns.size(); index++) {
             try {
-                defineColumnType(columnIndex, column);
+                // columns in SQL are indexed from 1
+                defineColumnType(index + 1, columns.get(index));
             } catch (SQLException e) {
                 throw new ProvysSqlException(e);
             }
-        });
-
+        }
     }
 
     @Override

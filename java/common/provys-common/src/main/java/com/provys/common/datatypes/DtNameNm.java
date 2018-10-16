@@ -5,6 +5,8 @@
  */
 package com.provys.common.datatypes;
 
+import java.sql.Types;
+import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
@@ -17,8 +19,17 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 @JsonbTypeAdapter(JsonbDtNameNmAdapter.class)
 public class DtNameNm extends DtName{
 
+    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     static final long serialVersionUID = 3L;
 
+    /**
+     * Register DtName type to Dt types repository.
+     */
+    static void register() {
+        DtRepository.registerDtType(DtNameNm.class, Types.VARCHAR
+                , Optional.of(200));
+    }
+    
     /**
      * Creates new DtNameNm object from supplied value. Verifies that supplied
      * value is valid as internal name

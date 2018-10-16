@@ -5,15 +5,16 @@
  */
 package com.provys.provysdb.call;
 
-import com.provys.common.datatypes.Dt;
 import com.provys.common.error.ProvysException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbTransient;
+import javax.json.bind.annotation.JsonbTypeDeserializer;
+import javax.json.bind.annotation.JsonbTypeSerializer;
 
 /**
  * SqlCall is used for passing of SQL (mostly SELECT) statement for execution.
@@ -24,6 +25,8 @@ import javax.json.bind.annotation.JsonbTransient;
  * 
  * @author stehlik
  */
+@JsonbTypeSerializer(JsonbSqlCallSerializer.class)
+@JsonbTypeDeserializer(JsonbSqlCallDeserializer.class)
 public class SqlCall {
 
     /**
@@ -32,15 +35,50 @@ public class SqlCall {
      * as well
      */
     private String sql;
-    private final List<BindValue> values = new ArrayList<>(1);
-    private final Map<String, BindValue> valuesByName
-            = new ConcurrentHashMap<>(1);
+    private final List<BindValue> values;
+    private final Map<String, BindValue> valuesByName;
 
     /**
      * columns field is list of column definitions that will be used to declare
      * expected columns of resulting set
      */
-    private final Map<Integer, ColumnDef> columns = new ConcurrentHashMap<>(1);
+    private final List<ColumnDef> columns;
+
+    public SqlCall(String sql, List<BindValue> values, List<ColumnDef> columns) {
+        this.sql = sql;
+        this.values = new ArrayList<>(values);
+        this.valuesByName = new ConcurrentHashMap<>(this.values.size());
+        this.values.forEach((value) -> {
+            if (valuesByName.containsKey(value.getName())) {
+                throw new BindValueAlreadyExistsException(value.getName());
+            }
+            valuesByName.put(value.getName(), value);
+        });
+        this.columns = new ArrayList<>(columns);
+    }
+
+    public SqlCall(String sql, Optional<List<BindValue>> values
+            , Optional<List<ColumnDef>> columns) {
+        this.sql = sql;
+        if (values.isPresent()) {
+            this.values = new ArrayList<> (values.get());
+            this.valuesByName = new ConcurrentHashMap<>(this.values.size());
+            this.values.forEach((value) -> {
+                if (valuesByName.containsKey(value.getName())) {
+                    throw new BindValueAlreadyExistsException(value.getName());
+                }
+                valuesByName.put(value.getName(), value);
+            });
+        } else {
+            this.values = new ArrayList<> (0);
+            this.valuesByName = new HashMap<>(0);
+        }
+        if (columns.isPresent()) {
+            this.columns = new ArrayList<>(columns.get());
+        } else {
+            this.columns = new ArrayList<>(0);
+        }
+    }
 
     /**
      * @return the sql
@@ -64,88 +102,32 @@ public class SqlCall {
     }
 
     /**
-     * @param values the values to set
+     * @param name name of parameter to be found
+     * @return bind value with specified name
      */
-    public void setValues(List<BindValue> values) {
-        this.values.clear();
-        this.valuesByName.clear();
-        values.forEach((value) -> {addValue(value);});
-    }
-
-    /**
-     * @param value is BindValue to be added to given statement
-     */
-    public synchronized void addValue(BindValue value) {
-        if (this.valuesByName.containsKey(value.getName())) {
-            throw new BindValueAlreadyExistsException(value.getName());
-        }
-        values.add(value);
-        valuesByName.put(value.getName(), value);
-    }
-
-    /**
-     * Set value of specified bind.
-     * Note that this does not replace addValue - bind already have to exist for
-     * setValue to be successful.
-     * 
-     * @param name is name of the bind to be set
-     * @param value is desired value
-     */
-    public void modifyValue(String name, Dt value) {
-        BindValue bindValue = valuesByName.get(name);
-        if (bindValue == null) {
+    public BindValue getValue(String name) {
+        final BindValue value = valuesByName.get(name);
+        if (value == null) {
             throw new BindValueDoesNotExistException(name);
         }
-        bindValue.setValue(value);
+        return value;
     }
-    
-    /**
-     * Set value of specified bind.
-     * 
-     * @param name is name of the bind to be set
-     * @param value is desired value
-     */
-    public void modifyValueIfExists(String name, Dt value) {
-        BindValue bindValue = valuesByName.get(name);
-        if (bindValue != null) {
-            bindValue.setValue(value);
-        }
-    }
-    
+
     /**
      * @return the columns
      */
-    public Map<Integer, ColumnDef> getColumns() {
-        return Collections.unmodifiableMap(columns);
+    public List<ColumnDef> getColumns() {
+        return Collections.unmodifiableList(columns);
     }
 
     /**
-     * @param columns the columns to set
+     * @param index order of column to be returned
+     * @return column definition on specified position
      */
-    public void setColumns(Map<Integer, ColumnDef> columns) {
-        this.columns.clear();
-        this.columns.putAll(columns);
+    public ColumnDef getColumn(int index) {
+        return columns.get(index);
     }
-    
-    /**
-     * @param columns the columns to set
-     */
-    public void setColumns(List<ColumnDef> columns) {
-        this.columns.clear();
-        columns.forEach((column) -> {
-            this.columns.put(this.columns.size(), column);
-        });
-    }
-    
-    /**
-     * Adds given column definition to sql command
-     * @param columnIndex is index of column to be defined (starting from 0)
-     * @param def is definition, describing column data type
-     */
-    public void addColumn(int columnIndex, ColumnDef def) {
-        columns.put(columnIndex, def);
-    }
-    
+
     /**
      * Exception raised when trying to add bind and bind with same name already
      * exists

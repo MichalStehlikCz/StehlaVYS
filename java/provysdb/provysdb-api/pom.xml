@@ -35,13 +35,13 @@
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc8</artifactId>
-            <version>12.2.0</version>
+            <version>18.3.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ucp</artifactId>
-            <version>12.2.0</version>
+            <version>18.3.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

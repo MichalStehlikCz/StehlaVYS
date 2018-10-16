@@ -24,18 +24,8 @@ public class ExecutorFactoryLocal implements ExecutorFactory {
     private ProvysConnectionPoolDataSource dataSource;
     
     @Override
-    public JsonQueryExecutor getJsonQueryExecutor() {
-        return new JsonQueryExecutorLocal(dataSource);
-    }
-    
-    @Override
     public JsonQueryExecutor getJsonQueryExecutor(SqlCall sqlCall) {
         return new JsonQueryExecutorLocal(dataSource, sqlCall);
-    }
-    
-    @Override
-    public MapQueryExecutor getMapQueryExecutor() {
-        return new MapQueryExecutorLocal(dataSource);
     }
     
     @Override

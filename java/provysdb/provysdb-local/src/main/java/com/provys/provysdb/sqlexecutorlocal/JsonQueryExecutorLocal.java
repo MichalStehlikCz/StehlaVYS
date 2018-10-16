@@ -6,6 +6,7 @@
 package com.provys.provysdb.sqlexecutorlocal;
 
 import com.provys.common.error.ProvysSqlException;
+import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.datasource.ProvysResultSet;
 import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
@@ -28,10 +29,6 @@ public class JsonQueryExecutorLocal extends QueryExecutorLocal
     
     private List<JsonObject> data;
 
-    public JsonQueryExecutorLocal(ProvysConnectionPoolDataSource dataSource) {
-        super(dataSource);
-    }
-
     public JsonQueryExecutorLocal(ProvysConnectionPoolDataSource dataSource,
             SqlCall sqlCall) {
         super(dataSource, sqlCall);
@@ -45,18 +42,19 @@ public class JsonQueryExecutorLocal extends QueryExecutorLocal
     @Override
     protected void addRow(ProvysResultSet resultSet) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
-        getSqlCall().getColumns().forEach((index, columnDef) -> 
-        {
+        List<ColumnDef> columns = getColumns();
+        for (int index = 1; index <= columns.size(); index++) {
             try {
                 if (resultSet.getString(index) != null) {
-                    builder.add(columnDef.getName(), resultSet.getString(index));
+                    builder.add(columns.get(index-1).getName()
+                            , resultSet.getString(index));
                 } else {
-                    builder.addNull(columnDef.getName());
+                    builder.addNull(columns.get(index - 1).getName());
                 }
             } catch (SQLException e) {
                 throw new ProvysSqlException(e);
             }
-        });
+        }
         data.add(builder.build());
     }
     

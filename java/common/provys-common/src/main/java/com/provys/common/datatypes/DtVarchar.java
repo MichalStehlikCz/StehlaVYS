@@ -32,7 +32,7 @@ public class DtVarchar extends DtString {
         defaultForSqlTypes.add(Types.NCHAR);
         defaultForSqlTypes.add(Types.NVARCHAR);
         defaultForSqlTypes.add(Types.VARCHAR);
-        DtRepository.registerDtType(DtBoolean.class, Types.VARCHAR
+        DtRepository.registerDtType(DtVarchar.class, Types.VARCHAR
                 , Optional.of(4000), defaultForSqlTypes);
     }
     

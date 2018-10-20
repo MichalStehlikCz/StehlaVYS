@@ -15,9 +15,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  * @author micha
  */
 @JsonbTypeAdapter(JsonbDtUidAdapter.class)
-public class DtUid extends Dt{
-
-    private static final long serialVersionUID = 1L;
+public class DtUid implements Dt{
 
     /**
      * Register DtUid type to Dt types repository.

@@ -27,9 +27,7 @@ import javax.json.bind.annotation.JsonbTypeSerializer;
  */
 @JsonbTypeSerializer(JsonbDtSerializer.class)
 @JsonbTypeDeserializer(JsonbDtDeserializer.class)
-abstract public class Dt implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public interface Dt {
 
     /**
      * Translation of value in given PROVYS datatype to String, synchronised

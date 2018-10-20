@@ -16,7 +16,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  * @author stehlik
  */
 @JsonbTypeAdapter(JsonbDtIntegerAdapter.class)
-public class DtInteger extends DtNumeric{
+public class DtInteger implements DtNumeric{
 
     private static final long serialVersionUID = 1L;
 

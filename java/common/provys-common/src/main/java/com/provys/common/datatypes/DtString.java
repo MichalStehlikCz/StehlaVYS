@@ -12,7 +12,7 @@ package com.provys.common.datatypes;
  * Used to store PROVYS VARCHAR and NOTE values. Also ancestor for name and
  * name_nm subtypes
  */
-abstract public class DtString extends Dt{
+abstract public class DtString implements Dt{
 
     static final long serialVersionUID = 1L;
     

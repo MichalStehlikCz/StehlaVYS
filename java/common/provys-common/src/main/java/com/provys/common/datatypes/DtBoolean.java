@@ -7,7 +7,6 @@ package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
 import java.sql.Types;
-import java.util.List;
 import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
@@ -20,7 +19,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  * @author stehlik
  */
 @JsonbTypeAdapter(JsonbDtBooleanAdapter.class)
-public class DtBoolean extends Dt {
+public class DtBoolean implements Dt {
 
     private static final long serialVersionUID = 1L;
     private final static DtBoolean TRUE = new DtBoolean(true);

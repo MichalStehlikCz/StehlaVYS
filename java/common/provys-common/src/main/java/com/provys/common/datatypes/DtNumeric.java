@@ -11,12 +11,10 @@ package com.provys.common.datatypes;
  * DtNumeric represents common ancestor for numeric PROVYS types and adds
  * method for value retrieval as double
  */
-abstract public class DtNumeric extends Dt {
+public interface DtNumeric extends Dt {
 
-    private static final long serialVersionUID = 1L;
-    
     @Override
-    public String toSqlLiteral() {
+    default public String toSqlLiteral() {
         return this.toStringValue();
     }
     

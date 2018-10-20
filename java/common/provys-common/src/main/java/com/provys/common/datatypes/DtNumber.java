@@ -19,7 +19,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
  * Used to store NUMBER values
  */
 @JsonbTypeAdapter(JsonbDtNumberAdapter.class)
-public class DtNumber extends DtNumeric{
+public class DtNumber implements DtNumeric{
 
     private static final long serialVersionUID = 1L;
 
@@ -69,7 +69,7 @@ public class DtNumber extends DtNumeric{
     
     /**
      * Getter method for value
-     * @return value representing effective value of this provzs number
+     * @return value representing effective value of this provys number
      */
     public BigDecimal getValue() {
         return this.value;

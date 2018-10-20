@@ -6,10 +6,14 @@
 package com.provys.provysdb.api;
 
 import com.provys.common.datatypes.DtInteger;
+import com.provys.common.datatypes.DtNameNm;
+import com.provys.common.datatypes.DtUid;
+import com.provys.provysdb.call.BindValue;
 import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.iface.ExecutorFactory;
 import com.provys.provysdb.iface.JsonQueryExecutor;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,12 +67,12 @@ public class ProvysDbCall {
     @GET
     @Path("test")
     @Produces({MediaType.APPLICATION_JSON})
-    public ColumnDef testSerialisation() {
-/**        SQLCall result = new SQLCall();
-        result.setSql("SELECT 1 from dual");
-        result.addValue(new BindValue("domain_id", new DtNameNm("ABC")));
-        result.addColumn(1, new ColumnDef(DtUid.class));*/
-        ColumnDef result = new ColumnDef("test", DtInteger.class);
+    public SqlCall testSerialisation() {
+        List<BindValue> values = new ArrayList<>(1);
+        values.add(new BindValue("domain_id", new DtNameNm("ABC")));
+        List<ColumnDef> columns = new ArrayList<>(1);
+        columns.add(new ColumnDef("domain_id", DtUid.class));
+        SqlCall result = new SqlCall("SELECT 1 from dual", values, columns);
         return result;
     }
 

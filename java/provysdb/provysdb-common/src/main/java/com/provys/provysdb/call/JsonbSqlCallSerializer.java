@@ -39,6 +39,7 @@ public class JsonbSqlCallSerializer implements JsonbSerializer<SqlCall> {
                 });
                 generator.writeEnd();
             }
+            generator.writeEnd();
         } else {
             ctx.serialize(null, generator);
         }

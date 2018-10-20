@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 import javax.json.bind.serializer.DeserializationContext;
 import javax.json.bind.serializer.JsonbDeserializer;
 import javax.json.stream.JsonParser;
+import javax.json.stream.JsonParser.Event;
 
 /**
  * Deserialisation of Dt - finds proper subclass and deserialises using its
@@ -23,38 +24,39 @@ public class JsonbDtDeserializer implements JsonbDeserializer<Dt> {
     public Dt deserialize(JsonParser parser, DeserializationContext context,
             Type type) {
         Dt result = null;
-        while (parser.hasNext()) {
-            JsonParser.Event event = parser.next();
-            if (event == JsonParser.Event.KEY_NAME) {
-                String className = parser.getString();
-                parser.next();
-                try {
-                    // all Dt subclasses have custom Jsonb adapter,
-                    // unfortunatelly it is not picked up by deserialize... so
-                    // we must apply it manually
-                    result = JsonbHelper.deserializeWithAdapters(
-                            Class.forName(className).asSubclass(Dt.class), 
-                            parser, context);
-                } catch (ClassNotFoundException e) {
-                    throw new DtClassNotFoundException(className, e);
-                }
+        if (parser.hasNext()) {
+            Event event = parser.next();
+            if (event != Event.KEY_NAME) {
+                throw new UnexpectedParserEventException(event, Event.KEY_NAME);
             }
+            String className = parser.getString();
             parser.next();
+            // all Dt subclasses have custom Jsonb adapter,
+            // unfortunatelly it is not picked up by deserialize... so
+            // we must apply it manually
+            result = JsonbHelper.deserializeWithAdapters(
+                    DtRepository.getClass(className),
+                    parser, context);
+            event = parser.next();
+            if (event != JsonParser.Event.END_OBJECT) {
+                throw new UnexpectedParserEventException(event,
+                         Event.END_OBJECT);
+            }
         }
         return result;
     }
 
     /**
-     * Exception raised when class supplied to deserialiser does not exist
+     * Exception raised when other event is encountered than expected
      */
     @SuppressWarnings("PublicInnerClass")
-    static public class DtClassNotFoundException extends ProvysException {
+    static public class UnexpectedParserEventException extends ProvysException {
 
         private static final long serialVersionUID = 1L;
 
-        DtClassNotFoundException(String className, Throwable cause) {
-            super("Class not found during Jsonb deserialisation: "+className,
-                    cause);
+        UnexpectedParserEventException(JsonParser.Event event, JsonParser.Event expected) {
+            super("Unexpected JSON parser event " + event + ", expected "
+                    + expected);
         }
     }
 

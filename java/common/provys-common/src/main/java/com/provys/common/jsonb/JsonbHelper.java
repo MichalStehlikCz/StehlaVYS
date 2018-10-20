@@ -52,7 +52,8 @@ public class JsonbHelper {
             Method[] methods = adapter.getClass().getMethods();
             Method adaptToJson = null;
             for (Method method : methods) {
-                if (method.getName().equals("adaptToJson")) {
+                if (method.getName().equals("adaptToJson")
+                        && !method.isBridge()) {
                     adaptToJson = method;
                     break;
                 }
@@ -109,7 +110,8 @@ public class JsonbHelper {
             Method[] methods = adapter.getClass().getMethods();
             Method adaptFromJson = null;
             for (Method method : methods) {
-                if (method.getName().equals("adaptFromJson")) {
+                if (method.getName().equals("adaptFromJson")
+                        && !method.isBridge()) {
                     adaptFromJson = method;
                     break;
                 }

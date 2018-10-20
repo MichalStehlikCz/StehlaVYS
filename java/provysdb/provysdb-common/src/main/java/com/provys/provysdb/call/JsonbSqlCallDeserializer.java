@@ -53,6 +53,7 @@ public class JsonbSqlCallDeserializer  implements JsonbDeserializer<SqlCall> {
                                 }
                                 values.add(JsonbHelper.deserializeWithAdapters(
                                         BindValue.class, parser, context));
+                                event = parser.next();
                             }
                             break;
                         case "columns":
@@ -74,10 +75,6 @@ public class JsonbSqlCallDeserializer  implements JsonbDeserializer<SqlCall> {
                     }
                     break;
                 case END_OBJECT:
-                    if (parser.hasNext()) {
-                        throw new UnexpectedParserEventException(
-                                Event.END_OBJECT, Event.KEY_NAME);
-                    }
                     return new SqlCall(sql, values, columns);
                 default:
                     throw new UnexpectedParserEventException(event

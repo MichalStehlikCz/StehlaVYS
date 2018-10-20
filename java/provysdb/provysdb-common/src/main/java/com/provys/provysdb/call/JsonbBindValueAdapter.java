@@ -1,11 +1,15 @@
 package com.provys.provysdb.call;
 
 import com.provys.common.datatypes.Dt;
+import com.provys.common.datatypes.JsonbDtSerializer;
+import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbConfig;
 import javax.json.bind.adapter.JsonbAdapter;
+import javax.json.stream.JsonParser;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,14 +30,21 @@ public class JsonbBindValueAdapter
     
     @Override
     public JsonObject adaptToJson(BindValue value) throws Exception {
+        if (value == null) {
+            return null;
+        }
         if (value instanceof BindParameter) {
             return new JsonbBindParameterAdapter()
                     .adaptToJson((BindParameter) value);
         }
-        JsonObjectBuilder jsonBuilder = Json.createObjectBuilder()
-                .add("name", value.getName()).add("value", JsonbBuilder.create()
-                        .toJson(value.getValue()));
-        return jsonBuilder.build();
+        String jsonValue = JsonbBuilder.create(
+                        new JsonbConfig().withSerializers(
+                                new JsonbDtSerializer()))
+                .toJson(value.getValue(), Dt.class);
+        return Json.createObjectBuilder()
+                .add("name", value.getName())
+                .add("value", Json.createObjectBuilder(Json.createReader(
+                        new StringReader(jsonValue)).readObject())).build();
     }
 
     @Override

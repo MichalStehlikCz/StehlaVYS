@@ -21,7 +21,7 @@ public class JsonbDtSerializer implements JsonbSerializer<Dt> {
             SerializationContext ctx) {
         if (object != null) {
             generator.writeStartObject();
-            generator.writeKey(object.getClass().getName());
+            generator.writeKey(object.getClass().getSimpleName());
             // all Dt subclasses have custom Jsonb adapter, unfortunatelly it is
             // not picked up by serialize... so we must apply it ourselves
             JsonbHelper.serializeWithAdapters(object, generator, ctx);

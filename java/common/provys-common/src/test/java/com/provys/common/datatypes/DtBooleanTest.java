@@ -18,10 +18,10 @@ public class DtBooleanTest {
     
     private List<Object[]> parametersForFromStringValue() {
         return asList(
-                new Object[] {"Y", DtBoolean.getTRUE(), false},
-                new Object[] {"N", DtBoolean.getFALSE(), false},
-                new Object[] {null, null, false},
-                new Object[] {"true", null, true}
+                new Object[] {"Y", DtBoolean.getTRUE(), false, false},
+                new Object[] {"N", DtBoolean.getFALSE(), false, false},
+                new Object[] {null, null, false, true},
+                new Object[] {"true", null, true, false}
         );
     }
 
@@ -30,22 +30,28 @@ public class DtBooleanTest {
      * @param value - string value new DtBoolean will be created from
      * @param expectedResult - expected result of conversion
      * @param failInvalidValue - indicates conversion should raise
-     * InvalidStringValue exception
+     * InvalidStringValueException
+     * @param failNullValue - indicates conversion should raise
+     * NullStringValueException
      */
     @Test
     @Parameters(method = "parametersForFromStringValue")
     public void testFromStringValue(String value, DtBoolean expectedResult,
-            boolean failInvalidValue) {
+            boolean failInvalidValue, boolean failNullValue) {
         try {
             DtBoolean instance = DtBoolean.fromStringValue(value);
-            if (failInvalidValue) {
+            if (failInvalidValue || failNullValue) {
                 fail("Conversion of string value to DtBoolean should have failed");
             }
             assertSame("Incorrect provys string to DtBoolean", expectedResult,
                     instance);
-        } catch (DtBoolean.InvalidStringValue e) {
+        } catch (DtBoolean.InvalidStringValueException e) {
             if (!failInvalidValue) {
-                fail("Failed to convert string to DtBoolean");
+                fail("Failed to convert string to DtBoolean - invalid thrown");
+            }
+        } catch (DtBoolean.NullStringValueException e) {
+            if (!failNullValue) {
+                fail("Failed to convert string to DtBoolean - null thrown");
             }
         }
     }
@@ -72,12 +78,12 @@ public class DtBooleanTest {
 
     private List<Object[]> parametersForFromString() {
         return asList(
-                new Object[] {"true", DtBoolean.getTRUE(), false},
-                new Object[] {"False", DtBoolean.getFALSE(), false},
-                new Object[] {null, null, false},
-                new Object[] {"1", DtBoolean.getTRUE(), false},
-                new Object[] {"0", DtBoolean.getFALSE(), false},
-                new Object[] {"Y", null, true}
+                new Object[] {"true", DtBoolean.getTRUE(), false, false},
+                new Object[] {"False", DtBoolean.getFALSE(), false, false},
+                new Object[] {null, null, false, true},
+                new Object[] {"1", DtBoolean.getTRUE(), false, false},
+                new Object[] {"0", DtBoolean.getFALSE(), false, false},
+                new Object[] {"Y", null, true, false}
         );
     }
 
@@ -85,43 +91,31 @@ public class DtBooleanTest {
      * Test fromString static method
      * @param value - string value new DtBoolean will be created from
      * @param expectedResult - expected result of conversion
-     * @param failInvalidString - indicates conversion should raise
-     * InvalidString exception
+     * @param failInvalidString - indicates conversion should throw
+     * InvalidStringException
+     * @param failNullString - indicates conversion should throw
+     * NullStringException
      */
     @Test
     @Parameters(method = "parametersForFromString")
     public void testFromString(String value, DtBoolean expectedResult,
-            boolean failInvalidString) {
+            boolean failInvalidString, boolean failNullString) {
         try {
             DtBoolean instance = DtBoolean.fromString(value);
-            if (failInvalidString) {
+            if (failInvalidString || failNullString) {
                 fail("Conversion of string value to DtBoolean should have failed");
             }
             assertSame("Incorrect string to DtBoolean", expectedResult,
                     instance);
-        } catch (DtBoolean.InvalidString e) {
+        } catch (DtBoolean.InvalidStringException e) {
             if (!failInvalidString) {
-                fail("Failed to convert string to DtBoolean");
+                fail("Failed to convert string to DtBoolean - invalid thrown");
+            }
+        } catch (DtBoolean.NullStringException e) {
+            if (! failNullString) {
+                fail("Failed to convert string to DtBoolean - null thrown");
             }
         }
-    }
-
-    private List<Object[]> parametersForDtBoolean() {
-        return asList(
-                new Object[] {true},
-                new Object[] {false}
-        );
-    }
-
-    /**
-     * Test single argument constructor method, of class DtBoolean.
-     * @param value - value new DtBoolean will be created from
-     */
-    @Test
-    @Parameters(method = "parametersForDtBoolean")
-    public void testDtBoolean(boolean value) {
-        @SuppressWarnings("UnusedAssignment")
-        DtBoolean instance = new DtBoolean(value);
     }
 
     private List<Object[]> parametersForGetValue() {
@@ -139,7 +133,7 @@ public class DtBooleanTest {
     @Test
     @Parameters(method = "parametersForGetValue")
     public void testGetValue(boolean value, boolean expectedResult) {
-        DtBoolean instance = new DtBoolean(value);
+        DtBoolean instance = DtBoolean.fromValue(value);
         boolean result = instance.getValue();
         assertEquals("Incorrect getValue in DtBoolean", expectedResult, result);
     }
@@ -159,7 +153,7 @@ public class DtBooleanTest {
     @Test
     @Parameters(method = "parametersForToStringValue")
     public void testToStringValue(boolean value, String expectedResult) {
-        DtBoolean instance = new DtBoolean(value);
+        DtBoolean instance = DtBoolean.fromValue(value);
         String result = instance.toStringValue();
         assertEquals("Incorrect toStringValue in DtBoolean", expectedResult, result);
     }
@@ -179,7 +173,7 @@ public class DtBooleanTest {
     @Test
     @Parameters(method = "parametersForToString")
     public void testToString(boolean value, String expectedResult) {
-        DtBoolean instance = new DtBoolean(value);
+        DtBoolean instance = DtBoolean.fromValue(value);
         String result = instance.toString();
         assertEquals("Incorrect toString in DtBoolean", expectedResult, result);
     }
@@ -187,8 +181,8 @@ public class DtBooleanTest {
     private List<Object[]> parametersForEquals() {
         return asList(
                 new Object[] {true, (Object) null, false},
-                new Object[] {true, new DtBoolean(true), true},
-                new Object[] {true, new DtBoolean(false), false}
+                new Object[] {true, DtBoolean.fromValue(true), true},
+                new Object[] {true, DtBoolean.fromValue(false), false}
         );
     }
 
@@ -201,7 +195,7 @@ public class DtBooleanTest {
     @Test
     @Parameters(method = "parametersForEquals")
     public void testEquals(boolean value, Object compareTo, boolean expectedResult) {
-        DtBoolean instance = new DtBoolean(value);
+        DtBoolean instance = DtBoolean.fromValue(value);
         boolean result = instance.equals(compareTo);
         if (expectedResult) {
             assertTrue("Equals method returned incorrect result (expected true)"
@@ -234,8 +228,8 @@ public class DtBooleanTest {
     @Test
     @Parameters(method = "parametersForHashCode")
     public void testHashCode(boolean value1, boolean value2) {
-        DtBoolean instance1 = new DtBoolean(value1);
-        DtBoolean instance2 = new DtBoolean(value2);
+        DtBoolean instance1 = DtBoolean.fromValue(value1);
+        DtBoolean instance2 = DtBoolean.fromValue(value2);
         int result1 = instance1.hashCode();
         int result2 = instance2.hashCode();
         if (instance1.equals(instance2)) {

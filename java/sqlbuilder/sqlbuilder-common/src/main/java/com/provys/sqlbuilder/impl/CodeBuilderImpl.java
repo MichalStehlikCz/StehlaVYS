@@ -6,7 +6,9 @@
 package com.provys.sqlbuilder.impl;
 
 import com.provys.common.error.ProvysException;
+import com.provys.provysdb.call.BindParameter;
 import com.provys.provysdb.call.BindValue;
+import com.provys.provysdb.call.BindVariable;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class CodeBuilderImpl implements CodeBuilder {
     
     final StringBuilder text;
     private boolean newLine = false;
-    final Map<String, BindValue> bindValues;
+    final Map<String, BindVariable> bindVariables;
     private IdentStatus ident = new IdentStatus();
     final Stack<IdentStatus> tempIdents = new Stack<>();
 
@@ -33,7 +35,7 @@ public class CodeBuilderImpl implements CodeBuilder {
      */
     public CodeBuilderImpl() {
         text = new StringBuilder(100);
-        bindValues = new ConcurrentHashMap<> (10);
+        bindVariables = new ConcurrentHashMap<> (10);
     }
 
     @Override
@@ -310,37 +312,47 @@ public class CodeBuilderImpl implements CodeBuilder {
     }
 
     @Override
-    public synchronized CodeBuilder addBind(BindValue bindValue) {
-        BindValue existingBind = bindValues.putIfAbsent(bindValue.getName()
-                , bindValue);
+    public synchronized CodeBuilder addBind(BindVariable bindVariable) {
+        BindVariable existingBind = bindVariables.putIfAbsent(bindVariable.getName()
+                , bindVariable);
         if (existingBind != null) {
-            if (!existingBind.equals(bindValue)) {
-                throw new DuplicateBindException(bindValue.getName());
+            if (!existingBind.equals(bindVariable)) {
+                throw new DuplicateBindException(bindVariable.getName());
             }
         }
         return this;
     }
 
     @Override
-    public CodeBuilder addBind(List<BindValue> bindValues) {
-        bindValues.forEach((bindValue) -> {this.addBind(bindValue);});
+    public CodeBuilder addBind(List<BindVariable> bindVariables) {
+        bindVariables.forEach((bindVariable) -> {this.addBind(bindVariable);});
         return this;
     }
 
     @Override
-    public synchronized String addUniqueBind(BindValue bindValue, boolean allowReuse) {
-        String name = bindValue.getName();
+    public synchronized String addUniqueBind(BindVariable bindVariable
+            , boolean allowReuse) {
+        String name = bindVariable.getName();
         int index = 1;
-        while ((this.bindValues.containsKey(name))
-            & (!allowReuse | !this.bindValues.get(name).equals(bindValue))) {
-          name = bindValue.getName() + ++index;
+        while ((this.bindVariables.containsKey(name)) && (!allowReuse
+                || !this.bindVariables.get(name).equals(bindVariable))) {
+          name = bindVariable.getName() + ++index;
         }
-        if (!this.bindValues.containsKey(name)) {
+        if (!this.bindVariables.containsKey(name)) {
             if (index == 1) {
-                this.bindValues.putIfAbsent(name, bindValue);
+                this.bindVariables.putIfAbsent(name, bindVariable);
             } else {
-                this.bindValues.putIfAbsent(name, new BindValue(name
-                        , bindValue.getType(), bindValue.getValue()));
+                if (bindVariable instanceof BindParameter) {
+                    this.bindVariables.putIfAbsent(name, new BindParameter(name
+                            , ((BindParameter) bindVariable).getValue()
+                            , ((BindParameter) bindVariable).getMode()));
+                } else if (bindVariable instanceof BindVariable) {
+                    this.bindVariables.putIfAbsent(name, new BindValue(name
+                        , ((BindValue) bindVariable).getValue()));
+                } else {
+                    this.bindVariables.putIfAbsent(name, new BindVariable(name
+                        , bindVariable.getTypeClass()));
+                }
             }
             
         }
@@ -354,8 +366,8 @@ public class CodeBuilderImpl implements CodeBuilder {
     }
 
     @Override
-    public List<BindValue> getBindValues() {
-        return new ArrayList<> (bindValues.values());
+    public List<BindVariable> getBindVariables() {
+        return new ArrayList<> (bindVariables.values());
     }
     
     /**

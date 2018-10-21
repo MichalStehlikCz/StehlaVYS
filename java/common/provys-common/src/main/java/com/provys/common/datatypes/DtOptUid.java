@@ -7,30 +7,31 @@ package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
 import java.sql.Types;
+import java.util.Objects;
 import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
- * Representation of PROVYS UID values.
+ * Representation of optional PROVYS UID values.
  * 
  * @author stehlik
  */
-@JsonbTypeAdapter(JsonbDtUidAdapter.class)
-public class DtUid implements Dt {
+@JsonbTypeAdapter(JsonbDtOptUidAdapter.class)
+public class DtOptUid extends DtOptional<String> {
 
     /**
      * Register {@code DtUid} type to Dt types repository.
      */
     static void register() {
-        DtRepository.registerDtType(DtUid.class, Types.VARCHAR
-                , DtUid::validatePrecision, DtUid::validateScale
-                , DtUid::eligibleForSqlType);
+        DtRepository.registerDtType(DtOptUid.class, Types.VARCHAR
+                , DtOptUid::validatePrecision, DtOptUid::validateScale
+                , DtOptUid::eligibleForSqlType);
     }
     
     static private final Optional<Integer> PRECISION = Optional.of(38);
 
     /**
-     * Precision validator for {@code DtUid}.
+     * Precision validator for {@code DtOptUid}.
      * 
      * @param precision is precision supplied on column creation
      * @return 38 as it is fixed precision of PROVYS Uid
@@ -54,7 +55,7 @@ public class DtUid implements Dt {
     }
         
     /**
-     * Marks {@code DtUid} as default for Numeric columns if column name ends
+     * Marks {@code DtOptUid} as default for Numeric columns if column name ends
      * with _ID or _RF.
      * 
      * @param sqlType is value corresponding to SQL type as defined in
@@ -70,54 +71,86 @@ public class DtUid implements Dt {
     public static int eligibleForSqlType(int sqlType
             , Optional<Integer> precision, Optional<Short> scale
             , boolean isNullable, String name) {
-        if ((!isNullable) && (sqlType == Types.NUMERIC)
+        if ((sqlType == Types.NUMERIC)
                 && ((name.endsWith("_ID"))
                 || (name.endsWith("_RF")))) {
-            return 30;
+            return 29;
         }
         return -1;
     }
 
-    private final String value;
+    private static final DtOptUid EMPTY = new DtOptUid();
     
+    protected DtOptUid() {
+        super();
+    }
+
+    /**
+     * Returns an empty {@code DtOptUid} instance.  No value is present for this
+     * Optional.
+     *
+     * @apiNote Though it may be tempting to do so, avoid testing if an object
+     * is empty by comparing with {@code ==} against instances returned by
+     * {@code Option.empty()}. There is no guarantee that it is a singleton.
+     * Instead, use {@link #isPresent()}.
+     *
+     * @return an empty {@code DtOptUid}
+     */
+    public static DtOptUid empty() {
+        return EMPTY;
+    }
+
+    /**
+     * Returns an {@code DtOptUid} with the specified present non-null value.
+     *
+     * @param value the value to be present, which must be non-null
+     * @return an {@code DtOptUid} with the value present
+     * @throws NullPointerException if value is null
+     */
+    public static DtOptUid of(String value) {
+        Objects.requireNonNull(value);
+        return new DtOptUid(value);
+    }
+
+    /**
+     * Returns an {@code DtOptUid} describing the specified value, if
+     * non-null, otherwise returns an empty {@code DtOptUid}.
+     *
+     * @param value the possibly-null value to describe
+     * @return an {@code DtOptUid} with a present value if the specified
+     * value is non-null, otherwise an empty {@code DtOptUid}
+     */
+    public static DtOptUid ofNullable(String value) {
+        return value == null ? empty() : of(value);
+    }
+
     /**
      * Creates provys UID value from supplied string
      * @param value represents value this object will be assigned
      */
-    public DtUid(String value) {
-        if ((value == null) || (value.isEmpty())) {
-            throw new Dt.NullValueNotSupportedException();
-        }
+    private DtOptUid(String value) {
+        super(value);
         if (value.length()>38) {
             throw new UidTooLongException(value);
         }
         if (!value.matches("\\d+")) {
             throw new UidNotNumberException(value);
         }
-        this.value=value;
-    }
-    
-    /**
-     * Getter method for value - internal String representation of UID value.
-     * @return String value corresponding to this UID
-     */
-    public String getValue() {
-        return this.value;
     }
     
     @Override
     public String toStringValue(){
-        return this.value;
+        return getValue().orElse("");
     }
 
     @Override
     public String toString(){
-        return this.value;
+        return getValue().orElse("");
     }
     
     @Override
     public String toSqlLiteral() {
-        return this.value;
+        return getValue().orElse("TO_NUMBER(NULL)");
     }
     
     @Override
@@ -125,19 +158,18 @@ public class DtUid implements Dt {
         if (this == secondObject) {
             return true;
         }
-        if (secondObject instanceof DtUid) {
-            return getValue().equals(((DtUid) secondObject).getValue());
-        }
         if (secondObject instanceof DtOptUid) {
-            return ((DtOptUid) secondObject).map(val -> val.equals(getValue()))
-                    .orElse(false);
+            return getValue().equals(((DtOptUid) secondObject).getValue());
+        }
+        if ((isPresent()) && (secondObject instanceof DtUid)) {
+            return get().equals(((DtUid) secondObject).getValue());
         }
         return false;
     }
     
     @Override
     public int hashCode(){
-        return this.value.hashCode();
+        return map(val -> val.hashCode()).orElse(0);
     }
     /**
      * Exception indicating that supplied value is not valid PROVYS Uid, because

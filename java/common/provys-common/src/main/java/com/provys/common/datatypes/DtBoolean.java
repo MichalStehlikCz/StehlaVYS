@@ -21,7 +21,6 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 @JsonbTypeAdapter(JsonbDtBooleanAdapter.class)
 public class DtBoolean implements Dt {
 
-    private static final long serialVersionUID = 1L;
     private final static DtBoolean TRUE = new DtBoolean(true);
     private final static DtBoolean FALSE = new DtBoolean(false);
     
@@ -52,7 +51,7 @@ public class DtBoolean implements Dt {
      */
     public static DtBoolean fromStringValue(String stringValue) {
         if (stringValue == null) {
-            return null;
+            throw new NullStringValueException();
         }
         switch (stringValue) {
             case "Y":
@@ -60,7 +59,7 @@ public class DtBoolean implements Dt {
             case "N":
                 return FALSE;
             default:
-                throw new InvalidStringValue(stringValue);
+                throw new InvalidStringValueException(stringValue);
         }
     }
 
@@ -89,22 +88,35 @@ public class DtBoolean implements Dt {
      */
     public static DtBoolean fromString(String value) {
         if (value == null) {
-            return null;
+            throw new NullStringException();
         }
         if (value.equalsIgnoreCase("true") || value.equals("1")) {
             return TRUE;
         } else if (value.equalsIgnoreCase("false") || value.equals("0")) {
             return FALSE;
         }
-        throw new InvalidString(value);
+        throw new InvalidStringException(value);
     }
 
     /**
      * Register DtBoolean type to Dt types repository.
      */
     static void register() {
-        DtRepository.registerDtType(DtBoolean.class, Types.CHAR, Optional.of(1)
-                , Optional.of(1));
+        DtRepository.registerDtType(DtBoolean.class, Types.CHAR
+                , DtBoolean::validatePrecision);
+    }
+    
+    static private final Optional<Integer> PRECISION = Optional.of(1);
+    
+    /**
+     * Precision validator for {@code DtBoolean}.
+     * 
+     * @param precision is precision supplied on column creation
+     * @return 1 as {@code DtBoolean} corresponds to CHAR(1 BYTE) column
+     */
+    static public Optional<Integer> validatePrecision(
+            Optional<Integer> precision) {
+        return PRECISION;
     }
     
     private final boolean value;
@@ -114,7 +126,7 @@ public class DtBoolean implements Dt {
      *
      * @param value - supplied value new DtBoolean will be set to
      */
-    public DtBoolean(boolean value) {
+    private DtBoolean(boolean value) {
         this.value = value;
     }
 
@@ -156,11 +168,13 @@ public class DtBoolean implements Dt {
         if (this == secondObject) {
             return true;
         }
-        if (secondObject == null) {
-            return false;
-        }
         if (secondObject instanceof DtBoolean) {
-            return this.value == ((DtBoolean) secondObject).getValue();
+            return getValue() == ((DtBoolean) secondObject).getValue();
+        } else if (secondObject instanceof DtOptBoolean) {
+            if (!((DtOptBoolean) secondObject).isPresent()) {
+                return false;
+            }
+            return ((DtOptBoolean) secondObject).get() == getValue();
         }
         return false;
     }
@@ -174,12 +188,25 @@ public class DtBoolean implements Dt {
      * Exception raised when value supplied to fromStringValue is not valid
      */
     @SuppressWarnings("PublicInnerClass")
-    static public class InvalidStringValue extends ProvysException {
+    static public class InvalidStringValueException extends ProvysException {
 
         private static final long serialVersionUID = 1L;
 
-        InvalidStringValue(String stringValue) {
+        InvalidStringValueException(String stringValue) {
             super("Invalid provys string value for DtBoolean: " + stringValue);
+        }
+    }
+
+    /**
+     * Exception raised when value supplied to fromStringValue is null
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class NullStringValueException extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        NullStringValueException() {
+            super("Null provys string value for DtBoolean");
         }
     }
 
@@ -187,12 +214,25 @@ public class DtBoolean implements Dt {
      * Exception raised when value supplied to fromString is not valid
      */
     @SuppressWarnings("PublicInnerClass")
-    static public class InvalidString extends ProvysException {
+    static public class InvalidStringException extends ProvysException {
 
         private static final long serialVersionUID = 1L;
 
-        InvalidString(String stringValue) {
+        InvalidStringException(String stringValue) {
             super("Invalid string as source for DtBoolean: " + stringValue);
+        }
+    }
+
+    /**
+     * Exception raised when value supplied to fromString is not null
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class NullStringException extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        NullStringException() {
+            super("Invalid string as source for DtBoolean");
         }
     }
 

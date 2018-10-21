@@ -8,8 +8,6 @@ package com.provys.common.datatypes;
 import com.provys.common.error.ProvysException;
 import static java.lang.String.valueOf;
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
@@ -27,16 +25,51 @@ public class DtVarchar extends DtString {
      * Register DtVarchar type to Dt types repository.
      */
     static void register() {
-        final List<Integer> defaultForSqlTypes = new ArrayList<>(4);
-        defaultForSqlTypes.add(Types.CHAR);
-        defaultForSqlTypes.add(Types.NCHAR);
-        defaultForSqlTypes.add(Types.NVARCHAR);
-        defaultForSqlTypes.add(Types.VARCHAR);
         DtRepository.registerDtType(DtVarchar.class, Types.VARCHAR
-                , Optional.of(4000), defaultForSqlTypes);
+                , DtVarchar::validatePrecision, DtVarchar::eligibleForSqlType);
     }
     
+    static private final Optional<Integer> DEFAULTPRECISION = Optional.of(4000);
+    
     /**
+     * Precision validator for {@code DtVarchar}.
+     * 
+     * @param precision is precision supplied on column creation
+     * @return precision specified, 4000 if nothing has been specified
+     */
+    static public Optional<Integer> validatePrecision(
+            Optional<Integer> precision) {
+        if (precision.isPresent()) {
+            return precision;
+        }
+        return DEFAULTPRECISION;
+    }
+        
+    /**
+     * Marks {@code DtVarchar} as default for mandatory string SQL types.
+     * 
+     * @param sqlType is value corresponding to SQL type as defined in
+     * {@code java.sql.Types}
+     * @param precision represents column precision - number of characters for
+     * string column, number of digits for numeric column
+     * @param scale represents number of digits to right of decimal point for
+     * numeric column
+     * @param isNullable is flag indicating if column is nullable
+     * @param name is name of column
+     * @return 10 if {@code DtVarchar} can be used for column and -1 otherwise
+    */
+    public static int eligibleForSqlType(int sqlType
+            , Optional<Integer> precision, Optional<Short> scale
+            , boolean isNullable, String name) {
+        if ((!isNullable) && ((sqlType == Types.CHAR)
+                || (sqlType == Types.NCHAR) || (sqlType == Types.NVARCHAR)
+                || (sqlType == Types.VARCHAR))) {
+            return 10;
+        }
+        return -1;
+    }
+
+     /**
      *
      * @param value
      */

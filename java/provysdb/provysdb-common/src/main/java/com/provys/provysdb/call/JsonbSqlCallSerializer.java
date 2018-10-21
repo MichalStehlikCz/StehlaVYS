@@ -25,9 +25,9 @@ public class JsonbSqlCallSerializer implements JsonbSerializer<SqlCall> {
         if (object != null) {
             generator.writeStartObject();
             generator.write("sql", object.getSql());
-            if (!object.getValues().isEmpty()) {
+            if (!object.getVariables().isEmpty()) {
                 generator.writeStartArray("values");
-                object.getValues().forEach((value) -> {
+                object.getVariables().forEach((value) -> {
                     JsonbHelper.serializeWithAdapters(value, generator, ctx);
                 });
                 generator.writeEnd();

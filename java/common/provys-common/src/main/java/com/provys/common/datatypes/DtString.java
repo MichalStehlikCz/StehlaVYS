@@ -60,18 +60,20 @@ abstract public class DtString implements Dt{
         if (this == secondObject) {
             return true;
         }
-        if (secondObject == null) {
-            return false;
+        if (secondObject instanceof DtString) {
+            return getValue().equals(((DtString) secondObject).getValue());
         }
-        if (this.getClass().equals(secondObject.getClass()))
-        {
-            return this.value.equals(((DtString) secondObject).getValue());
+        if (secondObject instanceof DtOptString) {
+            if (!((DtOptString) secondObject).isPresent()) {
+                return false;
+            }
+            return getValue().equals(((DtOptString) secondObject).get());
         }
         return false;
     }
     
     @Override
     public int hashCode(){
-        return this.value.hashCode();
+        return getValue().hashCode();
     }
 }

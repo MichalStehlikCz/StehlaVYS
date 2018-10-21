@@ -5,11 +5,19 @@
  */
 package com.provys.provysdb.datasourceimpl;
 
+import com.provys.common.datatypes.Dt;
 import com.provys.common.datatypes.DtBoolean;
 import com.provys.common.datatypes.DtInteger;
 import com.provys.common.datatypes.DtName;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtNumber;
+import com.provys.common.datatypes.DtOptBoolean;
+import com.provys.common.datatypes.DtOptInteger;
+import com.provys.common.datatypes.DtOptName;
+import com.provys.common.datatypes.DtOptNameNm;
+import com.provys.common.datatypes.DtOptNumber;
+import com.provys.common.datatypes.DtOptUid;
+import com.provys.common.datatypes.DtOptVarchar;
 import com.provys.common.datatypes.DtUid;
 import com.provys.common.datatypes.DtVarchar;
 import com.provys.common.error.ProvysException;
@@ -39,6 +47,7 @@ import java.sql.Types;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 import oracle.jdbc.OracleCallableStatement;
@@ -678,72 +687,78 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     }
 
     @Override
-    public void setDtBoolean(String parameterName, DtBoolean value)
-            throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterName, Types.VARCHAR);
-        } else {
-            getStatement().setString(parameterName, value.toStringValue());
-        }
-    }
-
-    @Override
     public DtBoolean getDtBoolean(int parameterIndex) throws SQLException {
         String value = getStatement().getString(parameterIndex);
         if (getStatement().wasNull()) {
-            return null;
-        } else {
-            return DtBoolean.fromStringValue(value);
+            throw new NullValueInNonOptTypeException(parameterIndex);
         }
+        return DtBoolean.fromStringValue(value);
     }
 
     @Override
     public DtBoolean getDtBoolean(String parameterName) throws SQLException {
         String value = getStatement().getString(parameterName);
         if (getStatement().wasNull()) {
-            return null;
-        } else {
-            return DtBoolean.fromStringValue(value);
+            throw new NullValueInNonOptTypeException(parameterName);
         }
+        return DtBoolean.fromStringValue(value);
     }
 
     @Override
-    public void setDtInteger(String parameterName, DtInteger value)
-            throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterName, Types.INTEGER);
-        } else {
-            getStatement().setInt(parameterName, value.getValue());
+    public DtOptBoolean getDtOptBoolean(int parameterIndex) throws SQLException {
+        String value = getStatement().getString(parameterIndex);
+        if (getStatement().wasNull()) {
+            return DtOptBoolean.empty();
         }
+        return DtOptBoolean.fromStringValue(value);
+    }
+
+    @Override
+    public DtOptBoolean getDtOptBoolean(String parameterName) throws SQLException {
+        String value = getStatement().getString(parameterName);
+        if (getStatement().wasNull()) {
+            return DtOptBoolean.empty();
+        }
+        return DtOptBoolean.fromStringValue(value);
     }
 
     @Override
     public DtInteger getDtInteger(int parameterIndex) throws SQLException {
         int value = getStatement().getInt(parameterIndex);
         if (getStatement().wasNull()) {
-            return null;
-        } else {
-            return new DtInteger(value);
+            throw new NullValueInNonOptTypeException(parameterIndex);
         }
+        return new DtInteger(value);
     }
 
     @Override
     public DtInteger getDtInteger(String parameterName) throws SQLException {
         int value = getStatement().getInt(parameterName);
         if (getStatement().wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(parameterName);
+        }
+        return new DtInteger(value);
+    }
+
+    @Override
+    public DtOptInteger getDtOptInteger(int parameterIndex)
+            throws SQLException {
+        int value = getStatement().getInt(parameterIndex);
+        if (getStatement().wasNull()) {
+            return DtOptInteger.empty();
         } else {
-            return new DtInteger(value);
+            return DtOptInteger.of(value);
         }
     }
 
     @Override
-    public void setDtName(String parameterName, DtName value)
+    public DtOptInteger getDtOptInteger(String parameterName)
             throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterName, Types.VARCHAR);
+        int value = getStatement().getInt(parameterName);
+        if (getStatement().wasNull()) {
+            return DtOptInteger.empty();
         } else {
-            getStatement().setString(parameterName, value.getValue());
+            return DtOptInteger.of(value);
         }
     }
 
@@ -751,29 +766,39 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     public DtName getDtName(int parameterIndex) throws SQLException {
         String value = getStatement().getString(parameterIndex);
         if (getStatement().wasNull()) {
-            return null;
-        } else {
-            return new DtName(value);
+            throw new NullValueInNonOptTypeException(parameterIndex);
         }
+        return new DtName(value);
     }
 
     @Override
     public DtName getDtName(String parameterName) throws SQLException {
         String value = getStatement().getString(parameterName);
         if (getStatement().wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(parameterName);
+        }
+        return new DtName(value);
+    }
+
+    @Override
+    public DtOptName getDtOptName(int parameterIndex)
+            throws SQLException {
+        String value = getStatement().getString(parameterIndex);
+        if (getStatement().wasNull()) {
+            return DtOptName.empty();
         } else {
-            return new DtName(value);
+            return DtOptName.of(value);
         }
     }
 
     @Override
-    public void setDtNameNm(String parameterName, DtNameNm value)
+    public DtOptName getDtOptName(String parameterName)
             throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterName, Types.VARCHAR);
+        String value = getStatement().getString(parameterName);
+        if (getStatement().wasNull()) {
+            return DtOptName.empty();
         } else {
-            getStatement().setString(parameterName, value.getValue());
+            return DtOptName.of(value);
         }
     }
 
@@ -781,29 +806,39 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     public DtNameNm getDtNameNm(int parameterIndex) throws SQLException {
         String value = getStatement().getString(parameterIndex);
         if (getStatement().wasNull()) {
-            return null;
-        } else {
-            return new DtNameNm(value);
+            throw new NullValueInNonOptTypeException(parameterIndex);
         }
+        return new DtNameNm(value);
     }
 
     @Override
     public DtNameNm getDtNameNm(String parameterName) throws SQLException {
         String value = getStatement().getString(parameterName);
         if (getStatement().wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(parameterName);
+        }
+        return new DtNameNm(value);
+    }
+
+    @Override
+    public DtOptNameNm getDtOptNameNm(int parameterIndex)
+            throws SQLException {
+        String value = getStatement().getString(parameterIndex);
+        if (getStatement().wasNull()) {
+            return DtOptNameNm.empty();
         } else {
-            return new DtNameNm(value);
+            return DtOptNameNm.of(value);
         }
     }
 
     @Override
-    public void setDtNumber(String parameterName, DtNumber value)
+    public DtOptNameNm getDtOptNameNm(String parameterName)
             throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterName, Types.NUMERIC);
+        String value = getStatement().getString(parameterName);
+        if (getStatement().wasNull()) {
+            return DtOptNameNm.empty();
         } else {
-            getStatement().setBigDecimal(parameterName, value.getValue());
+            return DtOptNameNm.of(value);
         }
     }
 
@@ -811,29 +846,39 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     public DtNumber getDtNumber(int parameterIndex) throws SQLException {
         BigDecimal value = getStatement().getBigDecimal(parameterIndex);
         if (getStatement().wasNull()) {
-            return null;
-        } else {
-            return new DtNumber(value);
+            throw new NullValueInNonOptTypeException(parameterIndex);
         }
+        return new DtNumber(value);
     }
 
     @Override
     public DtNumber getDtNumber(String parameterName) throws SQLException {
         BigDecimal value = getStatement().getBigDecimal(parameterName);
         if (getStatement().wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(parameterName);
+        }
+        return new DtNumber(value);
+    }
+
+    @Override
+    public DtOptNumber getDtOptNumber(int parameterIndex)
+            throws SQLException {
+        BigDecimal value = getStatement().getBigDecimal(parameterIndex);
+        if (getStatement().wasNull()) {
+            return DtOptNumber.empty();
         } else {
-            return new DtNumber(value);
+            return DtOptNumber.of(value);
         }
     }
 
     @Override
-    public void setDtUid(String parameterName, DtUid value) throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterName, Types.NUMERIC);
+    public DtOptNumber getDtOptNumber(String parameterName)
+            throws SQLException {
+        BigDecimal value = getStatement().getBigDecimal(parameterName);
+        if (getStatement().wasNull()) {
+            return DtOptNumber.empty();
         } else {
-            getStatement().setBigDecimal(parameterName,
-                    new BigDecimal(value.getValue()));
+            return DtOptNumber.of(value);
         }
     }
 
@@ -841,29 +886,39 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     public DtUid getDtUid(int parameterIndex) throws SQLException {
         BigDecimal value = getStatement().getBigDecimal(parameterIndex);
         if (getStatement().wasNull()) {
-            return null;
-        } else {
-            return new DtUid(value.toPlainString());
+            throw new NullValueInNonOptTypeException(parameterIndex);
         }
+        return new DtUid(value.toPlainString());
     }
 
     @Override
     public DtUid getDtUid(String parameterName) throws SQLException {
         BigDecimal value = getStatement().getBigDecimal(parameterName);
         if (getStatement().wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(parameterName);
+        }
+        return new DtUid(value.toPlainString());
+    }
+
+    @Override
+    public DtOptUid getDtOptUid(int parameterIndex)
+            throws SQLException {
+        BigDecimal value = getStatement().getBigDecimal(parameterIndex);
+        if (getStatement().wasNull()) {
+            return DtOptUid.empty();
         } else {
-            return new DtUid(value.toPlainString());
+            return DtOptUid.of(value.toPlainString());
         }
     }
 
     @Override
-    public void setDtVarchar(String parameterName, DtVarchar value)
+    public DtOptUid getDtOptUid(String parameterName)
             throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterName, Types.VARCHAR);
+        BigDecimal value = getStatement().getBigDecimal(parameterName);
+        if (getStatement().wasNull()) {
+            return DtOptUid.empty();
         } else {
-            getStatement().setString(parameterName, value.getValue());
+            return DtOptUid.of(value.toPlainString());
         }
     }
 
@@ -871,175 +926,52 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     public DtVarchar getDtVarchar(int parameterIndex) throws SQLException {
         String value = getStatement().getString(parameterIndex);
         if (getStatement().wasNull()) {
-            return null;
-        } else {
-            return new DtVarchar(value);
+            throw new NullValueInNonOptTypeException(parameterIndex);
         }
+        return new DtVarchar(value);
     }
 
     @Override
     public DtVarchar getDtVarchar(String parameterName) throws SQLException {
         String value = getStatement().getString(parameterName);
         if (getStatement().wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(parameterName);
+        }
+        return new DtVarchar(value);
+    }
+
+    @Override
+    public DtOptVarchar getDtOptVarchar(int parameterIndex)
+            throws SQLException {
+        String value = getStatement().getString(parameterIndex);
+        if (getStatement().wasNull()) {
+            return DtOptVarchar.empty();
         } else {
-            return new DtVarchar(value);
+            return DtOptVarchar.of(value);
         }
     }
 
     @Override
-    public void setBind(BindValue bind) throws SQLException {
-        switch (bind.getType()) {
-            case "DtBoolean":
-                setDtBoolean(bind.getName(), (DtBoolean) bind.getValue());
-                break;
-            case "DtInteger":
-                setDtInteger(bind.getName(), (DtInteger) bind.getValue());
-                break;
-            case "DtName":
-                setDtName(bind.getName(), (DtName) bind.getValue());
-                break;
-            case "DtNameNm":
-                setDtNameNm(bind.getName(), (DtNameNm) bind.getValue());
-                break;
-            case "DtNumber":
-                setDtNumber(bind.getName(), (DtNumber) bind.getValue());
-                break;
-            case "DtUid":
-                setDtUid(bind.getName(), (DtUid) bind.getValue());
-                break;
-            case "DtVarchar":
-                setDtVarchar(bind.getName(), (DtVarchar) bind.getValue());
-                break;
-/*
-            case "Boolean":
-                setBoolean(bind.getName(), (Boolean) bind.getValue());
-                break;
-            case "Byte":
-                setByte(bind.getName(), (Byte) bind.getValue());
-                break;
-            case "Short":
-                setShort(bind.getName(), (Short) bind.getValue());
-                break;
-            case "Integer":
-                setInt(bind.getName(), (Integer) bind.getValue());
-                break;
-            case "Long":
-                setLong(bind.getName(), (Long) bind.getValue());
-                break;
-            case "Float":
-                setFloat(bind.getName(), (Float) bind.getValue());
-                break;
-            case "Double":
-                setDouble(bind.getName(), (Double) bind.getValue());
-                break;
-            case "BigDecimal":
-                setBigDecimal(bind.getName(), (BigDecimal) bind.getValue());
-                break;
-            case "String":
-                setString(bind.getName(), (String) bind.getValue());
-                break;
-            case "Date":
-                setDate(bind.getName(), (Date) bind.getValue());
-                break;
-            case "Time":
-                setTime(bind.getName(), (Time) bind.getValue());
-                break;
-            case "Timestamp":
-                setTimestamp(bind.getName(), (Timestamp) bind.getValue());
-                break;
-*/
-            default:
-                throw new UnsupportedBindDatatypeException(bind.getType());
+    public DtOptVarchar getDtOptVarchar(String parameterName)
+            throws SQLException {
+        String value = getStatement().getString(parameterName);
+        if (getStatement().wasNull()) {
+            return DtOptVarchar.empty();
+        } else {
+            return DtOptVarchar.of(value);
         }
-    }
-
-    @Override
-    public void setBinds(List<BindValue> binds) {
-        binds.forEach((bind) -> {
-            try {
-                this.setBind(bind);
-            } catch (SQLException e) {
-                throw new ProvysSqlException(e);
-            }
-        });
     }
 
     @Override
     public void setParameter(BindParameter parameter) throws SQLException {
         if ((parameter.getMode() == ParameterMode.INOUT)
                 || (parameter.getMode() == ParameterMode.OUT)) {
-            int type;
-            int size = -1;
-            switch (parameter.getType()) {
-                case "DtBoolean":
-                    type = Types.CHAR;
-                    size = 1;
-                    break;
-                case "DtInteger":
-                    type = Types.INTEGER;
-                    break;
-                case "DtName":
-                case "DtNameNm":
-                    type = Types.VARCHAR;
-                    size = 200;
-                    break;
-                case "DtRowId":
-                    type = Types.ROWID;
-                    break;
-                case "DtNumber":
-                case "DtUid":
-                    type = Types.DECIMAL;
-                    break;
-                case "DtVarchar":
-                    type = Types.VARCHAR;
-                    size = 4000;
-                    break;
-                case "Boolean":
-                    type = Types.BOOLEAN;
-                    break;
-                case "Byte":
-                    type = Types.INTEGER;
-                    break;
-                case "Short":
-                    type = Types.INTEGER;
-                    break;
-                case "Integer":
-                    type = Types.INTEGER;
-                    break;
-                case "Long":
-                    type = Types.BIGINT;
-                    break;
-                case "Float":
-                    type = Types.FLOAT;
-                    break;
-                case "Double":
-                    type = Types.DOUBLE;
-                    break;
-                case "BigDecimal":
-                    type = Types.DECIMAL;
-                    break;
-                case "String":
-                    type = Types.VARCHAR;
-                    size = 4000;
-                    break;
-                case "Date":
-                    type = Types.DATE;
-                    break;
-                case "Time":
-                    type = Types.TIME;
-                    break;
-                case "Timestamp":
-                    type = Types.TIMESTAMP;
-                    break;
-                default:
-                    throw new UnsupportedBindDatatypeException(
-                            parameter.getType());
-            }
-            if (size > 0) {
-                registerOutParameter(parameter.getName(), type, size);
+            if (parameter.getPrecision().isPresent()) {
+                registerOutParameter(parameter.getName(), parameter.getSqlType()
+                        , parameter.getPrecision().get());
             } else {
-                registerOutParameter(parameter.getName(), type);
+                registerOutParameter(parameter.getName()
+                        , parameter.getSqlType());
             }
         }
         if ((parameter.getMode() == ParameterMode.IN)
@@ -1061,15 +993,19 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     }
 
     @Override
-    public Object getParameter(BindParameter parameter) throws SQLException {
+    public Dt getParameter(BindParameter parameter) throws SQLException {
         if (parameter.getMode() == ParameterMode.IN) {
             throw new CannotGetValueOfINParameter(parameter.getName());
         }
         switch (parameter.getType()) {
             case "DtBoolean":
                 return getDtBoolean(parameter.getName());
+            case "DtOptBoolean":
+                return getDtOptBoolean(parameter.getName());
             case "DtInteger":
                 return getDtInteger(parameter.getName());
+            case "DtOptInteger":
+                return getDtOptInteger(parameter.getName());
             case "DtName":
                 return getDtName(parameter.getName());
             case "DtNameNm":
@@ -1080,30 +1016,6 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
                 return getDtUid(parameter.getName());
             case "DtVarchar":
                 return getDtVarchar(parameter.getName());
-            case "Boolean":
-                return getBoolean(parameter.getName());
-            case "Byte":
-                return getByte(parameter.getName());
-            case "Short":
-                return getShort(parameter.getName());
-            case "Integer":
-                return getInt(parameter.getName());
-            case "Long":
-                return getLong(parameter.getName());
-            case "Float":
-                return getFloat(parameter.getName());
-            case "Double":
-                return getDouble(parameter.getName());
-            case "BigDecimal":
-                return getBigDecimal(parameter.getName());
-            case "String":
-                return getString(parameter.getName());
-            case "Date":
-                return getDate(parameter.getName());
-            case "Time":
-                return getTime(parameter.getName());
-            case "Timestamp":
-                return getTimestamp(parameter.getName());
             default:
                 throw new UnsupportedBindDatatypeException(
                         parameter.getType());
@@ -1111,8 +1023,8 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     }
 
     @Override
-    public Map<String, Object> getParameters(List<BindParameter> parameters) {
-        Map<String, Object> result = new ConcurrentHashMap<>(10);
+    public Map<String, Dt> getParameters(List<BindParameter> parameters) {
+        Map<String, Dt> result = new ConcurrentHashMap<>(10);
         parameters.stream().filter((parameter)
                 -> ((parameter.getMode() == ParameterMode.INOUT)
                 || (parameter.getMode() == ParameterMode.OUT))).
@@ -1128,17 +1040,20 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
     }
 
     /**
-     * Exception raised when value supplied to Bind is not one of supported
-     * types
+     * Exception raised when value read to non-Nullable type is null
      */
     @SuppressWarnings("PublicInnerClass")
-    static public class UnsupportedBindDatatypeException
+    static public class NullValueInNonOptTypeException
             extends ProvysException {
 
         private static final long serialVersionUID = 1L;
 
-        UnsupportedBindDatatypeException(String type) {
-            super("Unsupported data type for bind: " + type);
+        NullValueInNonOptTypeException(String name) {
+            super("Null value encountered in parameter " + name);
+        }
+
+        NullValueInNonOptTypeException(int index) {
+            super("Null value encountered in parameter " + index);
         }
     }
 

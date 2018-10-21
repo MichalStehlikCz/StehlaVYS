@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.datasource;
 
+import com.provys.common.datatypes.Dt;
 import com.provys.provysdb.call.ProcCall;
 import com.provys.provysdb.call.SqlCall;
 import java.sql.Array;
@@ -209,7 +210,7 @@ public interface ProvysConnection extends Connection {
      * @throws java.sql.SQLException when any exception occurs during SQL
      * processing
      */
-    public Map<String, Object> executeProc(ProcCall procCall)
+    public Map<String, Dt> executeProc(ProcCall procCall)
             throws SQLException;
 
     @Override

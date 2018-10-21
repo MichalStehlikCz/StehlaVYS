@@ -6,6 +6,7 @@
 package com.provys.sqlbuilder.impl;
 
 import com.provys.provysdb.call.BindValue;
+import com.provys.provysdb.call.BindVariable;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 
 /**
@@ -16,28 +17,28 @@ import com.provys.sqlbuilder.iface.CodeBuilder;
  */
 public class SqlColumnBind extends SqlColumnAncestor {
     
-    private final BindValue bindValue;
+    private final BindVariable bindVariable;
 
-    SqlColumnBind(BindValue bindValue) {
-        super(bindValue.getTypeClass(), true);
-        this.bindValue = bindValue;
+    SqlColumnBind(BindVariable bindVariable) {
+        super(bindVariable.getTypeClass(), true);
+        this.bindVariable = bindVariable;
     }
     
-    SqlColumnBind(BindValue bindValue, String alias) {
-        super(alias, bindValue.getTypeClass(), true);
-        this.bindValue = bindValue;
+    SqlColumnBind(BindVariable bindVariable, String alias) {
+        super(alias, bindVariable.getTypeClass(), true);
+        this.bindVariable = bindVariable;
     }
     
     @Override
     public void buildSqlNoNewLine(CodeBuilder code, boolean addAliasClause) {
-        code.append(":").append(bindValue.getName()).addBind(bindValue);
+        code.append(":").append(bindVariable.getName()).addBind(bindVariable);
     }
 
     /**
-     * @return the bindValue
+     * @return the bindVariable
      */
-    public BindValue getBindValue() {
-        return bindValue;
+    public BindVariable getBindVariable() {
+        return bindVariable;
     }
 
 }

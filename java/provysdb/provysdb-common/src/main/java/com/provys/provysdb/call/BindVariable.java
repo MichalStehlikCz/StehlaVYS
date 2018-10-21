@@ -6,6 +6,7 @@
 package com.provys.provysdb.call;
 
 import com.provys.common.datatypes.Dt;
+import com.provys.common.datatypes.DtRepository;
 import com.provys.common.error.ProvysException;
 import javax.json.bind.annotation.JsonbCreator;
 import javax.json.bind.annotation.JsonbProperty;
@@ -67,6 +68,13 @@ public class BindVariable {
      */
     public String getType() {
         return type;
+    }
+
+    /**
+     * @return the SQL type ({@code java.sql.Types}) corresponding to type
+     */
+    public int getSqlType() {
+        return DtRepository.getSqlType(type);
     }
 
     /**

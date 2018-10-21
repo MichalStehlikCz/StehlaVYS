@@ -7,8 +7,6 @@ package com.provys.common.datatypes;
 
 import java.math.BigDecimal;
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
@@ -21,23 +19,62 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 @JsonbTypeAdapter(JsonbDtNumberAdapter.class)
 public class DtNumber implements DtNumeric{
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * Register DtNumber type to Dt types repository.
      */
     static void register() {
-        final List<Integer> defaultForSqlTypes = new ArrayList<>(6);
-        defaultForSqlTypes.add(Types.BIGINT);
-        defaultForSqlTypes.add(Types.DECIMAL);
-        defaultForSqlTypes.add(Types.DOUBLE);
-        defaultForSqlTypes.add(Types.FLOAT);
-        defaultForSqlTypes.add(Types.NUMERIC);
-        defaultForSqlTypes.add(Types.REAL);
         DtRepository.registerDtType(DtNumber.class, Types.NUMERIC
-                , Optional.empty(), defaultForSqlTypes);
+                , DtNumber::validatePrecision, DtNumber::validateScale
+                , DtNumber::eligibleForSqlType);
     }
     
+    /**
+     * Precision validator for {@code DtNumber}.
+     * 
+     * @param precision is precision supplied on column creation
+     * @return specified precision
+     */
+    static public Optional<Integer> validatePrecision(
+            Optional<Integer> precision) {
+        return precision;
+    }
+        
+    /**
+     * Scale validator for {@code DtNumber}.
+     * 
+     * @param scale is scale supplied on column creation
+     * @return specified scale
+     */
+    static public Optional<Short> validateScale(
+            Optional<Short> scale) {
+        return scale;
+    }
+        
+    /**
+     * Marks {@code DtNumber} as default for non-integer SQL types.
+     * 
+     * @param sqlType is value corresponding to SQL type as defined in
+     * {@code java.sql.Types}
+     * @param precision represents column precision - number of characters for
+     * string column, number of digits for numeric column
+     * @param scale represents number of digits to right of decimal point for
+     * numeric column
+     * @param isNullable is flag indicating if column is nullable
+     * @param name is name of column
+     * @return 10 if {@code DtNumber} can be used for column and -1 otherwise
+    */
+    public static int eligibleForSqlType(int sqlType
+            , Optional<Integer> precision, Optional<Short> scale
+            , boolean isNullable, String name) {
+        if ((!isNullable) && ((sqlType == Types.BIGINT)
+                || (sqlType == Types.DECIMAL) || (sqlType == Types.DOUBLE)
+                || (sqlType == Types.FLOAT) || (sqlType == Types.NUMERIC)
+                || (sqlType == Types.REAL))) {
+            return 10;
+        }
+        return -1;
+    }
+
     private final BigDecimal value;
     
     /**
@@ -56,7 +93,7 @@ public class DtNumber implements DtNumeric{
      * @param value - value new object will be initialised to
      */
     public DtNumber(float value) {
-        this.value=new BigDecimal(value);
+        this.value=BigDecimal.valueOf(value);
     }
     
     /**
@@ -64,7 +101,7 @@ public class DtNumber implements DtNumeric{
      * @param value - value new object will be initialised to
      */
     public DtNumber(double value) {
-        this.value=new BigDecimal(value);
+        this.value=BigDecimal.valueOf(value);
     }
     
     /**
@@ -90,12 +127,12 @@ public class DtNumber implements DtNumeric{
         if (this == secondObject) {
             return true;
         }
-        if (secondObject == null) {
-            return false;
+        if (secondObject instanceof DtNumber) {
+            return getValue().equals(((DtNumber) secondObject).getValue());
         }
-        if (this.getClass().equals(secondObject.getClass()))
-        {
-            return this.value.equals(((DtNumber) secondObject).getValue());
+        if (secondObject instanceof DtOptNumber) {
+            return ((DtOptNumber) secondObject)
+                    .map(val -> val.equals(getValue())).orElse(false);
         }
         return false;
     }

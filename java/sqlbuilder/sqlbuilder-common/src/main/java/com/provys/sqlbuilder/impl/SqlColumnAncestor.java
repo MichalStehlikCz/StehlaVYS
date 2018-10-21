@@ -68,9 +68,7 @@ abstract public class SqlColumnAncestor implements SqlColumn {
         if (this.type == null) {
             throw new ColumnTypeMissingException();
         }
-        ColumnDef result = new ColumnDef();
-        result.setType(this.type);
-        result.setName(this.alias);
+        ColumnDef result = new ColumnDef(this.alias, this.type);
         return result;
     }
 

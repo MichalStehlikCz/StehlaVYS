@@ -8,8 +8,8 @@ package com.provys.provysdb.sqlexecutorlocal;
 import com.provys.common.error.ProvysSqlException;
 import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SqlCall;
-import com.provys.provysdb.datasource.ProvysCallableStatement;
 import com.provys.provysdb.datasource.ProvysConnection;
+import com.provys.provysdb.datasource.ProvysPreparedStatement;
 import com.provys.provysdb.datasource.ProvysResultSet;
 import com.provys.provysdb.datasourceimpl.ProvysConnectionPoolDataSource;
 import com.provys.provysdb.iface.QueryExecutor;
@@ -74,8 +74,9 @@ abstract public class QueryExecutorLocal implements QueryExecutor {
 
         try (ProvysConnection connection = dataSource.getConnection()) {
             initData();
-            ProvysCallableStatement statement = connection.prepareCall(getSqlCall().getSql());
-            statement.setBinds(getSqlCall().getValues());
+            ProvysPreparedStatement statement = connection.prepareStatement(
+                    getSqlCall().getSql());
+            statement.setBinds(getSqlCall().getVariables());
             statement.defineColumnTypes(getColumns());
             ProvysResultSet resultSet = statement.executeQuery();
             if (columns.isEmpty()) {
@@ -85,8 +86,14 @@ abstract public class QueryExecutorLocal implements QueryExecutor {
                 for (int i = 1; i <= columnCount; i++) {
                     ColumnDef column = new ColumnDef(metadata.getColumnName(i)
                             , metadata.getColumnType(i)
-                            , (metadata.getPrecision(i)==0) ? Optional.empty()
-                                    : Optional.of(metadata.getPrecision(i)));
+                            , (metadata.getPrecision(i) == 0) ? Optional.empty()
+                                    : Optional.of(metadata.getPrecision(i))
+                            , Optional.of((short) metadata.getScale(i))
+                            , ((metadata.isNullable(i)
+                                    == ResultSetMetaData.columnNullable)
+                                || (metadata.isNullable(i)
+                                    == ResultSetMetaData.columnNullableUnknown))
+                            );
                     columns.add(column);
                 }
             }

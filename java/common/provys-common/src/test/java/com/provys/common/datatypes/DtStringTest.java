@@ -72,7 +72,7 @@ public class DtStringTest {
                 new Object[] {"0123456789", new DtStringImpl("123456789"),
                     false},
                 new Object[] {"abcdefghijkl", new DtVarchar("abcdefghijkl"),
-                    false}
+                    true}
         );
     }
 

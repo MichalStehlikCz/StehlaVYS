@@ -18,12 +18,11 @@ public interface ProvysResultSet extends ResultSet {
     
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtBoolean</code> type
+     * of this {@code ResultSet} object as a {@code DtBoolean} type.
      *
      * @param columnIndex the first column is 1, the second is 2, ...
-     * @return <code>DtBoolean</code> value corresponding to specified
-     * <code>CHAR</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtBoolean} value corresponding to specified
+     * {@code CHAR} column
      * @exception SQLException if the columnIndex is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -31,14 +30,13 @@ public interface ProvysResultSet extends ResultSet {
 
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtBoolean</code>
+     * of this {@code ResultSet} object as a {@code DtBoolean} type.
      *
      * @param columnLabel the label for the column specified with the SQL AS
      * clause.  If the SQL AS clause was not specified, then the label is the
      * name of the column
-     * @return <code>DtBoolean</code> value corresponding to specified
-     * <code>CHAR</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtBoolean} value corresponding to specified
+     * {@code CHAR} column
      * @exception SQLException if the columnLabel is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -46,12 +44,37 @@ public interface ProvysResultSet extends ResultSet {
   
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtInteger</code> type
+     * of this {@code ResultSet} object as a {@code DtOptBoolean} type.
      *
      * @param columnIndex the first column is 1, the second is 2, ...
-     * @return <code>DtInteger</code> value corresponding to specified
-     * <code>NUMBER</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtOptBoolean} value corresponding to specified
+     * {@code CHAR} column
+     * @exception SQLException if the columnIndex is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptBoolean getDtOptBoolean(int columnIndex) throws SQLException;
+
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtOptBoolean} type.
+     *
+     * @param columnLabel the label for the column specified with the SQL AS
+     * clause.  If the SQL AS clause was not specified, then the label is the
+     * name of the column
+     * @return {@code DtOptBoolean} value corresponding to specified
+     * {@code CHAR} column
+     * @exception SQLException if the columnLabel is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptBoolean getDtOptBoolean(String columnLabel) throws SQLException;
+  
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtInteger} type.
+     *
+     * @param columnIndex the first column is 1, the second is 2, ...
+     * @return {@code DtInteger} value corresponding to specified
+     * {@code NUMBER} column
      * @exception SQLException if the columnIndex is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -59,14 +82,13 @@ public interface ProvysResultSet extends ResultSet {
 
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtInteger</code>
+     * of this {@code ResultSet} object as a {@code DtInteger} type.
      *
      * @param columnLabel the label for the column specified with the SQL AS
      * clause.  If the SQL AS clause was not specified, then the label is the
      * name of the column
-     * @return <code>DtInteger</code> value corresponding to specified
-     * <code>NUMBER</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtInteger} value corresponding to specified
+     * {@code NUMBER} column
      * @exception SQLException if the columnLabel is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -74,12 +96,37 @@ public interface ProvysResultSet extends ResultSet {
   
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtName</code> type
+     * of this {@code ResultSet} object as a {@code DtOptInteger} type.
      *
      * @param columnIndex the first column is 1, the second is 2, ...
-     * @return <code>DtName</code> value corresponding to specified
-     * <code>VARCHAR2</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtOptInteger} value corresponding to specified
+     * {@code NUMBER} column
+     * @exception SQLException if the columnIndex is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptInteger getDtOptInteger(int columnIndex) throws SQLException;
+
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtOptInteger} type.
+     *
+     * @param columnLabel the label for the column specified with the SQL AS
+     * clause.  If the SQL AS clause was not specified, then the label is the
+     * name of the column
+     * @return {@code DtOptInteger} value corresponding to specified
+     * {@code NUMBER} column
+     * @exception SQLException if the columnLabel is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptInteger getDtOptInteger(String columnLabel) throws SQLException;
+  
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtName} type.
+     *
+     * @param columnIndex the first column is 1, the second is 2, ...
+     * @return {@code DtName} value corresponding to specified
+     * {@code VARCHAR2} column
      * @exception SQLException if the columnIndex is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -87,14 +134,13 @@ public interface ProvysResultSet extends ResultSet {
 
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtName</code>
+     * of this {@code ResultSet} object as a {@code DtName} type.
      *
      * @param columnLabel the label for the column specified with the SQL AS
      * clause.  If the SQL AS clause was not specified, then the label is the
      * name of the column
-     * @return <code>DtName</code> value corresponding to specified
-     * <code>VARCHAR2</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtName} value corresponding to specified
+     * {@code VARCHAR2} column
      * @exception SQLException if the columnLabel is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -102,12 +148,37 @@ public interface ProvysResultSet extends ResultSet {
   
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtNameNm</code> type
+     * of this {@code ResultSet} object as a {@code DtOptName} type.
      *
      * @param columnIndex the first column is 1, the second is 2, ...
-     * @return <code>DtNameNm</code> value corresponding to specified
-     * <code>VARCHAR2</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtOptName} value corresponding to specified
+     * {@code VARCHAR2} column
+     * @exception SQLException if the columnIndex is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptName getDtOptName(int columnIndex) throws SQLException;
+
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtOptName} type.
+     *
+     * @param columnLabel the label for the column specified with the SQL AS
+     * clause.  If the SQL AS clause was not specified, then the label is the
+     * name of the column
+     * @return {@code DtOptName} value corresponding to specified
+     * {@code VARCHAR2} column
+     * @exception SQLException if the columnLabel is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptName getDtOptName(String columnLabel) throws SQLException;
+  
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtNameNm} type.
+     *
+     * @param columnIndex the first column is 1, the second is 2, ...
+     * @return {@code DtNameNm} value corresponding to specified
+     * {@code VARCHAR2} column
      * @exception SQLException if the columnIndex is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -115,14 +186,13 @@ public interface ProvysResultSet extends ResultSet {
 
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtNameNm</code>
+     * of this {@code ResultSet} object as a {@code DtNameNm} type.
      *
      * @param columnLabel the label for the column specified with the SQL AS
      * clause.  If the SQL AS clause was not specified, then the label is the
      * name of the column
-     * @return <code>DtNameNm</code> value corresponding to specified
-     * <code>VARCHAR2</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtNameNm} value corresponding to specified
+     * {@code VARCHAR2} column
      * @exception SQLException if the columnLabel is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -130,12 +200,37 @@ public interface ProvysResultSet extends ResultSet {
   
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtNumber</code> type
+     * of this {@code ResultSet} object as a {@code DtOptNameNm} type.
      *
      * @param columnIndex the first column is 1, the second is 2, ...
-     * @return <code>DtNumber</code> value corresponding to specified
-     * <code>NUMBER</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtOptNameNm} value corresponding to specified
+     * {@code VARCHAR2} column
+     * @exception SQLException if the columnIndex is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptNameNm getDtOptNameNm(int columnIndex) throws SQLException;
+
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtOptNameNm} type.
+     *
+     * @param columnLabel the label for the column specified with the SQL AS
+     * clause.  If the SQL AS clause was not specified, then the label is the
+     * name of the column
+     * @return {@code DtOptNameNm} value corresponding to specified
+     * {@code VARCHAR2} column
+     * @exception SQLException if the columnLabel is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptNameNm getDtOptNameNm(String columnLabel) throws SQLException;
+  
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtNumber} type.
+     *
+     * @param columnIndex the first column is 1, the second is 2, ...
+     * @return {@code DtNumber} value corresponding to specified
+     * {@code NUMBER} column
      * @exception SQLException if the columnIndex is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -143,14 +238,13 @@ public interface ProvysResultSet extends ResultSet {
 
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtNumber</code>
+     * of this {@code ResultSet} object as a {@code DtNumber} type.
      *
      * @param columnLabel the label for the column specified with the SQL AS
      * clause.  If the SQL AS clause was not specified, then the label is the
      * name of the column
-     * @return <code>DtNumber</code> value corresponding to specified
-     * <code>NUMBER</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtNumber} value corresponding to specified
+     * {@code NUMBER} column
      * @exception SQLException if the columnLabel is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -158,12 +252,37 @@ public interface ProvysResultSet extends ResultSet {
   
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtUid</code> type
+     * of this {@code ResultSet} object as a {@code DtOptNumber} type.
      *
      * @param columnIndex the first column is 1, the second is 2, ...
-     * @return <code>DtUid</code> value corresponding to specified
-     * <code>NUMBER</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtOptNumber} value corresponding to specified
+     * {@code NUMBER} column
+     * @exception SQLException if the columnIndex is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptNumber getDtOptNumber(int columnIndex) throws SQLException;
+
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtOptNumber} type.
+     *
+     * @param columnLabel the label for the column specified with the SQL AS
+     * clause.  If the SQL AS clause was not specified, then the label is the
+     * name of the column
+     * @return {@code DtOptNumber} value corresponding to specified
+     * {@code NUMBER} column
+     * @exception SQLException if the columnLabel is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptNumber getDtOptNumber(String columnLabel) throws SQLException;
+  
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtUid} type.
+     *
+     * @param columnIndex the first column is 1, the second is 2, ...
+     * @return {@code DtUid} value corresponding to specified
+     * {@code NUMBER} column
      * @exception SQLException if the columnIndex is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -171,14 +290,13 @@ public interface ProvysResultSet extends ResultSet {
 
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtUid</code>
+     * of this {@code ResultSet} object as a {@code DtUid} type.
      *
      * @param columnLabel the label for the column specified with the SQL AS
      * clause.  If the SQL AS clause was not specified, then the label is the
      * name of the column
-     * @return <code>DtUid</code> value corresponding to specified
-     * <code>NUMBER</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtUid} value corresponding to specified
+     * {@code NUMBER} column
      * @exception SQLException if the columnLabel is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -186,12 +304,37 @@ public interface ProvysResultSet extends ResultSet {
   
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtVarchar</code> type
+     * of this {@code ResultSet} object as a {@code DtOptUid} type.
      *
      * @param columnIndex the first column is 1, the second is 2, ...
-     * @return <code>DtVarchar</code> value corresponding to specified
-     * <code>VARCHAR2</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtOptUid} value corresponding to specified
+     * {@code NUMBER} column
+     * @exception SQLException if the columnIndex is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptUid getDtOptUid(int columnIndex) throws SQLException;
+
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtOptUid} type.
+     *
+     * @param columnLabel the label for the column specified with the SQL AS
+     * clause.  If the SQL AS clause was not specified, then the label is the
+     * name of the column
+     * @return {@code DtOptUid} value corresponding to specified
+     * {@code NUMBER} column
+     * @exception SQLException if the columnLabel is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptUid getDtOptUid(String columnLabel) throws SQLException;
+  
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtVarchar} type.
+     *
+     * @param columnIndex the first column is 1, the second is 2, ...
+     * @return {@code DtVarchar} value corresponding to specified
+     * {@code VARCHAR2} column
      * @exception SQLException if the columnIndex is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
@@ -199,17 +342,42 @@ public interface ProvysResultSet extends ResultSet {
 
     /**
      * Retrieves the value of the designated column in the current row
-     * of this <code>ResultSet</code> object as a <code>DtVarchar</code>
+     * of this {@code ResultSet} object as a {@code DtVarchar} type.
      *
      * @param columnLabel the label for the column specified with the SQL AS
      * clause.  If the SQL AS clause was not specified, then the label is the
      * name of the column
-     * @return <code>DtVarchar</code> value corresponding to specified
-     * <code>VARCHAR2</code> column; if the value is SQL <code>NULL</code>, the
-     * value returned is <code>null</code>
+     * @return {@code DtVarchar} value corresponding to specified
+     * {@code VARCHAR2} column
      * @exception SQLException if the columnLabel is not valid, if a database
      * access error occurs or this method is called on a closed result set
      */
     DtVarchar getDtVarchar(String columnLabel) throws SQLException;
+  
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtOptVarchar} type.
+     *
+     * @param columnIndex the first column is 1, the second is 2, ...
+     * @return {@code DtOptVarchar} value corresponding to specified
+     * {@code VARCHAR2} column
+     * @exception SQLException if the columnIndex is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptVarchar getDtOptVarchar(int columnIndex) throws SQLException;
+
+    /**
+     * Retrieves the value of the designated column in the current row
+     * of this {@code ResultSet} object as a {@code DtOptVarchar} type.
+     *
+     * @param columnLabel the label for the column specified with the SQL AS
+     * clause.  If the SQL AS clause was not specified, then the label is the
+     * name of the column
+     * @return {@code DtOptVarchar} value corresponding to specified
+     * {@code VARCHAR2} column
+     * @exception SQLException if the columnLabel is not valid, if a database
+     * access error occurs or this method is called on a closed result set
+     */
+    DtOptVarchar getDtOptVarchar(String columnLabel) throws SQLException;
   
 }

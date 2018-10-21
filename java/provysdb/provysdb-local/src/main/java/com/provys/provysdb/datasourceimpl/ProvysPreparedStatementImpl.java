@@ -6,6 +6,9 @@
 package com.provys.provysdb.datasourceimpl;
 
 import com.provys.common.datatypes.*;
+import com.provys.common.error.ProvysException;
+import com.provys.common.error.ProvysSqlException;
+import com.provys.provysdb.call.BindValue;
 import com.provys.provysdb.datasource.ProvysPreparedStatement;
 import com.provys.provysdb.datasource.ProvysResultSet;
 import java.io.InputStream;
@@ -29,6 +32,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Logger;
 import oracle.jdbc.OraclePreparedStatement;
 
@@ -103,9 +107,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setNull(parameterIndex, sqlType);
     }
 
+    private void setNull(String parameterName, int sqlType) throws SQLException {
+        getStatement().setNullAtName(parameterName, sqlType);
+    }
+
     @Override
     public void setNull(int parameterIndex, int sqlType, String typeName) throws SQLException {
         getStatement().setNull(parameterIndex, sqlType, typeName);
+    }
+
+    private void setNull(String parameterName, int sqlType, String typeName) throws SQLException {
+        getStatement().setNullAtName(parameterName, sqlType, typeName);
     }
 
     @Override
@@ -113,9 +125,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setBoolean(parameterIndex, x);
     }
 
+    private void setBoolean(String parameterName, boolean x) throws SQLException {
+        getStatement().setBooleanAtName(parameterName, x);
+    }
+
     @Override
     public void setByte(int parameterIndex, byte x) throws SQLException {
         getStatement().setByte(parameterIndex, x);
+    }
+
+    private void setByte(String parameterName, byte x) throws SQLException {
+        getStatement().setByteAtName(parameterName, x);
     }
 
     @Override
@@ -123,9 +143,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setShort(parameterIndex, x);
     }
 
+    private void setShort(String parameterName, short x) throws SQLException {
+        getStatement().setShortAtName(parameterName, x);
+    }
+
     @Override
     public void setInt(int parameterIndex, int x) throws SQLException {
         getStatement().setInt(parameterIndex, x);
+    }
+
+    private void setInt(String parameterName, int x) throws SQLException {
+        getStatement().setIntAtName(parameterName, x);
     }
 
     @Override
@@ -133,9 +161,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setLong(parameterIndex, x);
     }
 
+    private void setLong(String parameterName, long x) throws SQLException {
+        getStatement().setLongAtName(parameterName, x);
+    }
+
     @Override
     public void setFloat(int parameterIndex, float x) throws SQLException {
         getStatement().setFloat(parameterIndex, x);
+    }
+
+    private void setFloat(String parameterName, float x) throws SQLException {
+        getStatement().setFloatAtName(parameterName, x);
     }
 
     @Override
@@ -143,9 +179,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setDouble(parameterIndex, x);
     }
 
+    private void setDouble(String parameterName, double x) throws SQLException {
+        getStatement().setDoubleAtName(parameterName, x);
+    }
+
     @Override
     public void setBigDecimal(int parameterIndex, BigDecimal x) throws SQLException {
         getStatement().setBigDecimal(parameterIndex, x);
+    }
+
+    private void setBigDecimal(String parameterName, BigDecimal x) throws SQLException {
+        getStatement().setBigDecimalAtName(parameterName, x);
     }
 
     @Override
@@ -153,9 +197,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setString(parameterIndex, x);
     }
 
+    private void setString(String parameterName, String x) throws SQLException {
+        getStatement().setStringAtName(parameterName, x);
+    }
+
     @Override
     public void setBytes(int parameterIndex, byte[] x) throws SQLException {
         getStatement().setBytes(parameterIndex, x);
+    }
+
+    private void setBytes(String parameterName, byte[] x) throws SQLException {
+        getStatement().setBytesAtName(parameterName, x);
     }
 
     @Override
@@ -163,9 +215,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setDate(parameterIndex, x);
     }
 
+    private void setDate(String parameterName, Date x) throws SQLException {
+        getStatement().setDateAtName(parameterName, x);
+    }
+
     @Override
     public void setDate(int parameterIndex, Date x, Calendar cal) throws SQLException {
         getStatement().setDate(parameterIndex, x, cal);
+    }
+
+    private void setDate(String parameterName, Date x, Calendar cal) throws SQLException {
+        getStatement().setDateAtName(parameterName, x, cal);
     }
 
     @Override
@@ -173,9 +233,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setTime(parameterIndex, x);
     }
 
+    private void setTime(String parameterName, Time x) throws SQLException {
+        getStatement().setTimeAtName(parameterName, x);
+    }
+
     @Override
     public void setTime(int parameterIndex, Time x, Calendar cal) throws SQLException {
         getStatement().setTime(parameterIndex, x, cal);
+    }
+
+    private void setTime(String parameterName, Time x, Calendar cal) throws SQLException {
+        getStatement().setTimeAtName(parameterName, x, cal);
     }
 
     @Override
@@ -183,9 +251,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setTimestamp(parameterIndex, x);
     }
 
+    private void setTimestamp(String parameterName, Timestamp x) throws SQLException {
+        getStatement().setTimestampAtName(parameterName, x);
+    }
+
     @Override
     public void setTimestamp(int parameterIndex, Timestamp x, Calendar cal) throws SQLException {
         getStatement().setTimestamp(parameterIndex, x, cal);
+    }
+
+    private void setTimestamp(String parameterName, Timestamp x, Calendar cal) throws SQLException {
+        getStatement().setTimestampAtName(parameterName, x, cal);
     }
 
     @Override
@@ -193,14 +269,26 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setObject(parameterIndex, x);
     }
 
+    private void setObjectAtName(String parameterName, Object x) throws SQLException {
+        getStatement().setObjectAtName(parameterName, x);
+    }
+
     @Override
     public void setObject(int parameterIndex, Object x, int targetSqlType) throws SQLException {
         getStatement().setObject(parameterIndex, x, targetSqlType);
     }
 
+    private void setObject(String parameterName, Object x, int targetSqlType) throws SQLException {
+        getStatement().setObjectAtName(parameterName, x, targetSqlType);
+    }
+
     @Override
     public void setObject(int parameterIndex, Object x, int targetSqlType, int scaleOrLength) throws SQLException {
         getStatement().setObject(parameterIndex, x, targetSqlType, scaleOrLength);
+    }
+
+    private void setObject(String parameterName, Object x, int targetSqlType, int scaleOrLength) throws SQLException {
+        getStatement().setObjectAtName(parameterName, x, targetSqlType, scaleOrLength);
     }
 
     @Override
@@ -218,9 +306,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setRef(parameterIndex, x);
     }
 
+    private void setRef(String parameterName, Ref x) throws SQLException {
+        getStatement().setRefAtName(parameterName, x);
+    }
+
     @Override
     public void setBlob(int parameterIndex, Blob x) throws SQLException {
         getStatement().setBlob(parameterIndex, x);
+    }
+
+    private void setBlob(String parameterName, Blob x) throws SQLException {
+        getStatement().setBlobAtName(parameterName, x);
     }
 
     @Override
@@ -228,9 +324,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setBlob(parameterIndex, inputStream, length);
     }
 
+    private void setBlob(String parameterName, InputStream inputStream, long length) throws SQLException {
+        getStatement().setBlobAtName(parameterName, inputStream, length);
+    }
+
     @Override
     public void setBlob(int parameterIndex, InputStream inputStream) throws SQLException {
         getStatement().setBlob(parameterIndex, inputStream);
+    }
+
+    private void setBlob(String parameterName, InputStream inputStream) throws SQLException {
+        getStatement().setBlobAtName(parameterName, inputStream);
     }
 
     @Override
@@ -238,9 +342,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setClob(parameterIndex, x);
     }
 
+    private void setClob(String parameterName, Clob x) throws SQLException {
+        getStatement().setClobAtName(parameterName, x);
+    }
+
     @Override
     public void setClob(int parameterIndex, Reader reader, long length) throws SQLException {
         getStatement().setClob(parameterIndex, reader, length);
+    }
+
+    private void setClob(String parameterName, Reader reader, long length) throws SQLException {
+        getStatement().setClobAtName(parameterName, reader, length);
     }
 
     @Override
@@ -248,9 +360,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setClob(parameterIndex, reader);
     }
 
+    private void setClob(String parameterName, Reader reader) throws SQLException {
+        getStatement().setClobAtName(parameterName, reader);
+    }
+
     @Override
     public void setNClob(int parameterIndex, Reader reader, long length) throws SQLException {
         getStatement().setNClob(parameterIndex, reader, length);
+    }
+
+    private void setNClob(String parameterName, Reader reader, long length) throws SQLException {
+        getStatement().setNClobAtName(parameterName, reader, length);
     }
 
     @Override
@@ -258,9 +378,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setNClob(parameterIndex, value);
     }
 
+    private void setNClob(String parameterName, NClob value) throws SQLException {
+        getStatement().setNClobAtName(parameterName, value);
+    }
+
     @Override
     public void setNClob(int parameterIndex, Reader reader) throws SQLException {
         getStatement().setNClob(parameterIndex, reader);
+    }
+
+    private void setNClob(String parameterName, Reader reader) throws SQLException {
+        getStatement().setNClobAtName(parameterName, reader);
     }
 
     @Override
@@ -268,9 +396,17 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setArray(parameterIndex, x);
     }
 
+    private void setArray(String parameterName, Array x) throws SQLException {
+        getStatement().setArrayAtName(parameterName, x);
+    }
+
     @Override
     public void setURL(int parameterIndex, URL x) throws SQLException {
         getStatement().setURL(parameterIndex, x);
+    }
+
+    private void setURL(String parameterName, URL x) throws SQLException {
+        getStatement().setURLAtName(parameterName, x);
     }
 
     @Override
@@ -278,14 +414,26 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
         getStatement().setRowId(parameterIndex, x);
     }
 
+    private void setRowId(String parameterName, RowId x) throws SQLException {
+        getStatement().setRowIdAtName(parameterName, x);
+    }
+
     @Override
     public void setNString(int parameterIndex, String value) throws SQLException {
         getStatement().setNString(parameterIndex, value);
     }
 
+    private void setNString(String parameterName, String value) throws SQLException {
+        getStatement().setNStringAtName(parameterName, value);
+    }
+
     @Override
     public void setSQLXML(int parameterIndex, SQLXML xmlObject) throws SQLException {
         getStatement().setSQLXML(parameterIndex, xmlObject);
+    }
+
+    private void setSQLXML(String parameterName, SQLXML xmlObject) throws SQLException {
+        getStatement().setSQLXMLAtName(parameterName, xmlObject);
     }
 
     @Override
@@ -352,70 +500,336 @@ public class ProvysPreparedStatementImpl extends ProvysStatementImpl
     @Override
     public void setDtBoolean(int parameterIndex, DtBoolean value)
             throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterIndex, Types.VARCHAR);
+        setString(parameterIndex, value.toStringValue());
+    }
+    
+    @Override
+    public void setDtBoolean(String parameterName, DtBoolean value)
+            throws SQLException {
+        setString(parameterName, value.toStringValue());
+    }
+
+    @Override
+    public void setDtOptBoolean(int parameterIndex, DtOptBoolean value)
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterIndex, Types.VARCHAR);
         } else {
-            getStatement().setString(parameterIndex, value.toStringValue());
+            setString(parameterIndex, value.toStringValue());
+        }
+    }
+    
+    @Override
+    public void setDtOptBoolean(String parameterName, DtOptBoolean value)
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterName, Types.VARCHAR);
+        } else {
+            setString(parameterName, value.toStringValue());
         }
     }
     
     @Override
     public void setDtInteger(int parameterIndex, DtInteger value)
             throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterIndex, Types.INTEGER);
+        getStatement().setInt(parameterIndex, value.getValue());
+    }
+
+    @Override
+    public void setDtInteger(String parameterName, DtInteger value)
+            throws SQLException {
+        setInt(parameterName, value.getValue());
+    }
+
+    @Override
+    public void setDtOptInteger(int parameterIndex, DtOptInteger value)
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterIndex, Types.INTEGER);
         } else {
-            getStatement().setInt(parameterIndex, value.getValue());
+            setInt(parameterIndex, value.get());
+        }
+    }
+
+    @Override
+    public void setDtOptInteger(String parameterName, DtOptInteger value)
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterName, Types.INTEGER);
+        } else {
+            setInt(parameterName, value.get());
         }
     }
 
     @Override
     public void setDtName(int parameterIndex, DtName value) 
             throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterIndex, Types.VARCHAR);
+        setString(parameterIndex, value.getValue());
+    }
+
+    @Override
+    public void setDtName(String parameterName, DtName value) 
+            throws SQLException {
+        setString(parameterName, value.getValue());
+    }
+
+    @Override
+    public void setDtOptName(int parameterIndex, DtOptName value) 
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterIndex, Types.VARCHAR);
         } else {
-            getStatement().setString(parameterIndex, value.getValue());
+            setString(parameterIndex, value.get());
+        }
+    }
+
+    @Override
+    public void setDtOptName(String parameterName, DtOptName value) 
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterName, Types.VARCHAR);
+        } else {
+            setString(parameterName, value.get());
         }
     }
 
     @Override
     public void setDtNameNm(int parameterIndex, DtNameNm value) 
             throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterIndex, Types.VARCHAR);
+        setString(parameterIndex, value.getValue());
+    }
+
+    @Override
+    public void setDtNameNm(String parameterName, DtNameNm value) 
+            throws SQLException {
+        setString(parameterName, value.getValue());
+    }
+
+    @Override
+    public void setDtOptNameNm(int parameterIndex, DtOptNameNm value) 
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterIndex, Types.VARCHAR);
         } else {
-            getStatement().setString(parameterIndex, value.getValue());
+            setString(parameterIndex, value.get());
+        }
+    }
+
+    @Override
+    public void setDtOptNameNm(String parameterName, DtOptNameNm value) 
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterName, Types.VARCHAR);
+        } else {
+            setString(parameterName, value.get());
         }
     }
 
     @Override
     public void setDtNumber(int parameterIndex, DtNumber value)
             throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterIndex, Types.NUMERIC);
+        setBigDecimal(parameterIndex, value.getValue());
+    }
+
+    @Override
+    public void setDtNumber(String parameterName, DtNumber value)
+            throws SQLException {
+        setBigDecimal(parameterName, value.getValue());
+    }
+
+    @Override
+    public void setDtOptNumber(int parameterIndex, DtOptNumber value) 
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterIndex, Types.NUMERIC);
         } else {
-            getStatement().setBigDecimal(parameterIndex, value.getValue());
+            setBigDecimal(parameterIndex, value.get());
+        }
+    }
+
+    @Override
+    public void setDtOptNumber(String parameterName, DtOptNumber value) 
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterName, Types.NUMERIC);
+        } else {
+            setBigDecimal(parameterName, value.get());
         }
     }
 
     @Override
     public void setDtUid(int parameterIndex, DtUid value) throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterIndex, Types.NUMERIC);
+        setBigDecimal(parameterIndex, new BigDecimal(value.getValue()));
+    }
+
+    @Override
+    public void setDtUid(String parameterName, DtUid value) throws SQLException {
+        setBigDecimal(parameterName, new BigDecimal(value.getValue()));
+    }
+
+    @Override
+    public void setDtOptUid(int parameterIndex, DtOptUid value) 
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterIndex, Types.NUMERIC);
         } else {
-            getStatement().setBigDecimal(parameterIndex,
-                    new BigDecimal(value.getValue()));
+            setBigDecimal(parameterIndex, new BigDecimal(value.get()));
+        }
+    }
+
+    @Override
+    public void setDtOptUid(String parameterName, DtOptUid value) 
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterName, Types.VARCHAR);
+        } else {
+            setBigDecimal(parameterName, new BigDecimal(value.get()));
         }
     }
 
     @Override
     public void setDtVarchar(int parameterIndex, DtVarchar value)
             throws SQLException {
-        if (value == null) {
-            getStatement().setNull(parameterIndex, Types.VARCHAR);
+        setString(parameterIndex, value.getValue());
+    }
+
+    @Override
+    public void setDtVarchar(String parameterName, DtVarchar value)
+            throws SQLException {
+        setString(parameterName, value.getValue());
+    }
+
+    @Override
+    public void setDtOptVarchar(int parameterIndex, DtOptVarchar value) 
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterIndex, Types.VARCHAR);
         } else {
-            getStatement().setString(parameterIndex, value.getValue());
+            setString(parameterIndex, value.get());
+        }
+    }
+
+    @Override
+    public void setDtOptVarchar(String parameterName, DtOptVarchar value) 
+            throws SQLException {
+        if (!value.isPresent()) {
+            setNull(parameterName, Types.VARCHAR);
+        } else {
+            setString(parameterName, value.get());
+        }
+    }
+
+    @Override
+    public void setBind(BindValue bind) throws SQLException {
+        switch (bind.getType()) {
+            case "DtBoolean":
+                setDtBoolean(bind.getName(), (DtBoolean) bind.getValue());
+                break;
+            case "DtOptBoolean":
+                setDtOptBoolean(bind.getName(), (DtOptBoolean) bind.getValue());
+                break;
+            case "DtInteger":
+                setDtInteger(bind.getName(), (DtInteger) bind.getValue());
+                break;
+            case "DtOptInteger":
+                setDtOptInteger(bind.getName(), (DtOptInteger) bind.getValue());
+                break;
+            case "DtName":
+                setDtName(bind.getName(), (DtName) bind.getValue());
+                break;
+            case "DtOptName":
+                setDtOptName(bind.getName(), (DtOptName) bind.getValue());
+                break;
+            case "DtNameNm":
+                setDtNameNm(bind.getName(), (DtNameNm) bind.getValue());
+                break;
+            case "DtOptNameNm":
+                setDtOptNameNm(bind.getName(), (DtOptNameNm) bind.getValue());
+                break;
+            case "DtNumber":
+                setDtNumber(bind.getName(), (DtNumber) bind.getValue());
+                break;
+            case "DtOptNumber":
+                setDtOptNumber(bind.getName(), (DtOptNumber) bind.getValue());
+                break;
+            case "DtUid":
+                setDtUid(bind.getName(), (DtUid) bind.getValue());
+                break;
+            case "DtOptUid":
+                setDtOptUid(bind.getName(), (DtOptUid) bind.getValue());
+                break;
+            case "DtVarchar":
+                setDtVarchar(bind.getName(), (DtVarchar) bind.getValue());
+                break;
+            case "DtOptVarchar":
+                setDtOptVarchar(bind.getName(), (DtOptVarchar) bind.getValue());
+                break;
+/*
+            case "Boolean":
+                setBoolean(bind.getName(), (Boolean) bind.getValue());
+                break;
+            case "Byte":
+                setByte(bind.getName(), (Byte) bind.getValue());
+                break;
+            case "Short":
+                setShort(bind.getName(), (Short) bind.getValue());
+                break;
+            case "Integer":
+                setInt(bind.getName(), (Integer) bind.getValue());
+                break;
+            case "Long":
+                setLong(bind.getName(), (Long) bind.getValue());
+                break;
+            case "Float":
+                setFloat(bind.getName(), (Float) bind.getValue());
+                break;
+            case "Double":
+                setDouble(bind.getName(), (Double) bind.getValue());
+                break;
+            case "BigDecimal":
+                setBigDecimal(bind.getName(), (BigDecimal) bind.getValue());
+                break;
+            case "String":
+                setString(bind.getName(), (String) bind.getValue());
+                break;
+            case "Date":
+                setDate(bind.getName(), (Date) bind.getValue());
+                break;
+            case "Time":
+                setTime(bind.getName(), (Time) bind.getValue());
+                break;
+            case "Timestamp":
+                setTimestamp(bind.getName(), (Timestamp) bind.getValue());
+                break;
+*/
+            default:
+                throw new UnsupportedBindDatatypeException(bind.getType());
+        }
+    }
+
+    @Override
+    public void setBinds(List<BindValue> binds) {
+        binds.forEach((bind) -> {
+            try {
+                this.setBind(bind);
+            } catch (SQLException e) {
+                throw new ProvysSqlException(e);
+            }
+        });
+    }
+
+    /**
+     * Exception raised when value supplied to Bind is not one of supported
+     * types
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class UnsupportedBindDatatypeException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        UnsupportedBindDatatypeException(String type) {
+            super("Unsupported data type for bind: " + type);
         }
     }
 

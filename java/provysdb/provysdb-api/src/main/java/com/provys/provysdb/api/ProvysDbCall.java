@@ -5,7 +5,6 @@
  */
 package com.provys.provysdb.api;
 
-import com.provys.common.datatypes.DtInteger;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtUid;
 import com.provys.provysdb.call.BindValue;

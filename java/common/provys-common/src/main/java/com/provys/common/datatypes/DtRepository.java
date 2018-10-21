@@ -6,100 +6,104 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+import java.util.function.BiConsumer;
 
 public class DtRepository {
-    private final static Map<String, String> nameBySimpleName = new HashMap<>(10);
-    private final static Map<String, Integer> sqlTypeBySimpleName = new HashMap<>(10);
-    private final static Map<String, Optional<Integer>> sqlDefaultSizeBySimpleName
+    private final static Map<String, String> NAMEBYSIMPLENAME = new HashMap<>(10);
+    private final static Map<String, Integer> SQLTYPEBYSIMPLENAME = new HashMap<>(10);
+    private final static Map<String, PrecisionValidator> PRECISIONVALIDATORS
             = new HashMap<>(10);
-    private final static Map<String, Optional<Integer>> sqlSizeBySimpleName
+    private final static Map<String, ScaleValidator> SCALEVALIDATORS
             = new HashMap<>(10);
-    private final static Map<Integer, String> simpleNameBySqlType = new HashMap<>(10);
+    private final static Map<String, EligibleForSqlType> SQLTYPEMAPPING
+            = new HashMap<>(10);
+    
     private static boolean initialized = false;
 
     /**
      * Register Dt descendant in repository.
      * 
-     * @param dtClass Dt impleemntor class to be registered
+     * @param dtClass Dt implementor class to be registered
      * @param sqlType is java.sql.Types type values of this type are converted
      * to
-     * @param defaultSize is default size for items of this type
-     * @param size is size for items of this type (when size is fixed)
-     * @param defForSqlType is list of sql types that can be converted to value
-     * of this type
+     * @param precisionValidator - function used for validation of precision for
+     * given {@code Dt} class
+     * @param scaleValidator - function used for validation of scale for given
+     * {@code Dt} class
+     * @param eligibleForSqlType is function that evaluates mapping quality
+     * of given {@code Dt} class to SQL type
      */
     public static void registerDtType(Class<? extends Dt> dtClass, int sqlType
-            , Optional<Integer> defaultSize, Optional<Integer> size
-            , List<Integer> defForSqlType) {
-        nameBySimpleName.put(dtClass.getSimpleName()
+            , PrecisionValidator precisionValidator
+            , ScaleValidator scaleValidator
+            , EligibleForSqlType eligibleForSqlType) {
+        NAMEBYSIMPLENAME.put(dtClass.getSimpleName()
                 , dtClass.getCanonicalName());
-        sqlTypeBySimpleName.put(dtClass.getSimpleName(), sqlType);
-        sqlDefaultSizeBySimpleName.put(dtClass.getSimpleName(), defaultSize);
-        sqlSizeBySimpleName.put(dtClass.getSimpleName(), size);
-        defForSqlType.forEach((defaultForSqlType) -> {
-            String oldMapping = simpleNameBySqlType.put(defaultForSqlType
-                    , dtClass.getSimpleName());
-            if (oldMapping != null) {
-                if (!oldMapping.equals(dtClass.getSimpleName())) {
-                    throw new DuplicateDtDefaultTypeException(dtClass
-                        , defaultForSqlType);
-                }
-            }
-        });
+        SQLTYPEBYSIMPLENAME.put(dtClass.getSimpleName(), sqlType);
+        if (precisionValidator != null) {
+            PRECISIONVALIDATORS.put(dtClass.getSimpleName(), precisionValidator);
+        }
+        if (scaleValidator != null) {
+            SCALEVALIDATORS.put(dtClass.getSimpleName(), scaleValidator);
+        }
+        if (eligibleForSqlType != null) {
+            SQLTYPEMAPPING.put(dtClass.getSimpleName(), eligibleForSqlType);
+        }
     }
     
     /**
      * Register Dt descendant in repository.
      * 
-     * @param dtClass Dt impleemntor class to be registered
+     * @param dtClass Dt implementor class to be registered
      * @param sqlType is java.sql.Types type values of this type are converted
      * to
-     * @param defaultSize is default size for items of this type
-     * @param defForSqlType is list of sql types that can be converted to value
-     * of this type
+     * @param precisionValidator - function used for validation of precision for
+     * given {@code Dt} class
+     * @param scaleValidator - function used for validation of scale for given
+     * {@code Dt} class
      */
     public static void registerDtType(Class<? extends Dt> dtClass, int sqlType
-            , Optional<Integer> defaultSize
-            , List<Integer> defForSqlType) {
-        registerDtType(dtClass, sqlType, defaultSize, Optional.empty()
-                , defForSqlType);
+            , PrecisionValidator precisionValidator
+            , ScaleValidator scaleValidator) {
+        registerDtType(dtClass, sqlType, precisionValidator, scaleValidator
+                , null);
     }
-    
+        
     /**
-     * Register Dt descendant in repository.Variant with no default SQL types
+     * Register Dt descendant in repository.
      * 
      * @param dtClass Dt implementor class to be registered
      * @param sqlType is java.sql.Types type values of this type are converted
      * to
-     * @param defSize is default size for items of this type
-     * @param size is size for items of this type (when size is fixed)
+     * @param precisionValidator - function used for validation of precision for
+     * given {@code Dt} class
+     * @param eligibleForSqlType is function that evaluates mapping quality
+     * of given {@code Dt} class to SQL type
      */
     public static void registerDtType(Class<? extends Dt> dtClass, int sqlType
-            , Optional<Integer> defSize, Optional<Integer> size) {
-        registerDtType(dtClass, sqlType, defSize, size
-                , new ArrayList<>(1));
+            , PrecisionValidator precisionValidator
+            , EligibleForSqlType eligibleForSqlType) {
+        registerDtType(dtClass, sqlType, precisionValidator, null
+                , eligibleForSqlType);
     }
-    
+        
     /**
-     * Register Dt descendant in repository. Variant with no default SQL types
+     * Register Dt descendant in repository.
      * 
-     * @param dtClass Dt impleemntor class to be registered
+     * @param dtClass Dt implementor class to be registered
      * @param sqlType is java.sql.Types type values of this type are converted
      * to
-     * @param defSize is default size for items of this type
+     * @param precisionValidator - function used for validation of precision for
+     * given {@code Dt} class
      */
     public static void registerDtType(Class<? extends Dt> dtClass, int sqlType
-            , Optional<Integer> defSize) {
-        registerDtType(dtClass, sqlType, defSize, Optional.empty()
-                , new ArrayList<>(1));
+            , PrecisionValidator precisionValidator) {
+        registerDtType(dtClass, sqlType, precisionValidator, null, null);
     }
-    
+        
     /**
      * Retrieve class name for specified simple name.
      * 
@@ -110,7 +114,7 @@ public class DtRepository {
         if (!initialized) {
             initialize();
         }
-        final String name = nameBySimpleName.get(simpleName);
+        final String name = NAMEBYSIMPLENAME.get(simpleName);
         if (name == null) {
             throw new UnknownDtTypeException(simpleName);
         }
@@ -127,7 +131,7 @@ public class DtRepository {
         if (!initialized) {
             initialize();
         }
-        final String name = nameBySimpleName.get(simpleName);
+        final String name = NAMEBYSIMPLENAME.get(simpleName);
         if (name == null) {
             throw new UnknownDtTypeException(simpleName);
         }
@@ -149,7 +153,7 @@ public class DtRepository {
         if (!initialized) {
             initialize();
         }
-        final Integer sqlType = sqlTypeBySimpleName.get(simpleName);
+        final Integer sqlType = SQLTYPEBYSIMPLENAME.get(simpleName);
         if (sqlType == null) {
             throw new UnknownDtTypeException(simpleName);
         }
@@ -157,84 +161,94 @@ public class DtRepository {
     }
 
     /**
-     * Retrieve default size that should be defined for SQL column.
-     * Size is number of characters
+     * Retrieve default / fixed precision that should be defined for SQL column.
+     * Precision is number of characters / digits
      * 
      * @param simpleName is simple name of class (Dt implementation)
-     * @return number of characters
+     * @param precision is precision supplied on column creation
+     * @return precision for column of given type
      */
-    public static Optional<Integer> getDefaultSqlSize(String simpleName) {
+    public static Optional<Integer> validatePrecision(String simpleName
+            , Optional<Integer> precision) {
         if (!initialized) {
             initialize();
         }
-        final Optional<Integer> sqlSize = sqlSizeBySimpleName.get(simpleName);
-        if (sqlSize == null) {
-            throw new UnknownDtTypeException(simpleName);
+        PrecisionValidator precisionValidator
+                = PRECISIONVALIDATORS.get(simpleName);
+        if (precisionValidator == null) {
+            // if type doesn't have validator, precision has no meaning for it
+            return Optional.empty();
         }
-        return sqlSize;
+        return precisionValidator.validatePrecision(precision);
     }
 
     /**
-     * Retrieve fixed size that should be defined for SQL column.
-     * Size is number of characters
+     * Retrieve default / fixed scale that should be defined for SQL column.
+     * Scale is number of digits to the right of decimal point
      * 
      * @param simpleName is simple name of class (Dt implementation)
-     * @return number of characters
+     * @param scale is scale supplied on column creation
+     * @return scale for column of given type
      */
-    public static Optional<Integer> getSqlSize(String simpleName) {
+    public static Optional<Short> validateScale(String simpleName
+            , Optional<Short> scale) {
         if (!initialized) {
             initialize();
         }
-        final Optional<Integer> sqlSize = sqlSizeBySimpleName.get(simpleName);
-        if (sqlSize == null) {
-            throw new UnknownDtTypeException(simpleName);
+        ScaleValidator scaleValidator
+                = SCALEVALIDATORS.get(simpleName);
+        if (scaleValidator == null) {
+            // if type doesn't have validator, scale has no meaning for it
+            return Optional.empty();
         }
-        return sqlSize;
+        return scaleValidator.validateScale(scale);
     }
 
     /**
-     * Retrieve default Dt class to handle values of given SQL type.
+     * Retrieve default {@code Dt} class to handle values of given SQL type.
      * 
      * @param sqlType is value corresponding to SQL type as defined in
-     * java.sql.Types
-     * @return simple name of DT class that should handle given type by default
+     * {@code java.sql.Types}
+     * @param precision represents column precision - number of characters for
+     * string column, number of digits for numeric column
+     * @param scale represents number of digits to right of decimal point for
+     * numeric column
+     * @param isNullable is flag indicating if column is nullable
+     * @param name is name of column
+     * @return simple name of {@code Dt} class that should handle given type
+     * by default
      */
-    public static String getDtBySqlType(int sqlType) {
+    public static String getDtBySqlType(int sqlType, Optional<Integer> precision
+            , Optional<Short> scale, boolean isNullable, String name) {
         if (!initialized) {
             initialize();
         }
-        final String simpleName = simpleNameBySqlType.get(sqlType);
-        if (simpleName == null) {
-            throw new SqlTypeNotMappedException(sqlType);
+        EligibilityEvaluator evaluator = new EligibilityEvaluator(sqlType
+                , precision, scale, isNullable, name);
+        SQLTYPEMAPPING.forEach(evaluator);
+        if (!evaluator.getSimpleName().isPresent()) {
+            throw new SqlTypeNotMappedException(sqlType, precision, scale
+                    , isNullable, name);
         }
-        return simpleName;
+        return evaluator.getSimpleName().get();
     }
 
     static private void initialize() {
         DtBoolean.register();
+        DtOptBoolean.register();
         DtInteger.register();
+        DtOptInteger.register();
         DtName.register();
+        DtOptName.register();
         DtNameNm.register();
+        DtOptNameNm.register();
         DtNumber.register();
+        DtOptNumber.register();
         DtUid.register();
+        DtOptUid.register();
         DtVarchar.register();
+        DtOptVarchar.register();
         initialized = true;
-    }
-
-    /**
-     * Raised when multiple default mappings exist for single SQL type.
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class DuplicateDtDefaultTypeException
-            extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        DuplicateDtDefaultTypeException(Class<? extends Dt> dtClass
-                , int sqlType) {
-            super("Multiple default mappings for type; class "
-                    + dtClass.getName() + ", type " + sqlType);
-        }
     }
 
     /**
@@ -274,12 +288,66 @@ public class DtRepository {
 
         private static final long serialVersionUID = 1L;
 
-        SqlTypeNotMappedException(int sqlType) {
-            super("No Dt class for supplied SQL type " + sqlType);
+        SqlTypeNotMappedException(int sqlType, Optional<Integer> precision
+                , Optional<Short> scale, boolean isNullable, String name) {
+            super("No Dt class for supplied SQL type " + sqlType + " precision "
+            + precision.toString() + " scale " + scale.toString() + " nullable " 
+            + (isNullable ? "TRUE" : "FALSE") + " name " + name);
         }
+    }
+
+    public interface PrecisionValidator {
+        public Optional<Integer> validatePrecision(Optional<Integer> precision);
+    }
+    
+    public interface ScaleValidator {
+        public Optional<Short> validateScale(Optional<Short> scale);
+    }
+    
+    public interface EligibleForSqlType {
+        public int isEligible(int sqlType, Optional<Integer> precision
+                , Optional<Short> scale, boolean isNullable, String name);
     }
 
     private DtRepository() {
     }
 
+    private static class EligibilityEvaluator
+            implements BiConsumer<String, EligibleForSqlType> {
+        final private int sqlType;
+        final private Optional<Integer> precision;
+        final private Optional<Short> scale;
+        final private boolean isNullable;
+        final private String name;
+        
+        private int weight = -1;
+        private String simpleName;
+
+        EligibilityEvaluator(int sqlType, Optional<Integer> precision
+                , Optional<Short> scale, boolean isNullable, String name) {
+            this.sqlType = sqlType;
+            this.precision = precision;
+            this.scale = scale;
+            this.isNullable = isNullable;
+            this.name = name;
+        }
+
+        @Override
+        public void accept(String simpleName, EligibleForSqlType u) {
+            int currentWeight=u.isEligible(sqlType, precision, scale
+                    , isNullable, name);
+            if (currentWeight > weight) {
+                this.weight = currentWeight;
+                this.simpleName = simpleName;
+            }
+        }
+        
+        Optional<String> getSimpleName() {
+            if (simpleName == null) {
+                return Optional.empty();
+            }
+            return Optional.of(simpleName);
+        }
+        
+    }
 }

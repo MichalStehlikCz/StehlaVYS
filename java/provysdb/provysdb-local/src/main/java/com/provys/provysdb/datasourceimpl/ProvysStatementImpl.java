@@ -311,17 +311,26 @@ public class ProvysStatementImpl implements ProvysStatement {
     }
 
     @Override
-    public void defineColumnType(int columnIndex, int type, int maxSize)
+    public void defineColumnType(int columnIndex, int type, int maxPrecision)
             throws SQLException {
-        getStatement().defineColumnType(columnIndex, type, maxSize);
+        getStatement().defineColumnType(columnIndex, type, maxPrecision);
+    }
+
+    @Override
+    public void defineColumnType(int columnIndex, int type, int maxPrecision
+            , short scale) throws SQLException {
+        getStatement().defineColumnType(columnIndex, type, maxPrecision, scale);
     }
 
     @Override
     public void defineColumnType(int columnIndex, ColumnDef column)
             throws SQLException {
-        if (column.getSize().isPresent()) {
+        if (column.getPrecision().isPresent() && column.getScale().isPresent()) {
             defineColumnType(columnIndex, column.getSqlType()
-                    , column.getSize().get());
+                    , column.getPrecision().get(), column.getScale().get());
+        } else if (column.getPrecision().isPresent()) {
+            defineColumnType(columnIndex, column.getSqlType()
+                    , column.getPrecision().get());
         } else {
             defineColumnType(columnIndex, column.getSqlType());
         }

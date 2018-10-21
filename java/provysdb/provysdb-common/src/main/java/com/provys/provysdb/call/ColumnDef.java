@@ -15,7 +15,7 @@ import javax.json.bind.annotation.JsonbTransient;
 /**
  * Definition of result column for SELECT statements.
  * Uses Dt datatypes to describe column type. Can define column size for CHAR
- * and VARCHAR columns, tries to deduct it from type.
+ * and VARCHAR columns, tries to guess precision from type if not supplied.
  * 
  * @author stehlik
  */
@@ -32,109 +32,105 @@ public class ColumnDef {
         return type;
     }
 
-    private static String validateType(int sqlType) {
-        String name;
-        try {
-            name = DtRepository.getDtBySqlType(sqlType);
-        } catch (DtRepository.SqlTypeNotMappedException ex) {
-            throw new UnsupportedSqlTypeException(sqlType, ex);
-        }
-        return name;
-    }
-
-    private static Optional<Integer> validateSize(String type, Optional<Integer> size) {
-        return Optional.ofNullable(DtRepository.getSqlSize(type)
-                .orElse(size
-                        .orElse(DtRepository.getDefaultSqlSize(type)
-                                .orElse(null))));
-    }
-    
-    private static Optional<Integer> validateSize(String type) {
-        return validateSize(type, Optional.empty());
-    }
-
     private final String name;
     private final String type;
-    private final Optional<Integer> size;
+    private final Optional<Integer> precision;
+    private final Optional<Short> scale;
 
     /**
      * Create column definition based on name and type.
      * 
-     * @param name
-     * @param type
+     * @param name is name of column
+     * @param type is simpleName of {@code Dt} implementation type
      */
     public ColumnDef(String name, String type) {
         this.name = name;
         this.type = validateType(type);
-        this.size = validateSize(this.type);
+        this.precision = DtRepository.validatePrecision(this.type
+                , Optional.empty());
+        this.scale = DtRepository.validateScale(this.type, Optional.empty());
     }
     
     /**
      * Create column definition based on name, type and column size.
      * 
-     * @param name
-     * @param type
-     * @param size
+     * @param name is name of column
+     * @param type is simpleName of {@code Dt} implementation type
+     * @param precision is required precision (number of characters / digits)
+     */
+    public ColumnDef(String name, String type, Optional<Integer> precision) {
+        this.name = name;
+        this.type = validateType(type);
+        this.precision = DtRepository.validatePrecision(this.type, precision);
+        this.scale = DtRepository.validateScale(this.type, Optional.empty());
+    }
+
+    /**
+     * Create column definition based on name, type and column size.
+     * 
+     * @param name is name of column
+     * @param type is simpleName of {@code Dt} implementation type
+     * @param precision is required precision (number of characters / digits)
+     * @param scale is required scale - number of digits to the right of decimal
+     * point
      */
     @JsonbCreator
     public ColumnDef(@JsonbProperty("name") String name
             , @JsonbProperty("type") String type
-            , @JsonbProperty("size") Optional<Integer> size) {
+            , @JsonbProperty("precision") Optional<Integer> precision
+            , @JsonbProperty("scale") Optional<Short> scale) {
         this.name = name;
         this.type = validateType(type);
-        this.size = validateSize(this.type, size);
+        this.precision = DtRepository.validatePrecision(this.type, precision);
+        this.scale = DtRepository.validateScale(this.type, scale);
     }
 
     /**
      * Create column definition based on name and class.
-     * @param name
+     * @param name is name of column
      * @param typeClass
      */
     public ColumnDef(String name, Class<? extends Dt> typeClass) {
         this.name = name;
         this.type = validateType(typeClass.getSimpleName());
-        this.size = validateSize(this.type);
+        this.precision = DtRepository.validatePrecision(this.type
+                , Optional.empty());
+        this.scale = DtRepository.validateScale(this.type, Optional.empty());
     }
     
     /**
      * Create column definition based on name, class and column size.
      * 
-     * @param name
+     * @param name is name of column
      * @param typeClass
-     * @param size
+     * @param precision is required precision (number of characters / digits)
      */
     public ColumnDef(String name, Class<? extends Dt> typeClass
-            , Optional<Integer> size) {
+            , Optional<Integer> precision) {
         this.name = name;
         this.type = validateType(typeClass.getSimpleName());
-        this.size = validateSize(this.type, size);
+        this.precision = DtRepository.validatePrecision(this.type, precision);
+        this.scale = DtRepository.validateScale(this.type, Optional.empty());
     }
 
     /**
      * Create column definition based on name, SQL type and column size.
      * 
-     * @param name
+     * @param name is name of column
      * @param sqlType is SQL type code (java.sql.Types) of SQL type for which
      * column should be created
-     * @param size
+     * @param precision is required precision (number of characters / digits)
+     * @param scale is required scale - number of digits to the right of decimal
+     * point
+     * @param isNullable indicates if column is nullable
      */
-    public ColumnDef(String name, int sqlType, Optional<Integer> size) {
+    public ColumnDef(String name, int sqlType, Optional<Integer> precision
+            , Optional<Short> scale, boolean isNullable) {
         this.name = name;
-        this.type = validateType(sqlType);
-        this.size = validateSize(this.type, size);
-    }
-
-    /**
-     * Create column definition based on name and SQL type.
-     * 
-     * @param name
-     * @param sqlType is SQL type code (java.sql.Types) of SQL type for which
-     * column should be created
-     */
-    public ColumnDef(String name, int sqlType) {
-        this.name = name;
-        this.type = validateType(sqlType);
-        this.size = validateSize(this.type);
+        this.type = DtRepository.getDtBySqlType(sqlType, precision, scale
+                , isNullable, name);
+        this.precision = DtRepository.validatePrecision(this.type, precision);
+        this.scale = DtRepository.validateScale(this.type, scale);
     }
 
     /**
@@ -160,10 +156,17 @@ public class ColumnDef {
     }
 
     /**
-     * @return the size corresponding to column type
+     * @return the precision corresponding to column type
      */
-    public Optional<Integer> getSize() {
-        return size;
+    public Optional<Integer> getPrecision() {
+        return precision;
+    }
+
+    /**
+     * @return the scale corresponding to column type
+     */
+    public Optional<Short> getScale() {
+        return scale;
     }
 
     /**

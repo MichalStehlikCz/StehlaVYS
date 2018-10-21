@@ -5,12 +5,16 @@
  */
 package com.provys.sqlbuilder.impl;
 
+import com.provys.common.error.ProvysException;
+import com.provys.provysdb.call.BindValue;
 import com.provys.provysdb.call.SqlCall;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import com.provys.sqlbuilder.iface.SqlColumn;
 import com.provys.sqlbuilder.iface.SqlFromElem;
 import com.provys.sqlbuilder.iface.SqlSelectBuilder;
 import com.provys.sqlbuilder.iface.SqlWhereCond;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Simple SELECT statement builder implementation.
@@ -39,16 +43,22 @@ public class SqlSelectBuilderSimple extends SqlBuilderSimple
 
     @Override
     public SqlCall getSqlCall() {
-        SqlCall sqlCall = new SqlCall();
         CodeBuilder code = new CodeBuilderImpl();
         this.buildSql(code);
         SqlCallColumnsBuilder columnsBuilder = new SqlCallColumnsBuilder(
                 getColumns().size());
         getColumns().forEach(columnsBuilder);
-        sqlCall.setColumns(columnsBuilder.getColumns());
-        sqlCall.setSql(code.getCode());
-        sqlCall.setValues(code.getBindValues());
-        return sqlCall;
+        final List<BindValue> bindValues
+                = new ArrayList<>(code.getBindVariables().size());
+        code.getBindVariables().forEach((bindVariable) -> {
+            if ((bindVariable != null) && !(bindVariable instanceof BindValue)) {
+                throw new CannotCreateSqlCallNoValueException(
+                        bindVariable.getName());
+            }
+            bindValues.add((BindValue) bindVariable);
+        });
+        return new SqlCall(code.getCode(), bindValues
+                , columnsBuilder.getColumns());
     }
 
     @Override
@@ -69,4 +79,18 @@ public class SqlSelectBuilderSimple extends SqlBuilderSimple
         return this;
     }
     
+    /**
+     * Cannot create SqlCall from builder, supplied variable doesn't have value
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class CannotCreateSqlCallNoValueException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        CannotCreateSqlCallNoValueException(String name) {
+            super("Cannot create SqlCall, supplied variable doesn't have"
+                    +" value: " + name);
+        }
+    }
 }

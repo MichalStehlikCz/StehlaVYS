@@ -5,15 +5,22 @@
  */
 package com.provys.provysdb.datasource;
 
+import com.provys.common.datatypes.Dt;
 import com.provys.common.datatypes.DtBoolean;
 import com.provys.common.datatypes.DtInteger;
 import com.provys.common.datatypes.DtName;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtNumber;
+import com.provys.common.datatypes.DtOptBoolean;
+import com.provys.common.datatypes.DtOptInteger;
+import com.provys.common.datatypes.DtOptName;
+import com.provys.common.datatypes.DtOptNameNm;
+import com.provys.common.datatypes.DtOptNumber;
+import com.provys.common.datatypes.DtOptUid;
+import com.provys.common.datatypes.DtOptVarchar;
 import com.provys.common.datatypes.DtUid;
 import com.provys.common.datatypes.DtVarchar;
 import com.provys.provysdb.call.BindParameter;
-import com.provys.provysdb.call.BindValue;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -29,17 +36,7 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
         CallableStatement {
 
     /**
-     * Set DtBoolean type parameter corresponding to bind variable with given
-     * name
-     * @param parameterName is name of bind variable to be associated with given
-     * parameter
-     * @param value is value to be set to given parameter
-     * @throws SQLException is thrown when problem is encountered
-     */
-    public void setDtBoolean(String parameterName, DtBoolean value) throws SQLException;
-    
-    /**
-     * Get value of DtBoolean type OUT parameter on given position
+     * Get value of {@code DtBoolean} type OUT parameter on given position.
      * @param parameterIndex is position of parameter (indexed from 1)
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -47,7 +44,7 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtBoolean getDtBoolean(int parameterIndex) throws SQLException;
 
     /**
-     * Get value of DtBoolean type OUT parameter with given bind name
+     * Get value of {@code DtBoolean} type OUT parameter with given bind name.
      * @param parameterName is name of bind variable to be read
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -55,17 +52,25 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtBoolean getDtBoolean(String parameterName) throws SQLException;
 
     /**
-     * Set DtInteger type parameter corresponding to bind variable with given
-     * name
-     * @param parameterName is name of bind variable to be associated with given
-     * parameter
-     * @param value is value to be set to given parameter
+     * Get value of {@code DtOptBoolean} type OUT parameter on given position.
+     * @param parameterIndex is position of parameter (indexed from 1)
+     * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
      */
-    public void setDtInteger(String parameterName, DtInteger value) throws SQLException;
+    public DtOptBoolean getDtOptBoolean(int parameterIndex) throws SQLException;
 
     /**
-     * Get value of DtInteger type OUT parameter on given position
+     * Get value of {@code DtOptBoolean} type OUT parameter with given bind
+     * name.
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public DtOptBoolean getDtOptBoolean(String parameterName)
+            throws SQLException;
+
+    /**
+     * Get value of {@code DtInteger} type OUT parameter on given position.
      * @param parameterIndex is position of parameter (indexed from 1)
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -73,7 +78,7 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtInteger getDtInteger(int parameterIndex) throws SQLException;
 
     /**
-     * Get value of DtInteger type OUT parameter with given bind name
+     * Get value of {@code DtInteger} type OUT parameter with given bind name.
      * @param parameterName is name of bind variable to be read
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -81,17 +86,25 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtInteger getDtInteger(String parameterName) throws SQLException;
 
     /**
-     * Set DtName type parameter corresponding to bind variable with given
-     * name
-     * @param parameterName is name of bind variable to be associated with given
-     * parameter
-     * @param value is value to be set to given parameter
+     * Get value of {@code DtOptInteger} type OUT parameter on given position.
+     * @param parameterIndex is position of parameter (indexed from 1)
+     * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
      */
-    public void setDtName(String parameterName, DtName value) throws SQLException;
+    public DtOptInteger getDtOptInteger(int parameterIndex) throws SQLException;
 
     /**
-     * Get value of DtName type OUT parameter on given position
+     * Get value of {@code DtOptInteger} type OUT parameter with given bind
+     * name.
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public DtOptInteger getDtOptInteger(String parameterName)
+            throws SQLException;
+
+    /**
+     * Get value of {@code DtName} type OUT parameter on given position.
      * @param parameterIndex is position of parameter (indexed from 1)
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -99,7 +112,7 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtName getDtName(int parameterIndex) throws SQLException;
 
     /**
-     * Get value of DtName type OUT parameter with given bind name
+     * Get value of {@code DtName} type OUT parameter with given bind name.
      * @param parameterName is name of bind variable to be read
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -107,17 +120,23 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtName getDtName(String parameterName) throws SQLException;
 
     /**
-     * Set DtNameNm type parameter corresponding to bind variable with given
-     * name
-     * @param parameterName is name of bind variable to be associated with given
-     * parameter
-     * @param value is value to be set to given parameter
+     * Get value of {@code DtOptName} type OUT parameter on given position.
+     * @param parameterIndex is position of parameter (indexed from 1)
+     * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
      */
-    public void setDtNameNm(String parameterName, DtNameNm value) throws SQLException;
+    public DtOptName getDtOptName(int parameterIndex) throws SQLException;
 
     /**
-     * Get value of DtNameNm type OUT parameter on given position
+     * Get value of {@code DtOptName} type OUT parameter with given bind name.
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public DtOptName getDtOptName(String parameterName) throws SQLException;
+
+    /**
+     * Get value of {@code DtNameNm} type OUT parameter on given position.
      * @param parameterIndex is position of parameter (indexed from 1)
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -125,7 +144,7 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtNameNm getDtNameNm(int parameterIndex) throws SQLException;
 
     /**
-     * Get value of DtNameNm type OUT parameter with given bind name
+     * Get value of {@code DtNameNm} type OUT parameter with given bind name.
      * @param parameterName is name of bind variable to be read
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -133,17 +152,23 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtNameNm getDtNameNm(String parameterName) throws SQLException;
 
     /**
-     * Set DtNumber type parameter corresponding to bind variable with given
-     * name
-     * @param parameterName is name of bind variable to be associated with given
-     * parameter
-     * @param value is value to be set to given parameter
+     * Get value of {@code DtOptNameNm} type OUT parameter on given position.
+     * @param parameterIndex is position of parameter (indexed from 1)
+     * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
      */
-    public void setDtNumber(String parameterName, DtNumber value) throws SQLException;
+    public DtOptNameNm getDtOptNameNm(int parameterIndex) throws SQLException;
 
     /**
-     * Get value of DtNumber type OUT parameter on given position
+     * Get value of {@code DtOptNameNm} type OUT parameter with given bind name.
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public DtOptNameNm getDtOptNameNm(String parameterName) throws SQLException;
+
+    /**
+     * Get value of {@code DtNumber} type OUT parameter on given position.
      * @param parameterIndex is position of parameter (indexed from 1)
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -151,7 +176,7 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtNumber getDtNumber(int parameterIndex) throws SQLException;
 
     /**
-     * Get value of DtNumber type OUT parameter with given bind name
+     * Get value of {@code DtNumber} type OUT parameter with given bind name.
      * @param parameterName is name of bind variable to be read
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -159,17 +184,23 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtNumber getDtNumber(String parameterName) throws SQLException;
 
     /**
-     * Set DtUid type parameter corresponding to bind variable with given
-     * name
-     * @param parameterName is name of bind variable to be associated with given
-     * parameter
-     * @param value is value to be set to given parameter
+     * Get value of {@code DtOptNumber} type OUT parameter on given position.
+     * @param parameterIndex is position of parameter (indexed from 1)
+     * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
      */
-    public void setDtUid(String parameterName, DtUid value) throws SQLException;
+    public DtOptNumber getDtOptNumber(int parameterIndex) throws SQLException;
 
     /**
-     * Get value of DtUid type OUT parameter on given position
+     * Get value of {@code DtOptNumber} type OUT parameter with given bind name.
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public DtOptNumber getDtOptNumber(String parameterName) throws SQLException;
+
+    /**
+     * Get value of {@code DtUid} type OUT parameter on given position.
      * @param parameterIndex is position of parameter (indexed from 1)
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -177,7 +208,7 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtUid getDtUid(int parameterIndex) throws SQLException;
 
     /**
-     * Get value of DtNumber type OUT parameter with given bind name
+     * Get value of {@code DtUid} type OUT parameter with given bind name.
      * @param parameterName is name of bind variable to be read
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -185,17 +216,23 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtUid getDtUid(String parameterName) throws SQLException;
 
     /**
-     * Set DtVarchar type parameter corresponding to bind variable with given
-     * name
-     * @param parameterName is name of bind variable to be associated with given
-     * parameter
-     * @param value is value to be set to given parameter
+     * Get value of {@code DtOptUid} type OUT parameter on given position.
+     * @param parameterIndex is position of parameter (indexed from 1)
+     * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
      */
-    public void setDtVarchar(String parameterName, DtVarchar value) throws SQLException;
-    
+    public DtOptUid getDtOptUid(int parameterIndex) throws SQLException;
+
     /**
-     * Get value of DtVarchar type OUT parameter on given position
+     * Get value of {@code DtOptUid} type OUT parameter with given bind name.
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
+     */
+    public DtOptUid getDtOptUid(String parameterName) throws SQLException;
+
+    /**
+     * Get value of {@code DtVarchar} type OUT parameter on given position.
      * @param parameterIndex is position of parameter (indexed from 1)
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -203,7 +240,7 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtVarchar getDtVarchar(int parameterIndex) throws SQLException;
 
     /**
-     * Get value of DtVarchar type OUT parameter with given bind name
+     * Get value of {@code DtVarchar} type OUT parameter with given bind name.
      * @param parameterName is name of bind variable to be read
      * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
@@ -211,17 +248,21 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
     public DtVarchar getDtVarchar(String parameterName) throws SQLException;
 
     /**
-     * Set value of bind variable to statement.
-     * @param bind is bind name and value to be set
+     * Get value of {@code DtOptVarchar} type OUT parameter on given position.
+     * @param parameterIndex is position of parameter (indexed from 1)
+     * @return value assigned to bind variable during statement execution
      * @throws SQLException is thrown when problem is encountered
      */
-    public void setBind(BindValue bind) throws SQLException;
+    public DtOptVarchar getDtOptVarchar(int parameterIndex) throws SQLException;
 
     /**
-     * Set value of bind variables from list to statement.
-     * @param binds is list of bind names and values to be set
+     * Get value of {@code DtOptVarchar} type OUT parameter with given bind name.
+     * @param parameterName is name of bind variable to be read
+     * @return value assigned to bind variable during statement execution
+     * @throws SQLException is thrown when problem is encountered
      */
-    public void setBinds(List<BindValue> binds);
+    public DtOptVarchar getDtOptVarchar(String parameterName)
+            throws SQLException;
 
     /**
      * Set value of parameter to statement and define its output type if
@@ -256,5 +297,5 @@ public interface ProvysCallableStatement extends ProvysPreparedStatement,
      * @param parameters is list of parameters which should be retrieved
      * @return collection of parameter names and their respective values
      */
-    public Map<String, Object> getParameters(List<BindParameter> parameters);
+    public Map<String, Dt> getParameters(List<BindParameter> parameters);
 }

@@ -6,6 +6,7 @@
 package com.provys.provysdb.datasourceimpl;
 
 import com.provys.common.datatypes.*;
+import com.provys.common.error.ProvysException;
 import com.provys.provysdb.datasource.ProvysResultSet;
 import java.io.InputStream;
 import java.io.Reader;
@@ -48,19 +49,38 @@ public class ProvysResultSetImpl implements ProvysResultSet {
     public DtBoolean getDtBoolean(int columnIndex) throws SQLException {
         String value = resultSet.getString(columnIndex);
         if (resultSet.wasNull()) {
-            return null;
-        } else {
-            return DtBoolean.fromStringValue(value);
+            throw new NullValueInNonOptTypeException(columnIndex);
         }
+        return DtBoolean.fromStringValue(value);
     }
 
     @Override
     public DtBoolean getDtBoolean(String columnLabel) throws SQLException {
         String value = resultSet.getString(columnLabel);
         if (resultSet.wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(columnLabel);
+        }
+        return DtBoolean.fromStringValue(value);
+    }
+
+    @Override
+    public DtOptBoolean getDtOptBoolean(int columnIndex) throws SQLException {
+        String value = resultSet.getString(columnIndex);
+        if (resultSet.wasNull()) {
+            return DtOptBoolean.empty();
         } else {
-            return DtBoolean.fromStringValue(value);
+            return DtOptBoolean.fromStringValue(value);
+        }
+    }
+
+    @Override
+    public DtOptBoolean getDtOptBoolean(String columnLabel)
+            throws SQLException {
+        String value = resultSet.getString(columnLabel);
+        if (resultSet.wasNull()) {
+            return DtOptBoolean.empty();
+        } else {
+            return DtOptBoolean.fromStringValue(value);
         }
     }
 
@@ -68,19 +88,38 @@ public class ProvysResultSetImpl implements ProvysResultSet {
     public DtInteger getDtInteger(int columnIndex) throws SQLException {
         Integer value = resultSet.getInt(columnIndex);
         if (resultSet.wasNull()) {
-            return null;
-        } else {
-            return new DtInteger(value);
+            throw new NullValueInNonOptTypeException(columnIndex);
         }
+        return new DtInteger(value);
     }
 
     @Override
     public DtInteger getDtInteger(String columnLabel) throws SQLException {
         Integer value = resultSet.getInt(columnLabel);
         if (resultSet.wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(columnLabel);
+        }
+        return new DtInteger(value);
+    }
+
+    @Override
+    public DtOptInteger getDtOptInteger(int columnIndex) throws SQLException {
+        Integer value = resultSet.getInt(columnIndex);
+        if (resultSet.wasNull()) {
+            return DtOptInteger.empty();
         } else {
-            return new DtInteger(value);
+            return DtOptInteger.of(value);
+        }
+    }
+
+    @Override
+    public DtOptInteger getDtOptInteger(String columnLabel)
+            throws SQLException {
+        Integer value = resultSet.getInt(columnLabel);
+        if (resultSet.wasNull()) {
+            return DtOptInteger.empty();
+        } else {
+            return DtOptInteger.of(value);
         }
     }
 
@@ -88,19 +127,37 @@ public class ProvysResultSetImpl implements ProvysResultSet {
     public DtName getDtName(int columnIndex) throws SQLException {
         String value = resultSet.getString(columnIndex);
         if (resultSet.wasNull()) {
-            return null;
-        } else {
-            return new DtName(value);
+            throw new NullValueInNonOptTypeException(columnIndex);
         }
+        return new DtName(value);
     }
 
     @Override
     public DtName getDtName(String columnLabel) throws SQLException {
         String value = resultSet.getString(columnLabel);
         if (resultSet.wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(columnLabel);
+        }
+        return new DtName(value);
+    }
+
+    @Override
+    public DtOptName getDtOptName(int columnIndex) throws SQLException {
+        String value = resultSet.getString(columnIndex);
+        if (resultSet.wasNull()) {
+            return DtOptName.empty();
         } else {
-            return new DtName(value);
+            return DtOptName.of(value);
+        }
+    }
+
+    @Override
+    public DtOptName getDtOptName(String columnLabel) throws SQLException {
+        String value = resultSet.getString(columnLabel);
+        if (resultSet.wasNull()) {
+            return DtOptName.empty();
+        } else {
+            return DtOptName.of(value);
         }
     }
 
@@ -108,19 +165,37 @@ public class ProvysResultSetImpl implements ProvysResultSet {
     public DtNameNm getDtNameNm(int columnIndex) throws SQLException {
         String value = resultSet.getString(columnIndex);
         if (resultSet.wasNull()) {
-            return null;
-        } else {
-            return new DtNameNm(value);
+            throw new NullValueInNonOptTypeException(columnIndex);
         }
+        return new DtNameNm(value);
     }
 
     @Override
     public DtNameNm getDtNameNm(String columnLabel) throws SQLException {
         String value = resultSet.getString(columnLabel);
         if (resultSet.wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(columnLabel);
+        }
+        return new DtNameNm(value);
+    }
+
+    @Override
+    public DtOptNameNm getDtOptNameNm(int columnIndex) throws SQLException {
+        String value = resultSet.getString(columnIndex);
+        if (resultSet.wasNull()) {
+            return DtOptNameNm.empty();
         } else {
-            return new DtNameNm(value);
+            return DtOptNameNm.of(value);
+        }
+    }
+
+    @Override
+    public DtOptNameNm getDtOptNameNm(String columnLabel) throws SQLException {
+        String value = resultSet.getString(columnLabel);
+        if (resultSet.wasNull()) {
+            return DtOptNameNm.empty();
+        } else {
+            return DtOptNameNm.of(value);
         }
     }
 
@@ -128,19 +203,37 @@ public class ProvysResultSetImpl implements ProvysResultSet {
     public DtNumber getDtNumber(int columnIndex) throws SQLException {
         BigDecimal value = resultSet.getBigDecimal(columnIndex);
         if (resultSet.wasNull()) {
-            return null;
-        } else {
-            return new DtNumber(value);
+            throw new NullValueInNonOptTypeException(columnIndex);
         }
+        return new DtNumber(value);
     }
 
     @Override
     public DtNumber getDtNumber(String columnLabel) throws SQLException {
         BigDecimal value = resultSet.getBigDecimal(columnLabel);
         if (resultSet.wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(columnLabel);
+        }
+        return new DtNumber(value);
+    }
+
+    @Override
+    public DtOptNumber getDtOptNumber(int columnIndex) throws SQLException {
+        BigDecimal value = resultSet.getBigDecimal(columnIndex);
+        if (resultSet.wasNull()) {
+            return DtOptNumber.empty();
         } else {
-            return new DtNumber(value);
+            return DtOptNumber.of(value);
+        }
+    }
+
+    @Override
+    public DtOptNumber getDtOptNumber(String columnLabel) throws SQLException {
+        BigDecimal value = resultSet.getBigDecimal(columnLabel);
+        if (resultSet.wasNull()) {
+            return DtOptNumber.empty();
+        } else {
+            return DtOptNumber.of(value);
         }
     }
 
@@ -148,19 +241,37 @@ public class ProvysResultSetImpl implements ProvysResultSet {
     public DtUid getDtUid(int columnIndex) throws SQLException {
         BigDecimal value = resultSet.getBigDecimal(columnIndex);
         if (resultSet.wasNull()) {
-            return null;
-        } else {
-            return new DtUid(value.toPlainString());
+            throw new NullValueInNonOptTypeException(columnIndex);
         }
+        return new DtUid(value.toPlainString());
     }
 
     @Override
     public DtUid getDtUid(String columnLabel) throws SQLException {
         BigDecimal value = resultSet.getBigDecimal(columnLabel);
         if (resultSet.wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(columnLabel);
+        }
+        return new DtUid(value.toPlainString());
+    }
+
+    @Override
+    public DtOptUid getDtOptUid(int columnIndex) throws SQLException {
+        BigDecimal value = resultSet.getBigDecimal(columnIndex);
+        if (resultSet.wasNull()) {
+            return DtOptUid.empty();
         } else {
-            return new DtUid(value.toPlainString());
+            return DtOptUid.of(value.toPlainString());
+        }
+    }
+
+    @Override
+    public DtOptUid getDtOptUid(String columnLabel) throws SQLException {
+        BigDecimal value = resultSet.getBigDecimal(columnLabel);
+        if (resultSet.wasNull()) {
+            return DtOptUid.empty();
+        } else {
+            return DtOptUid.of(value.toPlainString());
         }
     }
 
@@ -168,19 +279,38 @@ public class ProvysResultSetImpl implements ProvysResultSet {
     public DtVarchar getDtVarchar(int columnIndex) throws SQLException {
         String value = resultSet.getString(columnIndex);
         if (resultSet.wasNull()) {
-            return null;
-        } else {
-            return new DtVarchar(value);
+            throw new NullValueInNonOptTypeException(columnIndex);
         }
+        return new DtVarchar(value);
     }
 
     @Override
     public DtVarchar getDtVarchar(String columnLabel) throws SQLException {
         String value = resultSet.getString(columnLabel);
         if (resultSet.wasNull()) {
-            return null;
+            throw new NullValueInNonOptTypeException(columnLabel);
+        }
+        return new DtVarchar(value);
+    }
+
+    @Override
+    public DtOptVarchar getDtOptVarchar(int columnIndex) throws SQLException {
+        String value = resultSet.getString(columnIndex);
+        if (resultSet.wasNull()) {
+            return DtOptVarchar.empty();
         } else {
-            return new DtVarchar(value);
+            return DtOptVarchar.of(value);
+        }
+    }
+
+    @Override
+    public DtOptVarchar getDtOptVarchar(String columnLabel)
+            throws SQLException {
+        String value = resultSet.getString(columnLabel);
+        if (resultSet.wasNull()) {
+            return DtOptVarchar.empty();
+        } else {
+            return DtOptVarchar.of(value);
         }
     }
 
@@ -1167,6 +1297,24 @@ public class ProvysResultSetImpl implements ProvysResultSet {
             return true;
         }
         return this.resultSet.isWrapperFor(iface);
+    }
+
+    /**
+     * Exception raised when value read to non-Nullable type is null
+     */
+    @SuppressWarnings("PublicInnerClass")
+    static public class NullValueInNonOptTypeException
+            extends ProvysException {
+
+        private static final long serialVersionUID = 1L;
+
+        NullValueInNonOptTypeException(String name) {
+            super("Null value encountered in column " + name);
+        }
+
+        NullValueInNonOptTypeException(int index) {
+            super("Null value encountered in column " + index);
+        }
     }
 
 }

@@ -8,11 +8,12 @@ package com.provys.common.datatypes;
 import javax.json.bind.adapter.JsonbAdapter;
 
 /**
- * Adapter ensuring provys boolean value is treated as boolean value when
- * serializing to / deserializing from Json using JSON-B
+ * Adapter ensuring provys optional boolean value is treated as boolean value
+ * when serializing to / deserializing from Json using JSON-B
  * @author stehlik
  */
-public class JsonbDtBooleanAdapter implements JsonbAdapter<DtBoolean, Boolean> {
+public class JsonbDtOptBooleanAdapter implements JsonbAdapter<DtOptBoolean
+        , Boolean> {
 
     /**
      * Unwrap value to ensure it is properly serialized to Json
@@ -20,8 +21,8 @@ public class JsonbDtBooleanAdapter implements JsonbAdapter<DtBoolean, Boolean> {
      * @return unwraped value (primitive type wrapper)
      */
     @Override
-    public Boolean adaptToJson(DtBoolean original) {
-        return original.getValue();
+    public Boolean adaptToJson(DtOptBoolean original) {
+        return original.getValue().orElse(null);
     }
 
     /**
@@ -31,8 +32,8 @@ public class JsonbDtBooleanAdapter implements JsonbAdapter<DtBoolean, Boolean> {
      * @return wrapped provys datatype value
      */
     @Override
-    public DtBoolean adaptFromJson(Boolean adapted) {
-        return DtBoolean.fromValue(adapted);
+    public DtOptBoolean adaptFromJson(Boolean adapted) {
+        return DtOptBoolean.fromValue(adapted);
     }
     
 }

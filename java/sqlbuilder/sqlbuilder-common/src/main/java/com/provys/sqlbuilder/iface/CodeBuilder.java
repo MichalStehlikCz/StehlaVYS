@@ -6,6 +6,7 @@
 package com.provys.sqlbuilder.iface;
 
 import com.provys.provysdb.call.BindValue;
+import com.provys.provysdb.call.BindVariable;
 import java.util.List;
 
 /**
@@ -289,32 +290,32 @@ public interface CodeBuilder {
      * If bind already exists but has different value or type, exception is
      * raised.
      * 
-     * @param bindValue is bind value to be added.
+     * @param bindVariable is bind value to be added.
      * @return self to support chaining
      */
-    public CodeBuilder addBind(BindValue bindValue);
+    public CodeBuilder addBind(BindVariable bindVariable);
 
     /**
      * Adds list of bind values to list of binds.
      * If bind already exists but has different value or type, exception is
      * raised.
      * 
-     * @param bindValues is list of binds to be added.
+     * @param bindVariable is list of binds to be added.
      * @return self to support chaining
      */
-    public CodeBuilder addBind(List<BindValue> bindValues);
+    public CodeBuilder addBind(List<BindVariable> bindVariable);
     
     /**
      * Adds bind value; if name is already used, appends number to its end
      * to make it unique.
      * 
-     * @param bindValue is bind to be added; it might be adjusted if such bind
+     * @param bindVariable is bind to be added; it might be adjusted if such bind
      * already exists
      * @param allowReuse defines if existing bind can be reused if it has the
      * same data type and value
      * @return bind name (after adjustment if name was not unique)
      */
-    public String addUniqueBind(BindValue bindValue, boolean allowReuse);
+    public String addUniqueBind(BindVariable bindVariable, boolean allowReuse);
     
     /**
      * Method retrieves code, produced by CodeBuilder.
@@ -328,6 +329,6 @@ public interface CodeBuilder {
      * 
      * @return list of bind variables used in code
      */
-    public List<BindValue> getBindValues();
+    public List<BindVariable> getBindVariables();
 }
     

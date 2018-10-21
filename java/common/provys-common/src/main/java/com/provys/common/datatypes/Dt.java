@@ -6,7 +6,6 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
-import java.io.Serializable;
 import javax.json.bind.annotation.JsonbTypeDeserializer;
 import javax.json.bind.annotation.JsonbTypeSerializer;
 

@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.datasourceimpl;
 
+import com.provys.common.datatypes.Dt;
 import com.provys.provysdb.call.ProcCall;
 import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.datasource.ProvysCallableStatement;
@@ -345,17 +346,13 @@ public class ProvysConnectionImpl implements ProvysConnection {
     @Override
     public int executeUpdate(SqlCall sqlCall) throws SQLException {
         ProvysCallableStatement statement = this.prepareCall(sqlCall.getSql());
-        if (sqlCall.getValues() != null) {
-            statement.setBinds(sqlCall.getValues());
-        }
-        if (sqlCall.getColumns() != null) {
-            statement.defineColumnTypes(sqlCall.getColumns());
-        }
+        statement.setBinds(sqlCall.getVariables());
+        statement.defineColumnTypes(sqlCall.getColumns());
         return statement.executeUpdate();
     }
 
     @Override
-    public Map<String, Object> executeProc(ProcCall procCall)
+    public Map<String, Dt> executeProc(ProcCall procCall)
             throws SQLException {
         ProvysCallableStatement statement = this.prepareCall(procCall.getSql());
         if (procCall.getParameters() != null) {

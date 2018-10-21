@@ -37,11 +37,26 @@ public interface ProvysStatement extends Statement {
      * from a particular database table column.
      * @param columnIndex is column order (starting from 1)
      * @param type is assigned type (java.sql.Types)
-     * @param maxSize is maximal size (in database units) of defined column
+     * @param maxPrecision is maximal size (in characters / digits) of defined
+     * column
      * @throws SQLException is exception thrown during assignment
      */
-    public void defineColumnType(int columnIndex, int type, int maxSize)
+    public void defineColumnType(int columnIndex, int type, int maxPrecision)
             throws SQLException;
+
+    /**
+     * Defines the type you will use to retrieve data and maximal size of data
+     * from a particular database table column.
+     * @param columnIndex is column order (starting from 1)
+     * @param type is assigned type (java.sql.Types)
+     * @param maxPrecision is maximal size (in characters / digits) of defined
+     * column
+     * @param scale is scale of column - number of digits to the right of
+     * decimal point
+     * @throws SQLException is exception thrown during assignment
+     */
+    public void defineColumnType(int columnIndex, int type, int maxPrecision
+            , short scale) throws SQLException;
 
     /**
      * Defines the type of column based on ColumnDef.

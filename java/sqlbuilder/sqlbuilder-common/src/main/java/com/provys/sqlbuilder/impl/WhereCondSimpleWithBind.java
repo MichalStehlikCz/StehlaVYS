@@ -5,7 +5,7 @@
  */
 package com.provys.sqlbuilder.impl;
 
-import com.provys.provysdb.call.BindValue;
+import com.provys.provysdb.call.BindVariable;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,32 +19,33 @@ import java.util.List;
  */
 public class WhereCondSimpleWithBind extends WhereCondSimple {
    
-    private List<BindValue> bindValues;
+    private List<BindVariable> bindVariables;
 
-    public WhereCondSimpleWithBind(String sql, List<BindValue> bindValues) {
+    public WhereCondSimpleWithBind(String sql, List<BindVariable> bindVariables)
+    {
         super(sql);
-        this.bindValues = new ArrayList<>(bindValues);
+        this.bindVariables = new ArrayList<>(bindVariables);
     }
 
     @Override
     public void buildWhere(CodeBuilder code) {
         if (getSql() == null)
             throw new ConditionNotSpecifiedException();
-        code.appendLine(getSql()).addBind(this.bindValues);
+        code.appendLine(getSql()).addBind(this.bindVariables);
     }
 
     /**
      * @return the binds
      */
-    public List<BindValue> getBinds() {
-        return Collections.unmodifiableList(bindValues);
+    public List<BindVariable> getBinds() {
+        return Collections.unmodifiableList(bindVariables);
     }
 
     /**
      * @param binds the binds to set
      */
-    public void setBinds(List<BindValue> binds) {
-        this.bindValues = new ArrayList<>(bindValues);
+    public void setBinds(List<BindVariable> binds) {
+        this.bindVariables = new ArrayList<>(bindVariables);
     }
     
 }

@@ -50,3 +50,5 @@ Warning configuration
 -- JDK Migration Support / Add Underscores
 -- JDK Migration Support / Convert Explicit Type to Var set as Warning on current line
 -- JDK Migration Support / Convert Var to Explicit Type set as Warning on current line
+-- JDK Migration Support / Static imports
+-- Logging / No loggers

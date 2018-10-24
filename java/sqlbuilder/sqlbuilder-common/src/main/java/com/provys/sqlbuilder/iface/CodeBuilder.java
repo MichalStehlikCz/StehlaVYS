@@ -5,7 +5,6 @@
  */
 package com.provys.sqlbuilder.iface;
 
-import com.provys.provysdb.call.BindValue;
 import com.provys.provysdb.call.BindVariable;
 import java.util.List;
 

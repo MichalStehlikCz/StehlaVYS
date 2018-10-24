@@ -25,18 +25,8 @@ public class ExecutorFactoryClient implements ExecutorFactory {
     private final Client client = ClientBuilder.newClient();
     
     @Override
-    public JsonQueryExecutor getJsonQueryExecutor() {
-        return new JsonQueryExecutorClient(client);
-    }
-    
-    @Override
     public JsonQueryExecutor getJsonQueryExecutor(SqlCall sqlCall) {
         return new JsonQueryExecutorClient(client, sqlCall);
-    }
-
-    @Override
-    public MapQueryExecutor getMapQueryExecutor() {
-        return new MapQueryExecutorClient(client);
     }
 
     @Override

@@ -12,22 +12,17 @@
     <dependencies>
         <dependency>
             <groupId>com.provys.common</groupId>
-            <artifactId>datatypes</artifactId>
+            <artifactId>provys-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.provys.common</groupId>
-            <artifactId>confobj</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
             <groupId>com.provys.provysdb</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>provysdb-common</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.provys.sqlbuilder</groupId>
-            <artifactId>catalogue</artifactId>
+            <artifactId>sqlbuilder-catalogue</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>

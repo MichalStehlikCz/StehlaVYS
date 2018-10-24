@@ -5,14 +5,15 @@
  */
 package com.provys.sqlbuilder.catimpl;
 
+import com.provys.provysdb.call.BindVariable;
 import com.provys.sqlbuilder.catbuilder.CatSelectBuilder;
 import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
 import com.provys.sqlbuilder.iface.SqlFromElem;
 import com.provys.sqlbuilder.iface.SqlQueryBuilder;
-import com.provys.sqlbuilder.iface.SqlSelectBuilder;
 import com.provys.sqlbuilder.impl.QueryBuilderSimple;
 import com.provys.sqlbuilder.impl.SqlBuilderFactoryImpl;
 import com.provys.sqlbuilder.catbuilder.CatBuilderFactory;
+import com.provys.sqlbuilder.iface.SqlColumn;
 
 /**
  * Factory class for catalogue related SqlBuilder objects.
@@ -36,5 +37,5 @@ public class CatBuilderFactoryImpl
     public SqlFromElem getFromElem(CatBuilderEntity entity) {
         return new CatFromElemEntity(entity);
     }
-    
+
 }

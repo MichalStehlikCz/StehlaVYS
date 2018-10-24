@@ -6,6 +6,7 @@
 package com.provys.sqlbuilder.iface;
 
 import com.provys.provysdb.call.SqlCall;
+import com.provys.provysdb.call.SqlStatement;
 import java.util.List;
 
 /**
@@ -41,6 +42,13 @@ public interface SqlSelectBuilder {
      */
     public List<SqlColumn> getColumns();
     
+    /**
+     * Build select statement (ready for binding) based on SqlSelectBuilder.
+     * 
+     * @return select statement as ProvysDb SqlStatement
+     */
+    public SqlStatement getSqlStatement();
+
     /**
      * Build select statement (executable by ProvysDb) based on SqlSelectBuilder.
      * 

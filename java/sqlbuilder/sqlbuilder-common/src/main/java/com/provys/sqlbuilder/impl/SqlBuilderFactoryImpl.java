@@ -6,7 +6,7 @@
 package com.provys.sqlbuilder.impl;
 
 import com.provys.common.datatypes.Dt;
-import com.provys.provysdb.call.BindValue;
+import com.provys.provysdb.call.BindVariable;
 import com.provys.sqlbuilder.iface.SqlBuilderFactory;
 import com.provys.sqlbuilder.iface.SqlColumn;
 import com.provys.sqlbuilder.iface.SqlFromElem;
@@ -31,8 +31,8 @@ public class SqlBuilderFactoryImpl implements SqlBuilderFactory {
     }
 
     @Override
-    public SqlQueryBuilder getBindQuery(BindValue bindValue) {
-        return new QueryBuilderSimple(getBindColumn(bindValue));
+    public SqlQueryBuilder getBindQuery(BindVariable bindVariable) {
+        return new QueryBuilderSimple(getBindColumn(bindVariable));
     }
 
     @Override
@@ -86,13 +86,13 @@ public class SqlBuilderFactoryImpl implements SqlBuilderFactory {
     }
     
     @Override
-    public SqlColumn getBindColumn(BindValue bindValue) {
-        return new SqlColumnBind(bindValue);
+    public SqlColumn getBindColumn(BindVariable bindVariable) {
+        return new SqlColumnBind(bindVariable);
     }
     
     @Override
-    public SqlColumn getBindColumn(BindValue bindValue, String alias) {
-        return new SqlColumnBind(bindValue, alias);
+    public SqlColumn getBindColumn(BindVariable bindVariable, String alias) {
+        return new SqlColumnBind(bindVariable, alias);
     }
 
     @Override

@@ -6,7 +6,7 @@
 package com.provys.sqlbuilder.iface;
 
 import com.provys.common.datatypes.Dt;
-import com.provys.provysdb.call.BindValue;
+import com.provys.provysdb.call.BindVariable;
 
 /**
  * Creates instances of basic SqlBuilder objects.
@@ -39,12 +39,12 @@ public interface SqlBuilderFactory {
             , String alias);
     
     /**
-     * Create simple SqlQueryBuilder based on bind value, representing key.
+     * Create simple SqlQueryBuilder based on bind variable, representing key.
      * 
-     * @param bindValue is supplied bind value, to be used for column
+     * @param bindVariable is supplied bind variable, to be used for column
      * @return 
      */
-    public SqlQueryBuilder getBindQuery(BindValue bindValue);
+    public SqlQueryBuilder getBindQuery(BindVariable bindVariable);
 
     /**
      * Get column, representing supplied (constant) value.
@@ -134,19 +134,19 @@ public interface SqlBuilderFactory {
     /**
      * Get column, representing single bind variable.
      * 
-     * @param bindValue is bind value, 
+     * @param bindVariable is bind value, 
      * @return SqlColumn representing single bind variable
      */
-    public SqlColumn getBindColumn(BindValue bindValue);
+    public SqlColumn getBindColumn(BindVariable bindVariable);
     
     /**
      * Get column, representing single bind variable.
      * 
-     * @param bindValue is bind value, 
+     * @param bindVariable is bind variable
      * @param alias is alias to be assigned to column
      * @return SqlColumn representing single bind variable
      */
-    public SqlColumn getBindColumn(BindValue bindValue, String alias);
+    public SqlColumn getBindColumn(BindVariable bindVariable, String alias);
     
     /**
      * Get simple from element (table or expression with alias, no join).

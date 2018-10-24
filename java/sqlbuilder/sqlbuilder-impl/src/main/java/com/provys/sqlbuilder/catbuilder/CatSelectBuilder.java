@@ -55,4 +55,13 @@ public interface CatSelectBuilder extends SqlSelectBuilder {
      * @return FromElem build on specified entity
      */
     public SqlFromElem getFromElemByEntity(CatBuilderEntity entity);
+    
+    /**
+     * Add where condition based on given attribute, operand and bind variable.
+     * 
+     * @param attr is attribute condition is based on
+     * @param operator is operator to be used
+     * @param bindvariable is bind variable to be compared to
+     */
+    public CatSelectBuilder addWhereCond()
 }

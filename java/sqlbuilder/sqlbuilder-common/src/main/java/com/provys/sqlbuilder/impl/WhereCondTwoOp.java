@@ -42,12 +42,9 @@ public class WhereCondTwoOp implements SqlWhereCond {
 
     @Override
     public void buildWhere(CodeBuilder code) {
-        if (this.isNegative()) {
-            code.append("NOT ");
-        }
         code.append("(");
         getColumn1().buildSqlNoNewLine(code, false);
-        code.append(getOperator().getOperator());
+        code.append(this.isNegative()?getOperator().getNegOperator():getOperator().getOperator());
         getColumn2().buildSqlNoNewLine(code, false);
         code.appendLine(")");
     }

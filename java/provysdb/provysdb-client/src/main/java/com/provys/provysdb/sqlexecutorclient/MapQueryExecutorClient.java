@@ -10,6 +10,7 @@ import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.iface.MapQueryExecutor;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -30,12 +31,9 @@ import javax.ws.rs.core.MediaType;
 public class MapQueryExecutorClient implements MapQueryExecutor {
 
     private final Client client;
-    private SqlCall sqlCall;
+    private final SqlCall sqlCall;
+    private List<ColumnDef> columns;
     private List<Map<String, Dt>> data;
-    
-    MapQueryExecutorClient(Client client) {
-        this.client = client;
-    }
     
     MapQueryExecutorClient(Client client, SqlCall sqlCall) {
         this.client = client;
@@ -51,17 +49,17 @@ public class MapQueryExecutorClient implements MapQueryExecutor {
                 .post(Entity.json(sqlCall), JsonObject.class);
         Jsonb jsonb = JsonbBuilder.create();
         Type type;
-        type = new ConcurrentHashMap<Integer, ColumnDef>(0) {}
+        type = new ArrayList<ColumnDef>(0) {}
                 .getClass().getGenericSuperclass();
-        sqlCall.setColumns((Map<Integer, ColumnDef>) jsonb.fromJson(
+        columns = new ArrayList<>((List<ColumnDef>) jsonb.fromJson(
                 jsonResult.getJsonObject("columns").toString(),
                 type));
         JsonArray jsonData = jsonResult.getJsonArray("data");
         jsonData.forEach((jsonValue) -> 
             {
                 Map<String, Dt> row = new ConcurrentHashMap<>(
-                        getSqlCall().getColumns().size()*2);
-                getSqlCall().getColumns().forEach((index, columnDef) -> 
+                        getSqlCall().getColumns().size());
+                getSqlCall().getColumns().forEach((columnDef) -> 
                     {
                         String value = jsonValue.asJsonObject().
                                 get(columnDef.getName()).toString();
@@ -88,8 +86,8 @@ public class MapQueryExecutorClient implements MapQueryExecutor {
     }
 
     @Override
-    public void setSqlCall(SqlCall sqlCall) {
-        this.sqlCall = sqlCall;
+    public List<ColumnDef> getColumns() {
+        return Collections.unmodifiableList(columns);
     }
 
 }

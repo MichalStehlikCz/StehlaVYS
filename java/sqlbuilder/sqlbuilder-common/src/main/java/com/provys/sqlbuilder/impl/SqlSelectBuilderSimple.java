@@ -7,7 +7,9 @@ package com.provys.sqlbuilder.impl;
 
 import com.provys.common.error.ProvysException;
 import com.provys.provysdb.call.BindValue;
+import com.provys.provysdb.call.BindVariable;
 import com.provys.provysdb.call.SqlCall;
+import com.provys.provysdb.call.SqlStatement;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import com.provys.sqlbuilder.iface.SqlColumn;
 import com.provys.sqlbuilder.iface.SqlFromElem;
@@ -39,6 +41,22 @@ public class SqlSelectBuilderSimple extends SqlBuilderSimple
     public SqlSelectBuilderSimple(SqlColumn column, SqlFromElem fromElem
             , SqlWhereCond whereCond) {
         super(column, fromElem, whereCond);
+    }
+
+    @Override
+    public SqlStatement getSqlStatement() {
+        CodeBuilder code = new CodeBuilderImpl();
+        this.buildSql(code);
+        SqlCallColumnsBuilder columnsBuilder = new SqlCallColumnsBuilder(
+                getColumns().size());
+        getColumns().forEach(columnsBuilder);
+        final List<BindVariable> bindVariables
+                = new ArrayList<>(code.getBindVariables().size());
+        code.getBindVariables().forEach((bindVariable) -> {
+            bindVariables.add(bindVariable);
+        });
+        return new SqlStatement(code.getCode(), bindVariables
+                , columnsBuilder.getColumns());
     }
 
     @Override

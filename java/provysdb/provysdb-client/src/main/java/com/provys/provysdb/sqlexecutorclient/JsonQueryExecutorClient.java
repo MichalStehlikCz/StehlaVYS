@@ -5,6 +5,7 @@
  */
 package com.provys.provysdb.sqlexecutorclient;
 
+import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.iface.JsonQueryExecutor;
 import java.util.Collections;
@@ -23,12 +24,8 @@ import javax.ws.rs.core.MediaType;
 public class JsonQueryExecutorClient implements JsonQueryExecutor {
 
     private final Client client;
-    private SqlCall sqlCall;
+    private final SqlCall sqlCall;
     private List<JsonObject> data;
-    
-    JsonQueryExecutorClient(Client client) {
-        this.client = client;
-    }
     
     JsonQueryExecutorClient(Client client, SqlCall sqlCall) {
         this.client = client;
@@ -55,8 +52,12 @@ public class JsonQueryExecutorClient implements JsonQueryExecutor {
     }
 
     @Override
-    public void setSqlCall(SqlCall sqlCall) {
-        this.sqlCall = sqlCall;
+    public List<ColumnDef> getColumns() {
+        List<ColumnDef> columns = sqlCall.getColumns();
+        if (columns.isEmpty()) {
+          throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+        return columns;
     }
 
 }

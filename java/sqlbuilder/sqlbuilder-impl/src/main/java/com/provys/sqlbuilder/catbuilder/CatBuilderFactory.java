@@ -42,4 +42,5 @@ public interface CatBuilderFactory extends SqlBuilderFactory {
      * @return SqlFromElem based on specified entity
      */
     public SqlFromElem getFromElem(CatBuilderEntity entity);
+    
 }

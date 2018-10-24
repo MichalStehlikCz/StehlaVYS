@@ -7,6 +7,7 @@ package com.provys.sqlbuilder.catimpl;
 
 import com.provys.common.error.ProvysException;
 import com.provys.provysdb.call.SqlCall;
+import com.provys.provysdb.call.SqlStatement;
 import com.provys.sqlbuilder.catbuilder.CatSelectBuilder;
 import com.provys.sqlbuilder.catmanager.CatBuilderAttr;
 import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
@@ -39,6 +40,11 @@ public class CatSelectBuilderSimple implements CatSelectBuilder {
     @Override
     public List<SqlColumn> getColumns() {
         return sqlSelectBuilder.getColumns();
+    }
+
+    @Override
+    public SqlStatement getSqlStatement() {
+        return sqlSelectBuilder.getSqlStatement();
     }
 
     @Override

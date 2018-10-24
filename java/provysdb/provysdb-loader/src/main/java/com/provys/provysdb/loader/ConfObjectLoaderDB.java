@@ -14,7 +14,9 @@ import com.provys.common.datatypes.Dt;
 import com.provys.common.datatypes.DtNameNm;
 import com.provys.common.datatypes.DtUid;
 import com.provys.common.error.ProvysException;
+import com.provys.provysdb.call.ColumnDef;
 import com.provys.provysdb.call.SqlCall;
+import com.provys.provysdb.call.SqlStatement;
 import com.provys.provysdb.iface.ExecutorFactory;
 import com.provys.provysdb.iface.MapQueryExecutor;
 import com.provys.sqlbuilder.catbuilder.CatBuilderFactory;
@@ -23,6 +25,7 @@ import com.provys.sqlbuilder.catmanager.CatBuilderAttr;
 import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
 import com.provys.sqlbuilder.catmanager.CatBuilderManager;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +63,7 @@ public class ConfObjectLoaderDB<T extends ConfObject>
     protected CatBuilderFactory sqlBuilderFactory;
     
     final private Class<T> confObjectClass;
-    private SqlCall idCall;
+    private SqlStatement idStatement;
     final private Map<String, Field> confObjectFields = new HashMap<>(10);
     
     public ConfObjectLoaderDB(Class<T> confObjectClass) {
@@ -92,10 +95,12 @@ public class ConfObjectLoaderDB<T extends ConfObject>
                 ProvysKey keyAnnotation = field.getAnnotation(ProvysKey.class);
                 if (keyAnnotation != null) {
                     // set key
+                    selectBuilder.addWhereCond(sqlBuilderFactory.)
                 }
             }
             currentClass = currentClass.getSuperclass();
         }
+        idStatement = selectBuilder.getSqlStatement();
     }
 
     protected T createObject(Map<String, Dt> data) {
@@ -135,7 +140,9 @@ public class ConfObjectLoaderDB<T extends ConfObject>
      * @return result of query, executed against database
      */
     private synchronized List<Map<String, Dt>> loadData(DtUid id) {
-        idCall.setValue("id", id);
+        Map<String, Dt> binds = new HashMap<>(1);
+        binds.put("id", id);
+        SqlCall idCall = SqlCall.createFromStatement(idStatement, binds);
         MapQueryExecutor executor = executorFactory.getMapQueryExecutor(idCall);
         return executor.executeQuery();
     }

@@ -9,8 +9,10 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 /**
- *
- * @author micha
+ * Converter supports storage of {@code DtBoolean} properties to database.
+ * Mapping respects PROVYS mapping of boolean type to char
+ * 
+ * @author stehlik
  */
 @Converter(autoApply=true)
 public class JpaDtBooleanConverter
@@ -23,7 +25,7 @@ public class JpaDtBooleanConverter
 
     @Override
     public DtBoolean convertToEntityAttribute(String dbValue) {
-        return DtBoolean.fromStringValue(dbValue);
+        return DtBoolean.ofStringValue(dbValue);
     }
 }
 

@@ -23,7 +23,6 @@ import com.provys.common.datatypes.DtVarchar;
 import com.provys.common.error.ProvysException;
 import com.provys.common.error.ProvysSqlException;
 import com.provys.provysdb.call.BindParameter;
-import com.provys.provysdb.call.BindValue;
 import com.provys.provysdb.call.ParameterMode;
 import com.provys.provysdb.datasource.ProvysCallableStatement;
 import java.io.InputStream;
@@ -43,11 +42,9 @@ import java.sql.SQLType;
 import java.sql.SQLXML;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.sql.Types;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 import oracle.jdbc.OracleCallableStatement;
@@ -692,7 +689,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterIndex);
         }
-        return DtBoolean.fromStringValue(value);
+        return DtBoolean.ofStringValue(value);
     }
 
     @Override
@@ -701,7 +698,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterName);
         }
-        return DtBoolean.fromStringValue(value);
+        return DtBoolean.ofStringValue(value);
     }
 
     @Override
@@ -710,7 +707,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             return DtOptBoolean.empty();
         }
-        return DtOptBoolean.fromStringValue(value);
+        return DtOptBoolean.ofStringValue(value);
     }
 
     @Override
@@ -719,7 +716,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             return DtOptBoolean.empty();
         }
-        return DtOptBoolean.fromStringValue(value);
+        return DtOptBoolean.ofStringValue(value);
     }
 
     @Override
@@ -728,7 +725,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterIndex);
         }
-        return new DtInteger(value);
+        return DtInteger.of(value);
     }
 
     @Override
@@ -737,7 +734,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterName);
         }
-        return new DtInteger(value);
+        return DtInteger.of(value);
     }
 
     @Override
@@ -768,7 +765,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterIndex);
         }
-        return new DtName(value);
+        return DtName.of(value);
     }
 
     @Override
@@ -777,7 +774,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterName);
         }
-        return new DtName(value);
+        return DtName.of(value);
     }
 
     @Override
@@ -808,7 +805,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterIndex);
         }
-        return new DtNameNm(value);
+        return DtNameNm.of(value);
     }
 
     @Override
@@ -817,7 +814,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterName);
         }
-        return new DtNameNm(value);
+        return DtNameNm.of(value);
     }
 
     @Override
@@ -848,7 +845,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterIndex);
         }
-        return new DtNumber(value);
+        return DtNumber.of(value);
     }
 
     @Override
@@ -857,7 +854,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterName);
         }
-        return new DtNumber(value);
+        return DtNumber.of(value);
     }
 
     @Override
@@ -888,7 +885,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterIndex);
         }
-        return new DtUid(value.toPlainString());
+        return DtUid.of(value.toPlainString());
     }
 
     @Override
@@ -897,7 +894,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterName);
         }
-        return new DtUid(value.toPlainString());
+        return DtUid.of(value.toPlainString());
     }
 
     @Override
@@ -928,7 +925,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterIndex);
         }
-        return new DtVarchar(value);
+        return DtVarchar.of(value);
     }
 
     @Override
@@ -937,7 +934,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterName);
         }
-        return new DtVarchar(value);
+        return DtVarchar.of(value);
     }
 
     @Override

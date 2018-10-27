@@ -19,7 +19,7 @@ public class JsonbDtNameNmAdapter extends JsonbDtStringAdapter<DtNameNm> {
      */
     @Override
     public DtNameNm adaptFromJson(String adapted) {
-        return new DtNameNm(adapted);
+        return DtNameNm.of(adapted);
     }
     
 }

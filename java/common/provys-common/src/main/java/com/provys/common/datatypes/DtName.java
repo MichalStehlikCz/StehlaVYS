@@ -68,12 +68,22 @@ public class DtName extends DtString {
     }
 
     /**
-     * Creates DtName from supplied value. Verifies, that supplied value is
-     * non-empty string not longer than 200 characters
+     * Creates {@code DtName} from supplied value. Verifies, that supplied value
+     * is non-empty string not longer than 200 characters
      *
      * @param value - string value new object will be initialised with
+     * @return {@code DtName} object for given value
      */
-    public DtName(String value) {
+    public static DtName of(String value) {
+        return new DtName(value);
+    }
+    
+    /**
+     * Method left package private to allow subclassing for {@code DtnameNm}.
+     * 
+     * @param value is string value this name represents 
+     */
+    DtName(String value) {
         super(value);
         if (value.length() > 200) {
             throw new NameTooLongException();

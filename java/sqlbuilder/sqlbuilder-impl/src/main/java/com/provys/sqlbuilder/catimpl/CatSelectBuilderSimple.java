@@ -6,6 +6,7 @@
 package com.provys.sqlbuilder.catimpl;
 
 import com.provys.common.error.ProvysException;
+import com.provys.provysdb.call.BindVariable;
 import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.call.SqlStatement;
 import com.provys.sqlbuilder.catbuilder.CatSelectBuilder;
@@ -14,9 +15,11 @@ import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import com.provys.sqlbuilder.iface.SqlColumn;
 import com.provys.sqlbuilder.iface.SqlFromElem;
+import com.provys.sqlbuilder.iface.SqlOperator2;
 import com.provys.sqlbuilder.iface.SqlSelectBuilder;
 import com.provys.sqlbuilder.iface.SqlWhereCond;
 import com.provys.sqlbuilder.impl.SqlSelectBuilderSimple;
+import com.provys.sqlbuilder.impl.WhereCondTwoOp;
 import java.util.List;
 
 /**
@@ -53,21 +56,101 @@ public class CatSelectBuilderSimple implements CatSelectBuilder {
     }
 
     @Override
+    public SqlColumn getAttrColumn(CatBuilderAttr attr) {
+        return CatColumnAttrImpl.forAttr(getFromElemByEntity(
+                attr.getEntity()), attr);
+    }
+
+    @Override
+    public CatSelectBuilder addAttrColumn(CatBuilderAttr attr, String alias) {
+        sqlSelectBuilder.addColumn(CatColumnAttrImpl.forAttr(
+                getFromElemByEntity(attr.getEntity()), attr, alias));
+        return this;
+    }
+
+    @Override
+    public CatSelectBuilder addAttrColumn(String tableAlias
+            , CatBuilderAttr attr) {
+        sqlSelectBuilder.addColumn(CatColumnAttrImpl.forAttr(
+                sqlSelectBuilder.getFromElemByAlias(tableAlias), attr));
+        return this;
+    }
+
+    @Override
+    public CatSelectBuilder addAttrColumn(String tableAlias
+            , CatBuilderAttr attr, String alias) {
+        sqlSelectBuilder.addColumn(CatColumnAttrImpl.forAttr(
+                sqlSelectBuilder.getFromElemByAlias(tableAlias), attr, alias));
+        return this;
+    }
+
+    @Override
+    public CatSelectBuilder addAttrColumn(String tableAlias
+            , String attrNm) {
+        sqlSelectBuilder.addColumn(CatColumnAttrImpl.forAttrNm(
+                sqlSelectBuilder.getFromElemByAlias(tableAlias), attrNm));
+        return this;
+    }
+
+    @Override
+    public CatSelectBuilder addAttrColumn(String tableAlias
+            , String attrNm, String alias) {
+        sqlSelectBuilder.addColumn(CatColumnAttrImpl.forAttrNm(
+                sqlSelectBuilder.getFromElemByAlias(tableAlias), attrNm
+                , alias));
+        return this;
+    }
+
+    @Override
     public CatSelectBuilder addColumn(SqlColumn sqlColumn) {
         sqlSelectBuilder.addColumn(sqlColumn);
         return this;
     }
 
     @Override
-    public CatSelectBuilder addColumn(CatBuilderAttr attr) {
-        //sqlSelectBuilder.addColumn(new CatColumnAttr(attr));
+    public CatSelectBuilder addAttrColumn(CatBuilderAttr attr) {
+        sqlSelectBuilder.addColumn(CatColumnAttrImpl.forAttr(getFromElemByEntity(
+                attr.getEntity()), attr));
         return this;
     }
 
     @Override
-    public CatSelectBuilder addColumn(CatBuilderAttr attr, String alias) {
-        sqlSelectBuilder.addColumn(new CatColumnAttr(attr, alias
-                , getFromElemByEntity(attr.getEntity())));
+    public CatSelectBuilder addAttrColumn(CatBuilderAttr attr, String alias) {
+        sqlSelectBuilder.addColumn(CatColumnAttrImpl.forAttr(
+                getFromElemByEntity(attr.getEntity()), attr, alias));
+        return this;
+    }
+
+    @Override
+    public CatSelectBuilder addAttrColumn(String tableAlias
+            , CatBuilderAttr attr) {
+        sqlSelectBuilder.addColumn(CatColumnAttrImpl.forAttr(
+                sqlSelectBuilder.getFromElemByAlias(tableAlias), attr));
+        return this;
+    }
+
+    @Override
+    public CatSelectBuilder addAttrColumn(String tableAlias
+            , CatBuilderAttr attr, String alias) {
+        sqlSelectBuilder.addColumn(CatColumnAttrImpl.forAttr(
+                sqlSelectBuilder.getFromElemByAlias(tableAlias), attr, alias));
+        return this;
+    }
+
+    @Override
+    public CatSelectBuilder addAttrColumn(String tableAlias
+            , String attrNm) {
+        sqlSelectBuilder.addColumn(CatColumnAttrImpl.forAttrNm(
+                sqlSelectBuilder.getFromElemByAlias(tableAlias), attrNm));
+        return this;
+    }
+
+    @Override
+    public CatSelectBuilder addAttrColumn(String tableAlias
+            , String attrNm, String alias) {
+        sqlSelectBuilder.addColumn(CatColumnAttrImpl.forAttrNm(
+                sqlSelectBuilder.getFromElemByAlias(tableAlias), attrNm
+                , alias));
         return this;
     }
 
@@ -102,6 +185,15 @@ public class CatSelectBuilderSimple implements CatSelectBuilder {
     @Override
     public SqlSelectBuilder addWhereCond(SqlWhereCond whereCond) {
         sqlSelectBuilder.addWhereCond(whereCond);
+        return this;
+    }
+
+    @Override
+    public CatSelectBuilder addAttrWhereCond(CatBuilderAttr attr
+            , SqlOperator2 operator, BindVariable value) {
+        sqlSelectBuilder.addWhereCond(new WhereCondTwoOp(
+                CatColumnAttrImpl.forAttr(getFromElemByEntity(attr.getEntity())
+                        , attr), operator, new SqlColumnBind(value)));
         return this;
     }
 

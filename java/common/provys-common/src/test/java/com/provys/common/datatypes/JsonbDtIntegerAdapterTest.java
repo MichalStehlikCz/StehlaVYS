@@ -24,8 +24,8 @@ public class JsonbDtIntegerAdapterTest extends
 
     private List<Object[]> parametersForAdapter() {
         return asList(
-                new Object[]{new DtInteger(12345), 12345},
-                new Object[]{new DtInteger(-12345), -12345}
+                new Object[]{DtInteger.of(12345), 12345},
+                new Object[]{DtInteger.of(-12345), -12345}
         );
     }
 }

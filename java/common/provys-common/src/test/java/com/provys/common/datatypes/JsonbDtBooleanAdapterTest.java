@@ -25,8 +25,8 @@ public class JsonbDtBooleanAdapterTest extends
     
     private List<Object[]> parametersForAdapter() {
         return asList(
-                new Object[] {DtBoolean.fromValue(true), true}
-                , new Object[] {DtBoolean.fromValue(false), false}
+                new Object[] {DtBoolean.of(true), true}
+                , new Object[] {DtBoolean.of(false), false}
         );
     }
 

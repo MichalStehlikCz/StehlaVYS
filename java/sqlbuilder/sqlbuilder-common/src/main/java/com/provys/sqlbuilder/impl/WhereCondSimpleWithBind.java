@@ -17,7 +17,7 @@ import java.util.List;
  * 
  * @author stehlik
  */
-public class WhereCondSimpleWithBind extends WhereCondSimple {
+class WhereCondSimpleWithBind extends WhereCondSimple {
    
     private List<BindVariable> bindVariables;
 

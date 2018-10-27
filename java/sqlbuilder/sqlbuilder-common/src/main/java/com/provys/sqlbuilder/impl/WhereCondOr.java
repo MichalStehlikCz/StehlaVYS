@@ -16,7 +16,7 @@ import com.provys.sqlbuilder.iface.SqlWhereCond;
  * 
  * @author stehlik
  */
-public class WhereCondOr implements SqlWhereCond {
+class WhereCondOr implements SqlWhereCond {
     
     private final List<SqlWhereCond> conditions;
     

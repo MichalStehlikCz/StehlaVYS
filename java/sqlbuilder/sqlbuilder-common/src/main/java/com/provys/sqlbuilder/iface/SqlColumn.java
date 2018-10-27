@@ -6,6 +6,8 @@
 package com.provys.sqlbuilder.iface;
 
 import com.provys.provysdb.call.ColumnDef;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Represents column in select query.
@@ -40,7 +42,7 @@ public interface SqlColumn {
      * Translates SqlColumn to ColumnDef, used by SqlCall.
      * 
      * @return ColumnDef describing given column, null if ColumnDef cannot be
- constructed from SqlColumn
+     * constructed from SqlColumn
      */
     public ColumnDef getColumnDef();
    
@@ -53,5 +55,15 @@ public interface SqlColumn {
      * @return the indexed flag
      */
     public boolean isIndexed();
+    
+    /**
+     * Retrieve list of from elements this column depends on.
+     * In default implementation, returns empty list.
+     * 
+     * @return list of elements this column is connected to
+     */
+    public default List<SqlFromElem> getFromElems() {
+        return Collections.EMPTY_LIST;
+    }
 
 }

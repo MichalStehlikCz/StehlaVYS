@@ -30,8 +30,8 @@ public class JsonbDtUidAdapterTest extends
     
     private List<Object[]> parametersForAdapter() {
         return asList(
-                new Object[] {new DtUid("0123456789"), "0123456789"},
-                new Object[] {new DtUid("11223344556677889900"),
+                new Object[] {DtUid.of("0123456789"), "0123456789"},
+                new Object[] {DtUid.of("11223344556677889900"),
                         "11223344556677889900"}
         );
     }

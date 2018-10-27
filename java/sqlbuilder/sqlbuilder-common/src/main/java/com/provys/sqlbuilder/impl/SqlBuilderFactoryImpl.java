@@ -18,7 +18,7 @@ import com.provys.sqlbuilder.iface.SqlSelectBuilder;
  * 
  * @author stehlik
  */
-public class SqlBuilderFactoryImpl implements SqlBuilderFactory {
+class SqlBuilderFactoryImpl implements SqlBuilderFactory {
     
     @Override
     public SqlSelectBuilder getSimpleSelect(String table, String alias) {
@@ -37,62 +37,62 @@ public class SqlBuilderFactoryImpl implements SqlBuilderFactory {
 
     @Override
     public SqlColumn getValue(Dt value) {
-        return new SqlColumnValue(value);
+        return SqlColumnValue.of(value);
     }
 
     @Override
     public SqlColumn getValue(Dt value, String alias) {
-        return new SqlColumnValue(value, alias);
+        return SqlColumnValue.of(value, alias);
     }
 
     @Override
     public SqlColumn getValue(String value) {
-        return new SqlColumnValue(value);
+        return SqlColumnValue.of(value);
     }
 
     @Override
     public SqlColumn getValue(String value, String alias) {
-        return new SqlColumnValue(value, alias);
+        return SqlColumnValue.of(value, alias);
     }
 
     @Override
     public SqlColumn getValue(int value) {
-        return new SqlColumnValue(value);
+        return SqlColumnValue.of(value);
     }
 
     @Override
     public SqlColumn getValue(int value, String alias) {
-        return new SqlColumnValue(value, alias);
+        return SqlColumnValue.of(value, alias);
     }
 
     @Override
     public SqlColumn getValue(float value) {
-        return new SqlColumnValue(value);
+        return SqlColumnValue.of(value);
     }
 
     @Override
     public SqlColumn getValue(float value, String alias) {
-        return new SqlColumnValue(value, alias);
+        return SqlColumnValue.of(value, alias);
     }
 
     @Override
     public SqlColumn getValue(double value) {
-        return new SqlColumnValue(value);
+        return SqlColumnValue.of(value);
     }
 
     @Override
     public SqlColumn getValue(double value, String alias) {
-        return new SqlColumnValue(value, alias);
+        return SqlColumnValue.of(value, alias);
     }
     
     @Override
     public SqlColumn getBindColumn(BindVariable bindVariable) {
-        return new SqlColumnBind(bindVariable);
+        return SqlColumnBind.of(bindVariable);
     }
     
     @Override
     public SqlColumn getBindColumn(BindVariable bindVariable, String alias) {
-        return new SqlColumnBind(bindVariable, alias);
+        return SqlColumnBind.of(bindVariable, alias);
     }
 
     @Override

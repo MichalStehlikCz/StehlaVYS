@@ -15,7 +15,7 @@ import com.provys.sqlbuilder.iface.SqlWhereCond;
  * 
  * @author stehlik
  */
-public class WhereCondTwoOp implements SqlWhereCond {
+class WhereCondTwoOp implements SqlWhereCond {
     
     private boolean negative = false;
     private SqlColumn column1;
@@ -25,15 +25,15 @@ public class WhereCondTwoOp implements SqlWhereCond {
     public WhereCondTwoOp() {
     }
     
-    public WhereCondTwoOp(SqlColumn column1, SqlColumn column2
-            , SqlOperator2 operator) {
+    public WhereCondTwoOp(SqlColumn column1, SqlOperator2 operator
+            , SqlColumn column2) {
         this.column1 = column1;
         this.column2 = column2;
         this.operator = operator;
     }
 
-    public WhereCondTwoOp(SqlColumn column1, SqlColumn column2
-            , SqlOperator2 operator, boolean negative) {
+    public WhereCondTwoOp(SqlColumn column1, SqlOperator2 operator
+            , SqlColumn column2, boolean negative) {
         this.column1 = column1;
         this.column2 = column2;
         this.operator = operator;

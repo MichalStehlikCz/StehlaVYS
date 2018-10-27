@@ -5,10 +5,12 @@
  */
 package com.provys.sqlbuilder.catbuilder;
 
+import com.provys.provysdb.call.BindVariable;
 import com.provys.sqlbuilder.catmanager.CatBuilderAttr;
 import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
 import com.provys.sqlbuilder.iface.SqlColumn;
 import com.provys.sqlbuilder.iface.SqlFromElem;
+import com.provys.sqlbuilder.iface.SqlOperator2;
 import com.provys.sqlbuilder.iface.SqlSelectBuilder;
 
 /**
@@ -22,6 +24,85 @@ public interface CatSelectBuilder extends SqlSelectBuilder {
     public CatSelectBuilder addColumn(SqlColumn column);
     
     /**
+     * Get column corresponding to attribute.
+     * Uses attribute internal name as alias. Checks if there is attr's entity
+     * in from clause. If not or if it is there more than once, raises
+     * exception.
+     * 
+     * @param attr is attribute to be added to select
+     * @return column with to specified properties
+     */
+    public CatColumnAttr getAttrColumn(CatBuilderAttr attr);
+
+    /**
+     * Get column corresponding to attribute with specified alias.
+     * Checks if there is attr's entity in from clause. If not or if it is there
+     * more than once, raises exception.
+     * 
+     * @param attr is attribute to be added to select
+     * @param alias is alias assigned to new column
+     * @return itself to support chaining
+     */
+    public CatColumnAttr getAttrColumn(CatBuilderAttr attr, String alias);
+    
+    /**
+     * Get column corresponding to attribute based on specified from element.
+     * Uses attribute internal name as alias. Finds table in where clause and
+     * verifies that it is attribute's entity. If not, throws an exception.
+     * 
+     * @param tableAlias alias for where clause element to be used for lookup
+     * @param attr is attribute to be added to select
+     * @return itself to support chaining
+     */
+    public CatColumnAttr getAttrColumn(String tableAlias
+            , CatBuilderAttr attr);
+
+    /**
+     * Get column corresponding to attribute with alias based on specified from
+     * element.
+     * Uses supplied alias as column alias. Finds table in where clause and
+     * verifies that it is attribute's entity. If not, throws an exception.
+     * 
+     * @param tableAlias alias for where clause element to be used for lookup
+     * @param attr is attribute to be added to select
+     * @param alias is alias to be assigned to column
+     * @return itself to support chaining
+     */
+    public CatColumnAttr getAttrColumn(String tableAlias
+            , CatBuilderAttr attr, String alias);
+
+    /**
+     * Get column corresponding to attribute based on named attribute.
+     * Finds table in from clause by alias and finds attribute specified by
+     * alias in this entity. Uses attribute internal name as column alias.
+     * If tableAlias points to from element other than CatFromElemEntity or
+     * if attribute with given internal name doesn't exist in this entity,
+     * throws an exception
+     * 
+     * @param tableAlias alias for where clause element to be used for lookup
+     * @param attrNm is internal name of attribute to be added to select
+     * @return itself to support chaining
+     */
+    public CatColumnAttr getAttrColumn(String tableAlias
+            , String attrNm);
+
+    /**
+     * Get column corresponding to named attribute with given alias.
+     * Finds table in from clause by alias and finds attribute specified by
+     * alias in this entity. Uses supplied alias as column alias.
+     * If tableAlias points to from element other than CatFromElemEntity or
+     * if attribute with given internal name doesn't exist in this entity,
+     * throws an exception
+     * 
+     * @param tableAlias alias for where clause element to be used for lookup
+     * @param attrNm is internal name of attribute to be added to select
+     * @param alias is alias to be assigned to column
+     * @return itself to support chaining
+     */
+    public CatColumnAttr getAttrColumn(String tableAlias
+            , String attrNm, String alias);
+
+    /**
      * Adds column corresponding to attribute to select clause.
      * Uses attribute internal name as alias. Checks if there is attr's entity
      * in from clause. If not or if it is there more than once, raises
@@ -30,7 +111,7 @@ public interface CatSelectBuilder extends SqlSelectBuilder {
      * @param attr is attribute to be added to select
      * @return itself to support chaining
      */
-    public CatSelectBuilder addColumn(CatBuilderAttr attr);
+    public CatSelectBuilder addAttrColumn(CatBuilderAttr attr);
 
     /**
      * Adds column corresponding to attribute to select clause.
@@ -41,8 +122,64 @@ public interface CatSelectBuilder extends SqlSelectBuilder {
      * @param alias is alias assigned to new column
      * @return itself to support chaining
      */
-    public CatSelectBuilder addColumn(CatBuilderAttr attr, String alias);
+    public CatSelectBuilder addAttrColumn(CatBuilderAttr attr, String alias);
     
+    /**
+     * Adds column corresponding to attribute to select clause.
+     * Uses attribute internal name as alias. Finds table in where clause and
+     * verifies that it is attribute's entity. If not, throws an exception.
+     * 
+     * @param tableAlias alias for where clause element to be used for lookup
+     * @param attr is attribute to be added to select
+     * @return itself to support chaining
+     */
+    public CatSelectBuilder addAttrColumn(String tableAlias
+            , CatBuilderAttr attr);
+
+    /**
+     * Adds column corresponding to attribute to select clause.
+     * Uses supplied alias as column alias. Finds table in where clause and
+     * verifies that it is attribute's entity. If not, throws an exception.
+     * 
+     * @param tableAlias alias for where clause element to be used for lookup
+     * @param attr is attribute to be added to select
+     * @param alias is alias to be assigned to column
+     * @return itself to support chaining
+     */
+    public CatSelectBuilder addAttrColumn(String tableAlias
+            , CatBuilderAttr attr, String alias);
+
+    /**
+     * Adds column corresponding to attribute to select clause.
+     * Finds table in from clause by alias and finds attribute specified by
+     * alias in this entity. Uses attribute internal name as column alias.
+     * If tableAlias points to from element other than CatFromElemEntity or
+     * if attribute with given internal name doesn't exist in this entity,
+     * throws an exception
+     * 
+     * @param tableAlias alias for where clause element to be used for lookup
+     * @param attrNm is internal name of attribute to be added to select
+     * @return itself to support chaining
+     */
+    public CatSelectBuilder addAttrColumn(String tableAlias
+            , String attrNm);
+
+    /**
+     * Adds column corresponding to attribute to select clause.
+     * Finds table in from clause by alias and finds attribute specified by
+     * alias in this entity. Uses supplied alias as column alias.
+     * If tableAlias points to from element other than CatFromElemEntity or
+     * if attribute with given internal name doesn't exist in this entity,
+     * throws an exception
+     * 
+     * @param tableAlias alias for where clause element to be used for lookup
+     * @param attrNm is internal name of attribute to be added to select
+     * @param alias is alias to be assigned to column
+     * @return itself to support chaining
+     */
+    public CatSelectBuilder addAttrColumn(String tableAlias
+            , String attrNm, String alias);
+
     /**
      * Get FROM element built on specified entity.
      * Throw exception if from element is not found or there is more than one.
@@ -61,7 +198,10 @@ public interface CatSelectBuilder extends SqlSelectBuilder {
      * 
      * @param attr is attribute condition is based on
      * @param operator is operator to be used
-     * @param bindvariable is bind variable to be compared to
+     * @param value is bind variable to be compared to
+     * @return self to allow chaining
      */
-    public CatSelectBuilder addWhereCond()
+    public CatSelectBuilder addAttrWhereCond(CatBuilderAttr attr
+            , SqlOperator2 operator, BindVariable value);
+
 }

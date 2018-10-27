@@ -11,10 +11,9 @@ import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
- *
- * @author stehlik
+ * Used to store NUMBER values.
  * 
- * Used to store NUMBER values
+ * @author stehlik
  */
 @JsonbTypeAdapter(JsonbDtNumberAdapter.class)
 public class DtNumber implements DtNumeric{
@@ -78,30 +77,40 @@ public class DtNumber implements DtNumeric{
     private final BigDecimal value;
     
     /**
-     * Creates provys number value from supplied value.
+     * Returns provys number value representing supplied BigDecimal value.
+     * 
      * @param value - value new object will be initialised to
+     * @return {@code DtNumber} value representing supplied number
      */
-    public DtNumber(BigDecimal value) {
+    public static DtNumber of(BigDecimal value) {
+        return new DtNumber(value);
+    }
+    
+    /**
+     * Returns provys number value representing supplied float value.
+     * 
+     * @param value - value new object will be initialised to
+     * @return {@code DtNumber} value representing supplied number
+     */
+    public static DtNumber of(float value) {
+        return new DtNumber(BigDecimal.valueOf(value));
+    }
+    
+    /**
+     * Returns provys number value representing supplied double value.
+     * 
+     * @param value - value new object will be initialised to
+     * @return {@code DtNumber} value representing supplied number
+     */
+    public static DtNumber of(double value) {
+        return new DtNumber(BigDecimal.valueOf(value));
+    }
+    
+    private DtNumber(BigDecimal value) {
         if (value == null) {
             throw new Dt.NullValueNotSupportedException();
         }
         this.value=value;
-    }
-    
-    /**
-     * Creates provys number value from supplied float value.
-     * @param value - value new object will be initialised to
-     */
-    public DtNumber(float value) {
-        this.value=BigDecimal.valueOf(value);
-    }
-    
-    /**
-     * Creates provys number value from supplied double value.
-     * @param value - value new object will be initialised to
-     */
-    public DtNumber(double value) {
-        this.value=BigDecimal.valueOf(value);
     }
     
     /**

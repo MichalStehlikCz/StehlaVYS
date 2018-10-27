@@ -26,9 +26,9 @@ public class JsonbDtNumberAdapterTest extends
     }
     
     private List<Object[]> parametersForAdapter() {
-        return asList(new Object[] {new DtNumber(new BigDecimal(123456789))
+        return asList(new Object[] {DtNumber.of(new BigDecimal(123456789))
                         , new BigDecimal(123456789)}
-                , new Object[] {new DtNumber(
+                , new Object[] {DtNumber.of(
                         BigDecimal.valueOf(123456789.01234567)),
                         BigDecimal.valueOf(123456789.01234567)}
         );

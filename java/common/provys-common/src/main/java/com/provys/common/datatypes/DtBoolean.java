@@ -49,7 +49,7 @@ public class DtBoolean implements Dt {
      * @return instance of DtBoolean, corresponding to value of supplied string;
      * returns null if supplied string is empty
      */
-    public static DtBoolean fromStringValue(String stringValue) {
+    public static DtBoolean ofStringValue(String stringValue) {
         if (stringValue == null) {
             throw new NullStringValueException();
         }
@@ -71,7 +71,7 @@ public class DtBoolean implements Dt {
      * @param value supplied boolean value
      * @return instance of DtBoolean with given value
      */
-    public static DtBoolean fromValue(boolean value) {
+    public static DtBoolean of(boolean value) {
         return (value ? TRUE : FALSE);
     }
 
@@ -86,7 +86,7 @@ public class DtBoolean implements Dt {
      * otherwise
      * @return instance of DtBoolean with given value
      */
-    public static DtBoolean fromString(String value) {
+    public static DtBoolean of(String value) {
         if (value == null) {
             throw new NullStringException();
         }

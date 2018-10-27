@@ -22,7 +22,7 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitParamsRunner.class)
 public class DtNumberTest {
 
-    private List<Object[]> parametersForDtNumber() {
+    private List<Object[]> parametersForOf() {
         return asList(
                 new Object[]{(BigDecimal) null, true},
                 new Object[]{BigDecimal.valueOf(123456789.01234567), false},
@@ -38,12 +38,12 @@ public class DtNumberTest {
      * NullValueNotSupportedException
      */
     @Test
-    @Parameters(method = "parametersForDtNumber")
-    public void testDtNumber(BigDecimal value, boolean failNullValue) {
+    @Parameters(method = "parametersForOf")
+    public void testOf(BigDecimal value, boolean failNullValue) {
         @SuppressWarnings("UnusedAssignment")
         DtNumber instance;
         try {
-            instance = new DtNumber(value);
+            instance = DtNumber.of(value);
             if (failNullValue) {
                 fail("Creation should have failed with NullValue exception");
             }
@@ -72,7 +72,7 @@ public class DtNumberTest {
     @Test
     @Parameters(method = "parametersForGetValue")
     public void testGetValue(BigDecimal value, BigDecimal expectedResult) {
-        DtNumber instance = new DtNumber(value);
+        DtNumber instance = DtNumber.of(value);
         BigDecimal result = instance.getValue();
         assertEquals("Incorrect getValue in DtNumber", expectedResult, result);
     }
@@ -95,7 +95,7 @@ public class DtNumberTest {
     @Test
     @Parameters(method = "parametersForToStringValue")
     public void testToStringValue(BigDecimal value, String expectedResult) {
-        DtNumber instance = new DtNumber(value);
+        DtNumber instance = DtNumber.of(value);
         String result = instance.toStringValue();
         assertEquals("Incorrect toStringValue in DtNumber", expectedResult,
                  result);
@@ -119,7 +119,7 @@ public class DtNumberTest {
     @Test
     @Parameters(method = "parametersForToString")
     public void testToString(BigDecimal value, String expectedResult) {
-        DtNumber instance = new DtNumber(value);
+        DtNumber instance = DtNumber.of(value);
         String result = instance.toString();
         assertEquals("Incorrect toString in DtNumber", expectedResult, result);
     }
@@ -129,13 +129,13 @@ public class DtNumberTest {
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
                      (Object) null, false},
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
-                     new DtNumber(BigDecimal.valueOf(123456789.01234567)),
+                     DtNumber.of(BigDecimal.valueOf(123456789.01234567)),
                      true},
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
-                     new DtNumber(BigDecimal.valueOf(123456789.01234568)),
+                     DtNumber.of(BigDecimal.valueOf(123456789.01234568)),
                      false},
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
-                     new DtNumber(new BigDecimal(123456789)), false}
+                     DtNumber.of(new BigDecimal(123456789)), false}
         );
     }
 
@@ -150,7 +150,7 @@ public class DtNumberTest {
     @Parameters(method = "parametersForEquals")
     public void testEquals(BigDecimal value, Object compareTo,
              boolean expectedResult) {
-        DtNumber instance = new DtNumber(value);
+        DtNumber instance = DtNumber.of(value);
         boolean result = instance.equals(compareTo);
         assertEquals("Equals method returned incorrect result", expectedResult,
                  result);
@@ -181,8 +181,8 @@ public class DtNumberTest {
     @Test
     @Parameters(method = "parametersForHashCode")
     public void testHashCode(BigDecimal value1, BigDecimal value2) {
-        DtNumber instance1 = new DtNumber(value1);
-        DtNumber instance2 = new DtNumber(value2);
+        DtNumber instance1 = DtNumber.of(value1);
+        DtNumber instance2 = DtNumber.of(value2);
         int result1 = instance1.hashCode();
         int result2 = instance2.hashCode();
         if (instance1.equals(instance2)) {
@@ -210,7 +210,7 @@ public class DtNumberTest {
     @Test
     @Parameters(method = "parametersForGetDouble")
     public void testGetDouble(BigDecimal value, double expectedResult) {
-        DtNumber instance = new DtNumber(value);
+        DtNumber instance = DtNumber.of(value);
         double result = instance.getDouble();
         assertEquals(expectedResult, result, 0.00000000000001);
     }

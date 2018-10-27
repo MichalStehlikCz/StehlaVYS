@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 
  * @author stehlik
  */
-public class CodeBuilderImpl implements CodeBuilder {
+class CodeBuilderImpl implements CodeBuilder {
     
     final StringBuilder text;
     private boolean newLine = false;

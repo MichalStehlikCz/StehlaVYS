@@ -24,7 +24,7 @@ import java.util.List;
  * 
  * @author stehlik
  */
-public class SqlSelectBuilderSimple extends SqlBuilderSimple
+class SqlSelectBuilderSimple extends SqlBuilderSimple
         implements SqlSelectBuilder {
     
     public SqlSelectBuilderSimple() {

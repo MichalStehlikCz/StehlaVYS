@@ -17,7 +17,7 @@ import java.util.List;
  * 
  * @author stehlik
  */
-public class SqlFromElemSimple extends SqlFromElemAncestor {
+class SqlFromElemSimple extends SqlFromElemAncestor {
     
     private final String table;
     private boolean outerJoin = false;

@@ -32,7 +32,7 @@ public class JsonbDtNumberAdapter implements JsonbAdapter<DtNumber, BigDecimal> 
      */
     @Override
     public DtNumber adaptFromJson(BigDecimal adapted) {
-        return new DtNumber(adapted);
+        return DtNumber.of(adapted);
     }
     
 }

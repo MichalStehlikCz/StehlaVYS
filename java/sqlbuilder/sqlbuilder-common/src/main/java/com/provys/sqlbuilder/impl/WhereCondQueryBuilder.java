@@ -22,7 +22,7 @@ import com.provys.sqlbuilder.iface.SqlWhereCond;
  * 
  * @author stehlik
  */
-public class WhereCondQueryBuilder implements SqlWhereCond {
+class WhereCondQueryBuilder implements SqlWhereCond {
     
     private List<SqlColumn> columns;
     private SqlQueryBuilder subquery;

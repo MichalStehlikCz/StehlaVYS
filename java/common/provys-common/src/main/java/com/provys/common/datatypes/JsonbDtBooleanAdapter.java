@@ -32,7 +32,7 @@ public class JsonbDtBooleanAdapter implements JsonbAdapter<DtBoolean, Boolean> {
      */
     @Override
     public DtBoolean adaptFromJson(Boolean adapted) {
-        return DtBoolean.fromValue(adapted);
+        return DtBoolean.of(adapted);
     }
     
 }

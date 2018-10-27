@@ -6,16 +6,15 @@
 package com.provys.common.datatypes;
 
 /**
- *
- * @author stehlik
+ * Common abstract ancestor for all string holding Dt types.
+ * Implements equals method that considers values equal when strings are equal.
+ * Descendants should generally not override equals method, as it might break
+ * comparison transitivity
  * 
- * Used to store PROVYS VARCHAR and NOTE values. Also ancestor for name and
- * name_nm subtypes
+ * @author stehlik
  */
 abstract public class DtString implements Dt{
 
-    static final long serialVersionUID = 1L;
-    
     private final String value;
     
     /**
@@ -56,7 +55,7 @@ abstract public class DtString implements Dt{
     }
     
     @Override
-    public boolean equals(Object secondObject){
+    public final boolean equals(Object secondObject){
         if (this == secondObject) {
             return true;
         }
@@ -73,7 +72,7 @@ abstract public class DtString implements Dt{
     }
     
     @Override
-    public int hashCode(){
+    public final int hashCode(){
         return getValue().hashCode();
     }
 }

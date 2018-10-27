@@ -7,6 +7,7 @@ package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
 import java.sql.Types;
+import java.util.Objects;
 import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
@@ -70,7 +71,7 @@ public class DtOptBoolean extends DtOptional<Boolean> {
      * @return instance of DtBoolean, corresponding to value of supplied string;
      * returns null if supplied string is empty
      */
-    public static DtOptBoolean fromStringValue(String stringValue) {
+    public static DtOptBoolean ofStringValue(String stringValue) {
         if (stringValue == null) {
             return null;
         }
@@ -87,18 +88,53 @@ public class DtOptBoolean extends DtOptional<Boolean> {
     }
 
     /**
-     * Constructs DtOptBoolean from supplied boolean value.
-     * Returns static instance, thus it is more effective to use than
-     * constructor
+     * Constructs DtOptBoolean from supplied non-null boolean value.
      *
      * @param value supplied boolean value
      * @return instance of DtBoolean with given value
      */
-    public static DtOptBoolean fromValue(Boolean value) {
+    public static DtOptBoolean of(Boolean value) {
+        Objects.requireNonNull(value);
+        return (value ? TRUE : FALSE);
+    }
+
+    /**
+     * Constructs DtOptBoolean from supplied boolean value.
+     * Value is optional - returns empty value if supplied value is null.
+     *
+     * @param value supplied boolean value
+     * @return instance of DtBoolean with given value
+     */
+    public static DtOptBoolean ofNullable(Boolean value) {
         if (value == null) {
             return EMPTY;
         }
         return (value ? TRUE : FALSE);
+    }
+
+    /**
+     * Constructs DtOptBoolean from supplied non-null DtBoolean value.
+     *
+     * @param value supplied DtBoolean value
+     * @return instance of DtBoolean with given value
+     */
+    public static DtOptBoolean of(DtBoolean value) {
+        Objects.requireNonNull(value);
+        return (value.getValue() ? TRUE : FALSE);
+    }
+
+    /**
+     * Constructs DtOptBoolean from supplied DtBoolean value.
+     * Value is optional - returns empty value if supplied value is null.
+     *
+     * @param value supplied boolean value
+     * @return instance of DtBoolean with given value
+     */
+    public static DtOptBoolean ofNullable(DtBoolean value) {
+        if (value == null) {
+            return EMPTY;
+        }
+        return (value.getValue() ? TRUE : FALSE);
     }
 
     /**
@@ -109,7 +145,8 @@ public class DtOptBoolean extends DtOptional<Boolean> {
      * @param value supplied boolean value
      * @return instance of DtBoolean with given value
      */
-    public static DtOptBoolean fromValue(Optional<Boolean> value) {
+    public static DtOptBoolean of(Optional<Boolean> value) {
+        Objects.requireNonNull(value);
         if (!value.isPresent()) {
             return EMPTY;
         }
@@ -123,11 +160,11 @@ public class DtOptBoolean extends DtOptional<Boolean> {
      * 
      * @param value supplied string value; returns true if supplied value is
      * true (case insensitive) or 1, false if supplied value is false (case
-     * insensitive) or 0, null if supplied value is null and throws exception
-     * otherwise
+     * insensitive) or 0, null if supplied value is null or empty String and
+     * throws exception otherwise
      * @return instance of DtBoolean with given value
      */
-    public static DtOptBoolean fromString(String value) {
+    public static DtOptBoolean ofString(String value) {
         if ((value == null) || (value.isEmpty())) {
             return EMPTY;
         } else if (value.equalsIgnoreCase("true") || value.equals("1")) {

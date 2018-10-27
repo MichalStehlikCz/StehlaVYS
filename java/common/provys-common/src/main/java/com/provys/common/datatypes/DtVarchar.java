@@ -12,14 +12,14 @@ import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
- *
- * @author micha
+ * {@code DtVarchar} represents default VARCHAR2 values.
+ * Corresponds to PROVYS domain STRING. In general, is used for textual columns
+ * (usually 4000 characters long)
+ * 
+ * @author stehlik
  */
 @JsonbTypeAdapter(JsonbDtVarcharAdapter.class)
 public class DtVarchar extends DtString {
-
-    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
-    private static final long serialVersionUID = 1L;
 
     /**
      * Register DtVarchar type to Dt types repository.
@@ -69,11 +69,17 @@ public class DtVarchar extends DtString {
         return -1;
     }
 
-     /**
-     *
-     * @param value
+    /**
+     * Retrieve {@code DtVarchar} value corresponding to specified string.
+     * 
+     * @param value is value to be set
+     * @return DtVarchar value corresponding to specified string parameter
      */
-    public DtVarchar(String value){
+    public static DtVarchar of(String value) {
+        return new DtVarchar(value);
+    }
+
+    private DtVarchar(String value){
         super(value);
         if (value.length()>4_000) {
             throw new VarcharTooLongException(value);

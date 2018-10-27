@@ -23,7 +23,7 @@ import java.util.function.Consumer;
  * 
  * @author stehlik
  */
-public class SqlBuilderSimple {
+class SqlBuilderSimple {
 
     final private List<SqlColumn> columns;
     final private List<SqlFromElem> fromElems;

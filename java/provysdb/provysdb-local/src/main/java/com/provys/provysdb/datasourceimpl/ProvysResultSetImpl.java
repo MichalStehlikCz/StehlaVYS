@@ -51,7 +51,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnIndex);
         }
-        return DtBoolean.fromStringValue(value);
+        return DtBoolean.ofStringValue(value);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnLabel);
         }
-        return DtBoolean.fromStringValue(value);
+        return DtBoolean.ofStringValue(value);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             return DtOptBoolean.empty();
         } else {
-            return DtOptBoolean.fromStringValue(value);
+            return DtOptBoolean.ofStringValue(value);
         }
     }
 
@@ -80,7 +80,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             return DtOptBoolean.empty();
         } else {
-            return DtOptBoolean.fromStringValue(value);
+            return DtOptBoolean.ofStringValue(value);
         }
     }
 
@@ -90,7 +90,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnIndex);
         }
-        return new DtInteger(value);
+        return DtInteger.of(value);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnLabel);
         }
-        return new DtInteger(value);
+        return DtInteger.of(value);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnIndex);
         }
-        return new DtName(value);
+        return DtName.of(value);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnLabel);
         }
-        return new DtName(value);
+        return DtName.of(value);
     }
 
     @Override
@@ -167,7 +167,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnIndex);
         }
-        return new DtNameNm(value);
+        return DtNameNm.of(value);
     }
 
     @Override
@@ -176,7 +176,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnLabel);
         }
-        return new DtNameNm(value);
+        return DtNameNm.of(value);
     }
 
     @Override
@@ -205,7 +205,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnIndex);
         }
-        return new DtNumber(value);
+        return DtNumber.of(value);
     }
 
     @Override
@@ -214,7 +214,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnLabel);
         }
-        return new DtNumber(value);
+        return DtNumber.of(value);
     }
 
     @Override
@@ -243,7 +243,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnIndex);
         }
-        return new DtUid(value.toPlainString());
+        return DtUid.of(value.toPlainString());
     }
 
     @Override
@@ -252,7 +252,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnLabel);
         }
-        return new DtUid(value.toPlainString());
+        return DtUid.of(value.toPlainString());
     }
 
     @Override
@@ -281,7 +281,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnIndex);
         }
-        return new DtVarchar(value);
+        return DtVarchar.of(value);
     }
 
     @Override
@@ -290,7 +290,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnLabel);
         }
-        return new DtVarchar(value);
+        return DtVarchar.of(value);
     }
 
     @Override

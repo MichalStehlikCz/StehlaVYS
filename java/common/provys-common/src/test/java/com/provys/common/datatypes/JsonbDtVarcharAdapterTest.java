@@ -30,8 +30,8 @@ public class JsonbDtVarcharAdapterTest extends
     
     private List<Object[]> parametersForAdapter() {
         return asList(
-                new Object[] {new DtVarchar("0123456789"), "0123456789"},
-                new Object[] {new DtVarchar("abcd"), "abcd"}
+                new Object[] {DtVarchar.of("0123456789"), "0123456789"},
+                new Object[] {DtVarchar.of("abcd"), "abcd"}
         );
     }
 

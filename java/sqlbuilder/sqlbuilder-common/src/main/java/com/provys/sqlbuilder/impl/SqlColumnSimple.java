@@ -13,7 +13,7 @@ import com.provys.sqlbuilder.iface.CodeBuilder;
  * 
  * @author stehlik
  */
-public class SqlColumnSimple extends SqlColumnAncestor {
+class SqlColumnSimple extends SqlColumnAncestor {
     
     final String column; // text representing table column
     

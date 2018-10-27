@@ -31,6 +31,6 @@ public class JsonbDtUidAdapter implements JsonbAdapter<DtUid, String> {
      */
     @Override
     public DtUid adaptFromJson(String adapted) {
-        return new DtUid(adapted);
+        return DtUid.of(adapted);
     }
 }

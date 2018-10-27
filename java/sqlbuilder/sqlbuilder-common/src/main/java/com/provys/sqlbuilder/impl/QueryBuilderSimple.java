@@ -15,7 +15,7 @@ import com.provys.sqlbuilder.iface.SqlColumn;
  *
  * @author stehlik
  */
-public class QueryBuilderSimple extends SqlBuilderSimple implements SqlQueryBuilder {
+class QueryBuilderSimple extends SqlBuilderSimple implements SqlQueryBuilder {
 
     /**
      * Default constructor for SqlQueryBuilder. Creates empty SqlQueryBuilder.

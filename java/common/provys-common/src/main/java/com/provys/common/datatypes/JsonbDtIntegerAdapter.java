@@ -31,7 +31,7 @@ public class JsonbDtIntegerAdapter implements JsonbAdapter<DtInteger, Integer> {
      */
     @Override
     public DtInteger adaptFromJson(Integer adapted) {
-        return new DtInteger(adapted);
+        return DtInteger.of(adapted);
     }
     
 }

@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitParamsRunner.class)
 public class DtBooleanTest {
     
-    private List<Object[]> parametersForFromStringValue() {
+    private List<Object[]> parametersForOfStringValue() {
         return asList(
                 new Object[] {"Y", DtBoolean.getTRUE(), false, false},
                 new Object[] {"N", DtBoolean.getFALSE(), false, false},
@@ -35,11 +35,11 @@ public class DtBooleanTest {
      * NullStringValueException
      */
     @Test
-    @Parameters(method = "parametersForFromStringValue")
-    public void testFromStringValue(String value, DtBoolean expectedResult,
+    @Parameters(method = "parametersForOfStringValue")
+    public void testOfStringValue(String value, DtBoolean expectedResult,
             boolean failInvalidValue, boolean failNullValue) {
         try {
-            DtBoolean instance = DtBoolean.fromStringValue(value);
+            DtBoolean instance = DtBoolean.ofStringValue(value);
             if (failInvalidValue || failNullValue) {
                 fail("Conversion of string value to DtBoolean should have failed");
             }
@@ -56,7 +56,7 @@ public class DtBooleanTest {
         }
     }
 
-    private List<Object[]> parametersForFromValue() {
+    private List<Object[]> parametersForOf() {
         return asList(
                 new Object[] {true, DtBoolean.getTRUE()},
                 new Object[] {false, DtBoolean.getFALSE()}
@@ -69,14 +69,14 @@ public class DtBooleanTest {
      * @param expectedResult - expected result of conversion
      */
     @Test
-    @Parameters(method = "parametersForFromValue")
+    @Parameters(method = "parametersForOf")
     public void testFromValue(boolean value, DtBoolean expectedResult) {
-        DtBoolean instance = DtBoolean.fromValue(value);
+        DtBoolean instance = DtBoolean.of(value);
         assertSame("Incorrect provys boolean to DtBoolean", expectedResult,
                 instance);
     }
 
-    private List<Object[]> parametersForFromString() {
+    private List<Object[]> parametersForOfString() {
         return asList(
                 new Object[] {"true", DtBoolean.getTRUE(), false, false},
                 new Object[] {"False", DtBoolean.getFALSE(), false, false},
@@ -97,11 +97,11 @@ public class DtBooleanTest {
      * NullStringException
      */
     @Test
-    @Parameters(method = "parametersForFromString")
-    public void testFromString(String value, DtBoolean expectedResult,
+    @Parameters(method = "parametersForOfString")
+    public void testOf(String value, DtBoolean expectedResult,
             boolean failInvalidString, boolean failNullString) {
         try {
-            DtBoolean instance = DtBoolean.fromString(value);
+            DtBoolean instance = DtBoolean.of(value);
             if (failInvalidString || failNullString) {
                 fail("Conversion of string value to DtBoolean should have failed");
             }
@@ -133,7 +133,7 @@ public class DtBooleanTest {
     @Test
     @Parameters(method = "parametersForGetValue")
     public void testGetValue(boolean value, boolean expectedResult) {
-        DtBoolean instance = DtBoolean.fromValue(value);
+        DtBoolean instance = DtBoolean.of(value);
         boolean result = instance.getValue();
         assertEquals("Incorrect getValue in DtBoolean", expectedResult, result);
     }
@@ -153,7 +153,7 @@ public class DtBooleanTest {
     @Test
     @Parameters(method = "parametersForToStringValue")
     public void testToStringValue(boolean value, String expectedResult) {
-        DtBoolean instance = DtBoolean.fromValue(value);
+        DtBoolean instance = DtBoolean.of(value);
         String result = instance.toStringValue();
         assertEquals("Incorrect toStringValue in DtBoolean", expectedResult, result);
     }
@@ -173,7 +173,7 @@ public class DtBooleanTest {
     @Test
     @Parameters(method = "parametersForToString")
     public void testToString(boolean value, String expectedResult) {
-        DtBoolean instance = DtBoolean.fromValue(value);
+        DtBoolean instance = DtBoolean.of(value);
         String result = instance.toString();
         assertEquals("Incorrect toString in DtBoolean", expectedResult, result);
     }
@@ -181,8 +181,8 @@ public class DtBooleanTest {
     private List<Object[]> parametersForEquals() {
         return asList(
                 new Object[] {true, (Object) null, false},
-                new Object[] {true, DtBoolean.fromValue(true), true},
-                new Object[] {true, DtBoolean.fromValue(false), false}
+                new Object[] {true, DtBoolean.of(true), true},
+                new Object[] {true, DtBoolean.of(false), false}
         );
     }
 
@@ -195,7 +195,7 @@ public class DtBooleanTest {
     @Test
     @Parameters(method = "parametersForEquals")
     public void testEquals(boolean value, Object compareTo, boolean expectedResult) {
-        DtBoolean instance = DtBoolean.fromValue(value);
+        DtBoolean instance = DtBoolean.of(value);
         boolean result = instance.equals(compareTo);
         if (expectedResult) {
             assertTrue("Equals method returned incorrect result (expected true)"
@@ -228,8 +228,8 @@ public class DtBooleanTest {
     @Test
     @Parameters(method = "parametersForHashCode")
     public void testHashCode(boolean value1, boolean value2) {
-        DtBoolean instance1 = DtBoolean.fromValue(value1);
-        DtBoolean instance2 = DtBoolean.fromValue(value2);
+        DtBoolean instance1 = DtBoolean.of(value1);
+        DtBoolean instance2 = DtBoolean.of(value2);
         int result1 = instance1.hashCode();
         int result2 = instance2.hashCode();
         if (instance1.equals(instance2)) {

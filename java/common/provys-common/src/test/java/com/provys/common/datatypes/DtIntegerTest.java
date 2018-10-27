@@ -21,7 +21,7 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitParamsRunner.class)
 public class DtIntegerTest {
 
-    private List<Object[]> parametersForDtInteger() {
+    private List<Object[]> parametersForOf() {
         return asList(
                 new Object[]{12345},
                 new Object[]{-12345}
@@ -34,10 +34,30 @@ public class DtIntegerTest {
      * @param value - value new DtInteger will be created from
      */
     @Test
-    @Parameters(method = "parametersForDtInteger")
-    public void testDtInteger(int value) {
+    @Parameters(method = "parametersForOf")
+    public void testOf(int value) {
         @SuppressWarnings("UnusedAssignment")
-        DtInteger instance = new DtInteger(value);
+        DtInteger instance = DtInteger.of(value);
+    }
+
+    private List<Object[]> parametersForOfString() {
+        return asList(
+                new Object[]{"12345", 12345},
+                new Object[]{"-12345", -12345}
+        );
+    }
+
+    /**
+     * Test single argument constructor method, of class DtInteger.
+     *
+     * @param value - value new DtInteger will be created from
+     * @param compareTo - int value result will be compared to
+     */
+    @Test
+    @Parameters(method = "parametersForOfString")
+    public void testOf(String value, int compareTo) {
+        DtInteger instance = DtInteger.of(value);
+        assertEquals(instance.getValue(), compareTo);
     }
 
     private List<Object[]> parametersForGetValue() {
@@ -56,7 +76,7 @@ public class DtIntegerTest {
     @Test
     @Parameters(method = "parametersForGetValue")
     public void testGetValue(int value, int expectedResult) {
-        DtInteger instance = new DtInteger(value);
+        DtInteger instance = DtInteger.of(value);
         int result = instance.getValue();
         assertEquals("Incorrect getValue in DtInteger", expectedResult, result);
     }
@@ -77,7 +97,7 @@ public class DtIntegerTest {
     @Test
     @Parameters(method = "parametersForToStringValue")
     public void testToStringValue(int value, String expectedResult) {
-        DtInteger instance = new DtInteger(value);
+        DtInteger instance = DtInteger.of(value);
         String result = instance.toStringValue();
         assertEquals("Incorrect toStringValue in DtInteger", expectedResult,
                 result);
@@ -99,7 +119,7 @@ public class DtIntegerTest {
     @Test
     @Parameters(method = "parametersForToString")
     public void testToString(int value, String expectedResult) {
-        DtInteger instance = new DtInteger(value);
+        DtInteger instance = DtInteger.of(value);
         String result = instance.toString();
         assertEquals("Incorrect toString in DtInteger", expectedResult, result);
     }
@@ -107,8 +127,8 @@ public class DtIntegerTest {
     private List<Object[]> parametersForEquals() {
         return asList(
                 new Object[]{12345, (Object) null, false},
-                new Object[]{12345, new DtInteger(12345), true},
-                new Object[]{12345, new DtInteger(-12345), false}
+                new Object[]{12345, DtInteger.of(12345), true},
+                new Object[]{12345, DtInteger.of(-12345), false}
         );
     }
 
@@ -123,7 +143,7 @@ public class DtIntegerTest {
     @Parameters(method = "parametersForEquals")
     public void testEquals(int value, Object compareTo,
             boolean expectedResult) {
-        DtInteger instance = new DtInteger(value);
+        DtInteger instance = DtInteger.of(value);
         boolean result = instance.equals(compareTo);
         assertEquals("Equals method returned incorrect result", expectedResult,
                 result);
@@ -153,8 +173,8 @@ public class DtIntegerTest {
     @Test
     @Parameters(method = "parametersForHashCode")
     public void testHashCode(int value1, int value2) {
-        DtInteger instance1 = new DtInteger(value1);
-        DtInteger instance2 = new DtInteger(value2);
+        DtInteger instance1 = DtInteger.of(value1);
+        DtInteger instance2 = DtInteger.of(value2);
         int result1 = instance1.hashCode();
         int result2 = instance2.hashCode();
         if (instance1.equals(instance2)) {
@@ -180,7 +200,7 @@ public class DtIntegerTest {
     @Test
     @Parameters(method = "parametersForGetDouble")
     public void testGetDouble(int value, double expectedResult) {
-        DtInteger instance = new DtInteger(value);
+        DtInteger instance = DtInteger.of(value);
         double result = instance.getDouble();
         assertEquals(expectedResult, result, 0.00000000000001);
     }

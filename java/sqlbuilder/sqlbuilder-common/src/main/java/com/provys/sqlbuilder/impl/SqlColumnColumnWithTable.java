@@ -8,6 +8,8 @@ package com.provys.sqlbuilder.impl;
 import com.provys.common.datatypes.Dt;
 import com.provys.sqlbuilder.iface.CodeBuilder;
 import com.provys.sqlbuilder.iface.SqlFromElem;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implements simple column, with alias specified as referenced fromElem.
@@ -17,7 +19,7 @@ import com.provys.sqlbuilder.iface.SqlFromElem;
  * 
  * @author stehlik
  */
-public class SqlColumnColumnWithTable extends SqlColumnSimple {
+class SqlColumnColumnWithTable extends SqlColumnSimple {
     
     private final SqlFromElem fromElem;
     
@@ -54,5 +56,12 @@ public class SqlColumnColumnWithTable extends SqlColumnSimple {
         if (addAliasClause) {
             appendAlias(code);
         }
+    }
+    
+    @Override
+    public List<SqlFromElem> getFromElems() {
+        List<SqlFromElem> fromElems=new ArrayList<>(1);
+        fromElems.add(fromElem);
+        return fromElems;
     }
 }

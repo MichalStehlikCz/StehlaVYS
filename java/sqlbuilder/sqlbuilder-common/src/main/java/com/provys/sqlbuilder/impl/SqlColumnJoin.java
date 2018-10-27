@@ -12,7 +12,7 @@ import com.provys.sqlbuilder.iface.SqlColumn;
  * 
  * @author stehlik
  */
-public class SqlColumnJoin {
+class SqlColumnJoin {
         private final SqlColumn source;
         private final SqlColumn target;
         

@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitParamsRunner.class)
 public class DtNameNmTest {
     
-    private List<Object[]> parametersForDtNameNm() {
+    private List<Object[]> parametersForOf() {
         StringBuilder value200 = new StringBuilder(201);
         for (int i = 1;i <= 20;i++) {
             value200.append("0123456789");
@@ -48,13 +48,13 @@ public class DtNameNmTest {
      * NameTooLongException
      */
     @Test
-    @Parameters(method = "parametersForDtNameNm")
-    public void testDtNameNm(String value, boolean failNullValue
+    @Parameters(method = "parametersForOf")
+    public void testOf(String value, boolean failNullValue
             , boolean failTooLong) {
         @SuppressWarnings("UnusedAssignment")
         DtNameNm instance;
         try {
-            instance = new DtNameNm(value);
+            instance = DtNameNm.of(value);
             if (failNullValue) {
                 fail("Creation should have failed with NullValue exception");
             }

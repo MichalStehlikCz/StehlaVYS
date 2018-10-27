@@ -16,58 +16,58 @@ import com.provys.sqlbuilder.iface.CodeBuilder;
  * 
  * @author stehlik
  */
-public class SqlColumnValue extends SqlColumnAncestor {
+class SqlColumnValue extends SqlColumnAncestor {
     
-    final Dt value;
+    private final Dt value;
     
-    public SqlColumnValue(Dt value) {
+    public static SqlColumnValue of(Dt value) {
+        return new SqlColumnValue(value);
+    }
+
+    public static SqlColumnValue of(Dt value, String alias) {
+        return new SqlColumnValue(value, alias);
+    }
+
+    public static SqlColumnValue of(String value) {
+        return new SqlColumnValue(DtVarchar.of(value));
+    }
+
+    public static SqlColumnValue of(String value, String alias) {
+        return new SqlColumnValue(DtVarchar.of(value), alias);
+    }
+
+    public static SqlColumnValue of(int value) {
+        return new SqlColumnValue(DtInteger.of(value));
+    }
+
+    public static SqlColumnValue of(int value, String alias) {
+        return new SqlColumnValue(DtInteger.of(value), alias);
+    }
+
+    public static SqlColumnValue of(float value) {
+        return new SqlColumnValue(DtNumber.of(value));
+    }
+
+    public static SqlColumnValue of(float value, String alias) {
+        return new SqlColumnValue(DtNumber.of(value), alias);
+    }
+
+    public static SqlColumnValue of(double value) {
+        return new SqlColumnValue(DtNumber.of(value));
+    }
+
+    public static SqlColumnValue of(double value, String alias) {
+        return new SqlColumnValue(DtNumber.of(value), alias);
+    }
+
+    private SqlColumnValue(Dt value) {
         super(Dt.class);
         this.value = value;
     }
 
-    public SqlColumnValue(Dt value, String alias) {
+    private SqlColumnValue(Dt value, String alias) {
         super(alias, Dt.class);
         this.value = value;
-    }
-
-    public SqlColumnValue(String value) {
-        super(DtVarchar.class);
-        this.value = new DtVarchar(value);
-    }
-
-    public SqlColumnValue(String value, String alias) {
-        super(alias, DtVarchar.class);
-        this.value = new DtVarchar(value);
-    }
-
-    public SqlColumnValue(int value) {
-        super(DtInteger.class);
-        this.value = new DtInteger(value);
-    }
-
-    public SqlColumnValue(int value, String alias) {
-        super(alias, DtInteger.class);
-        this.value = new DtInteger(value);
-    }
-
-    public SqlColumnValue(float value) {
-        super(DtNumber.class);
-        this.value = new DtNumber(value);
-    }
-
-    public SqlColumnValue(float value, String alias) {
-        super(alias, DtNumber.class);
-        this.value = new DtNumber(value);
-    }
-
-    public SqlColumnValue(double value) {
-        super(DtNumber.class);
-        this.value = new DtNumber(value);
-    }
-
-    public SqlColumnValue(double value, String alias) {
-        super(alias, DtNumber.class);
-        this.value = new DtNumber(value);
     }
 
     @Override

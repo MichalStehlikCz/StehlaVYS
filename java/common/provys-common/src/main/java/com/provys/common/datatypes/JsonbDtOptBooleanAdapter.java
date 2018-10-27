@@ -33,7 +33,7 @@ public class JsonbDtOptBooleanAdapter implements JsonbAdapter<DtOptBoolean
      */
     @Override
     public DtOptBoolean adaptFromJson(Boolean adapted) {
-        return DtOptBoolean.fromValue(adapted);
+        return DtOptBoolean.ofNullable(adapted);
     }
     
 }

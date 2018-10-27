@@ -70,9 +70,15 @@ public class DtNameNm extends DtName{
     /**
      * Creates new DtNameNm object from supplied value. Verifies that supplied
      * value is valid as internal name
+     * 
      * @param value - val new internal name will be set to
+     * @return new {@code DtNameNm} object representing the value
      */
-    public DtNameNm(String value){
+    public static DtNameNm of(String value) {
+        return new DtNameNm(value);
+    }
+
+    private DtNameNm(String value){
         super(value);
     }
 }

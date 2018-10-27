@@ -84,7 +84,7 @@ public class DtOptInteger extends DtOptional<Integer> implements DtOptNumeric {
 
     private static final DtOptInteger EMPTY = new DtOptInteger();
     
-    protected DtOptInteger() {
+    private DtOptInteger() {
         super();
     }
 
@@ -124,6 +124,44 @@ public class DtOptInteger extends DtOptional<Integer> implements DtOptNumeric {
      * value is non-null, otherwise an empty {@code DtOptInteger}
      */
     public static DtOptInteger ofNullable(Integer value) {
+        return value == null ? empty() : of(value);
+    }
+
+    /**
+     * Constructs DtOptInteger from supplied optional integer value.
+     *
+     * @param value supplied optional integer value
+     * @return instance of DtInteger with given value
+     */
+    public static DtOptInteger of(Optional<Integer> value) {
+        Objects.requireNonNull(value);
+        if (!value.isPresent()) {
+            return EMPTY;
+        }
+        return of(value.get());
+    }
+
+    /**
+     * Returns an {@code DtOptInteger} with the specified present non-null value.
+     *
+     * @param value the value to be present, which must be non-null
+     * @return an {@code DtOptInteger} with the value present
+     * @throws NullPointerException if value is null
+     */
+    public static DtOptInteger of(DtInteger value) {
+        Objects.requireNonNull(value);
+        return new DtOptInteger(value.getValue());
+    }
+
+    /**
+     * Returns an {@code DtOptInteger} describing the specified value, if
+     * non-null, otherwise returns an empty {@code DtOptInteger}.
+     *
+     * @param value the possibly-null value to describe
+     * @return an {@code DtOptInteger} with a present value if the specified
+     * value is non-null, otherwise an empty {@code DtOptInteger}
+     */
+    public static DtOptInteger ofNullable(DtInteger value) {
         return value == null ? empty() : of(value);
     }
 

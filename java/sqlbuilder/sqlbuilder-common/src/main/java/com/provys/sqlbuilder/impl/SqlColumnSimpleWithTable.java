@@ -7,8 +7,12 @@ package com.provys.sqlbuilder.impl;
 
 import com.provys.common.datatypes.Dt;
 import com.provys.common.error.ProvysException;
+import com.provys.provysdb.call.ColumnDef;
 import com.provys.sqlbuilder.iface.CodeBuilder;
+import com.provys.sqlbuilder.iface.SqlColumn;
 import com.provys.sqlbuilder.iface.SqlFromElem;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Column defined as SQL expression with alias <<0>>.
@@ -16,8 +20,9 @@ import com.provys.sqlbuilder.iface.SqlFromElem;
  * 
  * @author stehlik
  */
-public class SqlColumnSimpleWithTable extends SqlColumnSimple {
+class SqlColumnSimpleWithTable implements SqlColumn {
     
+    private final SqlColumnSimple sqlColumn;
     private final SqlFromElem fromElem;
     
     public SqlColumnSimpleWithTable(String column, Class<? extends Dt> type
@@ -32,14 +37,14 @@ public class SqlColumnSimpleWithTable extends SqlColumnSimple {
         this.fromElem = fromElem;
     }
 
-    public SqlColumnSimpleWithTable(String column, String alias
+    private SqlColumnSimpleWithTable(String column, String alias
             , Class<? extends Dt> type, SqlFromElem fromElem) {
         super(column, alias, type);
         this.fromElem = fromElem;
     }
 
-    public SqlColumnSimpleWithTable(String column, String alias
-            , Class<? extends Dt> type, boolean indexed, SqlFromElem fromElem) {
+    private SqlColumnSimpleWithTable(SqlFromElem fromElem, String column
+            , String alias, Class<? extends Dt> type, boolean indexed) {
         super(column, alias, type, indexed);
         this.fromElem = fromElem;
     }
@@ -74,6 +79,33 @@ public class SqlColumnSimpleWithTable extends SqlColumnSimple {
         return fromElem;
     }
     
+    @Override
+    public List<SqlFromElem> getFromElems() {
+        List<SqlFromElem> fromElems=new ArrayList<>(1);
+        fromElems.add(fromElem);
+        return fromElems;
+    }
+
+    @Override
+    public void buildSql(CodeBuilder code, boolean addAliasClause) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ColumnDef getColumnDef() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getAlias() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isIndexed() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * Cannot build column as referenced from element does not provide alias.
      */

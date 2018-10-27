@@ -81,10 +81,18 @@ public class DtUid implements Dt {
     private final String value;
     
     /**
-     * Creates provys UID value from supplied string
+     * Creates provys UID value from supplied string.
+     * System validates data format, but does not validate if given value
+     * actually represents existing object.
+     * 
      * @param value represents value this object will be assigned
+     * @return {@code DtUid} object representing supplied value
      */
-    public DtUid(String value) {
+    public static DtUid of(String value) {
+        return new DtUid(value);
+    }
+    
+    private DtUid(String value) {
         if ((value == null) || (value.isEmpty())) {
             throw new Dt.NullValueNotSupportedException();
         }

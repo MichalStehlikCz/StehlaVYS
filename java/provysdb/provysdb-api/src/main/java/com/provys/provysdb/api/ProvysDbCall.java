@@ -68,7 +68,7 @@ public class ProvysDbCall {
     @Produces({MediaType.APPLICATION_JSON})
     public SqlCall testSerialisation() {
         List<BindValue> values = new ArrayList<>(1);
-        values.add(new BindValue("domain_id", new DtNameNm("ABC")));
+        values.add(new BindValue("domain_id", DtNameNm.of("ABC")));
         List<ColumnDef> columns = new ArrayList<>(1);
         columns.add(new ColumnDef("domain_id", DtUid.class));
         SqlCall result = new SqlCall("SELECT 1 from dual", values, columns);

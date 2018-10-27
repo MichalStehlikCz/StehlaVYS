@@ -19,7 +19,7 @@ public class JsonbDtVarcharAdapter extends JsonbDtStringAdapter<DtVarchar> {
      */
     @Override
     public DtVarchar adaptFromJson(String adapted) {
-        return new DtVarchar(adapted);
+        return DtVarchar.of(adapted);
     }
     
 }

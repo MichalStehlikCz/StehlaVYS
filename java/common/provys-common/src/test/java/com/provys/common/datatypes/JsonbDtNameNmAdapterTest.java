@@ -25,8 +25,9 @@ public class JsonbDtNameNmAdapterTest extends
 
     private List<Object[]> parametersForAdapter() {
         return asList(
-                new Object[]{new DtNameNm("0123456789"), "0123456789"},
-                new Object[]{new DtNameNm("abcd"), "abcd"}
+                new Object[]{DtNameNm.of("A0123456789"), "A0123456789"},
+                new Object[]{DtNameNm.of("ABCD"), "ABCD"},
+                new Object[]{DtNameNm.of("-ABCD"), "-ABCD"}
         );
     }
 

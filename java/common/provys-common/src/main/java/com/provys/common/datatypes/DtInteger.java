@@ -83,10 +83,26 @@ public class DtInteger implements DtNumeric{
     private final int value;
     
     /**
-     * Creates provys number value from supplied value
-     * @param value - value new object will be initialised to
+     * Returns provys number value representing supplied value.
+     * 
+     * @param value - value object will represent
+     * @return {@code DtInteger} object representing supplied value
      */
-    public DtInteger(int value) {
+    public static DtInteger of(int value) {
+        return new DtInteger(value);
+    }
+
+    /**
+     * Returns provys number value representing supplied string value.
+     * 
+     * @param value - value object will represent
+     * @return {@code DtInteger} object representing supplied value
+     */
+    public static DtInteger of(String value) {
+        return new DtInteger(Integer.parseInt(value));
+    }
+
+    private DtInteger(int value) {
         this.value=value;
     }
     

@@ -8,10 +8,10 @@ package com.provys.sqlbuilder.catbuilder;
 import com.provys.provysdb.call.BindVariable;
 import com.provys.sqlbuilder.catmanager.CatBuilderAttr;
 import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
-import com.provys.sqlbuilder.iface.SqlColumn;
-import com.provys.sqlbuilder.iface.SqlFromElem;
-import com.provys.sqlbuilder.iface.SqlOperator2;
-import com.provys.sqlbuilder.iface.SqlSelectBuilder;
+import com.provys.sqlbuilder.sqlbuilder.SqlColumn;
+import com.provys.sqlbuilder.sqlbuilder.SqlFromElem;
+import com.provys.sqlbuilder.sqlbuilder.SqlOperator2;
+import com.provys.sqlbuilder.sqlbuilder.SqlSelectBuilder;
 
 /**
  * Extends SqlSelectBuilder functionality with catalogue specific functions.

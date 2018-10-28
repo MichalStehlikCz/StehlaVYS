@@ -11,9 +11,9 @@ import com.provys.provysdb.call.ColumnDef;
 import com.provys.sqlbuilder.catbuilder.CatColumnAttr;
 import com.provys.sqlbuilder.catmanager.CatBuilderAttr;
 import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
-import com.provys.sqlbuilder.iface.CodeBuilder;
-import com.provys.sqlbuilder.iface.SqlColumn;
-import com.provys.sqlbuilder.iface.SqlFromElem;
+import com.provys.sqlbuilder.sqlbuilder.CodeBuilder;
+import com.provys.sqlbuilder.sqlbuilder.SqlColumn;
+import com.provys.sqlbuilder.sqlbuilder.SqlFromElem;
 
 /**
  * Class represents column defined by attribute.

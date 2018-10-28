@@ -6,7 +6,7 @@
 package com.provys.sqlbuilder.catbuilder;
 
 import com.provys.sqlbuilder.catmanager.CatBuilderAttr;
-import com.provys.sqlbuilder.iface.SqlColumn;
+import com.provys.sqlbuilder.sqlbuilder.SqlColumn;
 
 /**
  * Extends {@code SqlColumn} interface by adding access to attribute.

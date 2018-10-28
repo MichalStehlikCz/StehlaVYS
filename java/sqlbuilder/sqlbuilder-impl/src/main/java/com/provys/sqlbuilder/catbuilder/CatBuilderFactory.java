@@ -6,9 +6,9 @@
 package com.provys.sqlbuilder.catbuilder;
 
 import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
-import com.provys.sqlbuilder.iface.SqlBuilderFactory;
-import com.provys.sqlbuilder.iface.SqlFromElem;
-import com.provys.sqlbuilder.iface.SqlQueryBuilder;
+import com.provys.sqlbuilder.sqlbuilder.SqlBuilderFactory;
+import com.provys.sqlbuilder.sqlbuilder.SqlFromElem;
+import com.provys.sqlbuilder.sqlbuilder.SqlQueryBuilder;
 
 /**
  * Methods to create elements, columns and statements based on entity catalogue.
@@ -20,9 +20,9 @@ public interface CatBuilderFactory extends SqlBuilderFactory {
     /**
      * Creates new SqlSelectBuilder based on specified entity.
      * 
-     * @param entity specified PROVYS catalogue entity new SqlSelectBuilder should
- use
-     * @return new instance of SqlSelectBuilder based on specified entity
+     * @param entity specified PROVYS catalogue entity new CatSelectBuilder
+     * should use
+     * @return new instance of CatSelectBuilder based on specified entity
      */
     public CatSelectBuilder getSelectBuilder(CatBuilderEntity entity);
     

@@ -7,8 +7,8 @@ package com.provys.sqlbuilder.catimpl;
 
 import com.provys.common.error.ProvysException;
 import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
-import com.provys.sqlbuilder.iface.SqlFromElem;
-import com.provys.sqlbuilder.impl.SqlFromElemSimple;
+import com.provys.sqlbuilder.sqlbuilder.SqlFromElem;
+import com.provys.sqlbuilder.sqlbuilder.SqlFromElemSimple;
 
 /**
  * FROM clause element based on entity from PROVYS catalogue.

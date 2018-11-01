@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.sqlbuilder.catimpl;
+package com.provys.sqlbuilder.catbuilder;
 
 import com.provys.sqlbuilder.catbuilder.CatSelectBuilder;
 import com.provys.sqlbuilder.catmanager.CatBuilderEntity;
@@ -21,10 +21,6 @@ import com.provys.sqlbuilder.sqlbuilder.SqlColumn;
  */
 public class CatBuilderFactoryImpl implements CatBuilderFactory {
     
-    @Override
-    public CatSelectBuilder getSelectBuilder(CatBuilderEntity entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public SqlQueryBuilder getQueryBuilder(CatBuilderEntity entity) {

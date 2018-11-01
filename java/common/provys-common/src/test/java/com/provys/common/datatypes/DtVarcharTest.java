@@ -15,35 +15,39 @@ import org.junit.runner.RunWith;
 
 /**
  * Test class for DtVarchar
+ *
  * @author stehlik
  */
 @RunWith(JUnitParamsRunner.class)
 public class DtVarcharTest {
-    
+
     private List<Object[]> parametersForOf() {
         StringBuilder value4000 = new StringBuilder(4001);
-        for (int i = 1;i <= 400;i++) {
+        for (int i = 1; i <= 400; i++) {
             value4000.append("0123456789");
         }
         return asList(
-                new Object[] {(Object) null, true, false},
-                new Object[] {"", true, false},
-                new Object[] {"abcdefgh", false, false},
-                new Object[] {value4000.toString(), false, false},
-                new Object[] {value4000.append("0"), false, true}
+                new Object[]{(Object) null, true, false},
+                new Object[]{"", true, false},
+                new Object[]{"abcdefgh", false, false},
+                new Object[]{value4000.toString(), false, false},
+                new Object[]{value4000.append("0"), false, true}
         );
     }
 
     /**
      * Test single argument constructor method, of class DtVarchar.
+     *
      * @param value - value used for test creation of DtNameNm instance
-     * @param failNullValue - indicates creation should fail with NullValueNotSupportedException
-     * @param failTooLong - indicates creation should fail with NameTooLongException
+     * @param failNullValue - indicates creation should fail with
+     * NullValueNotSupportedException
+     * @param failTooLong - indicates creation should fail with
+     * NameTooLongException
      */
     @Test
     @Parameters(method = "parametersForOf")
-    public void testOf(String value, boolean failNullValue
-            , boolean failTooLong) {
+    public void testOf(String value, boolean failNullValue,
+             boolean failTooLong) {
         @SuppressWarnings("UnusedAssignment")
         DtVarchar instance;
         try {

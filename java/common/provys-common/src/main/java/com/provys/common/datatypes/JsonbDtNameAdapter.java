@@ -8,12 +8,14 @@ package com.provys.common.datatypes;
 /**
  * Adapter ensuring provys name value is treated as simple string value when
  * serializing to / deserializing from Json using JSON-B
+ *
  * @author stehlik
  */
 public class JsonbDtNameAdapter extends JsonbDtStringAdapter<DtName> {
 
     /**
      * Wrap value from String to provys datatype when procesing JSON data
+     *
      * @param adapted is source value, read from JSON to String
      * @return wrapped provys datatype value
      */
@@ -21,5 +23,5 @@ public class JsonbDtNameAdapter extends JsonbDtStringAdapter<DtName> {
     public DtName adaptFromJson(String adapted) {
         return new DtName(adapted);
     }
-    
+
 }

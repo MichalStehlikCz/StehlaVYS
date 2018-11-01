@@ -6,10 +6,11 @@
 package com.provys.common.datatypes;
 
 /**
+ * DtNumeric represents common ancestor for numeric PROVYS types. Adds method
+ * for value retrieval as double. Also provides default implementation for
+ * toSqlLiteral method
  *
  * @author stehlik
- * DtNumeric represents common ancestor for numeric PROVYS types and adds
- * method for value retrieval as double
  */
 public interface DtNumeric extends Dt {
 
@@ -17,9 +18,10 @@ public interface DtNumeric extends Dt {
     default public String toSqlLiteral() {
         return this.toStringValue();
     }
-    
+
     /**
-     * returns value of PROVYS number object, converted to double
+     * Retrieves value of PROVYS number object, converted to double.
+     *
      * @return effective value of PROVYS numeric type, converted to double
      */
     abstract public double getDouble();

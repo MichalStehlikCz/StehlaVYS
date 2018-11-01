@@ -6,6 +6,7 @@
 package com.provys.sqlbuilder.sqlbuilder;
 
 import com.provys.common.error.ProvysException;
+import com.provys.provysdb.call.BindVariable;
 import java.util.List;
 
 /**
@@ -17,6 +18,16 @@ import java.util.List;
  */
 public interface SqlQueryBuilder {
     
+    /**
+     * Create simple SqlQueryBuilder based on bind variable, representing key.
+     * 
+     * @param bindVariable is supplied bind variable, to be used for column
+     * @return 
+     */
+    public static SqlQueryBuilder ofBind(BindVariable bindVariable) {
+        return new QueryBuilderSimple(SqlColumn.ofBind(bindVariable));
+    }
+
     /**
      * Build SQL IN code based on SqlQueryBuilder.
      * 

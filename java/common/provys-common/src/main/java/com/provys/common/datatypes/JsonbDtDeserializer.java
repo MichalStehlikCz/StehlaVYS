@@ -16,6 +16,7 @@ import javax.json.stream.JsonParser.Event;
 /**
  * Deserialisation of Dt - finds proper subclass and deserialises using its
  * deserializer.
+ *
  * @author stehlik
  */
 public class JsonbDtDeserializer implements JsonbDeserializer<Dt> {
@@ -40,7 +41,7 @@ public class JsonbDtDeserializer implements JsonbDeserializer<Dt> {
             event = parser.next();
             if (event != JsonParser.Event.END_OBJECT) {
                 throw new UnexpectedParserEventException(event,
-                         Event.END_OBJECT);
+                        Event.END_OBJECT);
             }
         }
         return result;

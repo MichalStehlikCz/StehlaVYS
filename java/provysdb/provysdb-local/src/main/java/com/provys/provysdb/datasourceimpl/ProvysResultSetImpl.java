@@ -51,7 +51,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnIndex);
         }
-        return DtBoolean.ofStringValue(value);
+        return DtBoolean.fromStringValue(value);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ProvysResultSetImpl implements ProvysResultSet {
         if (resultSet.wasNull()) {
             throw new NullValueInNonOptTypeException(columnLabel);
         }
-        return DtBoolean.ofStringValue(value);
+        return DtBoolean.fromStringValue(value);
     }
 
     @Override

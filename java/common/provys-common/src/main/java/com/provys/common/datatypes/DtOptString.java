@@ -5,10 +5,12 @@
  */
 package com.provys.common.datatypes;
 
+import java.util.Optional;
+
 /**
  *
  * @author stehlik
- * 
+ *
  * Used to store PROVYS VARCHAR and NOTE values. Also ancestor for name and
  * name_nm subtypes
  */
@@ -17,28 +19,38 @@ abstract public class DtOptString extends DtOptional<String> {
     /**
      * Creates empty provys optional string.
      */
-    protected DtOptString(){
+    protected DtOptString() {
         super();
     }
-    
+
     /**
      * Creates provys string based on supplied value
+     *
      * @param value that will be assigned to newly created provys string object
      */
-    protected DtOptString(String value){
+    protected DtOptString(String value) {
         super(value);
     }
-    
+
+    /**
+     * Creates provys string based on supplied Optional value
+     *
+     * @param value that will be assigned to newly created provys string object
+     */
+    protected DtOptString(Optional<String> value) {
+        super(value);
+    }
+
     @Override
-    public String toStringValue(){
+    public String toStringValue() {
         return getValue().orElse("");
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return getValue().orElse("");
     }
-    
+
     @Override
     public String toSqlLiteral() {
         // replace ', newline and CHR(0) characters to prevent SQL injection
@@ -46,9 +58,9 @@ abstract public class DtOptString extends DtOptional<String> {
                 .replace("\n", "'||CHR(10)||'")
                 .replace("\0", "\\0") + "'").orElse("NULL");
     }
-    
+
     @Override
-    public boolean equals(Object secondObject){
+    public boolean equals(Object secondObject) {
         if (this == secondObject) {
             return true;
         }
@@ -63,9 +75,9 @@ abstract public class DtOptString extends DtOptional<String> {
         }
         return false;
     }
-    
+
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return getValue().map((value) -> value.hashCode()).orElse(0);
     }
 }

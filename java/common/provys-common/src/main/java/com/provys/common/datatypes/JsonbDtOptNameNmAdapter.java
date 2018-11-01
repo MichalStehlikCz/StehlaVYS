@@ -8,6 +8,7 @@ package com.provys.common.datatypes;
 /**
  * Adapter ensuring provys optional internal name value is treated as simple
  * string value when serializing to / deserializing from Json using JSON-B.
+ *
  * @author stehlik
  */
 public class JsonbDtOptNameNmAdapter
@@ -15,6 +16,7 @@ public class JsonbDtOptNameNmAdapter
 
     /**
      * Wrap value from String to provys datatype when procesing JSON data
+     *
      * @param adapted is source value, read from JSON to String
      * @return wrapped provys datatype value
      */
@@ -22,5 +24,5 @@ public class JsonbDtOptNameNmAdapter
     public DtOptNameNm adaptFromJson(String adapted) {
         return DtOptNameNm.ofNullable(adapted);
     }
-    
+
 }

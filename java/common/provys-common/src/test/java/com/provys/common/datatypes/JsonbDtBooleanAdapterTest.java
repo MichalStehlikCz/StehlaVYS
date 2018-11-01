@@ -1,4 +1,3 @@
-
 package com.provys.common.datatypes;
 
 import static java.util.Arrays.asList;
@@ -9,6 +8,7 @@ import org.junit.runner.RunWith;
 
 /**
  * Test class for JsonbDtBooleanAdapter
+ *
  * @author stehlik
  */
 @RunWith(JUnitParamsRunner.class)
@@ -22,11 +22,11 @@ public class JsonbDtBooleanAdapterTest extends
     public void setUp() {
         adapter = new JsonbDtBooleanAdapter();
     }
-    
+
     private List<Object[]> parametersForAdapter() {
         return asList(
-                new Object[] {DtBoolean.of(true), true}
-                , new Object[] {DtBoolean.of(false), false}
+                new Object[]{DtBoolean.of(true), true},
+                 new Object[]{DtBoolean.of(false), false}
         );
     }
 

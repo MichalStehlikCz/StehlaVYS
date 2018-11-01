@@ -10,7 +10,7 @@ import javax.json.bind.adapter.JsonbAdapter;
 /**
  * Adapter ensuring provys optional integer value is treated as plain numeric
  * value when serializing to / deserializing from Json using JSON-B.
- * 
+ *
  * @author stehlik
  */
 public class JsonbDtOptIntegerAdapter
@@ -18,6 +18,7 @@ public class JsonbDtOptIntegerAdapter
 
     /**
      * Unwrap value to ensure it is properly serialized to Json
+     *
      * @param original is source provys datatype value
      * @return unwraped value (Integer)
      */
@@ -28,6 +29,7 @@ public class JsonbDtOptIntegerAdapter
 
     /**
      * Wrap value from Integer to provys datatype when procesing JSON data
+     *
      * @param adapted is source value, read from JSON to Integer
      * @return wrapped provys datatype value
      */
@@ -35,5 +37,5 @@ public class JsonbDtOptIntegerAdapter
     public DtOptInteger adaptFromJson(Integer adapted) {
         return DtOptInteger.ofNullable(adapted);
     }
-    
+
 }

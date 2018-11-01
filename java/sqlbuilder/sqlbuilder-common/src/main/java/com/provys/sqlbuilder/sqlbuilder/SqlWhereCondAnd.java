@@ -13,6 +13,15 @@ package com.provys.sqlbuilder.sqlbuilder;
 public interface SqlWhereCondAnd extends SqlWhereCond {
 
     /**
+     * Get AND where condition.
+     * 
+     * @return empty AND where condition.
+     */
+    public static SqlWhereCondAnd create() {
+        return new WhereCondAndImpl();
+    }
+
+    /**
      * Add supplied where condition to this condition, combine using AND.
      * 
      * @param whereCond is condition to be added to expression

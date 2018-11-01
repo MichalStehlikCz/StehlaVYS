@@ -27,6 +27,16 @@ import java.util.List;
  * @author stehlik
  */
 public interface SqlSelectBuilder {
+    
+    /**
+     * Create empty simple {@code SqlSelectBuilder} instance.User has to add from elements, columns etc.
+     * on his own.
+     * 
+     * @return new empty instance
+     */
+    public static SqlSelectBuilder create() {
+        return new SqlSelectBuilderSimple();
+    }
 
     /**
      * Create simple SqlSelectBuilder based on supplied table name and alias.
@@ -36,8 +46,25 @@ public interface SqlSelectBuilder {
      * @param alias is alias to be given to this table
      * @return SqlSelectBuilder object based on supplied table
      */
-    public static SqlSelectBuilder getSimpleSelect(String table, String alias) {
-        return new SqlSelectBuilderSimple(SqlFromElem.getFromElem(table, alias));
+    public static SqlSelectBuilder ofTable(String table, String alias) {
+        return new SqlSelectBuilderSimple(
+                SqlFromElem.getFromElem(table, alias));
+    }
+
+    /**
+     * Create simple SqlSelectBuilder based on supplied column, table name
+     * and alias.
+     * 
+     * @param column is column to be selected from resulting select expression
+     * @param table is table name or expression to be used in stead in FROM
+     * clause
+     * @param alias is alias to be given to this table
+     * @return SqlSelectBuilder object based on supplied table
+     */
+    public static SqlSelectBuilder ofColumnAndTable(SqlColumn column
+            , String table, String alias) {
+        return new SqlSelectBuilderSimple(column
+                , SqlFromElem.getFromElem(table, alias));
     }
 
     /**

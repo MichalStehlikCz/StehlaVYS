@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.provys.sqlbuilder.catimpl;
+package com.provys.sqlbuilder.catbuilder;
 
 import com.provys.common.error.ProvysException;
 import com.provys.provysdb.call.BindVariable;
-import com.provys.provysdb.call.SqlCall;
-import com.provys.provysdb.call.SqlStatement;
 import com.provys.sqlbuilder.catbuilder.CatColumnAttr;
 import com.provys.sqlbuilder.catbuilder.CatSelectBuilder;
 import com.provys.sqlbuilder.catmanager.CatBuilderAttr;
@@ -17,6 +15,8 @@ import com.provys.sqlbuilder.sqlbuilder.SqlFromElem;
 import com.provys.sqlbuilder.sqlbuilder.SqlOperator2;
 import com.provys.sqlbuilder.sqlbuilder.SqlSelectBuilder;
 import com.provys.sqlbuilder.sqlbuilder.AbstractSqlSelectBuilderDecorator;
+import com.provys.sqlbuilder.sqlbuilder.SqlColumn;
+import com.provys.sqlbuilder.sqlbuilder.SqlWhereCond;
 
 /**
  * Extension of SqlSelectBuilder, working with catalogue objects.
@@ -26,6 +26,12 @@ import com.provys.sqlbuilder.sqlbuilder.AbstractSqlSelectBuilderDecorator;
 class CatSelectBuilderSimple extends AbstractSqlSelectBuilderDecorator<
         SqlSelectBuilder, CatSelectBuilderSimple> implements CatSelectBuilder {
     
+    public static CatSelectBuilderSimple ofEntity(CatBuilderEntity entity) {
+        CatSelectBuilderSimple selectBuilder = new CatSelectBuilderSimple(
+                SqlSelectBuilder.create());
+        selectBuilder.addFromElem(CatFromElemEntity.of(entity));
+    }
+
     public CatSelectBuilderSimple(SqlSelectBuilder sqlSelectBuilder) {
         super(sqlSelectBuilder);
     }
@@ -100,9 +106,9 @@ class CatSelectBuilderSimple extends AbstractSqlSelectBuilderDecorator<
     @Override
     public CatSelectBuilder addAttrWhereCond(CatBuilderAttr attr
             , SqlOperator2 operator, BindVariable value) {
-        getSqlSelectBuilder().addWhereCond(new WhereCondTwoOp(
+        getSqlSelectBuilder().addWhereCond(SqlWhereCond.ofTwoOperands(
                 CatColumnAttrImpl.forAttr(getFromElemByEntity(attr.getEntity())
-                        , attr), operator, new SqlColumnBind(value)));
+                        , attr), operator, SqlColumn.ofBind(value)));
         return this;
     }
 

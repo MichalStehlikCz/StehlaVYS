@@ -10,18 +10,20 @@ import java.lang.annotation.*;
 /**
  *
  * @author stehlik
- * 
+ *
  * Connects specified class to entity in PROVYS metadata catalogue. Together
  * with field level mappings using @ProvysKey and @ProvysAttr annotations it
- * enables loader or manipulator classes to prepare SQL and load / modify
- * data in underlying PROVYS database
+ * enables loader or manipulator classes to prepare SQL and load / modify data
+ * in underlying PROVYS database
  */
 @Documented
-@Retention(value=RetentionPolicy.RUNTIME)
-@Target(value=ElementType.TYPE)
+@Retention(value = RetentionPolicy.RUNTIME)
+@Target(value = ElementType.TYPE)
 public @interface ProvysEntity {
+
     /**
      * Returns internal name of entity.
+     *
      * @return internal name of entity
      */
     String value();

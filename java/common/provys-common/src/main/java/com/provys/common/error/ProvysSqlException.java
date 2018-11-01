@@ -11,7 +11,8 @@ import java.sql.SQLException;
  *
  * @author stehlik
  */
-public class ProvysSqlException extends ProvysException{
+public class ProvysSqlException extends ProvysException {
+
     public ProvysSqlException(SQLException cause) {
         super("SQL Error", cause);
     }

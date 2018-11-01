@@ -54,12 +54,88 @@ public class DtNumberTest {
         }
     }
 
+    private List<Object[]> parametersForOfInt() {
+        return asList(
+                new Object[]{12345},
+                new Object[]{123456789}
+        );
+    }
+
+    /**
+     * Test of int of initiator method of class DtNumber.
+     *
+     * @param value - value new DtNumber will be created from
+     */
+    @Test
+    @Parameters(method = "parametersForOfInt")
+    public void testOfInt(int value) {
+        DtNumber instance = DtNumber.of(value);
+        assertEquals("Value created from int does not match",
+                 BigDecimal.valueOf(value), instance.getValue());
+    }
+
+    private List<Object[]> parametersForOfDouble() {
+        return asList(
+                new Object[]{12345.12345},
+                new Object[]{123456789.01234567},
+                new Object[]{12345678911234.0}
+        );
+    }
+
+    /**
+     * Test of float of initiator method of class DtNumber.
+     *
+     * @param value - value new DtNumber will be created from
+     */
+    @Test
+    @Parameters(method = "parametersForOfDouble")
+    public void testOfDouble(double value) {
+        DtNumber instance = DtNumber.of(value);
+        assertEquals("Value created from double does not match",
+                 BigDecimal.valueOf(value), instance.getValue());
+    }
+
+    private List<Object[]> parametersForParseString() {
+        return asList(
+                new Object[]{(String) null, null, true},
+                new Object[]{"", null, true},
+                new Object[]{"123456789.01234567",
+                     BigDecimal.valueOf(123456789.01234567), false},
+                new Object[]{"12345678911234", new BigDecimal(12345678911234L),
+                     false}
+        );
+    }
+
+    /**
+     * Test parseString method of class DtNumber.
+     *
+     * @param stringValue - String value DtNumber will be created from
+     * @param value - value new DtNumber should get
+     * @param failNullValue - indicates creation should fail with
+     * NullValueNotSupportedException
+     */
+    @Test
+    @Parameters(method = "parametersForParseString")
+    public void testParseString(String stringValue, BigDecimal value,
+             boolean failNullValue) {
+        try {
+            DtNumber instance = DtNumber.parseString(stringValue);
+            assertFalse("Creation should have failed with NullValue exception",
+                     failNullValue);
+            assertEquals("Parsed string and value differ", value,
+                     instance.getValue());
+        } catch (DtNumber.NullValueNotSupportedException e) {
+            assertTrue("Creation should not have raised NullValue exception",
+                     failNullValue);
+        }
+    }
+
     private List<Object[]> parametersForGetValue() {
         return asList(
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
-                     BigDecimal.valueOf(123456789.01234567)},
+                    BigDecimal.valueOf(123456789.01234567)},
                 new Object[]{new BigDecimal(12345678911234L),
-                     new BigDecimal(12345678911234L)}
+                    new BigDecimal(12345678911234L)}
         );
     }
 
@@ -80,9 +156,9 @@ public class DtNumberTest {
     private List<Object[]> parametersForToStringValue() {
         return asList(
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
-                     "123456789.01234567"},
+                    "123456789.01234567"},
                 new Object[]{new BigDecimal(12345678911234L),
-                     "12345678911234"}
+                    "12345678911234"}
         );
     }
 
@@ -98,15 +174,15 @@ public class DtNumberTest {
         DtNumber instance = DtNumber.of(value);
         String result = instance.toStringValue();
         assertEquals("Incorrect toStringValue in DtNumber", expectedResult,
-                 result);
+                result);
     }
 
     private List<Object[]> parametersForToString() {
         return asList(
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
-                     "123456789.01234567"},
+                    "123456789.01234567"},
                 new Object[]{new BigDecimal(12345678911234L),
-                     "12345678911234"}
+                    "12345678911234"}
         );
     }
 
@@ -127,15 +203,15 @@ public class DtNumberTest {
     private List<Object[]> parametersForEquals() {
         return asList(
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
-                     (Object) null, false},
+                    (Object) null, false},
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
-                     DtNumber.of(BigDecimal.valueOf(123456789.01234567)),
-                     true},
+                    DtNumber.of(BigDecimal.valueOf(123456789.01234567)),
+                    true},
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
-                     DtNumber.of(BigDecimal.valueOf(123456789.01234568)),
-                     false},
+                    DtNumber.of(BigDecimal.valueOf(123456789.01234568)),
+                    false},
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
-                     DtNumber.of(new BigDecimal(123456789)), false}
+                    DtNumber.of(new BigDecimal(123456789)), false}
         );
     }
 
@@ -149,19 +225,19 @@ public class DtNumberTest {
     @Test
     @Parameters(method = "parametersForEquals")
     public void testEquals(BigDecimal value, Object compareTo,
-             boolean expectedResult) {
+            boolean expectedResult) {
         DtNumber instance = DtNumber.of(value);
         boolean result = instance.equals(compareTo);
         assertEquals("Equals method returned incorrect result", expectedResult,
-                 result);
+                result);
     }
 
     private List<Object[]> parametersForHashCode() {
         return asList(
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
-                     BigDecimal.valueOf(123456789.01234567)},
+                    BigDecimal.valueOf(123456789.01234567)},
                 new Object[]{new BigDecimal(12345678911234L),
-                     BigDecimal.valueOf(123456789.01234567)}
+                    BigDecimal.valueOf(123456789.01234567)}
         );
     }
 
@@ -195,9 +271,9 @@ public class DtNumberTest {
     private List<Object[]> parametersForGetDouble() {
         return asList(
                 new Object[]{BigDecimal.valueOf(123456789.01234567),
-                     123456789.01234567},
+                    123456789.01234567},
                 new Object[]{new BigDecimal(12345678911234L),
-                     12345678911234.0}
+                    12345678911234.0}
         );
     }
 

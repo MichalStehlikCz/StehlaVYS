@@ -29,7 +29,7 @@ public class DtIntegerTest {
     }
 
     /**
-     * Test single argument constructor method, of class DtInteger.
+     * Test single argument initializer method, of class DtInteger.
      *
      * @param value - value new DtInteger will be created from
      */
@@ -40,24 +40,36 @@ public class DtIntegerTest {
         DtInteger instance = DtInteger.of(value);
     }
 
-    private List<Object[]> parametersForOfString() {
+    private List<Object[]> parametersForParseString() {
         return asList(
-                new Object[]{"12345", 12345},
-                new Object[]{"-12345", -12345}
+                new Object[]{"12345", 12345, false},
+                new Object[]{"-12345", -12345, false},
+                new Object[]{null, 0, true},
+                new Object[]{"", 0, true}
         );
     }
 
     /**
-     * Test single argument constructor method, of class DtInteger.
+     * Test single argument initializer method, of class DtInteger.
      *
      * @param value - value new DtInteger will be created from
      * @param compareTo - int value result will be compared to
+     * @param failNullValue - marks if test should fail with Null value
+     * exception
      */
     @Test
-    @Parameters(method = "parametersForOfString")
-    public void testOf(String value, int compareTo) {
-        DtInteger instance = DtInteger.of(value);
-        assertEquals(instance.getValue(), compareTo);
+    @Parameters(method = "parametersForParseString")
+    public void testParseString(String value, int compareTo,
+             boolean failNullValue) {
+        try {
+            DtInteger instance = DtInteger.parseString(value);
+            assertFalse("Null value exception not raised for null value",
+                     failNullValue);
+            assertEquals(instance.getValue(), compareTo);
+        } catch (DtInteger.NullValueNotSupportedException e) {
+            assertTrue("Null value exception raised for non-null value",
+                     failNullValue);
+        }
     }
 
     private List<Object[]> parametersForGetValue() {
@@ -128,7 +140,10 @@ public class DtIntegerTest {
         return asList(
                 new Object[]{12345, (Object) null, false},
                 new Object[]{12345, DtInteger.of(12345), true},
-                new Object[]{12345, DtInteger.of(-12345), false}
+                new Object[]{12345, DtInteger.of(-12345), false},
+                new Object[]{12345, DtOptInteger.empty(), false},
+                new Object[]{12345, DtOptInteger.of(12345), true},
+                new Object[]{12345, DtOptInteger.of(-12345), false}
         );
     }
 

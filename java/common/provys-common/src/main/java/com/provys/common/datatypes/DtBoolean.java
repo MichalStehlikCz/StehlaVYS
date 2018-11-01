@@ -11,11 +11,10 @@ import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
- * Represents values of PROVYS domain BOOLEAN.
- * Value is represented as CHAR(1 BYTE) in Oracle tables, with TRUE/FALSE
- * values represented by 'Y'/'N'. In Java, value is stored as boolean TRUE
- * or FALSE value.
- * 
+ * Represents values of PROVYS domain BOOLEAN. Value is represented as CHAR(1
+ * BYTE) in Oracle tables, with TRUE/FALSE values represented by 'Y'/'N'. In
+ * Java, value is stored as boolean TRUE or FALSE value.
+ *
  * @author stehlik
  */
 @JsonbTypeAdapter(JsonbDtBooleanAdapter.class)
@@ -23,10 +22,11 @@ public class DtBoolean implements Dt {
 
     private final static DtBoolean TRUE = new DtBoolean(true);
     private final static DtBoolean FALSE = new DtBoolean(false);
-    
+    static private final Optional<Integer> PRECISION = Optional.of(1);
+
     /**
      * Retrieves DtBoolean value of true
-     * 
+     *
      * @return returns static instance of DtBoolean representing true value
      */
     public static DtBoolean getTRUE() {
@@ -35,7 +35,7 @@ public class DtBoolean implements Dt {
 
     /**
      * Retrieves DtBoolean value of false
-     * 
+     *
      * @return returns static instance of DtBoolean representing false value
      */
     public static DtBoolean getFALSE() {
@@ -43,15 +43,30 @@ public class DtBoolean implements Dt {
     }
 
     /**
-     * Constructs DtBoolean from PROVYS string value (Y/N)
+     * Constructs DtBoolean from supplied boolean value. Returns static
+     * instance, thus it is more effective to use than constructor
+     *
+     * @param value supplied boolean value
+     * @return instance of DtBoolean with given value
+     */
+    public static DtBoolean of(boolean value) {
+        return (value ? TRUE : FALSE);
+    }
+
+    /**
+     * Constructs DtBoolean from PROVYS string value (Y/N).
      *
      * @param stringValue supplied string value
      * @return instance of DtBoolean, corresponding to value of supplied string;
      * returns null if supplied string is empty
+     * @throws NullValueNotSupportedException when supplied value is null or
+     * empty String
+     * @throws InvalidStringValueException when supplied value cannot be
+     * interpreted as PROVYS boolean value (Y or N)
      */
-    public static DtBoolean ofStringValue(String stringValue) {
-        if (stringValue == null) {
-            throw new NullStringValueException();
+    public static DtBoolean fromStringValue(String stringValue) {
+        if ((stringValue == null) || stringValue.isEmpty()) {
+            throw new NullValueNotSupportedException();
         }
         switch (stringValue) {
             case "Y":
@@ -64,31 +79,22 @@ public class DtBoolean implements Dt {
     }
 
     /**
-     * Constructs DtBoolean from supplied boolean value.
-     * Returns static instance, thus it is morfe effective to use than
-     * constructor
+     * Constructs DtBoolean from supplied string value. Returns static instance,
+     * thus it is more effective to use than constructor.
      *
-     * @param value supplied boolean value
-     * @return instance of DtBoolean with given value
-     */
-    public static DtBoolean of(boolean value) {
-        return (value ? TRUE : FALSE);
-    }
-
-    /**
-     * Constructs DtBoolean from supplied string value.
-     * Returns static instance, thus it is more effective to use than
-     * constructor.
-     * 
      * @param value supplied string value; returns true if supplied value is
      * true (case insensitive) or 1, false if supplied value is false (case
      * insensitive) or 0, null if supplied value is null and throws exception
      * otherwise
      * @return instance of DtBoolean with given value
+     * @throws NullValueNotSupportedException when supplied value is null or
+     * empty String
+     * @throws InvalidStringException when supplied value cannot be interpreted
+     * as boolean value (true, false, 0 or 1, case insensitive)
      */
-    public static DtBoolean of(String value) {
-        if (value == null) {
-            throw new NullStringException();
+    public static DtBoolean fromString(String value) {
+        if ((value == null) || value.isEmpty()) {
+            throw new NullValueNotSupportedException();
         }
         if (value.equalsIgnoreCase("true") || value.equals("1")) {
             return TRUE;
@@ -102,15 +108,13 @@ public class DtBoolean implements Dt {
      * Register DtBoolean type to Dt types repository.
      */
     static void register() {
-        DtRepository.registerDtType(DtBoolean.class, Types.CHAR
-                , DtBoolean::validatePrecision);
+        DtRepository.registerDtType(DtBoolean.class, Types.CHAR,
+                 DtBoolean::validatePrecision);
     }
-    
-    static private final Optional<Integer> PRECISION = Optional.of(1);
-    
+
     /**
      * Precision validator for {@code DtBoolean}.
-     * 
+     *
      * @param precision is precision supplied on column creation
      * @return 1 as {@code DtBoolean} corresponds to CHAR(1 BYTE) column
      */
@@ -118,7 +122,7 @@ public class DtBoolean implements Dt {
             Optional<Integer> precision) {
         return PRECISION;
     }
-    
+
     private final boolean value;
 
     /**
@@ -162,7 +166,16 @@ public class DtBoolean implements Dt {
             return "'N'";
         }
     }
-    
+
+    /**
+     * Overrides default object implementation of equals / compares value, not
+     * reference. Also method considers DtOptBoolean equal to DtBoolean if
+     * optional is present and both hold same boolean value.
+     *
+     * @param secondObject is object to be compared against
+     * @return true if both objects represent same boolean value, false
+     * otherwise
+     */
     @Override
     public boolean equals(Object secondObject) {
         if (this == secondObject) {
@@ -171,7 +184,7 @@ public class DtBoolean implements Dt {
         if (secondObject instanceof DtBoolean) {
             return getValue() == ((DtBoolean) secondObject).getValue();
         } else if (secondObject instanceof DtOptBoolean) {
-            if (!((DtOptBoolean) secondObject).isPresent()) {
+            if (!((DtOptional<Boolean>) secondObject).isPresent()) {
                 return false;
             }
             return ((DtOptBoolean) secondObject).get() == getValue();
@@ -190,23 +203,8 @@ public class DtBoolean implements Dt {
     @SuppressWarnings("PublicInnerClass")
     static public class InvalidStringValueException extends ProvysException {
 
-        private static final long serialVersionUID = 1L;
-
         InvalidStringValueException(String stringValue) {
             super("Invalid provys string value for DtBoolean: " + stringValue);
-        }
-    }
-
-    /**
-     * Exception raised when value supplied to fromStringValue is null
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class NullStringValueException extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        NullStringValueException() {
-            super("Null provys string value for DtBoolean");
         }
     }
 
@@ -216,23 +214,8 @@ public class DtBoolean implements Dt {
     @SuppressWarnings("PublicInnerClass")
     static public class InvalidStringException extends ProvysException {
 
-        private static final long serialVersionUID = 1L;
-
         InvalidStringException(String stringValue) {
             super("Invalid string as source for DtBoolean: " + stringValue);
-        }
-    }
-
-    /**
-     * Exception raised when value supplied to fromString is not null
-     */
-    @SuppressWarnings("PublicInnerClass")
-    static public class NullStringException extends ProvysException {
-
-        private static final long serialVersionUID = 1L;
-
-        NullStringException() {
-            super("Invalid string as source for DtBoolean");
         }
     }
 

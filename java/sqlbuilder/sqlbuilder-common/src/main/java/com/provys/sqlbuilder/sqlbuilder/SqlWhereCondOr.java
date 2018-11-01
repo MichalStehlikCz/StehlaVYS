@@ -13,6 +13,16 @@ package com.provys.sqlbuilder.sqlbuilder;
 public interface SqlWhereCondOr extends SqlWhereCond {
     
     /**
+     * Get OR where condition.
+     * 
+     * @return empty OR where condition.
+     */
+    public static SqlWhereCondOr create() {
+        return new WhereCondOrImpl();
+    }
+
+
+    /**
      * Add supplied where condition to this condition, combine using OR.
      * 
      * @param whereCond is condition to be added to expression

@@ -13,13 +13,12 @@ import org.junit.runner.RunWith;
 
 /**
  *
- * @author stehlik
- * Test class for JsonbDtUidAdapter
+ * @author stehlik Test class for JsonbDtUidAdapter
  */
 @RunWith(JUnitParamsRunner.class)
 public class JsonbDtUidAdapterTest extends
         JsonbDtAdapterTest<DtUid, String, JsonbDtUidAdapter> {
-    
+
     /**
      * Initializes adapter used to run tests
      */
@@ -27,12 +26,12 @@ public class JsonbDtUidAdapterTest extends
     public void setUp() {
         adapter = new JsonbDtUidAdapter();
     }
-    
+
     private List<Object[]> parametersForAdapter() {
         return asList(
-                new Object[] {DtUid.of("0123456789"), "0123456789"},
-                new Object[] {DtUid.of("11223344556677889900"),
-                        "11223344556677889900"}
+                new Object[]{DtUid.of("0123456789"), "0123456789"},
+                new Object[]{DtUid.of("11223344556677889900"),
+                    "11223344556677889900"}
         );
     }
 }

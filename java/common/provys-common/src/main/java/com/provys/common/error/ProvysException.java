@@ -6,7 +6,10 @@
 package com.provys.common.error;
 
 /**
- *
+ * Common ancestor for exceptions thrown by PROVYS code.
+ * Makes it easier to track all defined exceptions and gives possibility to add
+ * mapping to named errors in PROVYS system later.
+ * 
  * @author stehlik
  */
 public class ProvysException extends RuntimeException {

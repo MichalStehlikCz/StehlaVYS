@@ -14,6 +14,38 @@ package com.provys.sqlbuilder.sqlbuilder;
  * @author stehlik
  */
 public interface SqlWhereCond {
+
+    /**
+     * Get where condition with two operands compared by operator.
+     * 
+     * @param column1 is first comparison operand
+     * @param operator is used operator
+     * @param column2 is second comparison operand
+     * @return condition that compares supplied columns
+     */
+    public static SqlWhereCond ofTwoOperands(SqlColumn column1
+            , SqlOperator2 operator, SqlColumn column2) {
+        return new WhereCondTwoOp(column1, operator, column2);
+    }
+
+    /**
+     * Get where condition with two operands compared by operator, potentially
+     * negative.
+     * 
+     * @param column1 is first comparison operand
+     * @param operator is used operator
+     * @param column2 is second comparison operand
+     * @param negative allows to specify that comparison should be negative.
+     * Note that if columns are not sure to be NOT NULL, this might result
+     * in adding OR and NULL evaluation to ensure resulting expression is
+     * negation of supplied one
+     * @return condition that compares supplied columns
+     */
+    public static SqlWhereCond ofTwoOperands(SqlColumn column1
+            , SqlOperator2 operator, SqlColumn column2, boolean negative) {
+        return new WhereCondTwoOp(column1, operator, column2, negative);
+    }
+
     /**
      * Adds expression that should be used in WHERE clause of the SQL query.
      * Condition can be combined with other conditions, connecting it using AND;

@@ -48,7 +48,7 @@ public class DtUidTest {
     @Test
     @Parameters(method = "parametersForOf")
     public void testOf(String value, boolean failNullValue,
-             boolean failTooLong, boolean failNotNumber) {
+            boolean failTooLong, boolean failNotNumber) {
         @SuppressWarnings("UnusedAssignment")
         DtUid instance;
         try {
@@ -143,10 +143,10 @@ public class DtUidTest {
         boolean result = instance.equals(compareTo);
         if (expectedResult) {
             assertTrue("Equals method returned incorrect result (expected true)",
-                     result);
+                    result);
         } else {
             assertFalse("Equals method returned incorrect result (exp. false)",
-                     result);
+                    result);
         }
     }
 

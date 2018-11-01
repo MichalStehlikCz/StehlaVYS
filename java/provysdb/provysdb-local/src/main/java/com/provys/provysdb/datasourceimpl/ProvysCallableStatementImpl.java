@@ -689,7 +689,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterIndex);
         }
-        return DtBoolean.ofStringValue(value);
+        return DtBoolean.fromStringValue(value);
     }
 
     @Override
@@ -698,7 +698,7 @@ public class ProvysCallableStatementImpl extends ProvysPreparedStatementImpl
         if (getStatement().wasNull()) {
             throw new NullValueInNonOptTypeException(parameterName);
         }
-        return DtBoolean.ofStringValue(value);
+        return DtBoolean.fromStringValue(value);
     }
 
     @Override

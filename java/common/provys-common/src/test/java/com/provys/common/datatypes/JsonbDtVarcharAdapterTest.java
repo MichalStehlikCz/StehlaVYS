@@ -13,13 +13,12 @@ import org.junit.runner.RunWith;
 
 /**
  *
- * @author stehlik
- * Test class for JsonbDtVarcharAdapter
+ * @author stehlik Test class for JsonbDtVarcharAdapter
  */
 @RunWith(JUnitParamsRunner.class)
 public class JsonbDtVarcharAdapterTest extends
         JsonbDtAdapterTest<DtVarchar, String, JsonbDtVarcharAdapter> {
-    
+
     /**
      * Initializes adapter used to run tests
      */
@@ -27,11 +26,11 @@ public class JsonbDtVarcharAdapterTest extends
     public void setUp() {
         adapter = new JsonbDtVarcharAdapter();
     }
-    
+
     private List<Object[]> parametersForAdapter() {
         return asList(
-                new Object[] {DtVarchar.of("0123456789"), "0123456789"},
-                new Object[] {DtVarchar.of("abcd"), "abcd"}
+                new Object[]{DtVarchar.of("0123456789"), "0123456789"},
+                new Object[]{DtVarchar.of("abcd"), "abcd"}
         );
     }
 

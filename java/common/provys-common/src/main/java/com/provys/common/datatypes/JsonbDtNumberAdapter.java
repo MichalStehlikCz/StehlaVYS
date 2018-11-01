@@ -11,12 +11,14 @@ import javax.json.bind.adapter.JsonbAdapter;
 /**
  * Adapter ensuring provys number value is treated as numeric value when
  * serializing to / deserializing from Json using JSON-B
+ *
  * @author stehlik
  */
 public class JsonbDtNumberAdapter implements JsonbAdapter<DtNumber, BigDecimal> {
 
     /**
      * Unwrap value to ensure it is properly serialized to Json
+     *
      * @param original is source provys datatype value
      * @return unwraped value (BigDecimal)
      */
@@ -27,6 +29,7 @@ public class JsonbDtNumberAdapter implements JsonbAdapter<DtNumber, BigDecimal> 
 
     /**
      * Wrap value from BigDecimal to provys datatype when procesing JSON data
+     *
      * @param adapted is source value, read from JSON to BigDecimal
      * @return wrapped provys datatype value
      */
@@ -34,5 +37,5 @@ public class JsonbDtNumberAdapter implements JsonbAdapter<DtNumber, BigDecimal> 
     public DtNumber adaptFromJson(BigDecimal adapted) {
         return DtNumber.of(adapted);
     }
-    
+
 }

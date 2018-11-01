@@ -20,6 +20,17 @@ import com.provys.sqlbuilder.sqlbuilder.SqlSelectBuilder;
  */
 public interface CatSelectBuilder extends SqlSelectBuilder {
     
+    /**
+     * Creates new SqlSelectBuilder based on specified entity.
+     * 
+     * @param entity specified PROVYS catalogue entity new CatSelectBuilder
+     * should use
+     * @return new instance of CatSelectBuilder based on specified entity
+     */
+    public static CatSelectBuilder getSelectBuilder(CatBuilderEntity entity) {
+        return CatSelectBuilderSimple.ofEntity(entity);
+    }
+
     @Override
     public CatSelectBuilder addColumn(SqlColumn column);
     

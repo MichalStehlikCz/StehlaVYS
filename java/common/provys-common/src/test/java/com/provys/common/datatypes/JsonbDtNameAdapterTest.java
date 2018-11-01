@@ -1,4 +1,3 @@
-
 package com.provys.common.datatypes;
 
 import static java.util.Arrays.asList;
@@ -9,13 +8,12 @@ import org.junit.runner.RunWith;
 
 /**
  *
- * @author stehlik
- * Test class for JsonbDtNameAdapter
+ * @author stehlik Test class for JsonbDtNameAdapter
  */
 @RunWith(JUnitParamsRunner.class)
 public class JsonbDtNameAdapterTest extends
         JsonbDtAdapterTest<DtName, String, JsonbDtNameAdapter> {
-    
+
     /**
      * Initializes adapter used to run tests
      */
@@ -23,11 +21,11 @@ public class JsonbDtNameAdapterTest extends
     public void setUp() {
         adapter = new JsonbDtNameAdapter();
     }
-    
+
     private List<Object[]> parametersForAdapter() {
         return asList(
-                new Object[] {new DtName("0123456789"), "0123456789"}
-                , new Object[] {new DtName("abcd"), "abcd"}
+                new Object[]{new DtName("0123456789"), "0123456789"},
+                 new Object[]{new DtName("abcd"), "abcd"}
         );
     }
 

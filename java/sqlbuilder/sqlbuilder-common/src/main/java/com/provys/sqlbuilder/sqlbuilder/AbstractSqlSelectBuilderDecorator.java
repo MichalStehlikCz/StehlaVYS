@@ -7,11 +7,6 @@ package com.provys.sqlbuilder.sqlbuilder;
 
 import com.provys.provysdb.call.SqlCall;
 import com.provys.provysdb.call.SqlStatement;
-import com.provys.sqlbuilder.sqlbuilder.CodeBuilder;
-import com.provys.sqlbuilder.sqlbuilder.SqlColumn;
-import com.provys.sqlbuilder.sqlbuilder.SqlFromElem;
-import com.provys.sqlbuilder.sqlbuilder.SqlSelectBuilder;
-import com.provys.sqlbuilder.sqlbuilder.SqlWhereCond;
 import java.util.List;
 
 /**
@@ -58,6 +53,11 @@ abstract public class AbstractSqlSelectBuilderDecorator<B extends SqlSelectBuild
     public D addColumn(SqlColumn sqlColumn) {
         sqlSelectBuilder.addColumn(sqlColumn);
         return getSelf();
+    }
+
+    @Override
+    public List<SqlFromElem> getFromElems() {
+        return sqlSelectBuilder.getFromElems();
     }
 
     @Override

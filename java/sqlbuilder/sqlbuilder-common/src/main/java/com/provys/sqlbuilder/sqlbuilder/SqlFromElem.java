@@ -14,14 +14,27 @@ package com.provys.sqlbuilder.sqlbuilder;
 public interface SqlFromElem {
 
     /**
-     * Get simple from element (table or expression with alias, no join).
+     * Get simple from element based on table or view, no join.
      * 
-     * @param table is name of table or SQL expression enclosed in ()
+     * @param table is name of table or view
      * @param alias is alias to be assigned to this table
      * @return from clause representing given table and alias
      */
-    public static SqlFromElem getFromElem(String table, String alias) {
-        return new SqlFromElemSimple(table, alias);
+    public static SqlFromElem ofTable(String table, String alias) {
+        return SqlFromElemSimple.ofTable(table, alias);
+    }
+
+    /**
+     * Get simple from element based on SELECT expression.
+     * Expression should be SELECT statement and will be enclosed in brackets.
+     * 
+     * @param sqlExpression is SELECT expression that will be used as FROM
+     * element, enclosed in brackets
+     * @param alias is alias to be assigned to this table
+     * @return from clause representing given table and alias
+     */
+    public static SqlFromElem ofExpression(String sqlExpression, String alias) {
+        return SqlFromElemSimple.ofExpression(sqlExpression, alias);
     }
 
     /**
@@ -56,23 +69,4 @@ public interface SqlFromElem {
      * @return alias used for given statement
      */
     public String getAlias();
-
-    /**
-     * Set alias associated with given element.
-     * 
-     * @param alias is new alias to be used with given from element.
-     */
-    public void setAlias(String alias);
-    
-    /**
-     * Returns default alias for given where condition.
-     * By default, alias al (possibly appended with number) is used. In case of
-     * some specialised types (like entity or table based from clause), system
-     * can offer better alias that parses table name or uses entity's internal
-     * name.
-     * 
-     * @return default alias for given from clause.
-     */
-    public String getDefAlias();
-
 }

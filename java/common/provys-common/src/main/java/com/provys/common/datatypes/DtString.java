@@ -6,46 +6,48 @@
 package com.provys.common.datatypes;
 
 /**
- * Common abstract ancestor for all string holding Dt types.
- * Implements equals method that considers values equal when strings are equal.
- * Descendants should generally not override equals method, as it might break
- * comparison transitivity
- * 
+ * Common abstract ancestor for all string holding Dt types. Implements equals
+ * method that considers values equal when strings are equal. Descendants should
+ * generally not override equals method, as it might break comparison
+ * transitivity
+ *
  * @author stehlik
  */
-abstract public class DtString implements Dt{
+abstract public class DtString implements Dt {
 
     private final String value;
-    
+
     /**
      * Creates provys string based on supplied value
+     *
      * @param value that will be assigned to newly created provys string object
      */
-    public DtString(String value){
+    public DtString(String value) {
         if ((value == null) || (value.isEmpty())) {
             throw new Dt.NullValueNotSupportedException();
         }
-        this.value=value;
+        this.value = value;
     }
-    
+
     /**
      * Getter method for value / effective value of provys string object
+     *
      * @return effective value of provys string object
      */
     public String getValue() {
         return this.value;
     }
-    
+
     @Override
-    public String toStringValue(){
+    public String toStringValue() {
         return this.value;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.value;
     }
-    
+
     @Override
     public String toSqlLiteral() {
         // replace ', newline and CHR(0) characters to prevent SQL injection
@@ -53,9 +55,9 @@ abstract public class DtString implements Dt{
                 .replace("\n", "'||CHR(10)||'")
                 .replace("\0", "\\0") + "'";
     }
-    
+
     @Override
-    public final boolean equals(Object secondObject){
+    public final boolean equals(Object secondObject) {
         if (this == secondObject) {
             return true;
         }
@@ -70,9 +72,9 @@ abstract public class DtString implements Dt{
         }
         return false;
     }
-    
+
     @Override
-    public final int hashCode(){
+    public final int hashCode() {
         return getValue().hashCode();
     }
 }

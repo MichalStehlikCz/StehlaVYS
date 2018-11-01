@@ -10,6 +10,7 @@ import javax.json.bind.adapter.JsonbAdapter;
 /**
  * Adapter ensuring optional provys string value is treated as simple string
  * value when serializing to / deserializing from Json using JSON-B.
+ *
  * @author stehlik
  * @param <T> subclass of DtOptString adapter is used for
  */
@@ -18,6 +19,7 @@ abstract public class JsonbDtOptStringAdapter<T extends DtOptString>
 
     /**
      * Unwrap value to ensure it is properly serialized to Json.
+     *
      * @param original is source provys datatype value
      * @return unwraped value (string)
      */

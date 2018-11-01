@@ -10,26 +10,51 @@ import java.util.Optional;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
- * Used to store INTEGER values (corresponding to NUMBER(5, 0) in Oracle)
+ * Used to store INTEGER values, usually stored as NUMBER(5, 0) in Oracle.
+ *
  * @author stehlik
  */
 @JsonbTypeAdapter(JsonbDtIntegerAdapter.class)
-public class DtInteger implements DtNumeric{
+public class DtInteger implements DtNumeric {
+
+    static private final Optional<Integer> MAXPRECISION = Optional.of(10);
+    static private final Optional<Short> SCALE = Optional.of((short) 0);
+
+    /**
+     * Returns provys number value representing supplied value.
+     *
+     * @param value - value object will represent
+     * @return {@code DtInteger} object representing supplied value
+     */
+    public static DtInteger of(int value) {
+        return new DtInteger(value);
+    }
+
+    /**
+     * Returns provys number value representing supplied string value.
+     *
+     * @param value - value object will represent
+     * @return {@code DtInteger} object representing supplied value
+     */
+    public static DtInteger parseString(String value) {
+        if ((value == null) || value.isEmpty()) {
+            throw new NullValueNotSupportedException();
+        }
+        return new DtInteger(Integer.parseInt(value));
+    }
 
     /**
      * Register DtInteger type to Dt types repository.
      */
     static void register() {
-        DtRepository.registerDtType(DtInteger.class, Types.INTEGER
-                , DtInteger::validatePrecision, DtInteger::validateScale
-                , DtInteger::eligibleForSqlType);
+        DtRepository.registerDtType(DtInteger.class, Types.INTEGER,
+                 DtInteger::validatePrecision, DtInteger::validateScale,
+                 DtInteger::eligibleForSqlType);
     }
-    
-    static private final Optional<Integer> MAXPRECISION = Optional.of(10);
-    
+
     /**
      * Precision validator for {@code DtInteger}.
-     * 
+     *
      * @param precision is precision supplied on column creation
      * @return specified number or 10 whichever is lower, 10 if not specified
      */
@@ -40,12 +65,10 @@ public class DtInteger implements DtNumeric{
         }
         return precision;
     }
-        
-    static private final Optional<Short> SCALE = Optional.of((short) 0);
 
     /**
      * Scale validator for {@code DtInteger}.
-     * 
+     *
      * @param scale is scale supplied on column creation
      * @return 0 as integer has scale of zero
      */
@@ -53,10 +76,10 @@ public class DtInteger implements DtNumeric{
             Optional<Short> scale) {
         return SCALE;
     }
-        
+
     /**
      * Marks {@code DtInteger} as default for integer SQL types.
-     * 
+     *
      * @param sqlType is value corresponding to SQL type as defined in
      * {@code java.sql.Types}
      * @param precision represents column precision - number of characters for
@@ -66,14 +89,14 @@ public class DtInteger implements DtNumeric{
      * @param isNullable is flag indicating if column is nullable
      * @param name is name of column
      * @return 15 if {@code DtInteger} can be used for column and -1 otherwise
-    */
-    public static int eligibleForSqlType(int sqlType
-            , Optional<Integer> precision, Optional<Short> scale
-            , boolean isNullable, String name) {
+     */
+    public static int eligibleForSqlType(int sqlType,
+             Optional<Integer> precision, Optional<Short> scale,
+             boolean isNullable, String name) {
         if ((!isNullable) && ((sqlType == Types.INTEGER)
                 || (sqlType == Types.SMALLINT) || (sqlType == Types.TINYINT)
-                || ((scale.map(val -> val<=0).orElse(false))
-                && (precision.map(val -> val<=9).orElse(false))
+                || ((scale.map(val -> val <= 0).orElse(false))
+                && (precision.map(val -> val <= 9).orElse(false))
                 && (sqlType == Types.NUMERIC)))) {
             return 15;
         }
@@ -81,66 +104,46 @@ public class DtInteger implements DtNumeric{
     }
 
     private final int value;
-    
-    /**
-     * Returns provys number value representing supplied value.
-     * 
-     * @param value - value object will represent
-     * @return {@code DtInteger} object representing supplied value
-     */
-    public static DtInteger of(int value) {
-        return new DtInteger(value);
-    }
-
-    /**
-     * Returns provys number value representing supplied string value.
-     * 
-     * @param value - value object will represent
-     * @return {@code DtInteger} object representing supplied value
-     */
-    public static DtInteger of(String value) {
-        return new DtInteger(Integer.parseInt(value));
-    }
 
     private DtInteger(int value) {
-        this.value=value;
+        this.value = value;
     }
-    
+
     /**
      * Getter method for value
+     *
      * @return value representing effective value of this provys integer
      */
     public int getValue() {
         return this.value;
     }
-    
+
     @Override
-    public String toStringValue(){
+    public String toStringValue() {
         return Integer.toString(this.value);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return Integer.toString(this.value);
     }
-    
+
     @Override
-    public boolean equals(Object secondObject){
+    public boolean equals(Object secondObject) {
         if (this == secondObject) {
             return true;
         }
         if (secondObject == null) {
             return false;
         }
-        if (this.getClass().equals(secondObject.getClass()))
-        {
-            return this.value==((DtInteger) secondObject).getValue();
+        if (this.getClass().equals(secondObject.getClass())) {
+            return this.value == ((DtInteger) secondObject).getValue();
         }
         return false;
     }
-    
+
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return this.value;
     }
 

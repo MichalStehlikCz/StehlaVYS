@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 
 /**
  * Unit test class for DtString
+ *
  * @author stehlik
  */
 @RunWith(JUnitParamsRunner.class)
@@ -22,14 +23,15 @@ public class DtStringTest {
 
     private List<Object[]> parametersForGetValue() {
         return asList(
-                new Object[] {"string", "string"},
-                new Object[] {"0123456789", "0123456789"},
-                new Object[] {"   abc   ", "   abc   "}
+                new Object[]{"string", "string"},
+                new Object[]{"0123456789", "0123456789"},
+                new Object[]{"   abc   ", "   abc   "}
         );
     }
 
     /**
      * Test of getValue method, of class DtString.
+     *
      * @param value - initialisation value for DtString object
      * @param expectedResult - expected result of getValue method
      */
@@ -43,14 +45,15 @@ public class DtStringTest {
 
     private List<Object[]> parametersForToString() {
         return asList(
-                new Object[] {"string", "string"},
-                new Object[] {"0123456789", "0123456789"},
-                new Object[] {"   abc   ", "   abc   "}
+                new Object[]{"string", "string"},
+                new Object[]{"0123456789", "0123456789"},
+                new Object[]{"   abc   ", "   abc   "}
         );
     }
 
     /**
      * Test of toString method, of class DtString.
+     *
      * @param value - initialisation value for DtString object
      * @param expectedResult - expected result of toString method
      */
@@ -64,20 +67,21 @@ public class DtStringTest {
 
     private List<Object[]> parametersForEquals() {
         return asList(
-                new Object[] {"abcdefghijkl", null, false},
-                new Object[] {"abcdefghijkl", new DtStringImpl("abcdefghijkl"),
+                new Object[]{"abcdefghijkl", null, false},
+                new Object[]{"abcdefghijkl", new DtStringImpl("abcdefghijkl"),
                     true},
-                new Object[] {"abcdefghijkl", new DtStringImpl("0123456789"),
+                new Object[]{"abcdefghijkl", new DtStringImpl("0123456789"),
                     false},
-                new Object[] {"0123456789", new DtStringImpl("123456789"),
+                new Object[]{"0123456789", new DtStringImpl("123456789"),
                     false},
-                new Object[] {"abcdefghijkl", DtVarchar.of("abcdefghijkl"),
+                new Object[]{"abcdefghijkl", DtVarchar.of("abcdefghijkl"),
                     true}
         );
     }
 
     /**
      * Test of equals method, of class DtString.
+     *
      * @param value - initialisation value for compared DtString object
      * @param compareTo - Object to be compared against
      * @param expectedResult - expected comparison result
@@ -88,33 +92,36 @@ public class DtStringTest {
         DtString instance = new DtStringImpl(value);
         boolean result = instance.equals(compareTo);
         if (expectedResult) {
-            assertTrue("Equals method returned incorrect result (expected true)"
-                    , result);
+            assertTrue("Equals method returned incorrect result (expected true)",
+                     result);
         } else {
-            assertFalse("Equals method returned incorrect result (exp. false)"
-                    , result);
+            assertFalse("Equals method returned incorrect result (exp. false)",
+                     result);
         }
     }
 
     private List<Object[]> parametersForHashCode() {
         return asList(
-                new Object[] {"abcdefghijkl", "abcdefghijkl"},
-                new Object[] {"abcdefghijkl", "0123456789"},
-                new Object[] {"0123456789", "123456789"},
-                new Object[] {"abcdefghijkl", "abcdefghijkl"}
+                new Object[]{"abcdefghijkl", "abcdefghijkl"},
+                new Object[]{"abcdefghijkl", "0123456789"},
+                new Object[]{"0123456789", "123456789"},
+                new Object[]{"abcdefghijkl", "abcdefghijkl"}
         );
     }
 
     /**
-     * Test of hashCode method, of class DtString.
-     * Verifies, that same hashCode is produced when two instances of DtBoolean
-     * are created and equals returns true. Also asserts if values that not
-     * equal produce same hashcodes, even though this is strictly speaking not
-     * an error, just indication that hash function might not be good enough.
-     * In that case it might be useful to verify, that on other data hashes are
-     * different and modify test data
-     * @param value1 - initialisation value for the first DtString hashCode is calculated for
-     * @param value2 - initialisation value for the second DtString hashCode is calculated for
+     * Test of hashCode method, of class DtString. Verifies, that same hashCode
+     * is produced when two instances of DtBoolean are created and equals
+     * returns true. Also asserts if values that not equal produce same
+     * hashcodes, even though this is strictly speaking not an error, just
+     * indication that hash function might not be good enough. In that case it
+     * might be useful to verify, that on other data hashes are different and
+     * modify test data
+     *
+     * @param value1 - initialisation value for the first DtString hashCode is
+     * calculated for
+     * @param value2 - initialisation value for the second DtString hashCode is
+     * calculated for
      */
     @Test
     @Parameters(method = "parametersForHashCode")
@@ -139,6 +146,7 @@ public class DtStringTest {
 
         /**
          * Proxy for single argument constructor of base class
+         *
          * @param value to which newly created string object will be initiated
          */
         public DtStringImpl(String value) {

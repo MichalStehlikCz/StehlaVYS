@@ -1,4 +1,3 @@
-
 package com.provys.common.datatypes;
 
 import java.math.BigDecimal;
@@ -10,13 +9,12 @@ import org.junit.runner.RunWith;
 
 /**
  *
- * @author stehlik
- * Test class for JsonbDtNumberAdapter
+ * @author stehlik Test class for JsonbDtNumberAdapter
  */
 @RunWith(JUnitParamsRunner.class)
 public class JsonbDtNumberAdapterTest extends
         JsonbDtAdapterTest<DtNumber, BigDecimal, JsonbDtNumberAdapter> {
-    
+
     /**
      * Initializes adapter used to run tests
      */
@@ -24,13 +22,13 @@ public class JsonbDtNumberAdapterTest extends
     public void setUp() {
         adapter = new JsonbDtNumberAdapter();
     }
-    
+
     private List<Object[]> parametersForAdapter() {
-        return asList(new Object[] {DtNumber.of(new BigDecimal(123456789))
-                        , new BigDecimal(123456789)}
-                , new Object[] {DtNumber.of(
-                        BigDecimal.valueOf(123456789.01234567)),
-                        BigDecimal.valueOf(123456789.01234567)}
+        return asList(new Object[]{DtNumber.of(new BigDecimal(123456789)),
+             new BigDecimal(123456789)},
+                 new Object[]{DtNumber.of(
+                            BigDecimal.valueOf(123456789.01234567)),
+                    BigDecimal.valueOf(123456789.01234567)}
         );
     }
 

@@ -17,14 +17,6 @@ import com.provys.sqlbuilder.sqlbuilder.SqlQueryBuilder;
  */
 public interface CatBuilderFactory extends SqlBuilderFactory {
 
-    /**
-     * Creates new SqlSelectBuilder based on specified entity.
-     * 
-     * @param entity specified PROVYS catalogue entity new CatSelectBuilder
-     * should use
-     * @return new instance of CatSelectBuilder based on specified entity
-     */
-    public CatSelectBuilder getSelectBuilder(CatBuilderEntity entity);
     
     /**
      * Creates SqlQueryBuilder based on given entity.

@@ -10,14 +10,14 @@ import java.lang.annotation.*;
 /**
  *
  * @author stehlik
- * 
+ *
  * Marks given field as entity key. Together with class level entity mapping
  * using @ProvysEntity and field level mapping using @ProvysAttr annotation it
- * enables loader or manipulator classes to prepare SQL and load / modify
- * data in underlying PROVYS database
+ * enables loader or manipulator classes to prepare SQL and load / modify data
+ * in underlying PROVYS database
  */
 @Documented
-@Retention(value=RetentionPolicy.RUNTIME)
-@Target(value=ElementType.FIELD)
+@Retention(value = RetentionPolicy.RUNTIME)
+@Target(value = ElementType.FIELD)
 public @interface ProvysKey {
 }

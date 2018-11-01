@@ -13,39 +13,47 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
- * Extension of Dt interface for optional Dt classes.
- * Is implemented as decorator of Optional/T/ class.
- * 
+ * Extension of Dt interface for optional Dt classes. Is implemented as
+ * decorator of {@code Optional<T>} class. Provides methods corresponding to
+ * those of Optional class, but cannot be actually inherited from Optional as it
+ * is final class, not interface
+ *
  * @author stehlik
  * @param <T> is basic type wrapped in this optional Dt
  */
 abstract class DtOptional<T> implements Dt {
 
     private final Optional<T> value;
-    
+
     protected DtOptional() {
         this.value = Optional.empty();
     }
 
     protected DtOptional(Optional<T> value) {
+        if (value == null) {
+            throw new NullValueNotSupportedException();
+        }
         this.value = value;
     }
-    
+
     protected DtOptional(T value) {
-        if (value == null) {
-            this.value = Optional.empty();
-        } else {
-            this.value = Optional.of(value);
-        }
+        this.value = Optional.ofNullable(value);
     }
 
+    /**
+     * Retrieve value of DtOptional object. Value is actually decorated optional
+     * itself.
+     *
+     * @return Optional that represents value of given object
+     */
     public Optional<T> getValue() {
         return value;
     }
 
     /**
-     * If a value is present in this {@code Optional}, returns the value,
-     * otherwise throws {@code NoSuchElementException}.
+     * If a value is present in this {@code DtOptional}, returns the value,
+     * otherwise throws {@code NoSuchElementException}. Call is redirected to
+     * contained {@code Optional} object.
      *
      * @return the non-null value held by this {@code Optional}
      * @throws NoSuchElementException if there is no value present
@@ -78,9 +86,9 @@ abstract class DtOptional<T> implements Dt {
     }
 
     /**
-     * If a value is present, and the value matches the given predicate,
-     * return an {@code Optional} describing the value, otherwise return an
-     * empty {@code Optional}.
+     * If a value is present, and the value matches the given predicate, return
+     * an {@code Optional} describing the value, otherwise return an empty
+     * {@code Optional}.
      *
      * @param predicate a predicate to apply to the value, if present
      * @return an {@code Optional} describing the value of this {@code Optional}
@@ -93,14 +101,14 @@ abstract class DtOptional<T> implements Dt {
     }
 
     /**
-     * If a value is present, apply the provided mapping function to it,
-     * and if the result is non-null, return an {@code Optional} describing the
-     * result.  Otherwise return an empty {@code Optional}.
+     * If a value is present, apply the provided mapping function to it, and if
+     * the result is non-null, return an {@code Optional} describing the result.
+     * Otherwise return an empty {@code Optional}.
      *
      * @apiNote This method supports post-processing on optional values, without
-     * the need to explicitly check for a return status.  For example, the
-     * following code traverses a stream of file names, selects one that has
-     * not yet been processed, and then opens that file, returning an
+     * the need to explicitly check for a return status. For example, the
+     * following code traverses a stream of file names, selects one that has not
+     * yet been processed, and then opens that file, returning an
      * {@code Optional<FileInputStream>}:
      *
      * <pre>{@code
@@ -121,28 +129,28 @@ abstract class DtOptional<T> implements Dt {
      * otherwise an empty {@code Optional}
      * @throws NullPointerException if the mapping function is null
      */
-    public<U> Optional<U> map(Function<? super T, ? extends U> mapper) {
+    public <U> Optional<U> map(Function<? super T, ? extends U> mapper) {
         return this.value.map(mapper);
     }
 
     /**
      * If a value is present, apply the provided {@code Optional}-bearing
      * mapping function to it, return that result, otherwise return an empty
-     * {@code Optional}.  This method is similar to {@link #map(Function)},
-     * but the provided mapper is one whose result is already an {@code Optional},
+     * {@code Optional}. This method is similar to {@link #map(Function)}, but
+     * the provided mapper is one whose result is already an {@code Optional},
      * and if invoked, {@code flatMap} does not wrap it with an additional
      * {@code Optional}.
      *
      * @param <U> The type parameter to the {@code Optional} returned by
-     * @param mapper a mapping function to apply to the value, if present
-     *           the mapping function
+     * @param mapper a mapping function to apply to the value, if present the
+     * mapping function
      * @return the result of applying an {@code Optional}-bearing mapping
      * function to the value of this {@code Optional}, if a value is present,
      * otherwise an empty {@code Optional}
-     * @throws NullPointerException if the mapping function is null or returns
-     * a null result
+     * @throws NullPointerException if the mapping function is null or returns a
+     * null result
      */
-    public<U> Optional<U> flatMap(Function<? super T, Optional<U>> mapper) {
+    public <U> Optional<U> flatMap(Function<? super T, Optional<U>> mapper) {
         return this.value.flatMap(mapper);
     }
 
@@ -161,8 +169,8 @@ abstract class DtOptional<T> implements Dt {
      * Return the value if present, otherwise invoke {@code other} and return
      * the result of that invocation.
      *
-     * @param other a {@code Supplier} whose result is returned if no value
-     * is present
+     * @param other a {@code Supplier} whose result is returned if no value is
+     * present
      * @return the value if present otherwise the result of {@code other.get()}
      * @throws NullPointerException if value is not present and {@code other} is
      * null
@@ -172,8 +180,8 @@ abstract class DtOptional<T> implements Dt {
     }
 
     /**
-     * Return the contained value, if present, otherwise throw an exception
-     * to be created by the provided supplier.
+     * Return the contained value, if present, otherwise throw an exception to
+     * be created by the provided supplier.
      *
      * @apiNote A method reference to the exception constructor with an empty
      * argument list can be used as the supplier. For example,

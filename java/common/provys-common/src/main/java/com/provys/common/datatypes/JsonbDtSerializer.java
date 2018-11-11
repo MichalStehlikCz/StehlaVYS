@@ -6,6 +6,7 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.jsonb.JsonbHelper;
+
 import javax.json.bind.serializer.JsonbSerializer;
 import javax.json.bind.serializer.SerializationContext;
 import javax.json.stream.JsonGenerator;

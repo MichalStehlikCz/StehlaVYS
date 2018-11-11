@@ -5,7 +5,8 @@
  */
 package com.provys.common.confobj;
 
-import com.provys.common.datatypes.*;
+import com.provys.common.datatypes.DtNameNm;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 /**

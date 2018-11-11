@@ -15,10 +15,10 @@ import java.util.Optional;
  */
 public interface DtOptNumeric extends Dt {
 
-    public boolean isPresent();
+    boolean isPresent();
 
     @Override
-    default public String toSqlLiteral() {
+    default String toSqlLiteral() {
         if (!this.isPresent()) {
             return "TO_NUMBER(NULL)";
         }
@@ -30,5 +30,5 @@ public interface DtOptNumeric extends Dt {
      *
      * @return effective value of PROVYS numeric type, converted to double
      */
-    abstract public Optional<Double> getDouble();
+    Optional<Double> getDouble();
 }

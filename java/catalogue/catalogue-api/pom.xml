@@ -7,7 +7,7 @@
         <version>1.0</version>
     </parent>
     <name>catalogue-api</name>
-    <artifactId>api</artifactId>
+    <artifactId>catalogue-api</artifactId>
     <packaging>war</packaging>
 
     <properties>

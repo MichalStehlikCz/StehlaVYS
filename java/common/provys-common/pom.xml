@@ -6,15 +6,7 @@
         <artifactId>common</artifactId>
         <version>1.0</version>
     </parent>
-    <name>common</name>
+    <name>provys-common</name>
     <artifactId>provys-common</artifactId>
     <packaging>jar</packaging>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-            <version>4.12</version>
-        </dependency>
-    </dependencies>
 </project>

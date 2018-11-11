@@ -6,6 +6,7 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
+
 import javax.json.bind.annotation.JsonbTypeDeserializer;
 import javax.json.bind.annotation.JsonbTypeSerializer;
 
@@ -34,7 +35,7 @@ public interface Dt {
      * @return value of given value object translated to String, corresponding
      * to translation to VARCHAR2 performed on server
      */
-    abstract public String toStringValue();
+    String toStringValue();
 
     /**
      * Translation of value to SQL literal. Used when SQL statement is being
@@ -45,19 +46,19 @@ public interface Dt {
      *
      * @return String representing value as SQL literal
      */
-    abstract public String toSqlLiteral();
+    String toSqlLiteral();
 
     /**
      * Exception raised on attempt to create new instance of one of PROVYS
      * datatype classes with null value
      */
     @SuppressWarnings("PublicInnerClass")
-    static public class NullValueNotSupportedException extends ProvysException {
+    class NullValueNotSupportedException extends ProvysException {
 
         /**
          * Creates NullValueNotSupportedException using hardcoded error message
          */
-        public NullValueNotSupportedException() {
+        NullValueNotSupportedException() {
             super("Null value not supported in Provys value objects");
         }
     }

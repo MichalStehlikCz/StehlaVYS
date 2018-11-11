@@ -5,9 +5,9 @@
  */
 package com.provys.common.datatypes;
 
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import java.sql.Types;
 import java.util.Optional;
-import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  * Used to store INTEGER values, usually stored as NUMBER(5, 0) in Oracle.

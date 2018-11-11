@@ -6,17 +6,17 @@
 package com.provys.common.jsonb;
 
 import com.provys.common.error.ProvysException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+
 import javax.json.bind.adapter.JsonbAdapter;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.json.bind.serializer.DeserializationContext;
 import javax.json.bind.serializer.SerializationContext;
 import javax.json.stream.JsonGenerator;
 import javax.json.stream.JsonParser;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
- *
  * @author stehlik
  */
 public class JsonbHelper {
@@ -24,19 +24,19 @@ public class JsonbHelper {
     /**
      * Method invokes JSON-B adapters defined in annotations and serializes
      * adapted object.
-     *
+     * <p>
      * Hopefully this functionality eventually becomes part of JSON-B standard
      * as an option when invoking serialisation. As of now, calling
      * SerialisationContext's serialize method ignores custom adapters. To fix
      * it, this method allows to find adapter and adapt object before invoking
      * serialize. If no adapters are found, it serializes supplied object
      *
-     * @param object - source object (to be adapted using JSON-B adapters)
+     * @param object    - source object (to be adapted using JSON-B adapters)
      * @param generator - Json generator used for serialization
-     * @param ctx - serialization context used for serialization
+     * @param ctx       - serialization context used for serialization
      */
     public static void serializeWithAdapters(Object object,
-            JsonGenerator generator, SerializationContext ctx) {
+                                             JsonGenerator generator, SerializationContext ctx) {
         Object adapted;
         JsonbTypeAdapter adapterType = object.getClass().getAnnotation(
                 JsonbTypeAdapter.class);
@@ -79,21 +79,21 @@ public class JsonbHelper {
     /**
      * Method finds JSON-B adapter defined in annotations and deserializes
      * adapted object, then adapts it to source object.
-     *
+     * <p>
      * Hopefully this functionality eventually becomes part of JSON-B standard
      * as an option when invoking deserialisation. As of now, calling
      * SerialisationContext's deserialize method ignores custom adapters. To fix
      * it, this method allows to find adapter and deserialize adapted type, then
      * invoke adapter to retrieve source object
      *
-     * @param <T> represents common ancestor of objects to be deserialized
+     * @param <T>         represents common ancestor of objects to be deserialized
      * @param targetClass - class of result object
-     * @param parser - parser containing source JSON text
-     * @param context - context used for actual deserialization
+     * @param parser      - parser containing source JSON text
+     * @param context     - context used for actual deserialization
      * @return returns object, deserialized from supplied parser
      */
-    public static <T> T deserializeWithAdapters(Class<? extends T> targetClass,
-            JsonParser parser, DeserializationContext context) {
+    public static <T> T deserializeWithAdapters(Class<? extends T> targetClass, JsonParser parser
+            , DeserializationContext context) {
         T result;
 
         JsonbTypeAdapter adapterType = targetClass.

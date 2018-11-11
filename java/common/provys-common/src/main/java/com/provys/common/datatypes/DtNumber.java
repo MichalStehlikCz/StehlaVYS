@@ -5,10 +5,10 @@
  */
 package com.provys.common.datatypes;
 
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.Optional;
-import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  * Used to store NUMBER values.

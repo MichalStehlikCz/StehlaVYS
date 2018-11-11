@@ -6,9 +6,10 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
+
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import java.sql.Types;
 import java.util.Optional;
-import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  * Represents value of provys domain NAME. NAME domain is stored as VARCAR2(200)

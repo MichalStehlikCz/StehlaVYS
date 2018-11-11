@@ -6,9 +6,11 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
+import org.jetbrains.annotations.Contract;
+
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import java.sql.Types;
 import java.util.Optional;
-import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  * Represents values of PROVYS domain BOOLEAN. Value is represented as CHAR(1
@@ -118,7 +120,8 @@ public class DtBoolean implements Dt {
      * @param precision is precision supplied on column creation
      * @return 1 as {@code DtBoolean} corresponds to CHAR(1 BYTE) column
      */
-    static public Optional<Integer> validatePrecision(
+    @Contract(pure = true)
+    static Optional<Integer> validatePrecision(
             Optional<Integer> precision) {
         return PRECISION;
     }

@@ -1,0 +1,28 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="provysdb-api:war exploded">
+    <output-path>$PROJECT_DIR$/provysdb/provysdb-api/target/provysdb</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="provysdb-api" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="archive" name="provysdb-common-1.0.jar">
+            <element id="module-output" name="provysdb-common" />
+          </element>
+          <element id="archive" name="provys-common-1.0.jar">
+            <element id="module-output" name="provys-common" />
+          </element>
+          <element id="archive" name="provysdb-local-1.0.jar">
+            <element id="module-output" name="provysdb-local" />
+          </element>
+          <element id="library" level="project" name="Maven: org.jetbrains:annotations:16.0.3" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/provysdb/provysdb-api/target/provysdb/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="provysdb-api/web/Web" />
+    </root>
+  </artifact>
+</component>

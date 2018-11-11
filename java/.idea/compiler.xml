@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="catalogue-api" />
+        <module name="catalogue-common" />
+        <module name="catalogue-loaderdb" />
+        <module name="catalogue-repository" />
+        <module name="provys-common" />
+        <module name="provys-confobj" />
+        <module name="provysdb-api" />
+        <module name="provysdb-client" />
+        <module name="provysdb-common" />
+        <module name="provysdb-loader" />
+        <module name="provysdb-local" />
+        <module name="sqlbuilder-catalogue" />
+        <module name="sqlbuilder-catmanager" />
+        <module name="sqlbuilder-common" />
+        <module name="TestREST" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="catalogue" target="1.8" />
+      <module name="catalogue-api" target="1.8" />
+      <module name="catalogue-common" target="1.8" />
+      <module name="catalogue-loaderdb" target="1.8" />
+      <module name="catalogue-repository" target="1.8" />
+      <module name="common" target="1.8" />
+      <module name="provys" target="1.8" />
+      <module name="provys-common" target="1.8" />
+      <module name="provys-confobj" target="1.8" />
+      <module name="provysdb" target="1.8" />
+      <module name="provysdb-api" target="1.8" />
+      <module name="provysdb-client" target="1.8" />
+      <module name="provysdb-common" target="1.8" />
+      <module name="provysdb-loader" target="1.8" />
+      <module name="provysdb-local" target="1.8" />
+      <module name="sqlbuilder" target="1.8" />
+      <module name="sqlbuilder-catalogue" target="1.8" />
+      <module name="sqlbuilder-catmanager" target="1.8" />
+      <module name="sqlbuilder-common" target="1.8" />
+      <module name="TestREST" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -5,8 +5,9 @@
  */
 package com.provys.common.confobj;
 
-import com.provys.common.annotation.*;
-import com.provys.common.datatypes.*;
+import com.provys.common.annotation.ProvysAttr;
+import com.provys.common.datatypes.DtNameNm;
+import com.provys.common.datatypes.DtUid;
 
 /**
  * Default implementation of ConfNMObject interface.

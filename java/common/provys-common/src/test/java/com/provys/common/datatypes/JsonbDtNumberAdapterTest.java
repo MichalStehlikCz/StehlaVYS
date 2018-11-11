@@ -1,11 +1,13 @@
 package com.provys.common.datatypes;
 
-import java.math.BigDecimal;
-import static java.util.Arrays.asList;
-import java.util.List;
 import junitparams.JUnitParamsRunner;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import static java.util.Arrays.asList;
 
 /**
  *

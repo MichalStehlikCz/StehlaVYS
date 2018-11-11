@@ -5,14 +5,16 @@
  */
 package com.provys.common.datatypes;
 
-import static java.util.Arrays.asList;
-import java.util.List;
-import java.util.Optional;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
+
+import java.util.List;
+import java.util.Optional;
+
+import static java.util.Arrays.asList;
+import static org.junit.Assert.*;
 
 /**
  * Unit test class for DtOptBoolean.

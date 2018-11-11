@@ -15,7 +15,7 @@ package com.provys.common.datatypes;
 public interface DtNumeric extends Dt {
 
     @Override
-    default public String toSqlLiteral() {
+    default String toSqlLiteral() {
         return this.toStringValue();
     }
 
@@ -24,5 +24,5 @@ public interface DtNumeric extends Dt {
      *
      * @return effective value of PROVYS numeric type, converted to double
      */
-    abstract public double getDouble();
+    double getDouble();
 }

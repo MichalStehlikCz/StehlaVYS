@@ -6,7 +6,7 @@
         <artifactId>common</artifactId>
         <version>1.0</version>
     </parent>
-    <name>common-confobj</name>
+    <name>provys-confobj</name>
     <artifactId>provys-confobj</artifactId>
     <packaging>jar</packaging>
     <dependencies>

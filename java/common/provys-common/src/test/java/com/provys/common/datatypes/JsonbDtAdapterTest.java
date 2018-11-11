@@ -5,10 +5,12 @@
  */
 package com.provys.common.datatypes;
 
-import javax.json.bind.adapter.JsonbAdapter;
 import junitparams.Parameters;
-import static org.junit.Assert.*;
 import org.junit.Test;
+
+import javax.json.bind.adapter.JsonbAdapter;
+
+import static org.junit.Assert.*;
 
 /**
  * Generic ancestor for testing Dt adapter classes

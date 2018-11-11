@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="TestREST:war">
+    <output-path>$PROJECT_DIR$/TestREST/target</output-path>
+    <root id="archive" name="TestAPI.war">
+      <element id="artifact" artifact-name="TestREST:war exploded" />
+    </root>
+  </artifact>
+</component>

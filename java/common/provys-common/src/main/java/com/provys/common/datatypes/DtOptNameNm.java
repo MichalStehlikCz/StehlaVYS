@@ -5,10 +5,10 @@
  */
 package com.provys.common.datatypes;
 
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import java.sql.Types;
 import java.util.Objects;
 import java.util.Optional;
-import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  * Represents optional value of provys domain NAME_NM. Domain is used for

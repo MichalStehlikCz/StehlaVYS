@@ -5,7 +5,7 @@
  */
 package com.provys.common.confobj;
 
-import com.provys.common.datatypes.*;
+import com.provys.common.datatypes.DtNameNm;
 
 /**
  * Configuration object loader extension for objects with internal name.

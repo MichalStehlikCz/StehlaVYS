@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="provysdb-api:war">
+    <output-path>$PROJECT_DIR$/provysdb/provysdb-api/target</output-path>
+    <root id="archive" name="provysdb.war">
+      <element id="artifact" artifact-name="provysdb-api:war exploded" />
+    </root>
+  </artifact>
+</component>

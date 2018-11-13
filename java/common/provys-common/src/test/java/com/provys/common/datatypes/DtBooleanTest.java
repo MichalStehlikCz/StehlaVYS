@@ -1,19 +1,17 @@
 package com.provys.common.datatypes;
 
-import static java.util.Arrays.asList;
-import java.util.List;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-import static org.junit.Assert.*;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import java.util.List;
+
+import static java.util.Arrays.asList;
+import static org.junit.Assert.*;
 
 /**
  * Unit test class for DtBoolean.
  *
  * @author stehlik
  */
-@RunWith(JUnitParamsRunner.class)
 public class DtBooleanTest {
 
     /**

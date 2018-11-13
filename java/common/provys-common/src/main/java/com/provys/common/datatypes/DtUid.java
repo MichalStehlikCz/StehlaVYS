@@ -6,9 +6,10 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
+
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import java.sql.Types;
 import java.util.Optional;
-import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  * Representation of PROVYS UID values.

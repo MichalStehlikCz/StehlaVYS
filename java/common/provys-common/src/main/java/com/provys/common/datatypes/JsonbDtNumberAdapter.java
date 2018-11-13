@@ -5,8 +5,8 @@
  */
 package com.provys.common.datatypes;
 
-import java.math.BigDecimal;
 import javax.json.bind.adapter.JsonbAdapter;
+import java.math.BigDecimal;
 
 /**
  * Adapter ensuring provys number value is treated as numeric value when

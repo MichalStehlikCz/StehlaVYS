@@ -6,6 +6,7 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -302,7 +303,7 @@ public class DtRepository {
     @SuppressWarnings("PublicInnerClass")
     public interface PrecisionValidator {
 
-        public Optional<Integer> validatePrecision(Optional<Integer> precision);
+        Optional<Integer> validatePrecision(Optional<Integer> precision);
     }
 
     /**
@@ -313,7 +314,7 @@ public class DtRepository {
     @SuppressWarnings("PublicInnerClass")
     public interface ScaleValidator {
 
-        public Optional<Short> validateScale(Optional<Short> scale);
+        Optional<Short> validateScale(Optional<Short> scale);
     }
 
     /**
@@ -324,8 +325,8 @@ public class DtRepository {
     @SuppressWarnings("PublicInnerClass")
     public interface EligibleForSqlType {
 
-        public int isEligible(int sqlType, Optional<Integer> precision,
-                Optional<Short> scale, boolean isNullable, String name);
+        int isEligible(int sqlType, Optional<Integer> precision,
+                       Optional<Short> scale, boolean isNullable, String name);
     }
 
     private DtRepository() {

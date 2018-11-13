@@ -1,9 +1,9 @@
 package com.provys.common.datatypes;
 
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import java.sql.Types;
 import java.util.Objects;
 import java.util.Optional;
-import javax.json.bind.annotation.JsonbTypeAdapter;
 
 /**
  * Representation of optional PROVYS UID values.

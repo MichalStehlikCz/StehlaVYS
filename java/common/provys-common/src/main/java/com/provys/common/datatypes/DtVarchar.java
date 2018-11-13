@@ -6,10 +6,12 @@
 package com.provys.common.datatypes;
 
 import com.provys.common.error.ProvysException;
-import static java.lang.String.valueOf;
+
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import java.sql.Types;
 import java.util.Optional;
-import javax.json.bind.annotation.JsonbTypeAdapter;
+
+import static java.lang.String.valueOf;
 
 /**
  * {@code DtVarchar} represents default VARCHAR2 values. Corresponds to PROVYS

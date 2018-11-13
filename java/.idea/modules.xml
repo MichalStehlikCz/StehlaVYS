@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TestREST/TestREST.iml" filepath="$PROJECT_DIR$/TestREST/TestREST.iml" />
+      <module fileurl="file://$PROJECT_DIR$/catalogue/catalogue.iml" filepath="$PROJECT_DIR$/catalogue/catalogue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/catalogue/catalogue-api/catalogue-api.iml" filepath="$PROJECT_DIR$/catalogue/catalogue-api/catalogue-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/catalogue/catalogue-common/catalogue-common.iml" filepath="$PROJECT_DIR$/catalogue/catalogue-common/catalogue-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/catalogue/catalogue-loaderdb/catalogue-loaderdb.iml" filepath="$PROJECT_DIR$/catalogue/catalogue-loaderdb/catalogue-loaderdb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/catalogue/catalogue-repository/catalogue-repository.iml" filepath="$PROJECT_DIR$/catalogue/catalogue-repository/catalogue-repository.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provys.iml" filepath="$PROJECT_DIR$/provys.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/provys-common/provys-common.iml" filepath="$PROJECT_DIR$/common/provys-common/provys-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/provys-confobj/provys-confobj.iml" filepath="$PROJECT_DIR$/common/provys-confobj/provys-confobj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provysdb/provysdb.iml" filepath="$PROJECT_DIR$/provysdb/provysdb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provysdb/provysdb-api/provysdb-api.iml" filepath="$PROJECT_DIR$/provysdb/provysdb-api/provysdb-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provysdb/provysdb-client/provysdb-client.iml" filepath="$PROJECT_DIR$/provysdb/provysdb-client/provysdb-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provysdb/provysdb-common/provysdb-common.iml" filepath="$PROJECT_DIR$/provysdb/provysdb-common/provysdb-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provysdb/provysdb-loader/provysdb-loader.iml" filepath="$PROJECT_DIR$/provysdb/provysdb-loader/provysdb-loader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/provysdb/provysdb-local/provysdb-local.iml" filepath="$PROJECT_DIR$/provysdb/provysdb-local/provysdb-local.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqlbuilder/sqlbuilder.iml" filepath="$PROJECT_DIR$/sqlbuilder/sqlbuilder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqlbuilder/sqlbuilder-catalogue/sqlbuilder-catalogue.iml" filepath="$PROJECT_DIR$/sqlbuilder/sqlbuilder-catalogue/sqlbuilder-catalogue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqlbuilder/sqlbuilder-catmanager/sqlbuilder-catmanager.iml" filepath="$PROJECT_DIR$/sqlbuilder/sqlbuilder-catmanager/sqlbuilder-catmanager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqlbuilder/sqlbuilder-common/sqlbuilder-common.iml" filepath="$PROJECT_DIR$/sqlbuilder/sqlbuilder-common/sqlbuilder-common.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,4 @@
+com\provys\provysdb\loader\ConfObjectLoaderDB.class
+com\provys\provysdb\loader\ConfObjectLoaderDB$EntityAnnotationMissingException.class
+com\provys\provysdb\loader\ConfObjectLoaderDB$InstantiationFailedException.class
+com\provys\provysdb\loader\ConfObjectLoaderDB$SetFieldValueFailedException.class

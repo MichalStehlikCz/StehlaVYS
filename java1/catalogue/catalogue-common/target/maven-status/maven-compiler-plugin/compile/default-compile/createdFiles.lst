@@ -1,0 +1,6 @@
+com\provys\catalogue\iface\EntityRepository.class
+com\provys\catalogue\model\Attr.class
+com\provys\catalogue\iface\AttrRepository.class
+com\provys\catalogue\model\Entity$CannotGetAttrNotLoadedException.class
+com\provys\catalogue\model\Entity.class
+com\provys\catalogue\model\JsonbEntityAdapter.class

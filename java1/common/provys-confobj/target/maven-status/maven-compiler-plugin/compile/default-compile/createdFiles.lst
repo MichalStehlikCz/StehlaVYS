@@ -1,0 +1,12 @@
+com\provys\common\confobj\ConfNMObjectRepositoryImpl.class
+com\provys\common\confobj\ConfObjectRepositoryImpl.class
+com\provys\common\confobj\ConfNMObjectImpl.class
+com\provys\common\confobj\ConfObjectLoader$ConfObjectNotUniqueUsingIdException.class
+com\provys\common\confobj\ConfNMObjectRepository.class
+com\provys\common\confobj\ConfObjectRepository.class
+com\provys\common\confobj\ConfObjectLoader$ConfObjectNotFoundUsingIdException.class
+com\provys\common\confobj\ConfObject.class
+com\provys\common\confobj\ConfObjectImpl.class
+com\provys\common\confobj\ConfNMObjectLoader.class
+com\provys\common\confobj\ConfNMObject.class
+com\provys\common\confobj\ConfObjectLoader.class

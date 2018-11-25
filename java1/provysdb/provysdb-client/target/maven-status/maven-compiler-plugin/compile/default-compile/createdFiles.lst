@@ -1,0 +1,5 @@
+com\provys\provysdb\sqlexecutorclient\JsonQueryExecutorClient$1.class
+com\provys\provysdb\sqlexecutorclient\JsonQueryExecutorClient.class
+com\provys\provysdb\sqlexecutorclient\MapQueryExecutorClient$1.class
+com\provys\provysdb\sqlexecutorclient\MapQueryExecutorClient.class
+com\provys\provysdb\sqlexecutorclient\ExecutorFactoryClient.class

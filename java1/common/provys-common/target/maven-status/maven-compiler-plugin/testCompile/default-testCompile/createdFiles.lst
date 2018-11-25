@@ -1,0 +1,17 @@
+com\provys\common\datatypes\DtStringTest$DtStringImpl.class
+com\provys\common\datatypes\JsonbDtNameAdapterTest.class
+com\provys\common\datatypes\JsonbDtAdapterTest.class
+com\provys\common\datatypes\DtNameNmTest.class
+com\provys\common\datatypes\DtStringTest.class
+com\provys\common\datatypes\JsonbDtIntegerAdapterTest.class
+com\provys\common\datatypes\JsonbDtBooleanAdapterTest.class
+com\provys\common\datatypes\JsonbDtUidAdapterTest.class
+com\provys\common\datatypes\JsonbDtVarcharAdapterTest.class
+com\provys\common\datatypes\DtNumberTest.class
+com\provys\common\datatypes\DtBooleanTest.class
+com\provys\common\datatypes\DtNameTest.class
+com\provys\common\datatypes\JsonbDtNumberAdapterTest.class
+com\provys\common\datatypes\DtIntegerTest.class
+com\provys\common\datatypes\DtVarcharTest.class
+com\provys\common\datatypes\JsonbDtNameNmAdapterTest.class
+com\provys\common\datatypes\DtUidTest.class

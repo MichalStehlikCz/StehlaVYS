@@ -5,8 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="227c45cd-574d-4ec2-9ed9-626d38e72b4d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../java/TestWs/src/main/java/com/provys/testws/DbEndpoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java/TestWs/src/main/java/com/provys/testws/DbService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java/provysdb/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java/provysdb/src/main/java/com/provys/provysdb/ProvysConnectionLabelingCallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java/provysdb/src/main/java/com/provys/provysdb/ProvysConnectionPoolDataSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java/provysdb/src/main/java/com/provys/provysdb/ProvysDBContext.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestREST/TestREST.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TestREST/TestREST.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-api/catalogue-api.iml" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-api/catalogue-api.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-common/catalogue-common.iml" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-common/catalogue-common.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-loaderdb/catalogue-loaderdb.iml" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-loaderdb/catalogue-loaderdb.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-repository/catalogue-repository.iml" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-repository/catalogue-repository.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalogue/catalogue.iml" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/common.iml" beforeDir="false" afterPath="$PROJECT_DIR$/common/common.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/provys-common/provys-common.iml" beforeDir="false" afterPath="$PROJECT_DIR$/common/provys-common/provys-common.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/provys-confobj/provys-confobj.iml" beforeDir="false" afterPath="$PROJECT_DIR$/common/provys-confobj/provys-confobj.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/install/jdbc.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/install/netbeans.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/install/payara.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/provys.iml" beforeDir="false" afterPath="$PROJECT_DIR$/provys.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/provysdb/provysdb-api/provysdb-api.iml" beforeDir="false" afterPath="$PROJECT_DIR$/provysdb/provysdb-api/provysdb-api.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/provysdb/provysdb-client/provysdb-client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/provysdb/provysdb-client/provysdb-client.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/provysdb/provysdb-common/provysdb-common.iml" beforeDir="false" afterPath="$PROJECT_DIR$/provysdb/provysdb-common/provysdb-common.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/provysdb/provysdb-loader/provysdb-loader.iml" beforeDir="false" afterPath="$PROJECT_DIR$/provysdb/provysdb-loader/provysdb-loader.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/provysdb/provysdb-local/provysdb-local.iml" beforeDir="false" afterPath="$PROJECT_DIR$/provysdb/provysdb-local/provysdb-local.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/datasourceimpl/ProvysConnectionPoolDataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/datasourceimpl/ProvysConnectionPoolDataSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/provysdb/provysdb.iml" beforeDir="false" afterPath="$PROJECT_DIR$/provysdb/provysdb.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sqlbuilder/sqlbuilder-catmanager/sqlbuilder-catmanager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sqlbuilder/sqlbuilder-catmanager/sqlbuilder-catmanager.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sqlbuilder/sqlbuilder-common/sqlbuilder-common.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sqlbuilder/sqlbuilder-common/sqlbuilder-common.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sqlbuilder/sqlbuilder.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sqlbuilder/sqlbuilder.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/catalogue/catalogue-api/target/" />
     <ignored path="$PROJECT_DIR$/provysdb/provysdb-client/target/" />
@@ -75,14 +103,72 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="357777783">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="8" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="8" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/catalogue/catalogue-api/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="5" column="47" lean-forward="true" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+              <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/sqlexecutorlocal/JsonQueryExecutorLocal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/sqlexecutorlocal/QueryExecutorLocal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/sqlexecutorlocal/ExecutorFactoryLocal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/datasourceimpl/ProvysConnectionPoolDataSource.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="7" selection-start-line="7" selection-end-line="108" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -102,6 +188,7 @@
         <option value="$PROJECT_DIR$/common/provys-common/pom.xml" />
         <option value="$PROJECT_DIR$/common/provys-confobj/pom.xml" />
         <option value="$PROJECT_DIR$/common/provys-common/src/main/java/com/provys/common/jsonb/JsonbHelper.java" />
+        <option value="$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/datasourceimpl/ProvysConnectionPoolDataSource.java" />
       </list>
     </option>
   </component>
@@ -150,31 +237,99 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="PackagesPane" proportions="" version="1">
       <flattenPackages ProjectPane="false" />
       <abbreviatePackageNames ProjectPane="true" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="provys" type="58d84e3e:PackageViewProjectNode" />
+              <item name="provysdb-local" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="provys" type="58d84e3e:PackageViewProjectNode" />
+              <item name="provysdb-local" type="616d4139:PackageViewModuleNode" />
+              <item name="com.provys.provysdb" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="provys" type="58d84e3e:PackageViewProjectNode" />
+              <item name="provysdb-local" type="616d4139:PackageViewModuleNode" />
+              <item name="com.provys.provysdb" type="1f31426a:PackageElementNode" />
+              <item name="datasource" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="provys" type="58d84e3e:PackageViewProjectNode" />
+              <item name="provysdb-local" type="616d4139:PackageViewModuleNode" />
+              <item name="com.provys.provysdb" type="1f31426a:PackageElementNode" />
+              <item name="datasourceimpl" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="provys" type="58d84e3e:PackageViewProjectNode" />
+              <item name="provysdb-local" type="616d4139:PackageViewModuleNode" />
+              <item name="com.provys.provysdb" type="1f31426a:PackageElementNode" />
+              <item name="sqlexecutorlocal" type="1f31426a:PackageElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="provys" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="provys" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java1" type="462c0819:PsiDirectoryNode" />
+              <item name="provysdb" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="provys" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java1" type="462c0819:PsiDirectoryNode" />
+              <item name="provysdb" type="462c0819:PsiDirectoryNode" />
+              <item name="provysdb-local" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="provys" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java1" type="462c0819:PsiDirectoryNode" />
+              <item name="provysdb" type="462c0819:PsiDirectoryNode" />
+              <item name="provysdb-local" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="provys" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java1" type="462c0819:PsiDirectoryNode" />
+              <item name="provysdb" type="462c0819:PsiDirectoryNode" />
+              <item name="provysdb-local" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="provys" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java1" type="462c0819:PsiDirectoryNode" />
+              <item name="provysdb" type="462c0819:PsiDirectoryNode" />
+              <item name="provysdb-local" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/Atlassian/SourceTree/git_local/bin/git.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15234375" />
     <property name="project.structure.side.proportion" value="0.32142857" />
@@ -316,18 +471,20 @@
       <updated>1541843408113</updated>
       <workItem from="1541843411003" duration="9171000" />
       <workItem from="1543054426690" duration="3258000" />
+      <workItem from="1543397364615" duration="8504000" />
+      <workItem from="1543472052659" duration="2399000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12429000" />
+    <option name="totallyTimeSpent" value="23332000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4951246" visible="true" weight="0.18017058" />
-      <window_info id="Structure" order="1" sideWeight="0.5048754" side_tool="true" visible="true" weight="0.18017058" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49295774" visible="true" weight="0.18336888" />
+      <window_info id="Structure" order="1" sideWeight="0.5070422" side_tool="true" visible="true" weight="0.18336888" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info id="Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
@@ -364,17 +521,11 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/install/netbeans.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/install/netbeans.txt" />
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
           <caret line="131" column="8" selection-start-line="131" selection-start-column="8" selection-end-line="131" selection-end-column="8" />
-          <folding>
-            <element signature="n#build#0;n#project#0;n#!!top" />
-            <element signature="n#pluginManagement#0;n#build#0;n#project#0;n#!!top" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -423,10 +574,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/datasourceimpl/ProvysPreparedStatementImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/datasourceimpl/ProvysConnectionImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="38" column="28" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/datasource/ProvysConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="30" column="17" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/catalogue/catalogue-api/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="5" column="47" lean-forward="true" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+          <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/sqlexecutorlocal/JsonQueryExecutorLocal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/sqlexecutorlocal/QueryExecutorLocal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/datasourceimpl/ProvysConnectionPoolDataSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="7" selection-start-line="7" selection-end-line="108" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/provysdb/provysdb-local/src/main/java/com/provys/provysdb/sqlexecutorlocal/ExecutorFactoryLocal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
         </state>
       </provider>
     </entry>

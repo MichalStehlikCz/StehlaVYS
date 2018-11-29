@@ -1,0 +1,32 @@
+download wildfly 14.0.1.Final and deploy to c:\java\wildfly14
+cd \Java\wildfly14\bin¨
+add-user
+
+What type of user do you wish to add?
+ a) Management User (mgmt-users.properties)
+ b) Application User (application-users.properties)
+- leave default (a)
+
+Enter the details of the new user to add.
+Using realm 'ManagementRealm' as discovered from the existing property files.
+Username : stehlik
+
+Password recommendations are listed below. To modify these restrictions edit the add-user.properties configuration file.
+ - The password should be different from the username
+ - The password should not be one of the following restricted values {root, admin, administrator}
+ - The password should contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), 1 non-alphanumeric symbol(s)
+Password : heslo1.rohlik
+
+What groups do you want this user to belong to? (Please enter a comma separated list, or leave blank for none)[  ]:
+
+About to add user 'stehlik' for realm 'ManagementRealm'
+Is this correct yes/no? yes
+
+Added user 'stehlik' to file 'C:\Java\wildfly14\standalone\configuration\mgmt-users.properties'
+Added user 'stehlik' to file 'C:\Java\wildfly14\domain\configuration\mgmt-users.properties'
+Added user 'stehlik' with groups  to file 'C:\Java\wildfly14\standalone\configuration\mgmt-groups.properties'
+Added user 'stehlik' with groups  to file 'C:\Java\wildfly14\domain\configuration\mgmt-groups.properties'
+Is this new user going to be used for one AS process to connect to another AS process?
+e.g. for a slave host controller connecting to the master or for a Remoting connection for server to server EJB calls.
+yes/no? no
+

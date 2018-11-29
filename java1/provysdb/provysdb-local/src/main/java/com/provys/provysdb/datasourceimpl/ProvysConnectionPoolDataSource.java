@@ -41,8 +41,7 @@ public class ProvysConnectionPoolDataSource implements
      */
     public ProvysConnectionPoolDataSource() throws SQLException {
         oraclePool = PoolDataSourceFactory.getPoolDataSource();
-        oraclePool.setConnectionFactoryClassName(
-                "oracle.jdbc.pool.OracleDataSource");
+        oraclePool.setConnectionFactoryClassName("oracle.jdbc.pool.OracleDataSource");
         oraclePool.setUser("KER");
         oraclePool.setPassword("ker");
         oraclePool.setURL("jdbc:oracle:thin:@localhost:1521:PVYS");

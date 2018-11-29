@@ -1,9 +1,0 @@
-download ojdbc8.jar and ecp.jar from Oracle OTN; currently used version 18.3.0.0
-
-C:
-cd \Java\netbeans\java\maven\bin
-mvn install:install-file -Dfile=E:/OneDrive/Documents/Java/oracle_jdbc/odbc8_18.3.0.0/ojdbc8.jar -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=18.3.0 -Dpackaging=jar
-mvn install:install-file -Dfile=E:/OneDrive/Documents/Java/oracle_jdbc/odbc8_18.3.0.0/ucp.jar -DgroupId=com.oracle -DartifactId=ucp -Dversion=18.3.0 -Dpackaging=jar
-
-
-copy ojdbc8.jar and ucp.jar to C:\Java\payara5\glassfish\domains\domain1\lib\ext

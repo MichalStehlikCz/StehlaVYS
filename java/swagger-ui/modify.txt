@@ -1,0 +1,2 @@
+Modify url in index.html to ../openapi.yaml
+Add validatorUrl: null

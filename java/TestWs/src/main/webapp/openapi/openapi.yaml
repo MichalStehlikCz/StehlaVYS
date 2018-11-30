@@ -4,7 +4,7 @@ info:
   description: Simple test of JAX-RS without any dependencies
   version: "1.0"
 servers:
-- url: /testws/api
+- url: /api
   variables: {}
 paths:
   /db/dual:

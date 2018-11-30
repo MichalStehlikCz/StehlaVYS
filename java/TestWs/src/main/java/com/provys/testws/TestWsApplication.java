@@ -14,6 +14,6 @@ import javax.ws.rs.core.Application;
                 version = "1.0",
                 description = "Simple test of JAX-RS without any dependencies"
         ),
-        servers = {@Server(url = "/testws/api")})
+        servers = {@Server(url = "/api")}) // needed because swagger does not read path from appplication...
 public class TestWsApplication extends Application {
 }

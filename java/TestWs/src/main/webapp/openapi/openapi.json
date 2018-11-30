@@ -6,7 +6,7 @@
     "version" : "1.0"
   },
   "servers" : [ {
-    "url" : "/testws/api",
+    "url" : "/api",
     "variables" : { }
   } ],
   "paths" : {

@@ -11,6 +11,12 @@
 
     <artifactId>catalogue-db</artifactId>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>${jooqGroupId}</groupId>
+            <artifactId>jooq</artifactId>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -47,7 +53,7 @@
                         <generate/>
                         <target>
                             <packageName>com.provys.catalogue.db</packageName>
-                            <directory>./src</directory>
+                            <directory>./src/main/java</directory>
                         </target>
                     </generator>
                 </configuration>

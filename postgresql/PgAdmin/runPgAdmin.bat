@@ -1,0 +1,1 @@
+docker run -d  --rm --name PgAdmin --network stehlavys -p 80:80 -e "PGADMIN_DEFAULT_EMAIL=michal.stehlik.cz@gmail.com" -e "PGADMIN_DEFAULT_PASSWORD=AdminPassword" --mount source=pgadmin,target=/var/lib/pgadmin com.stehlavys/pgadmin

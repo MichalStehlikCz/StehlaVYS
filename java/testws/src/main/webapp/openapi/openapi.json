@@ -1,0 +1,90 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Simple test",
+    "description" : "Simple test of JAX-RS without any dependencies",
+    "version" : "1.0"
+  },
+  "servers" : [ {
+    "url" : "/api",
+    "variables" : { }
+  } ],
+  "paths" : {
+    "/db/dual" : {
+      "get" : {
+        "summary" : "Run SELECT 1 FROM dual",
+        "description" : "Run basic query against PROVYS database; used to verify that connection to database works and it is possible to execute at least simple queries",
+        "operationId" : "getText",
+        "responses" : {
+          "default" : {
+            "description" : "Value 1",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/db/url" : {
+      "get" : {
+        "summary" : "Url used to access DB",
+        "description" : "Get Url used to access Provys database",
+        "operationId" : "getUrl",
+        "responses" : {
+          "default" : {
+            "description" : "Url",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/db/user" : {
+      "get" : {
+        "summary" : "User used to access DB",
+        "description" : "Get Oracle user used to access Provys database",
+        "operationId" : "getUser",
+        "responses" : {
+          "default" : {
+            "description" : "User",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/simple" : {
+      "get" : {
+        "summary" : "Get text",
+        "description" : "Return simple plain text",
+        "operationId" : "getText_1",
+        "responses" : {
+          "default" : {
+            "description" : "Text",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

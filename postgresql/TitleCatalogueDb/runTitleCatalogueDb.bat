@@ -1,0 +1,1 @@
+docker run -p 5432:5432 -e "POSTGRES_PASSWORD=AdminPassword" -e "PGDATA=/var/lib/postgresql/data" -d --rm --name TitleCatalogueDb --network stehlavys --mount source=titlecatalogue,target=/var/lib/postgresql/data --shm-size=256MB com.stehlavys/titlecataloguedb

@@ -5,21 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="227c45cd-574d-4ec2-9ed9-626d38e72b4d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../java/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../java/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-db/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../java/catalogue/catalogue-db/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-db/src/com/provys/catalogue/db/DefaultCatalog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-db/src/com/provys/catalogue/db/Indexes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-db/src/com/provys/catalogue/db/Ker.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-db/src/com/provys/catalogue/db/Keys.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-db/src/com/provys/catalogue/db/Tables.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-db/src/com/provys/catalogue/db/tables/KerAttrTb.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-db/src/com/provys/catalogue/db/tables/KerDomainTb.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-db/src/com/provys/catalogue/db/tables/KerEntityTb.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-db/src/com/provys/catalogue/db/tables/records/KerAttrTbRecord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-db/src/com/provys/catalogue/db/tables/records/KerDomainTbRecord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-db/src/com/provys/catalogue/db/tables/records/KerEntityTbRecord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/catalogue/catalogue-model/src/main/java/com/provys/catalogue/model/Domain.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java/catalogue/catalogue-model/src/main/java/com/provys/catalogue/model/Domain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java/StehlaVys.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java/testws/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java2/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../java2/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../java2/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/catalogue/catalogue-api/target/" />
     <ignored path="$PROJECT_DIR$/provysdb/provysdb-client/target/" />
@@ -91,13 +84,15 @@
     <session id="357777783">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="6" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -150,23 +145,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/catalogue/catalogue-common/src/main/java/com/provys/catalogue/iface/AttrRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
+            <state relative-caret-position="238">
               <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/catalogue/catalogue-common/src/main/java/com/provys/catalogue/iface/EntityRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -369,7 +355,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../java2/pom.xml" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15234375" />
     <property name="project.structure.side.proportion" value="0.32142857" />
@@ -516,17 +502,20 @@
       <workItem from="1543651569806" duration="69000" />
       <workItem from="1543651737334" duration="365000" />
       <workItem from="1543652141096" duration="1282000" />
+      <workItem from="1544252105942" duration="401000" />
+      <workItem from="1544252593238" duration="669000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26584000" />
+    <option name="totallyTimeSpent" value="27654000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48862407" visible="true" weight="0.18976545" />
-      <window_info id="Structure" order="1" sideWeight="0.51137596" side_tool="true" visible="true" weight="0.18976545" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4864572" visible="true" weight="0.19402985" />
+      <window_info id="Structure" order="1" sideWeight="0.5135428" side_tool="true" visible="true" weight="0.19402985" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info id="Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
@@ -679,16 +668,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/catalogue/catalogue-common/src/main/java/com/provys/catalogue/iface/AttrRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/catalogue/catalogue-repository/src/main/java/com/provys/catalogue/loader/AttrLoader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -710,6 +689,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalogue/catalogue-common/src/main/java/com/provys/catalogue/iface/AttrRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

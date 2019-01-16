@@ -6,8 +6,23 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="catalogue-api" />
+        <module name="catalogue-db" />
+        <module name="catalogue-iface" />
+        <module name="catalogue-model" />
+        <module name="CatalogueApi" />
+        <module name="CatalogueDb" />
+        <module name="CatalogueIface" />
+        <module name="CatalogueModel" />
+        <module name="ProvysDb" />
+        <module name="provysdb" />
         <module name="TestWs" />
+        <module name="testws" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ConfCatalogue" target="1.8" />
+      <module name="confcatalogueapi" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

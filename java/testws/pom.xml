@@ -29,6 +29,10 @@
             <artifactId>provysdb</artifactId>
             <version>${projectversion}</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -82,7 +86,7 @@
                     <resourcePackages>
                         <package>com.provys.testws</package>
                     </resourcePackages>
-                    <prettyPrint>TRUE</prettyPrint>
+                    <prettyPrint>true</prettyPrint>
                 </configuration>
                 <executions>
                     <execution>

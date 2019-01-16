@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
+import javax.annotation.Nonnull;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -28,6 +29,7 @@ public class SimpleEndpoint {
                                     schema = @Schema(
                                             implementation = String.class
                                     )))})
+    @Nonnull
     public Response getText() {
         return Response.ok("Text").build();
     }

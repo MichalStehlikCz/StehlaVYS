@@ -2,88 +2,18 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="TestWs:war" />
+      <artifact name="catalogue-api:war" />
+      <artifact name="testws:war" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa1d9e37-cccd-45bf-81d4-76e954df79b6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StehlaVys.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testws/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/testws/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-api/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-api/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-api/run.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-db/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/DefaultCatalog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/Indexes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/Ker.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/Keys.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/Tables.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/KerAttrTb.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/KerDomainTb.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/KerEntityTb.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/records/KerAttrTbRecord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/records/KerDomainTbRecord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/records/KerEntityTbRecord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-iface/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-model/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-model/src/main/java/com/provys/catalogue/model/Attr.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-model/src/main/java/com/provys/catalogue/model/Domain.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/catalogue-model/src/main/java/com/provys/catalogue/model/Entity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/catalogue/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/java.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/provysdb/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/provysdb/src/main/java/com/provys/provysdb/ProvysConnectionLabelingCallback.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/provysdb/src/main/java/com/provys/provysdb/ProvysConnectionPoolDataSource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/provysdb/src/main/java/com/provys/provysdb/ProvysDBContext.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/dist/favicon-16x16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/dist/favicon-32x32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/dist/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/dist/oauth2-redirect.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/dist/swagger-ui-bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/dist/swagger-ui-bundle.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/dist/swagger-ui-standalone-preset.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/dist/swagger-ui-standalone-preset.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/dist/swagger-ui.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/dist/swagger-ui.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/dist/swagger-ui.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/dist/swagger-ui.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/swagger-ui/modify.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/run.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/java/com/provys/testws/DbEndpoint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/java/com/provys/testws/DbService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/java/com/provys/testws/SimpleEndpoint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/java/com/provys/testws/TestWsApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/WEB-INF/jboss-web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/favicon-16x16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/favicon-32x32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/oauth2-redirect.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/openapi.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/openapi.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/swagger-ui-bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/swagger-ui-bundle.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/swagger-ui-standalone-preset.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/swagger-ui-standalone-preset.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/swagger-ui.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/swagger-ui.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/swagger-ui.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java2/testws/src/main/webapp/openapi/swagger-ui.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testws/src/main/java/com/provys/testws/SimpleEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/testws/src/main/java/com/provys/testws/SimpleEndpoint.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -114,10 +44,10 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+        <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/SimpleEndpoint.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
+            <state relative-caret-position="357">
+              <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -159,6 +89,8 @@
         <option value="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/records/KerDomainTbRecord.java" />
         <option value="$PROJECT_DIR$/catalogue/catalogue-model/src/main/java/com/provys/catalogue/model/Domain.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/testws/pom.xml" />
+        <option value="$PROJECT_DIR$/testws/src/main/java/com/provys/testws/SimpleEndpoint.java" />
       </list>
     </option>
   </component>
@@ -224,29 +156,25 @@
             <path>
               <item name="StehlaVys" type="b2602c69:ProjectViewProjectNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="catalogue" type="462c0819:PsiDirectoryNode" />
-              <item name="catalogue-db" type="462c0819:PsiDirectoryNode" />
+              <item name="testws" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StehlaVys" type="b2602c69:ProjectViewProjectNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="catalogue" type="462c0819:PsiDirectoryNode" />
-              <item name="catalogue-db" type="462c0819:PsiDirectoryNode" />
+              <item name="testws" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StehlaVys" type="b2602c69:ProjectViewProjectNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="catalogue" type="462c0819:PsiDirectoryNode" />
-              <item name="catalogue-db" type="462c0819:PsiDirectoryNode" />
+              <item name="testws" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StehlaVys" type="b2602c69:ProjectViewProjectNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="catalogue" type="462c0819:PsiDirectoryNode" />
-              <item name="catalogue-db" type="462c0819:PsiDirectoryNode" />
+              <item name="testws" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -254,23 +182,11 @@
             <path>
               <item name="StehlaVys" type="b2602c69:ProjectViewProjectNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="catalogue" type="462c0819:PsiDirectoryNode" />
-              <item name="catalogue-db" type="462c0819:PsiDirectoryNode" />
+              <item name="testws" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StehlaVys" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="catalogue" type="462c0819:PsiDirectoryNode" />
-              <item name="catalogue-db" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
-              <item name="tables" type="462c0819:PsiDirectoryNode" />
+              <item name="testws" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -284,10 +200,10 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15234375" />
     <property name="project.structure.side.proportion" value="0.26728112" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
   </component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
@@ -309,75 +225,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JBoss Server.Run on WildFly">
-    <configuration name="Run on WildFly" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 15.0.1.Final" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="BROWSER_ID" value="b2a9dca7-9d0b-4e1e-98a8-afb19c1328d2" />
-      <option name="UPDATING_POLICY" value="restart-server" />
-      <deployment />
-      <server-settings>
-        <option name="SERVER" />
-        <option name="BINDING_SET_NAME" value="" />
-        <option name="DOMAIN" value="false" />
-        <option name="SERVER_GROUP" />
-        <option name="USERNAME" value="" />
-        <option name="PASSWORD" value="" />
-      </server-settings>
-      <predefined_log_file enabled="true" id="JBoss" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="55133" />
-      </RunnerSettings>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="TestWs:war" />
-        </option>
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JBoss Server.local JBoss">
     <configuration default="true" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 14.0.1.Final2" ALTERNATIVE_JRE_ENABLED="false">
       <option name="BROWSER_ID" value="b2a9dca7-9d0b-4e1e-98a8-afb19c1328d2" />
       <option name="UPDATING_POLICY" value="restart-server" />
@@ -441,6 +289,83 @@
       </ConfigurationWrapper>
       <method v="2">
         <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="local JBoss" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 15.0.1.Final" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/catalogue/" />
+      <option name="BROWSER_ID" value="b2a9dca7-9d0b-4e1e-98a8-afb19c1328d2" />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="catalogue-api:war">
+          <settings />
+        </artifact>
+        <artifact name="testws:war">
+          <settings />
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="SERVER" />
+        <option name="BINDING_SET_NAME" value="" />
+        <option name="DOMAIN" value="false" />
+        <option name="SERVER_GROUP" />
+        <option name="USERNAME" value="" />
+        <option name="PASSWORD" value="" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="JBoss" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="55133" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="catalogue-api:war" />
+          <artifact name="testws:war" />
+        </option>
       </method>
     </configuration>
     <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
@@ -541,7 +466,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="JBoss Server.Run on WildFly" />
+      <item itemvalue="JBoss Server.local JBoss" />
       <item itemvalue="Maven.StehlaVys [deploy]" />
       <item itemvalue="Maven.catalogue-db [jooq-codegen:generate]" />
     </list>
@@ -559,7 +484,7 @@
       <workItem from="1543472053855" duration="24755000" />
       <workItem from="1543652170932" duration="3983000" />
       <workItem from="1544252663895" duration="1683000" />
-      <workItem from="1547618904424" duration="706000" />
+      <workItem from="1547618904424" duration="2661000" />
     </task>
     <servers />
   </component>
@@ -572,13 +497,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80185000" />
+    <option name="totallyTimeSpent" value="82140000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4878837" visible="true" weight="0.26599148" />
-      <window_info id="Structure" order="1" sideWeight="0.5121163" side_tool="true" visible="true" weight="0.26599148" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4864572" visible="true" weight="0.26599148" />
+      <window_info id="Structure" order="1" sideWeight="0.5135428" side_tool="true" visible="true" weight="0.26599148" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info id="Designer" order="3" />
       <window_info id="Favorites" order="4" sideWeight="0.5016251" side_tool="true" weight="0.25" />
@@ -592,10 +517,10 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32936078" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Application Servers" order="12" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Application Servers" order="12" weight="0.32936078" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" />
       <window_info anchor="right" id="Maven" visible="true" weight="0.32995737" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -642,24 +567,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/DbService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/io/swagger/core/v3/swagger-annotations/2.0.6/swagger-annotations-2.0.6.jar!/io/swagger/v3/oas/annotations/media/Schema.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-357">
           <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/DbEndpoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="54" column="26" selection-start-line="54" selection-start-column="26" selection-end-line="54" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -677,13 +588,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/SimpleEndpoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/provysdb/src/main/java/com/provys/provysdb/ProvysDBContext.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="466">
@@ -691,29 +595,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testws/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
-          <caret line="69" column="28" selection-start-line="69" selection-start-column="28" selection-end-line="69" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/TestWsApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="60" selection-start-line="16" selection-start-column="60" selection-end-line="16" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/confcatalogue/pom.xml" />
     <entry file="file://$PROJECT_DIR$/confcatalogue/confcatalogue-api/pom.xml" />
-    <entry file="file://$PROJECT_DIR$/catalogue/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/DefaultCatalog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -821,10 +704,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/catalogue/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testws/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
+        <state relative-caret-position="238">
+          <caret line="78" selection-start-line="78" selection-end-line="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/DbEndpoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="54" column="26" selection-start-line="54" selection-start-column="26" selection-end-line="54" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/DbService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/TestWsApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="16" column="60" selection-start-line="16" selection-start-column="60" selection-end-line="16" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/SimpleEndpoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -834,7 +759,7 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>TestWs:war</last-edited>
+          <last-edited>testws:war</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -847,7 +772,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>Web (TestWs)|Web</last-edited>
+          <last-edited>Web</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -882,7 +807,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>TestWs</last-edited>
+          <last-edited>catalogue</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -907,7 +832,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.9</last-edited>
+          <last-edited>Maven: com.oracle:ojdbc8:18.3.0</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

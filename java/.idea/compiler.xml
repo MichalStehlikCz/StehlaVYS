@@ -14,15 +14,11 @@
         <module name="CatalogueDb" />
         <module name="CatalogueIface" />
         <module name="CatalogueModel" />
-        <module name="ProvysDb" />
         <module name="provysdb" />
+        <module name="ProvysDb" />
         <module name="TestWs" />
         <module name="testws" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ConfCatalogue" target="1.8" />
-      <module name="confcatalogueapi" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

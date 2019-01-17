@@ -1,5 +1,5 @@
-download wildfly 14.0.1.Final and deploy to c:\java\wildfly14
-cd \Java\wildfly14\bin¨
+download wildfly 15.0.1.Final and deploy to c:\java\wildfly15
+cd \Java\wildfly15\bin
 add-user
 
 What type of user do you wish to add?

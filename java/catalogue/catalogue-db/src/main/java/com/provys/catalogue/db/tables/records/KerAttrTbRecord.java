@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class KerAttrTbRecord extends UpdatableRecordImpl<KerAttrTbRecord> {
 
-    private static final long serialVersionUID = -1564409860;
+    private static final long serialVersionUID = -1740310556;
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.ATTR_ID</code>.
@@ -475,325 +475,325 @@ Ordering is used for generate
     }
 
     /**
-     * Setter for <code>KER.KER_ATTR_TB.OWNERFORMULA_ID</code>. Owner of ledger used to evaluate value of financial attribute.
-     */
-    public void setOwnerformulaId(BigInteger value) {
-        set(31, value);
-    }
-
-    /**
-     * Getter for <code>KER.KER_ATTR_TB.OWNERFORMULA_ID</code>. Owner of ledger used to evaluate value of financial attribute.
-     */
-    public BigInteger getOwnerformulaId() {
-        return (BigInteger) get(31);
-    }
-
-    /**
      * Setter for <code>KER.KER_ATTR_TB.FROMOBJECTFORMULA_ID</code>. Used when value of financial attribute is changed - value of this attribute is object to be used on spent side of accounting record
      */
     public void setFromobjectformulaId(BigInteger value) {
-        set(32, value);
+        set(31, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.FROMOBJECTFORMULA_ID</code>. Used when value of financial attribute is changed - value of this attribute is object to be used on spent side of accounting record
      */
     public BigInteger getFromobjectformulaId() {
-        return (BigInteger) get(32);
+        return (BigInteger) get(31);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.TOOBJECTFORMULA_ID</code>. Used when value of financial attribute is changed - value of this attribute is object to be used on received side of accounting record
      */
     public void setToobjectformulaId(BigInteger value) {
-        set(33, value);
+        set(32, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.TOOBJECTFORMULA_ID</code>. Used when value of financial attribute is changed - value of this attribute is object to be used on received side of accounting record
      */
     public BigInteger getToobjectformulaId() {
-        return (BigInteger) get(33);
+        return (BigInteger) get(32);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.APPROXRECORD</code>. Indicates if the created accounting record will be approximate (only for financial attributes)
      */
     public void setApproxrecord(String value) {
-        set(34, value);
+        set(33, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.APPROXRECORD</code>. Indicates if the created accounting record will be approximate (only for financial attributes)
      */
     public String getApproxrecord() {
-        return (String) get(34);
+        return (String) get(33);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.VALUEACCOUNT_NM</code>. Short name of account to read actual value (only for financial attributes)
      */
     public void setValueaccountNm(String value) {
-        set(35, value);
+        set(34, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.VALUEACCOUNT_NM</code>. Short name of account to read actual value (only for financial attributes)
      */
     public String getValueaccountNm() {
-        return (String) get(35);
+        return (String) get(34);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.VALUEAMOUNTTYPE</code>. R(eceived), S(pent), T(otal) amount of the balance to read actual value (only for financial attributes)
      */
     public void setValueamounttype(String value) {
-        set(36, value);
+        set(35, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.VALUEAMOUNTTYPE</code>. R(eceived), S(pent), T(otal) amount of the balance to read actual value (only for financial attributes)
      */
     public String getValueamounttype() {
-        return (String) get(36);
-    }
-
-    /**
-     * Setter for <code>KER.KER_ATTR_TB.DEFOWNER</code>. Default owner points to unit that acts as owner of given object for purpose of accounting
-     */
-    public void setDefowner(String value) {
-        set(37, value);
-    }
-
-    /**
-     * Getter for <code>KER.KER_ATTR_TB.DEFOWNER</code>. Default owner points to unit that acts as owner of given object for purpose of accounting
-     */
-    public String getDefowner() {
-        return (String) get(37);
-    }
-
-    /**
-     * Setter for <code>KER.KER_ATTR_TB.TEXTSRC_ID</code>. Source attribute for translated attribute (only for translated attributes)
-     */
-    public void setTextsrcId(BigInteger value) {
-        set(38, value);
-    }
-
-    /**
-     * Getter for <code>KER.KER_ATTR_TB.TEXTSRC_ID</code>. Source attribute for translated attribute (only for translated attributes)
-     */
-    public BigInteger getTextsrcId() {
-        return (BigInteger) get(38);
+        return (String) get(35);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.DOCUMENTATION</code>. Addional documentation related to the attribute (not generated to the table column comment)
      */
     public void setDocumentation(String value) {
-        set(39, value);
+        set(36, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.DOCUMENTATION</code>. Addional documentation related to the attribute (not generated to the table column comment)
      */
     public String getDocumentation() {
-        return (String) get(39);
+        return (String) get(36);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.BITMAPORD</code>. Order in Attribute Set Bitmap, 0=Least Significant bit. Used internally in generated parts of PG packages (only for column attributes)
      */
     public void setBitmapord(Integer value) {
-        set(40, value);
+        set(37, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.BITMAPORD</code>. Order in Attribute Set Bitmap, 0=Least Significant bit. Used internally in generated parts of PG packages (only for column attributes)
      */
     public Integer getBitmapord() {
-        return (Integer) get(40);
+        return (Integer) get(37);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.X_ISFLAGDEPBIND</code>.
      */
     public void setXIsflagdepbind(String value) {
-        set(41, value);
+        set(38, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.X_ISFLAGDEPBIND</code>.
      */
     public String getXIsflagdepbind() {
-        return (String) get(41);
-    }
-
-    /**
-     * Setter for <code>KER.KER_ATTR_TB.X_ISFLAGDEFATTR</code>. Shows if Attribute is used in any Flag Definition (via. FlagDefAttr, or DstAttr of any FlagDep)
-     */
-    public void setXIsflagdefattr(String value) {
-        set(42, value);
-    }
-
-    /**
-     * Getter for <code>KER.KER_ATTR_TB.X_ISFLAGDEFATTR</code>. Shows if Attribute is used in any Flag Definition (via. FlagDefAttr, or DstAttr of any FlagDep)
-     */
-    public String getXIsflagdefattr() {
-        return (String) get(42);
+        return (String) get(38);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.MANDATORY</code>. Marks mandatory attribute; only valid for columns (attribute type=C) and only affects way entity's PG package is generated.
      */
     public void setMandatory(String value) {
-        set(43, value);
+        set(39, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.MANDATORY</code>. Marks mandatory attribute; only valid for columns (attribute type=C) and only affects way entity's PG package is generated.
      */
     public String getMandatory() {
-        return (String) get(43);
-    }
-
-    /**
-     * Setter for <code>KER.KER_ATTR_TB.COPIED</code>. Attribute value is copied in copy operations.
-     */
-    public void setCopied(String value) {
-        set(44, value);
-    }
-
-    /**
-     * Getter for <code>KER.KER_ATTR_TB.COPIED</code>. Attribute value is copied in copy operations.
-     */
-    public String getCopied() {
-        return (String) get(44);
-    }
-
-    /**
-     * Setter for <code>KER.KER_ATTR_TB.DEFVALUE</code>. Default value. Only used in generator, should not be changed on installations and is only valid for C (column) attributes.
-     */
-    public void setDefvalue(String value) {
-        set(45, value);
-    }
-
-    /**
-     * Getter for <code>KER.KER_ATTR_TB.DEFVALUE</code>. Default value. Only used in generator, should not be changed on installations and is only valid for C (column) attributes.
-     */
-    public String getDefvalue() {
-        return (String) get(45);
+        return (String) get(39);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.ORDERED</code>. This column represents order (either globally or within children of one parent - see Ordering Group attribute).
      */
     public void setOrdered(String value) {
-        set(46, value);
+        set(40, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.ORDERED</code>. This column represents order (either globally or within children of one parent - see Ordering Group attribute).
      */
     public String getOrdered() {
-        return (String) get(46);
+        return (String) get(40);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.ORDGROUP</code>. Parent attribute (or comma delimited list of parent attributes). Only used when ordered is set to Y - this column is then treated as ordering within group, made by same values of parent attributes
      */
     public void setOrdgroup(String value) {
-        set(47, value);
+        set(41, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.ORDGROUP</code>. Parent attribute (or comma delimited list of parent attributes). Only used when ordered is set to Y - this column is then treated as ordering within group, made by same values of parent attributes
      */
     public String getOrdgroup() {
-        return (String) get(47);
+        return (String) get(41);
+    }
+
+    /**
+     * Setter for <code>KER.KER_ATTR_TB.DEFVALUE</code>. Default value. Only used in generator, should not be changed on installations and is only valid for C (column) attributes.
+     */
+    public void setDefvalue(String value) {
+        set(42, value);
+    }
+
+    /**
+     * Getter for <code>KER.KER_ATTR_TB.DEFVALUE</code>. Default value. Only used in generator, should not be changed on installations and is only valid for C (column) attributes.
+     */
+    public String getDefvalue() {
+        return (String) get(42);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.GENCOPY</code>. Generate mp_Copy_&lt;***&gt; procedure based on link, represented by this column, to PG package.
      */
     public void setGencopy(String value) {
-        set(48, value);
+        set(43, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.GENCOPY</code>. Generate mp_Copy_&lt;***&gt; procedure based on link, represented by this column, to PG package.
      */
     public String getGencopy() {
-        return (String) get(48);
+        return (String) get(43);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.GENMOVE</code>. Generate mp_Move_&lt;***&gt; procedure based on link, represented by this column, to PG package.
      */
     public void setGenmove(String value) {
-        set(49, value);
+        set(44, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.GENMOVE</code>. Generate mp_Move_&lt;***&gt; procedure based on link, represented by this column, to PG package.
      */
     public String getGenmove() {
-        return (String) get(49);
+        return (String) get(44);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.GENDELETE</code>. Generate mp_Delete_&lt;***&gt; procedure based on link, represented by this column, to PG package.
      */
     public void setGendelete(String value) {
-        set(50, value);
+        set(45, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.GENDELETE</code>. Generate mp_Delete_&lt;***&gt; procedure based on link, represented by this column, to PG package.
      */
     public String getGendelete() {
-        return (String) get(50);
+        return (String) get(45);
+    }
+
+    /**
+     * Setter for <code>KER.KER_ATTR_TB.TEXTSRC_ID</code>. Source attribute for translated attribute (only for translated attributes)
+     */
+    public void setTextsrcId(BigInteger value) {
+        set(46, value);
+    }
+
+    /**
+     * Getter for <code>KER.KER_ATTR_TB.TEXTSRC_ID</code>. Source attribute for translated attribute (only for translated attributes)
+     */
+    public BigInteger getTextsrcId() {
+        return (BigInteger) get(46);
+    }
+
+    /**
+     * Setter for <code>KER.KER_ATTR_TB.X_ISFLAGDEFATTR</code>. Shows if Attribute is used in any Flag Definition (via. FlagDefAttr, or DstAttr of any FlagDep)
+     */
+    public void setXIsflagdefattr(String value) {
+        set(47, value);
+    }
+
+    /**
+     * Getter for <code>KER.KER_ATTR_TB.X_ISFLAGDEFATTR</code>. Shows if Attribute is used in any Flag Definition (via. FlagDefAttr, or DstAttr of any FlagDep)
+     */
+    public String getXIsflagdefattr() {
+        return (String) get(47);
+    }
+
+    /**
+     * Setter for <code>KER.KER_ATTR_TB.COPIED</code>. Attribute value is copied in copy operations.
+     */
+    public void setCopied(String value) {
+        set(48, value);
+    }
+
+    /**
+     * Getter for <code>KER.KER_ATTR_TB.COPIED</code>. Attribute value is copied in copy operations.
+     */
+    public String getCopied() {
+        return (String) get(48);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.HIERARCHICAL</code>.
      */
     public void setHierarchical(String value) {
-        set(51, value);
+        set(49, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.HIERARCHICAL</code>.
      */
     public String getHierarchical() {
-        return (String) get(51);
-    }
-
-    /**
-     * Setter for <code>KER.KER_ATTR_TB.MULTICREATE</code>. Create function accepts multiline in this attribute. Only valid for (C)olumn type attributes with domains UID and REF
-     */
-    public void setMulticreate(String value) {
-        set(52, value);
-    }
-
-    /**
-     * Getter for <code>KER.KER_ATTR_TB.MULTICREATE</code>. Create function accepts multiline in this attribute. Only valid for (C)olumn type attributes with domains UID and REF
-     */
-    public String getMulticreate() {
-        return (String) get(52);
+        return (String) get(49);
     }
 
     /**
      * Setter for <code>KER.KER_ATTR_TB.VALIDATED</code>. Specifies if validation is supported for given attribute. Is used by client to determine if editation in validate edit should be allowed when this attribute is used as format, or if seelction through LOV is required.
      */
     public void setValidated(String value) {
-        set(53, value);
+        set(50, value);
     }
 
     /**
      * Getter for <code>KER.KER_ATTR_TB.VALIDATED</code>. Specifies if validation is supported for given attribute. Is used by client to determine if editation in validate edit should be allowed when this attribute is used as format, or if seelction through LOV is required.
      */
     public String getValidated() {
-        return (String) get(53);
+        return (String) get(50);
+    }
+
+    /**
+     * Setter for <code>KER.KER_ATTR_TB.MULTICREATE</code>. Create function accepts multiline in this attribute. Only valid for (C)olumn type attributes with domains UID and REF
+     */
+    public void setMulticreate(String value) {
+        set(51, value);
+    }
+
+    /**
+     * Getter for <code>KER.KER_ATTR_TB.MULTICREATE</code>. Create function accepts multiline in this attribute. Only valid for (C)olumn type attributes with domains UID and REF
+     */
+    public String getMulticreate() {
+        return (String) get(51);
+    }
+
+    /**
+     * Setter for <code>KER.KER_ATTR_TB.DEFOWNER</code>. Default owner points to unit that acts as owner of given object for purpose of accounting
+     */
+    public void setDefowner(String value) {
+        set(52, value);
+    }
+
+    /**
+     * Getter for <code>KER.KER_ATTR_TB.DEFOWNER</code>. Default owner points to unit that acts as owner of given object for purpose of accounting
+     */
+    public String getDefowner() {
+        return (String) get(52);
+    }
+
+    /**
+     * Setter for <code>KER.KER_ATTR_TB.OWNERFORMULA_ID</code>. Owner of ledger used to evaluate value of financial attribute.
+     */
+    public void setOwnerformulaId(BigInteger value) {
+        set(53, value);
+    }
+
+    /**
+     * Getter for <code>KER.KER_ATTR_TB.OWNERFORMULA_ID</code>. Owner of ledger used to evaluate value of financial attribute.
+     */
+    public BigInteger getOwnerformulaId() {
+        return (BigInteger) get(53);
     }
 
     /**
@@ -923,14 +923,14 @@ Ordering is used for generate
     }
 
     /**
-     * Setter for <code>KER.KER_ATTR_TB.EVALCVALUE</code>.
+     * Setter for <code>KER.KER_ATTR_TB.EVALCVALUE</code>. Evaluate and store text from binary document. Text representation can be used in fulltext searches - thus, it should be enabled for properties, that are included in fulltext search flagdef. Is always empty for domains other than BLOB
      */
     public void setEvalcvalue(String value) {
         set(63, value);
     }
 
     /**
-     * Getter for <code>KER.KER_ATTR_TB.EVALCVALUE</code>.
+     * Getter for <code>KER.KER_ATTR_TB.EVALCVALUE</code>. Evaluate and store text from binary document. Text representation can be used in fulltext searches - thus, it should be enabled for properties, that are included in fulltext search flagdef. Is always empty for domains other than BLOB
      */
     public String getEvalcvalue() {
         return (String) get(63);
@@ -990,7 +990,7 @@ Ordering is used for generate
     /**
      * Create a detached, initialised KerAttrTbRecord
      */
-    public KerAttrTbRecord(BigInteger attrId, BigInteger entityId, String nameNm, String name, String note, String attrtype, String iscustom, String isused, BigInteger attrgrpId, Integer ord, BigInteger domainId, String subdomainNm, String qvisible, Integer llength, String indexed, String upnameNm, String readonly, BigInteger getoptypeId, BigInteger setoptypeId, BigInteger resetoptypeId, String confirmother, BigInteger setotheroptypeId, String multivalue, String logallowed, String loglevel, String dicttype, String dictdel1, String dictdel2, String tbcodeCd, String accountruleNm, BigInteger accdocobjectformulaId, BigInteger ownerformulaId, BigInteger fromobjectformulaId, BigInteger toobjectformulaId, String approxrecord, String valueaccountNm, String valueamounttype, String defowner, BigInteger textsrcId, String documentation, Integer bitmapord, String xIsflagdepbind, String xIsflagdefattr, String mandatory, String copied, String defvalue, String ordered, String ordgroup, String gencopy, String genmove, String gendelete, String hierarchical, String multicreate, String validated, String isintable, String isown, Integer keyord, BigInteger optypetypeRf, BigInteger imgsrcId, Integer imgwidth, Integer imgheight, BigInteger fileserverId, String genmigr, String evalcvalue, BigDecimal optloblimit, BigDecimal manloblimit) {
+    public KerAttrTbRecord(BigInteger attrId, BigInteger entityId, String nameNm, String name, String note, String attrtype, String iscustom, String isused, BigInteger attrgrpId, Integer ord, BigInteger domainId, String subdomainNm, String qvisible, Integer llength, String indexed, String upnameNm, String readonly, BigInteger getoptypeId, BigInteger setoptypeId, BigInteger resetoptypeId, String confirmother, BigInteger setotheroptypeId, String multivalue, String logallowed, String loglevel, String dicttype, String dictdel1, String dictdel2, String tbcodeCd, String accountruleNm, BigInteger accdocobjectformulaId, BigInteger fromobjectformulaId, BigInteger toobjectformulaId, String approxrecord, String valueaccountNm, String valueamounttype, String documentation, Integer bitmapord, String xIsflagdepbind, String mandatory, String ordered, String ordgroup, String defvalue, String gencopy, String genmove, String gendelete, BigInteger textsrcId, String xIsflagdefattr, String copied, String hierarchical, String validated, String multicreate, String defowner, BigInteger ownerformulaId, String isintable, String isown, Integer keyord, BigInteger optypetypeRf, BigInteger imgsrcId, Integer imgwidth, Integer imgheight, BigInteger fileserverId, String genmigr, String evalcvalue, BigDecimal optloblimit, BigDecimal manloblimit) {
         super(KerAttrTb.KER_ATTR_TB);
 
         set(0, attrId);
@@ -1024,29 +1024,29 @@ Ordering is used for generate
         set(28, tbcodeCd);
         set(29, accountruleNm);
         set(30, accdocobjectformulaId);
-        set(31, ownerformulaId);
-        set(32, fromobjectformulaId);
-        set(33, toobjectformulaId);
-        set(34, approxrecord);
-        set(35, valueaccountNm);
-        set(36, valueamounttype);
-        set(37, defowner);
-        set(38, textsrcId);
-        set(39, documentation);
-        set(40, bitmapord);
-        set(41, xIsflagdepbind);
-        set(42, xIsflagdefattr);
-        set(43, mandatory);
-        set(44, copied);
-        set(45, defvalue);
-        set(46, ordered);
-        set(47, ordgroup);
-        set(48, gencopy);
-        set(49, genmove);
-        set(50, gendelete);
-        set(51, hierarchical);
-        set(52, multicreate);
-        set(53, validated);
+        set(31, fromobjectformulaId);
+        set(32, toobjectformulaId);
+        set(33, approxrecord);
+        set(34, valueaccountNm);
+        set(35, valueamounttype);
+        set(36, documentation);
+        set(37, bitmapord);
+        set(38, xIsflagdepbind);
+        set(39, mandatory);
+        set(40, ordered);
+        set(41, ordgroup);
+        set(42, defvalue);
+        set(43, gencopy);
+        set(44, genmove);
+        set(45, gendelete);
+        set(46, textsrcId);
+        set(47, xIsflagdefattr);
+        set(48, copied);
+        set(49, hierarchical);
+        set(50, validated);
+        set(51, multicreate);
+        set(52, defowner);
+        set(53, ownerformulaId);
         set(54, isintable);
         set(55, isown);
         set(56, keyord);

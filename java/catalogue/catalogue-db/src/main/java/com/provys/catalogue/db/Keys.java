@@ -60,10 +60,10 @@ public class Keys {
     public static final ForeignKey<KerAttrTbRecord, KerEntityTbRecord> KER_ATTR_ENTITY_FK = ForeignKeys0.KER_ATTR_ENTITY_FK;
     public static final ForeignKey<KerAttrTbRecord, KerDomainTbRecord> KER_ATTR_DOMAIN_FK = ForeignKeys0.KER_ATTR_DOMAIN_FK;
     public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_ACCDOCOBJECTFORMUL_FK = ForeignKeys0.KER_ATTR_ACCDOCOBJECTFORMUL_FK;
-    public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_OWNERFORMULA_FK = ForeignKeys0.KER_ATTR_OWNERFORMULA_FK;
     public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_FROMOBJECTFORMULA_FK = ForeignKeys0.KER_ATTR_FROMOBJECTFORMULA_FK;
     public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_TOOBJECTFORMULA_FK = ForeignKeys0.KER_ATTR_TOOBJECTFORMULA_FK;
     public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_TEXTSRC_FK = ForeignKeys0.KER_ATTR_TEXTSRC_FK;
+    public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_OWNERFORMULA_FK = ForeignKeys0.KER_ATTR_OWNERFORMULA_FK;
     public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_IMGSRC_FK = ForeignKeys0.KER_ATTR_IMGSRC_FK;
     public static final ForeignKey<KerEntityTbRecord, KerEntityTbRecord> KER_ENTITY_ANCESTOR_FK = ForeignKeys0.KER_ENTITY_ANCESTOR_FK;
 
@@ -89,10 +89,10 @@ public class Keys {
         public static final ForeignKey<KerAttrTbRecord, KerEntityTbRecord> KER_ATTR_ENTITY_FK = Internal.createForeignKey(com.provys.catalogue.db.Keys.KER_ENTITY_PK, KerAttrTb.KER_ATTR_TB, "KER_ATTR_ENTITY_FK", KerAttrTb.KER_ATTR_TB.ENTITY_ID);
         public static final ForeignKey<KerAttrTbRecord, KerDomainTbRecord> KER_ATTR_DOMAIN_FK = Internal.createForeignKey(com.provys.catalogue.db.Keys.KER_DOMAIN_PK, KerAttrTb.KER_ATTR_TB, "KER_ATTR_DOMAIN_FK", KerAttrTb.KER_ATTR_TB.DOMAIN_ID);
         public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_ACCDOCOBJECTFORMUL_FK = Internal.createForeignKey(com.provys.catalogue.db.Keys.KER_ATTR_PK, KerAttrTb.KER_ATTR_TB, "KER_ATTR_ACCDOCOBJECTFORMUL_FK", KerAttrTb.KER_ATTR_TB.ACCDOCOBJECTFORMULA_ID);
-        public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_OWNERFORMULA_FK = Internal.createForeignKey(com.provys.catalogue.db.Keys.KER_ATTR_PK, KerAttrTb.KER_ATTR_TB, "KER_ATTR_OWNERFORMULA_FK", KerAttrTb.KER_ATTR_TB.OWNERFORMULA_ID);
         public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_FROMOBJECTFORMULA_FK = Internal.createForeignKey(com.provys.catalogue.db.Keys.KER_ATTR_PK, KerAttrTb.KER_ATTR_TB, "KER_ATTR_FROMOBJECTFORMULA_FK", KerAttrTb.KER_ATTR_TB.FROMOBJECTFORMULA_ID);
         public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_TOOBJECTFORMULA_FK = Internal.createForeignKey(com.provys.catalogue.db.Keys.KER_ATTR_PK, KerAttrTb.KER_ATTR_TB, "KER_ATTR_TOOBJECTFORMULA_FK", KerAttrTb.KER_ATTR_TB.TOOBJECTFORMULA_ID);
         public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_TEXTSRC_FK = Internal.createForeignKey(com.provys.catalogue.db.Keys.KER_ATTR_PK, KerAttrTb.KER_ATTR_TB, "KER_ATTR_TEXTSRC_FK", KerAttrTb.KER_ATTR_TB.TEXTSRC_ID);
+        public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_OWNERFORMULA_FK = Internal.createForeignKey(com.provys.catalogue.db.Keys.KER_ATTR_PK, KerAttrTb.KER_ATTR_TB, "KER_ATTR_OWNERFORMULA_FK", KerAttrTb.KER_ATTR_TB.OWNERFORMULA_ID);
         public static final ForeignKey<KerAttrTbRecord, KerAttrTbRecord> KER_ATTR_IMGSRC_FK = Internal.createForeignKey(com.provys.catalogue.db.Keys.KER_ATTR_PK, KerAttrTb.KER_ATTR_TB, "KER_ATTR_IMGSRC_FK", KerAttrTb.KER_ATTR_TB.IMGSRC_ID);
         public static final ForeignKey<KerEntityTbRecord, KerEntityTbRecord> KER_ENTITY_ANCESTOR_FK = Internal.createForeignKey(com.provys.catalogue.db.Keys.KER_ENTITY_PK, KerEntityTb.KER_ENTITY_TB, "KER_ENTITY_ANCESTOR_FK", KerEntityTb.KER_ENTITY_TB.ANCESTOR_ID);
     }

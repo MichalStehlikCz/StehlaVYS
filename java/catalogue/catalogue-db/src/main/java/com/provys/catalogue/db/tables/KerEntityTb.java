@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class KerEntityTb extends TableImpl<KerEntityTbRecord> {
 
-    private static final long serialVersionUID = 1503971270;
+    private static final long serialVersionUID = -1490761631;
 
     /**
      * The reference instance of <code>KER.KER_ENTITY_TB</code>
@@ -348,7 +348,7 @@ O - locking strategy is fully handled by entity specific code, changes of lockin
     /**
      * The column <code>KER.KER_ENTITY_TB.CONFOBJ</code>. Defines if given type acts as configuration opbject. Allowed values are N - given object is not considered configuration object and is not stored to CVS, O - given object has configuration stored to CVS and has its own configuration file, C given ob ject is child object and is stored in CVS file of other object
      */
-    public final TableField<KerEntityTbRecord, String> CONFOBJ = createField("CONFOBJ", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N' ", org.jooq.impl.SQLDataType.CHAR)), this, "Defines if given type acts as configuration opbject. Allowed values are N - given object is not considered configuration object and is not stored to CVS, O - given object has configuration stored to CVS and has its own configuration file, C given ob ject is child object and is stored in CVS file of other object");
+    public final TableField<KerEntityTbRecord, String> CONFOBJ = createField("CONFOBJ", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N'", org.jooq.impl.SQLDataType.CHAR)), this, "Defines if given type acts as configuration opbject. Allowed values are N - given object is not considered configuration object and is not stored to CVS, O - given object has configuration stored to CVS and has its own configuration file, C given ob ject is child object and is stored in CVS file of other object");
 
     /**
      * The column <code>KER.KER_ENTITY_TB.BASEPATH</code>. Base path under which configuration of objects of this type should be stored in CVS. Only usable if object's configuration is stored in CVS
@@ -379,6 +379,26 @@ M - manually processed - import procedure doesn't exist, still these items are t
      * The column <code>KER.KER_ENTITY_TB.CONFOBJALL</code>. Indicates if all objects of this type are "masters" (from configuration point of view) or some are considered service objects and are exported with other objects. Can only be set for objects with CONFOBJ set to O, default is Y in this case. If set to N, it is expected that method mf_IsConfObj is implemented in PG package that indicates which object is master and which is included
      */
     public final TableField<KerEntityTbRecord, String> CONFOBJALL = createField("CONFOBJALL", org.jooq.impl.SQLDataType.CHAR(1), this, "Indicates if all objects of this type are \"masters\" (from configuration point of view) or some are considered service objects and are exported with other objects. Can only be set for objects with CONFOBJ set to O, default is Y in this case. If set to N, it is expected that method mf_IsConfObj is implemented in PG package that indicates which object is master and which is included");
+
+    /**
+     * The column <code>KER.KER_ENTITY_TB.X_NOTIFYATTR5</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 5
+     */
+    public final TableField<KerEntityTbRecord, Long> X_NOTIFYATTR5 = createField("X_NOTIFYATTR5", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("0\n  ", org.jooq.impl.SQLDataType.BIGINT)), this, "Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 5");
+
+    /**
+     * The column <code>KER.KER_ENTITY_TB.X_FLAGDEFINTEREST5</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 5)
+     */
+    public final TableField<KerEntityTbRecord, Long> X_FLAGDEFINTEREST5 = createField("X_FLAGDEFINTEREST5", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("0\n  ", org.jooq.impl.SQLDataType.BIGINT)), this, "Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 5)");
+
+    /**
+     * The column <code>KER.KER_ENTITY_TB.X_DELNOTIFYATTR5</code>.
+     */
+    public final TableField<KerEntityTbRecord, Long> X_DELNOTIFYATTR5 = createField("X_DELNOTIFYATTR5", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("0\n  ", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+
+    /**
+     * The column <code>KER.KER_ENTITY_TB.X_COPIEDATTR5</code>. Bitmap of Attributes, which have COPIED set.
+     */
+    public final TableField<KerEntityTbRecord, Long> X_COPIEDATTR5 = createField("X_COPIEDATTR5", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("0 \n", org.jooq.impl.SQLDataType.BIGINT)), this, "Bitmap of Attributes, which have COPIED set.");
 
     /**
      * Create a <code>KER.KER_ENTITY_TB</code> table reference

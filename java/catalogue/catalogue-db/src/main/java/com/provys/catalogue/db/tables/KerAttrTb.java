@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class KerAttrTb extends TableImpl<KerAttrTbRecord> {
 
-    private static final long serialVersionUID = -1291774902;
+    private static final long serialVersionUID = 419543326;
 
     /**
      * The reference instance of <code>KER.KER_ATTR_TB</code>
@@ -218,11 +218,6 @@ Ordering is used for generate
     public final TableField<KerAttrTbRecord, BigInteger> ACCDOCOBJECTFORMULA_ID = createField("ACCDOCOBJECTFORMULA_ID", org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38), this, "Accounting document, created when changing value of this financial attribute will be connected to object, evaluated using this attribute. When left blank, document will be connected to object on which action was called (only for financial attributes)");
 
     /**
-     * The column <code>KER.KER_ATTR_TB.OWNERFORMULA_ID</code>. Owner of ledger used to evaluate value of financial attribute.
-     */
-    public final TableField<KerAttrTbRecord, BigInteger> OWNERFORMULA_ID = createField("OWNERFORMULA_ID", org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38), this, "Owner of ledger used to evaluate value of financial attribute.");
-
-    /**
      * The column <code>KER.KER_ATTR_TB.FROMOBJECTFORMULA_ID</code>. Used when value of financial attribute is changed - value of this attribute is object to be used on spent side of accounting record
      */
     public final TableField<KerAttrTbRecord, BigInteger> FROMOBJECTFORMULA_ID = createField("FROMOBJECTFORMULA_ID", org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38), this, "Used when value of financial attribute is changed - value of this attribute is object to be used on spent side of accounting record");
@@ -248,16 +243,6 @@ Ordering is used for generate
     public final TableField<KerAttrTbRecord, String> VALUEAMOUNTTYPE = createField("VALUEAMOUNTTYPE", org.jooq.impl.SQLDataType.CHAR(1), this, "R(eceived), S(pent), T(otal) amount of the balance to read actual value (only for financial attributes)");
 
     /**
-     * The column <code>KER.KER_ATTR_TB.DEFOWNER</code>. Default owner points to unit that acts as owner of given object for purpose of accounting
-     */
-    public final TableField<KerAttrTbRecord, String> DEFOWNER = createField("DEFOWNER", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N' ", org.jooq.impl.SQLDataType.CHAR)), this, "Default owner points to unit that acts as owner of given object for purpose of accounting");
-
-    /**
-     * The column <code>KER.KER_ATTR_TB.TEXTSRC_ID</code>. Source attribute for translated attribute (only for translated attributes)
-     */
-    public final TableField<KerAttrTbRecord, BigInteger> TEXTSRC_ID = createField("TEXTSRC_ID", org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38), this, "Source attribute for translated attribute (only for translated attributes)");
-
-    /**
      * The column <code>KER.KER_ATTR_TB.DOCUMENTATION</code>. Addional documentation related to the attribute (not generated to the table column comment)
      */
     public final TableField<KerAttrTbRecord, String> DOCUMENTATION = createField("DOCUMENTATION", org.jooq.impl.SQLDataType.VARCHAR(4000), this, "Addional documentation related to the attribute (not generated to the table column comment)");
@@ -273,24 +258,9 @@ Ordering is used for generate
     public final TableField<KerAttrTbRecord, String> X_ISFLAGDEPBIND = createField("X_ISFLAGDEPBIND", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N' ", org.jooq.impl.SQLDataType.CHAR)), this, "");
 
     /**
-     * The column <code>KER.KER_ATTR_TB.X_ISFLAGDEFATTR</code>. Shows if Attribute is used in any Flag Definition (via. FlagDefAttr, or DstAttr of any FlagDep)
-     */
-    public final TableField<KerAttrTbRecord, String> X_ISFLAGDEFATTR = createField("X_ISFLAGDEFATTR", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N' ", org.jooq.impl.SQLDataType.CHAR)), this, "Shows if Attribute is used in any Flag Definition (via. FlagDefAttr, or DstAttr of any FlagDep)");
-
-    /**
      * The column <code>KER.KER_ATTR_TB.MANDATORY</code>. Marks mandatory attribute; only valid for columns (attribute type=C) and only affects way entity's PG package is generated.
      */
     public final TableField<KerAttrTbRecord, String> MANDATORY = createField("MANDATORY", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N' ", org.jooq.impl.SQLDataType.CHAR)), this, "Marks mandatory attribute; only valid for columns (attribute type=C) and only affects way entity's PG package is generated.");
-
-    /**
-     * The column <code>KER.KER_ATTR_TB.COPIED</code>. Attribute value is copied in copy operations.
-     */
-    public final TableField<KerAttrTbRecord, String> COPIED = createField("COPIED", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'Y' ", org.jooq.impl.SQLDataType.CHAR)), this, "Attribute value is copied in copy operations.");
-
-    /**
-     * The column <code>KER.KER_ATTR_TB.DEFVALUE</code>. Default value. Only used in generator, should not be changed on installations and is only valid for C (column) attributes.
-     */
-    public final TableField<KerAttrTbRecord, String> DEFVALUE = createField("DEFVALUE", org.jooq.impl.SQLDataType.VARCHAR(4000), this, "Default value. Only used in generator, should not be changed on installations and is only valid for C (column) attributes.");
 
     /**
      * The column <code>KER.KER_ATTR_TB.ORDERED</code>. This column represents order (either globally or within children of one parent - see Ordering Group attribute).
@@ -301,6 +271,11 @@ Ordering is used for generate
      * The column <code>KER.KER_ATTR_TB.ORDGROUP</code>. Parent attribute (or comma delimited list of parent attributes). Only used when ordered is set to Y - this column is then treated as ordering within group, made by same values of parent attributes
      */
     public final TableField<KerAttrTbRecord, String> ORDGROUP = createField("ORDGROUP", org.jooq.impl.SQLDataType.VARCHAR(200), this, "Parent attribute (or comma delimited list of parent attributes). Only used when ordered is set to Y - this column is then treated as ordering within group, made by same values of parent attributes");
+
+    /**
+     * The column <code>KER.KER_ATTR_TB.DEFVALUE</code>. Default value. Only used in generator, should not be changed on installations and is only valid for C (column) attributes.
+     */
+    public final TableField<KerAttrTbRecord, String> DEFVALUE = createField("DEFVALUE", org.jooq.impl.SQLDataType.VARCHAR(4000), this, "Default value. Only used in generator, should not be changed on installations and is only valid for C (column) attributes.");
 
     /**
      * The column <code>KER.KER_ATTR_TB.GENCOPY</code>. Generate mp_Copy_&lt;***&gt; procedure based on link, represented by this column, to PG package.
@@ -318,9 +293,29 @@ Ordering is used for generate
     public final TableField<KerAttrTbRecord, String> GENDELETE = createField("GENDELETE", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N' ", org.jooq.impl.SQLDataType.CHAR)), this, "Generate mp_Delete_<***> procedure based on link, represented by this column, to PG package.");
 
     /**
+     * The column <code>KER.KER_ATTR_TB.TEXTSRC_ID</code>. Source attribute for translated attribute (only for translated attributes)
+     */
+    public final TableField<KerAttrTbRecord, BigInteger> TEXTSRC_ID = createField("TEXTSRC_ID", org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38), this, "Source attribute for translated attribute (only for translated attributes)");
+
+    /**
+     * The column <code>KER.KER_ATTR_TB.X_ISFLAGDEFATTR</code>. Shows if Attribute is used in any Flag Definition (via. FlagDefAttr, or DstAttr of any FlagDep)
+     */
+    public final TableField<KerAttrTbRecord, String> X_ISFLAGDEFATTR = createField("X_ISFLAGDEFATTR", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N' ", org.jooq.impl.SQLDataType.CHAR)), this, "Shows if Attribute is used in any Flag Definition (via. FlagDefAttr, or DstAttr of any FlagDep)");
+
+    /**
+     * The column <code>KER.KER_ATTR_TB.COPIED</code>. Attribute value is copied in copy operations.
+     */
+    public final TableField<KerAttrTbRecord, String> COPIED = createField("COPIED", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'Y' ", org.jooq.impl.SQLDataType.CHAR)), this, "Attribute value is copied in copy operations.");
+
+    /**
      * The column <code>KER.KER_ATTR_TB.HIERARCHICAL</code>.
      */
     public final TableField<KerAttrTbRecord, String> HIERARCHICAL = createField("HIERARCHICAL", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N' ", org.jooq.impl.SQLDataType.CHAR)), this, "");
+
+    /**
+     * The column <code>KER.KER_ATTR_TB.VALIDATED</code>. Specifies if validation is supported for given attribute. Is used by client to determine if editation in validate edit should be allowed when this attribute is used as format, or if seelction through LOV is required.
+     */
+    public final TableField<KerAttrTbRecord, String> VALIDATED = createField("VALIDATED", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N' ", org.jooq.impl.SQLDataType.CHAR)), this, "Specifies if validation is supported for given attribute. Is used by client to determine if editation in validate edit should be allowed when this attribute is used as format, or if seelction through LOV is required.");
 
     /**
      * The column <code>KER.KER_ATTR_TB.MULTICREATE</code>. Create function accepts multiline in this attribute. Only valid for (C)olumn type attributes with domains UID and REF
@@ -328,9 +323,14 @@ Ordering is used for generate
     public final TableField<KerAttrTbRecord, String> MULTICREATE = createField("MULTICREATE", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N' ", org.jooq.impl.SQLDataType.CHAR)), this, "Create function accepts multiline in this attribute. Only valid for (C)olumn type attributes with domains UID and REF");
 
     /**
-     * The column <code>KER.KER_ATTR_TB.VALIDATED</code>. Specifies if validation is supported for given attribute. Is used by client to determine if editation in validate edit should be allowed when this attribute is used as format, or if seelction through LOV is required.
+     * The column <code>KER.KER_ATTR_TB.DEFOWNER</code>. Default owner points to unit that acts as owner of given object for purpose of accounting
      */
-    public final TableField<KerAttrTbRecord, String> VALIDATED = createField("VALIDATED", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N' ", org.jooq.impl.SQLDataType.CHAR)), this, "Specifies if validation is supported for given attribute. Is used by client to determine if editation in validate edit should be allowed when this attribute is used as format, or if seelction through LOV is required.");
+    public final TableField<KerAttrTbRecord, String> DEFOWNER = createField("DEFOWNER", org.jooq.impl.SQLDataType.CHAR(1).nullable(false).defaultValue(org.jooq.impl.DSL.field("'N' ", org.jooq.impl.SQLDataType.CHAR)), this, "Default owner points to unit that acts as owner of given object for purpose of accounting");
+
+    /**
+     * The column <code>KER.KER_ATTR_TB.OWNERFORMULA_ID</code>. Owner of ledger used to evaluate value of financial attribute.
+     */
+    public final TableField<KerAttrTbRecord, BigInteger> OWNERFORMULA_ID = createField("OWNERFORMULA_ID", org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38), this, "Owner of ledger used to evaluate value of financial attribute.");
 
     /**
      * The column <code>KER.KER_ATTR_TB.ISINTABLE</code>. Attribute is implemented in table of this Entity
@@ -378,9 +378,9 @@ Ordering is used for generate
     public final TableField<KerAttrTbRecord, String> GENMIGR = createField("GENMIGR", org.jooq.impl.SQLDataType.CHAR(1).defaultValue(org.jooq.impl.DSL.field("'N'", org.jooq.impl.SQLDataType.CHAR)), this, "Used for generator of migration framework");
 
     /**
-     * The column <code>KER.KER_ATTR_TB.EVALCVALUE</code>.
+     * The column <code>KER.KER_ATTR_TB.EVALCVALUE</code>. Evaluate and store text from binary document. Text representation can be used in fulltext searches - thus, it should be enabled for properties, that are included in fulltext search flagdef. Is always empty for domains other than BLOB
      */
-    public final TableField<KerAttrTbRecord, String> EVALCVALUE = createField("EVALCVALUE", org.jooq.impl.SQLDataType.CHAR(1).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.CHAR)), this, "");
+    public final TableField<KerAttrTbRecord, String> EVALCVALUE = createField("EVALCVALUE", org.jooq.impl.SQLDataType.CHAR(1).defaultValue(org.jooq.impl.DSL.field("NULL\n  ", org.jooq.impl.SQLDataType.CHAR)), this, "Evaluate and store text from binary document. Text representation can be used in fulltext searches - thus, it should be enabled for properties, that are included in fulltext search flagdef. Is always empty for domains other than BLOB");
 
     /**
      * The column <code>KER.KER_ATTR_TB.OPTLOBLIMIT</code>. Optional limit for length of lob free atribut. It show alert.  The limit  is in bytes
@@ -462,7 +462,7 @@ Ordering is used for generate
      */
     @Override
     public List<ForeignKey<KerAttrTbRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<KerAttrTbRecord, ?>>asList(Keys.KER_ATTR_ENTITY_FK, Keys.KER_ATTR_DOMAIN_FK, Keys.KER_ATTR_ACCDOCOBJECTFORMUL_FK, Keys.KER_ATTR_OWNERFORMULA_FK, Keys.KER_ATTR_FROMOBJECTFORMULA_FK, Keys.KER_ATTR_TOOBJECTFORMULA_FK, Keys.KER_ATTR_TEXTSRC_FK, Keys.KER_ATTR_IMGSRC_FK);
+        return Arrays.<ForeignKey<KerAttrTbRecord, ?>>asList(Keys.KER_ATTR_ENTITY_FK, Keys.KER_ATTR_DOMAIN_FK, Keys.KER_ATTR_ACCDOCOBJECTFORMUL_FK, Keys.KER_ATTR_FROMOBJECTFORMULA_FK, Keys.KER_ATTR_TOOBJECTFORMULA_FK, Keys.KER_ATTR_TEXTSRC_FK, Keys.KER_ATTR_OWNERFORMULA_FK, Keys.KER_ATTR_IMGSRC_FK);
     }
 
     public KerEntityTb kerEntityTb() {
@@ -477,10 +477,6 @@ Ordering is used for generate
         return new com.provys.catalogue.db.tables.KerAttrTb(this, Keys.KER_ATTR_ACCDOCOBJECTFORMUL_FK);
     }
 
-    public com.provys.catalogue.db.tables.KerAttrTb kerAttrOwnerformulaFk() {
-        return new com.provys.catalogue.db.tables.KerAttrTb(this, Keys.KER_ATTR_OWNERFORMULA_FK);
-    }
-
     public com.provys.catalogue.db.tables.KerAttrTb kerAttrFromobjectformulaFk() {
         return new com.provys.catalogue.db.tables.KerAttrTb(this, Keys.KER_ATTR_FROMOBJECTFORMULA_FK);
     }
@@ -491,6 +487,10 @@ Ordering is used for generate
 
     public com.provys.catalogue.db.tables.KerAttrTb kerAttrTextsrcFk() {
         return new com.provys.catalogue.db.tables.KerAttrTb(this, Keys.KER_ATTR_TEXTSRC_FK);
+    }
+
+    public com.provys.catalogue.db.tables.KerAttrTb kerAttrOwnerformulaFk() {
+        return new com.provys.catalogue.db.tables.KerAttrTb(this, Keys.KER_ATTR_OWNERFORMULA_FK);
     }
 
     public com.provys.catalogue.db.tables.KerAttrTb kerAttrImgsrcFk() {

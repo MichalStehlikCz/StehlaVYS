@@ -27,7 +27,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class KerEntityTbRecord extends UpdatableRecordImpl<KerEntityTbRecord> {
 
-    private static final long serialVersionUID = -1901006028;
+    private static final long serialVersionUID = 1474033044;
 
     /**
      * Setter for <code>KER.KER_ENTITY_TB.ENTITY_ID</code>. UID
@@ -925,6 +925,62 @@ M - manually processed - import procedure doesn't exist, still these items are t
         return (String) get(61);
     }
 
+    /**
+     * Setter for <code>KER.KER_ENTITY_TB.X_NOTIFYATTR5</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 5
+     */
+    public void setXNotifyattr5(Long value) {
+        set(62, value);
+    }
+
+    /**
+     * Getter for <code>KER.KER_ENTITY_TB.X_NOTIFYATTR5</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 5
+     */
+    public Long getXNotifyattr5() {
+        return (Long) get(62);
+    }
+
+    /**
+     * Setter for <code>KER.KER_ENTITY_TB.X_FLAGDEFINTEREST5</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 5)
+     */
+    public void setXFlagdefinterest5(Long value) {
+        set(63, value);
+    }
+
+    /**
+     * Getter for <code>KER.KER_ENTITY_TB.X_FLAGDEFINTEREST5</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 5)
+     */
+    public Long getXFlagdefinterest5() {
+        return (Long) get(63);
+    }
+
+    /**
+     * Setter for <code>KER.KER_ENTITY_TB.X_DELNOTIFYATTR5</code>.
+     */
+    public void setXDelnotifyattr5(Long value) {
+        set(64, value);
+    }
+
+    /**
+     * Getter for <code>KER.KER_ENTITY_TB.X_DELNOTIFYATTR5</code>.
+     */
+    public Long getXDelnotifyattr5() {
+        return (Long) get(64);
+    }
+
+    /**
+     * Setter for <code>KER.KER_ENTITY_TB.X_COPIEDATTR5</code>. Bitmap of Attributes, which have COPIED set.
+     */
+    public void setXCopiedattr5(Long value) {
+        set(65, value);
+    }
+
+    /**
+     * Getter for <code>KER.KER_ENTITY_TB.X_COPIEDATTR5</code>. Bitmap of Attributes, which have COPIED set.
+     */
+    public Long getXCopiedattr5() {
+        return (Long) get(65);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -951,7 +1007,7 @@ M - manually processed - import procedure doesn't exist, still these items are t
     /**
      * Create a detached, initialised KerEntityTbRecord
      */
-    public KerEntityTbRecord(BigInteger entityId, String nameNm, String name, String xUpname, String iscustom, String isused, String objectclass, String tableNm, String viewNm, String keyNm, String texttableNm, String textviewNm, String textkeyNm, String textall, String getrightcustom, BigInteger getoptypeId, BigInteger getrightrestrId, Integer keepdeleted, Long xNotifyattr0, Long xNotifyattr1, Long xNotifyattr2, Long xNotifyattr3, Long xFlagdefinterest0, Long xFlagdefinterest1, Long xFlagdefinterest2, Long xFlagdefinterest3, Long xDelnotifyattr0, Long xDelnotifyattr1, Long xDelnotifyattr2, Long xDelnotifyattr3, Long xCopiedattr0, Long xCopiedattr1, Long xCopiedattr2, Long xCopiedattr3, String xHasliability, BigInteger ancestorId, String mastertype, BigInteger masterId, String pgpackageNm, String eppackageNm, String cppackageNm, String fppackageNm, BigInteger entitygrpId, String note, String customnote, String structuredoc, String usagedoc, String behaviourdoc, String impldoc, String shortdesc, String longdesc, Long xNotifyattr4, Long xFlagdefinterest4, Long xDelnotifyattr4, Long xCopiedattr4, String userlocktype, String confobj, String basepath, String importtype, String useconfobj, String xUseconfobj, String confobjall) {
+    public KerEntityTbRecord(BigInteger entityId, String nameNm, String name, String xUpname, String iscustom, String isused, String objectclass, String tableNm, String viewNm, String keyNm, String texttableNm, String textviewNm, String textkeyNm, String textall, String getrightcustom, BigInteger getoptypeId, BigInteger getrightrestrId, Integer keepdeleted, Long xNotifyattr0, Long xNotifyattr1, Long xNotifyattr2, Long xNotifyattr3, Long xFlagdefinterest0, Long xFlagdefinterest1, Long xFlagdefinterest2, Long xFlagdefinterest3, Long xDelnotifyattr0, Long xDelnotifyattr1, Long xDelnotifyattr2, Long xDelnotifyattr3, Long xCopiedattr0, Long xCopiedattr1, Long xCopiedattr2, Long xCopiedattr3, String xHasliability, BigInteger ancestorId, String mastertype, BigInteger masterId, String pgpackageNm, String eppackageNm, String cppackageNm, String fppackageNm, BigInteger entitygrpId, String note, String customnote, String structuredoc, String usagedoc, String behaviourdoc, String impldoc, String shortdesc, String longdesc, Long xNotifyattr4, Long xFlagdefinterest4, Long xDelnotifyattr4, Long xCopiedattr4, String userlocktype, String confobj, String basepath, String importtype, String useconfobj, String xUseconfobj, String confobjall, Long xNotifyattr5, Long xFlagdefinterest5, Long xDelnotifyattr5, Long xCopiedattr5) {
         super(KerEntityTb.KER_ENTITY_TB);
 
         set(0, entityId);
@@ -1016,5 +1072,9 @@ M - manually processed - import procedure doesn't exist, still these items are t
         set(59, useconfobj);
         set(60, xUseconfobj);
         set(61, confobjall);
+        set(62, xNotifyattr5);
+        set(63, xFlagdefinterest5);
+        set(64, xDelnotifyattr5);
+        set(65, xCopiedattr5);
     }
 }

@@ -1,29 +1,81 @@
 package com.provys.common.exception;
 
+import org.apache.logging.log4j.Logger;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.Map;
 
 /**
  * Represents internal exception. This exception can be used in internal checks, where other code should ensure
  * exception is not thrown. It should never be used for validation of external data
  */
-public class InternalException extends RegularException {
+@SuppressWarnings("WeakerAccess")
+public class InternalException extends ProvysException {
 
     private static final String NAME_NM = "JAVA_INTERNAL_EXCEPTION";
 
-    public InternalException(String message, Map<String, String> params, @Nullable Throwable cause) {
-        super(NAME_NM, message, params, cause);
+    /**
+     * Constructs a new PROVYS internal exception with the specified detail message, parameters and cause.
+     * <p>
+     * Note that the detail message associated with {@code cause} is <i>not</i>
+     * automatically incorporated in this runtime exception's detail message.
+     *
+     * @param logger is logger for current class; exception is logger as error to logger
+     * @param message the detail message; displayed to user if translations via database are not available. Message is
+     *               prefixed with internal name
+     * @param params is list of parameter and their values that can be embedded in error message
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method). (A <tt>null</tt>
+     *             value is permitted, and indicates that the cause is nonexistent or unknown.)
+     */
+    public InternalException(Logger logger, String message, Map<String, String> params, @Nullable Throwable cause) {
+        super(message, cause);
+        logger.error("{}: {} {} {}", NAME_NM, message, params, cause);
     }
 
-    public InternalException(String nameNm, String message, Map<String, String> params) {
-        super(NAME_NM, message, params);
+    /**
+     * Constructs a new PROVYS internal exception with the specified detail message and parameters.
+     *
+     * @param logger is logger for current class; exception is logger as error to logger
+     * @param message the detail message; displayed to user if translations via database are not available. Message is
+     *               prefixed with internal name
+     * @param params is list of parameter and their values that can be embedded in error message
+     */
+    public InternalException(Logger logger, String message, Map<String, String> params) {
+        this(logger, message, params, null);
     }
 
-    public InternalException(String nameNm, String message, @Nullable Throwable cause) {
-        super(NAME_NM, message, cause);
+    /**
+     * Constructs a new PROVYS internal exception with the specified detail message and cause.
+     * <p>
+     * Note that the detail message associated with {@code cause} is <i>not</i>
+     * automatically incorporated in this runtime exception's detail message.
+     *
+     * @param logger is logger for current class; exception is logger as error to logger
+     * @param message the detail message; displayed to user if translations via database are not available. Message is
+     *               prefixed with internal name
+     * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method). (A <tt>null</tt>
+     *             value is permitted, and indicates that the cause is nonexistent or unknown.)
+     */
+    public InternalException(Logger logger, String message, @Nullable Throwable cause) {
+        this(logger, message, Collections.emptyMap(), cause);
     }
 
-    public InternalException(String nameNm, String message) {
-        super(NAME_NM, message);
+    /**
+     * Constructs a new PROVYS internal exception with the specified detail message.
+     *
+     * @param logger is logger for current class; exception is logger as error to logger
+     * @param message the detail message; displayed to user if translations via database are not available. Message is
+     *               prefixed with internal name
+     */
+    public InternalException(Logger logger, String message) {
+        this(logger, message, (Throwable) null);
+    }
+
+    @Nonnull
+    @Override
+    public String getNameNm() {
+        return NAME_NM;
     }
 }

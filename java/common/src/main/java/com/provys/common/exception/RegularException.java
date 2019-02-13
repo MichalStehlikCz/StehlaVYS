@@ -1,18 +1,15 @@
 package com.provys.common.exception;
 
+import org.apache.logging.log4j.Logger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Common ancestor for exceptions thrown by PROVYS code.
- * Makes it easier to track all defined exceptions, adds mapping to PROVYS registered errors and logs exception.
- *
- * @author stehlik
- */
-public class RegularException extends RuntimeException implements ProvysException {
+@SuppressWarnings("WeakerAccess")
+public final class RegularException extends ProvysException {
 
     @Nonnull
     private final String nameNm;
@@ -25,6 +22,7 @@ public class RegularException extends RuntimeException implements ProvysExceptio
      * Note that the detail message associated with {@code cause} is <i>not</i>
      * automatically incorporated in this runtime exception's detail message.
      *
+     * @param logger is logger for current class; exception is logger as error to logger
      * @param nameNm is internal name of exception as registered in ERROR database object
      * @param message the detail message; displayed to user if translations via database are not available. Message is
      *               prefixed with internal name
@@ -32,10 +30,11 @@ public class RegularException extends RuntimeException implements ProvysExceptio
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method). (A <tt>null</tt>
      *             value is permitted, and indicates that the cause is nonexistent or unknown.)
      */
-    public RegularException(String nameNm, String message, Map<String, String> params, @Nullable Throwable cause) {
+    public RegularException(Logger logger, String nameNm, String message, Map<String, String> params, @Nullable Throwable cause) {
         super(nameNm + ": " + message, cause);
         this.nameNm = nameNm;
         this.params = new HashMap<>(params);
+        logger.error("{}: {} {}", nameNm, message, params);
     }
 
     /**
@@ -46,8 +45,8 @@ public class RegularException extends RuntimeException implements ProvysExceptio
      *               prefixed with internal name
      * @param params is list of parameter and their values that can be embedded in error message
      */
-    public RegularException(String nameNm, String message, Map<String, String> params) {
-        this(nameNm, message, params, null);
+    public RegularException(Logger logger, String nameNm, String message, Map<String, String> params) {
+        this(logger, nameNm, message, params, null);
     }
 
     /**
@@ -63,8 +62,8 @@ public class RegularException extends RuntimeException implements ProvysExceptio
      * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method). (A <tt>null</tt>
      *             value is permitted, and indicates that the cause is nonexistent or unknown.)
      */
-    public RegularException(String nameNm, String message, @Nullable Throwable cause) {
-        this(nameNm, message, Collections.emptyMap(), cause);
+    public RegularException(Logger logger, String nameNm, String message, @Nullable Throwable cause) {
+        this(logger, nameNm, message, Collections.emptyMap(), cause);
     }
 
     /**
@@ -74,8 +73,8 @@ public class RegularException extends RuntimeException implements ProvysExceptio
      * @param message the detail message; displayed to user if translations via database are not available. Message is
      *               prefixed with internal name
      */
-    public RegularException(String nameNm, String message) {
-        this(nameNm, message, (Throwable) null);
+    public RegularException(Logger logger, String nameNm, String message) {
+        this(logger, nameNm, message, (Throwable) null);
     }
 
     @Nonnull

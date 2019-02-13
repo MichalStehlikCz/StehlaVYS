@@ -26,13 +26,14 @@ public class ProvysDBContext {
      * Initializes provys database datasource and builds default JOOQ configuration, that will be used when accessing
      * this database
      *
-     * @throws SQLException
+     * @throws SQLException when initialisation of session pool for connection to PROVYS database fails
      */
     public ProvysDBContext() throws SQLException {
         provysDataSource = buildProvysDBDataSource();
         jooqConfiguration = buildJooqConfiguration();
     }
 
+    
     private ProvysConnectionPoolDataSource buildProvysDBDataSource() throws SQLException {
         return new ProvysConnectionPoolDataSource();
     }

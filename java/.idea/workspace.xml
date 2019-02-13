@@ -8,18 +8,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa1d9e37-cccd-45bf-81d4-76e954df79b6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/common/common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/InternalException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/ProvysException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/RegularException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/DefaultCatalog.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/DefaultCatalog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/Indexes.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/Indexes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/Ker.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/Ker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/Keys.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/Keys.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/Tables.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/Tables.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/KerAttrTb.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/KerAttrTb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/KerDomainTb.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/KerDomainTb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/KerEntityTb.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/KerEntityTb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/records/KerAttrTbRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/records/KerAttrTbRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/records/KerDomainTbRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/records/KerDomainTbRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/records/KerEntityTbRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/records/KerEntityTbRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/provysdb/src/main/java/com/provys/provysdb/ProvysDBContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/provysdb/src/main/java/com/provys/provysdb/ProvysDBContext.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -32,6 +31,7 @@
     <ignored path="$PROJECT_DIR$/catalogue/catalogue-iface/target/" />
     <ignored path="$PROJECT_DIR$/catalogue/catalogue-model/target/" />
     <ignored path="$PROJECT_DIR$/catalogue/catalogue-db/target/" />
+    <ignored path="$PROJECT_DIR$/common/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,84 +44,32 @@
   <component name="CoverageViewManager">
     <option name="myElementSize" value="241" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="117691805">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.open.time.38" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="java" value="10" />
-          <entry key="xml" value="3" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="JAVA" value="10" />
-          <entry key="XML" value="3" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="java" value="714" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JAVA" value="714" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FavoritesManager">
     <favorites_list name="StehlaVys" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/SimpleEndpoint.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/TestWsApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="16" column="60" selection-start-line="16" selection-start-column="60" selection-end-line="16" selection-end-column="60" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/catalogue/catalogue-db/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="803">
-              <caret line="62" selection-start-line="19" selection-end-line="62" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/provysdb/pom.xml">
+        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/RegularException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="38" lean-forward="true" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+            <state relative-caret-position="-912">
+              <caret line="14" column="83" lean-forward="true" selection-start-line="14" selection-start-column="83" selection-end-line="14" selection-end-column="83" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1870#1871#0" expanded="true" />
+                <element signature="e#1913#1914#0" expanded="true" />
+                <element signature="e#3807#3808#0" expanded="true" />
+                <element signature="e#3991#3992#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/provysdb/src/main/java/com/provys/provysdb/ProvysDBContext.java">
+        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/ProvysException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4">
-              <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+            <state relative-caret-position="102">
+              <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -130,10 +78,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/provysdb/src/main/java/com/provys/provysdb/ProvysConnectionPoolDataSource.java">
+        <entry file="file://$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/InternalException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="39" column="51" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
+            <state relative-caret-position="119">
+              <caret line="7" column="83" selection-start-line="7" selection-start-column="83" selection-end-line="7" selection-end-column="83" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#726#727#0" expanded="true" />
+                <element signature="e#765#766#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
             </state>
           </provider>
         </entry>
@@ -141,19 +103,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="33" selection-start-line="28" selection-end-line="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/DbService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            <state relative-caret-position="1455">
+              <caret line="109" selection-start-line="79" selection-end-line="109" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="n#build#0;n#project#0;n#!!top" />
               </folding>
             </state>
           </provider>
@@ -164,6 +117,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="package-info" />
         <option value="Class" />
         <option value="Interface" />
       </list>
@@ -194,20 +148,19 @@
         <option value="$PROJECT_DIR$/catalogue/catalogue-db/pom.xml" />
         <option value="$PROJECT_DIR$/catalogue/catalogue-db/src/main/java/com/provys/catalogue/db/tables/records/KerDomainTbRecord.java" />
         <option value="$PROJECT_DIR$/catalogue/catalogue-model/src/main/java/com/provys/catalogue/model/Domain.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/testws/pom.xml" />
-        <option value="$PROJECT_DIR$/provysdb/src/main/java/com/provys/provysdb/ProvysDBContext.java" />
         <option value="$PROJECT_DIR$/testws/src/main/java/com/provys/testws/DbService.java" />
         <option value="$PROJECT_DIR$/testws/src/main/java/com/provys/testws/DbEndpoint.java" />
         <option value="$PROJECT_DIR$/testws/src/main/java/com/provys/testws/SimpleEndpoint.java" />
+        <option value="$PROJECT_DIR$/provysdb/src/main/java/com/provys/provysdb/ProvysDBContext.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/common/pom.xml" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/package-info.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/InternalException.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/RegularException.java" />
+        <option value="$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/ProvysException.java" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
@@ -221,6 +174,15 @@
       <expand>
         <path>
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="common" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="common" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
           <item name="StehlaVys" type="9519ce18:MavenProjectsStructure$ProjectNode" />
         </path>
         <path>
@@ -232,7 +194,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="260" />
     <option name="y" value="20" />
     <option name="width" value="1400" />
@@ -244,18 +206,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="StehlaVys" type="58d84e3e:PackageViewProjectNode" />
-              <item name="testws" type="616d4139:PackageViewModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -271,12 +221,54 @@
             <path>
               <item name="StehlaVys" type="b2602c69:ProjectViewProjectNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="provysdb" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StehlaVys" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StehlaVys" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StehlaVys" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StehlaVys" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="exception" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="StehlaVys" type="58d84e3e:PackageViewProjectNode" />
+              <item name="testws" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -286,6 +278,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15234375" />
     <property name="project.structure.side.proportion" value="0.26728112" />
@@ -324,7 +317,7 @@
         <option name="USERNAME" value="" />
         <option name="PASSWORD" value="" />
       </server-settings>
-      <predefined_log_file id="JBoss" enabled="true" />
+      <predefined_log_file enabled="true" id="JBoss" />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="55133" />
       </RunnerSettings>
@@ -397,7 +390,7 @@
         <option name="USERNAME" value="" />
         <option name="PASSWORD" value="" />
       </server-settings>
-      <predefined_log_file id="JBoss" enabled="true" />
+      <predefined_log_file enabled="true" id="JBoss" />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="55133" />
       </RunnerSettings>
@@ -575,6 +568,8 @@
       <workItem from="1544252663895" duration="1683000" />
       <workItem from="1547618904424" duration="2661000" />
       <workItem from="1548867769957" duration="5131000" />
+      <workItem from="1550036646972" duration="220000" />
+      <workItem from="1550038330449" duration="2625000" />
     </task>
     <servers />
   </component>
@@ -587,23 +582,22 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87271000" />
+    <option name="totallyTimeSpent" value="90116000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1456" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Image Layers" />
-      <window_info id="Capture Tool" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48536035" visible="true" weight="0.26828298" />
-      <window_info id="Structure" order="1" sideWeight="0.5146396" side_tool="true" visible="true" weight="0.26828298" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48346457" visible="true" weight="0.19322917" />
+      <window_info id="Structure" order="1" sideWeight="0.51653546" side_tool="true" visible="true" weight="0.19322917" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info id="Designer" order="3" />
       <window_info id="Favorites" order="4" sideWeight="0.5016251" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="SonarLint" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32879817" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32804233" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -616,8 +610,7 @@
       <window_info anchor="bottom" id="Application Servers" order="12" weight="0.32936078" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" />
       <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="bottom" id="SonarLint" order="15" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -628,14 +621,13 @@
       <window_info anchor="right" id="CDI" order="7" weight="0.32995737" />
       <window_info anchor="right" id="Maven Projects" order="8" sideWeight="0.49919224" visible="true" weight="0.3298887" />
       <window_info anchor="right" id="Coverage" order="9" sideWeight="0.50080776" side_tool="true" weight="0.32995737" />
-      <window_info anchor="right" id="Maven" order="10" visible="true" weight="0.32995737" />
+      <window_info anchor="right" id="Maven" order="10" visible="true" weight="0.2375" />
+      <window_info anchor="right" id="Capture Analysis" order="11" />
+      <window_info anchor="right" id="Theme Preview" order="12" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://$MAVEN_REPOSITORY$/com/oracle/ucp/18.3.0/ucp-18.3.0.jar!/oracle/ucp/ConnectionLabelingCallback.class">
@@ -781,9 +773,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/provysdb/src/main/java/com/provys/provysdb/ProvysConnectionPoolDataSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="39" column="51" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/DbService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
+        <state relative-caret-position="85">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -791,10 +790,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/SimpleEndpoint.java">
+    <entry file="file://$PROJECT_DIR$/provysdb/src/main/java/com/provys/provysdb/ProvysDBContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+        <state relative-caret-position="656">
+          <caret line="66" column="25" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/provysdb/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/catalogue/catalogue-db/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="860">
+          <caret line="62" selection-start-line="19" selection-end-line="62" />
         </state>
       </provider>
     </entry>
@@ -805,41 +821,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/catalogue/catalogue-db/pom.xml">
+    <entry file="file://$PROJECT_DIR$/testws/src/main/java/com/provys/testws/SimpleEndpoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="803">
-          <caret line="62" selection-start-line="19" selection-end-line="62" />
+        <state relative-caret-position="68">
+          <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="33" selection-start-line="28" selection-end-line="33" />
+        <state relative-caret-position="1455">
+          <caret line="109" selection-start-line="79" selection-end-line="109" />
+          <folding>
+            <element signature="n#build#0;n#project#0;n#!!top" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/provysdb/src/main/java/com/provys/provysdb/ProvysDBContext.java">
+    <entry file="jar://C:/Program Files/Java/jdk-11/lib/src.zip!/java.base/java/util/Collections.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        <state relative-caret-position="407">
+          <caret line="4545" column="39" selection-start-line="4545" selection-start-column="39" selection-end-line="4545" selection-end-column="39" />
+          <folding>
+            <element signature="e#180303#180304#0" expanded="true" />
+            <element signature="e#180346#180347#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/InternalException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="83" selection-start-line="7" selection-start-column="83" selection-end-line="7" selection-end-column="83" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#726#727#0" expanded="true" />
+            <element signature="e#765#766#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-11/lib/src.zip!/java.base/java/lang/Throwable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="114" column="13" selection-start-line="114" selection-start-column="13" selection-end-line="114" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/ProvysException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/provysdb/src/main/java/com/provys/provysdb/ProvysConnectionPoolDataSource.java">
+    <entry file="file://$PROJECT_DIR$/common/src/main/java/com/provys/common/exception/RegularException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="39" column="51" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/provysdb/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="38" lean-forward="true" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+        <state relative-caret-position="-912">
+          <caret line="14" column="83" lean-forward="true" selection-start-line="14" selection-start-column="83" selection-end-line="14" selection-end-column="83" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1870#1871#0" expanded="true" />
+            <element signature="e#1913#1914#0" expanded="true" />
+            <element signature="e#3807#3808#0" expanded="true" />
+            <element signature="e#3991#3992#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

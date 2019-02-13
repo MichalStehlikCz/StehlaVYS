@@ -16,13 +16,14 @@
         <maven.source.skip>true</maven.source.skip>
         <maven.source.attach>false</maven.source.attach>
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
-        <jooqGroupId>org.jooq.trial</jooqGroupId>
+        <jooqGroupId>org.jooq.pro</jooqGroupId>
     </properties>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>testws</module>
         <module>provysdb</module>
         <module>catalogue</module>
+        <module>common</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -49,7 +50,7 @@
             <dependency>
                 <groupId>${jooqGroupId}</groupId>
                 <artifactId>jooq</artifactId>
-                <version>3.11.7</version>
+                <version>3.11.9</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>

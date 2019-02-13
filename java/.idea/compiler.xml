@@ -14,6 +14,7 @@
         <module name="CatalogueDb" />
         <module name="CatalogueIface" />
         <module name="CatalogueModel" />
+        <module name="common" />
         <module name="provysdb" />
         <module name="ProvysDb" />
         <module name="TestWs" />

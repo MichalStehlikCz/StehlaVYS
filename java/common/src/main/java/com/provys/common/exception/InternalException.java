@@ -12,7 +12,7 @@ import java.util.Map;
  * exception is not thrown. It should never be used for validation of external data
  */
 @SuppressWarnings("WeakerAccess")
-public class InternalException extends ProvysException {
+public final class InternalException extends ProvysException {
 
     private static final String NAME_NM = "JAVA_INTERNAL_EXCEPTION";
 

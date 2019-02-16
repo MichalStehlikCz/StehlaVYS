@@ -4,8 +4,12 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
+import java.util.Properties;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import javax.annotation.Nonnull;
 import javax.sql.CommonDataSource;
 import javax.sql.DataSource;
 import oracle.ucp.jdbc.PoolDataSource;
@@ -21,9 +25,11 @@ import org.eclipse.microprofile.config.ConfigProvider;
  * @author stehlik
  */
 class ProvysConnectionPoolDataSource implements DataSource, CommonDataSource {
+    @Nonnull
     private static final Logger LOG = LogManager.getLogger(ProvysConnectionPoolDataSource.class.getName());
 
-    final private PoolDataSource oraclePool;
+    @Nonnull
+    private final PoolDataSource oraclePool;
 
     /**
      * Constructor for provys connection thta reads all info from environment.
@@ -70,6 +76,12 @@ class ProvysConnectionPoolDataSource implements DataSource, CommonDataSource {
     @Override
     public Connection getConnection() throws SQLException {
         return oraclePool.getConnection();
+    }
+
+    public Connection getConnectionWithToken(String dbToken) throws SQLException {
+        var reqLabels = new Properties();
+        reqLabels.setProperty(ProvysConnectionLabelingCallback.PROPERTY_TOKEN, dbToken);
+        return oraclePool.getConnection(reqLabels);
     }
 
     @Override

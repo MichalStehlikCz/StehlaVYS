@@ -1,7 +1,5 @@
 package com.provys.common.exception;
 
-import org.apache.logging.log4j.Logger;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -14,7 +12,7 @@ import java.util.Map;
  * @author stehlik
  */
 @SuppressWarnings("WeakerAccess")
-abstract public class ProvysException extends RuntimeException {
+public abstract class ProvysException extends RuntimeException {
 
     /**
      * Constructs a new PROVYS runtime exception with the specified detail
@@ -45,7 +43,7 @@ abstract public class ProvysException extends RuntimeException {
      * @return internal name of exception for mapping with provys ERROR object
      */
     @Nonnull
-    abstract public String getNameNm();
+    public abstract String getNameNm();
 
     /**
      * Retrieve map of parameters containing additional information related to exception.
